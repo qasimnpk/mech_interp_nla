@@ -11,7 +11,7 @@ much of the reconstruction does the first k claims carry (truncation curve)?** N
 **Round-1 artifacts to reuse (read-only):** `stimuli.csv`, `explanations.jsonl`,
 `s2_claims.csv`, `s3_edits.jsonl` (490 accepted claim triples: original / corrupt / paraphrase,
 plus corrupt_det), `s3_scores.csv`, `out/acts_L20.npz`, `out/recon_L20.npz`, `nla_lib.py`.
-The `out/*.npz` caches must be present before S0; if missing, STOP and write the blocker.
+The `out/*.npz` caches were lost with the round-1 worktree; **R0 regenerates them** (see R0).
 
 **You are:** an autonomous orchestrator running under `/loop` inside a git worktree.
 Branch `nightshift/round2`. Your working directory is this worktree.
@@ -134,9 +134,14 @@ badly; that is expected, not a bug.
 
 ## Round 2 stages
 
-### R0 — artifact check (5 min)
+### R0 — artifact check + cache regeneration (~15 min)
 - Assert every reused file above exists and row counts match round 1 (200 stimuli, 671 claims,
-538 S3 edit rows with 490 `edit_ok`). Write `r0_check.md`. No kill test.
+538 S3 edit rows with 490 `edit_ok`).
+- Regenerate `out/acts_L20.npz` exactly as round-1 S0 did (`s0_smoke.py` stimulus/activation
+code; same docs, `pos`, `pos2` from `stimuli.csv`; TARGET `hidden_states[21]`, batch 1, raw text)
+and `out/recon_L20.npz` (AR on every `explanations.jsonl` text). **Acceptance:** mean cos_own on
+the evaluation set recomputed from the regenerated caches equals the round-1 value 0.8820 to
+±0.002 — write both numbers to `r0_check.md`. If not, STOP with the blocker. No kill test.
 
 ### R1 — fact-blindness locus: target representation vs reconstructor
 - **Inputs:** the 490 accepted S3 triples (c, c*, c~) plus `corrupt_det` where present.
