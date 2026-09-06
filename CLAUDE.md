@@ -58,8 +58,12 @@ branch into `main` when a round is reviewed.
   attribution. `src/viz.py` — display only. See `README.md`, `SETUP.md`, `notes/environment.md`.
 - `uv` project; `uv run python …`. `scripts/smoke_test.py` is the correctness gate.
 - Models in the shared HF cache: `Qwen/Qwen2.5-7B-Instruct` (has a released NLA at layer 20),
-  `Qwen/Qwen3-4B-Instruct-2507` (harness smoke-test model). NLA checkpoints: **TODO (human)** —
-  record repo ids and memory footprint here once downloaded.
+  `Qwen/Qwen3-4B-Instruct-2507` (harness smoke-test model). NLA checkpoints (downloaded and
+  round-trip verified 2026-09-06, see `notes/nla_setup/README.md`): `kitft/nla-qwen2.5-7b-L20-av`
+  (15.2 GB bf16, full 28-layer fine-tune) and `kitft/nla-qwen2.5-7b-L20-ar` (10.9 GB, 21-layer
+  truncated backbone + `value_head.safetensors`); working reference `scripts/nla7b_roundtrip.py`,
+  peak footprint 17 GB, ~10 s per explanation on MPS. `ceselder/qwen3.6-27b-nla-rl` does not fit
+  this machine (54 GB + 35 GB bf16); partial blobs in the cache are dead weight.
 
 ## Working conventions
 - Research choices (model, positions, layers, tiers, thresholds, prompt wordings, stimulus

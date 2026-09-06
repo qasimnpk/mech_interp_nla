@@ -7,6 +7,9 @@ Rule for the large ones: **navigate by index, read by line range, never bulk-loa
 | File | What it is | Use |
 |---|---|---|
 | `nla_seed.md` | Everything the previous (tool-conflict) project had already gathered about natural language autoencoders: the Transformer Circuits "misreported tool calls" audit card, the "NLA information gain" fallback design with its blind-describer baseline, the Qwen2.5-7B layer-20 checkpoint pointer, and the CHIVE/RECAP scoop note | Starting point for the NLA brief and lit survey |
+| `round1_decisions.md` | Decision log for the round-1 overnight plan: checkpoint choice (hardware-forced), question chosen, reviewer feedback adopted, what the human must verify in the morning | Provenance for the write-up; read before planning round 2 |
+| `human_log.md` | Human hours, the verify-by-hand ledger, and the exact `/loop` prompt used per round | Fill in as you go; feeds the "what I verified" section |
+| `nla_setup/README.md` | Agent setup log for both NLA checkpoint families: sizes, sidecar values, injection mechanics, the 27B infeasibility, model-card inconsistencies; raw round-trip output alongside | Checkpoint facts; re-derive before quoting |
 | `environment.md` | The local MPS environment as built | Setup questions |
 | `smoke_test_output.txt` | Correctness-gate output | Sanity reference |
 
