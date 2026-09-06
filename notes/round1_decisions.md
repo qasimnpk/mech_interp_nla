@@ -63,3 +63,19 @@ this goes into the application.
 ## Loop launch
 Worktree `../mech_interp_nla-nightshift`, branch `nightshift/round1`, merge commit `99f8f95`,
 launched 2026-09-06 late evening with the `/loop` prompt recorded in `notes/human_log.md`.
+
+## Round 2 candidates (queued 2026-09-06 03:05, while round 1 ran; triage after MORNING1)
+Observations from S1 that motivate them: empty-explanation cos 0.35 ≈ both shuffle controls
+(0.32–0.37), so the AR has a strong prior direction and every score should be reported as lift
+over that floor; Spearman(n_tokens, cos) = −0.19 (p = 0.016), longer explanations do slightly
+worse; block 20 beats 19 and 21 by ~0.05, layer confirmed.
+- **Truncation sweep (AR-only, cheap):** score the first k claims for k = 1..n; where does the
+  curve saturate? Directly answers the length idea without new generation.
+- **Report lift over floor:** `(cos_own − cos_empty) / (1 − cos_empty)` alongside raw cos.
+- **Short-instruction variant of S5:** if V3 (one word) keeps most of the lift, ask the AV for
+  "one claim only" and compare to the full explanation's best single claim from S2.
+- **Natural-hallucination labelling (day 2, human):** if S3 is NOT MET, label claims in the 5+10
+  verbatim examples against context, blinded to Δ, then check whether Δ separates the labels.
+- **Chat-style stimuli:** one WildChat-like slice (needs a download decision) to check the
+  wikitext numbers transfer to the training distribution's other half.
+- **Random-vector control for steering:** same six prompts with a random unit vector at norm 150.
