@@ -176,13 +176,28 @@ Idea: the AR maps English to activation space; cos(h, AR(sentence)) is a probe f
   - conflict (exploratory): `The model is torn between two continuations.` vs
   `The model has one clear continuation in mind.`
   - two neutral fillers as a floor: `This is a sentence.`, `Text.`
+- **Matched nearby contrast (the hard level, reuses round-1 edits):** for each of the 490 accepted
+S3 triples, score the claim ALONE: `cos(h, u(c))`, `cos(h, u(c*))`, `cos(h, u(c~))` with
+`u(d) = AR(d)/‖AR(d)‖`. Report the paired difference true−corrupted (does the probe prefer the
+true claim over its one-fact corruption?) and true−paraphrase (wording null), with CIs, and the
+fraction of triples where true > corrupted. This is the distinction the whole-explanation score
+missed (0.003); a claim-alone probe is not diluted by the final snippet.
+- **Standard-probe baseline (RepE / difference-of-means):** for the topic test, build a direction
+in the TARGET at block 20 from 16 agent-written sentences about `topic_true` minus 16 about
+`topic_foreign` (fixed seed, per stimulus pair; last-token activations), and score
+`cos(h, d̂_true−foreign)`. Report its AUROC next to the AR-probe AUROC. The AR probe is only
+interesting if it is competitive with a probe built from the same English.
 - **Scores:** `s_topic = cos(h, AR(true)) − cos(h, AR(foreign))`; `s_conf = cos(h, AR(confident))
 − cos(h, AR(uncertain))`; likewise `s_conflict`. AUROC of `cos(h, AR(true))` vs
 `cos(h, AR(foreign))` over the 160 evaluation stimuli (paired). Spearman(`s_conf`, −entropy) and
-Spearman(`s_conflict`, entropy).
+Spearman(`s_conflict`, entropy). Endpoint is **prediction of next-token entropy**, not
+introspective confidence. Report the Spearmans within token-type bins (punctuation / word-piece /
+word-initial, from `token_str`) as well as pooled, since punctuation positions have low entropy.
 - **Kill test T1:** topic AUROC (evaluation) with 95% bootstrap CI (by document) **≤ 0.60 → MET**
-(the AR's text space does not support zero-shot topic probing; the confidence/conflict probes
-are then reported but not interpreted).
+(text-specified topic probing fails for these wordings, this template and these positions;
+the confidence/conflict probes are then reported but not interpreted). A NOT MET on the distant
+topic alone largely repeats the round-1 relevance result; the matched-claim contrast is the
+number that matters.
 - **Build:** `t1_arprobe.py`. Outputs `t1_scores.csv` (per stimulus, all cosines), `t1_summary.md`
 with AUROC + CI, the two Spearmans with CIs, mean cos for fillers, and 10 fixed rows (eval rows
 0,16,…,144) showing topic_true / topic_foreign / both cosines / entropy.
@@ -192,12 +207,24 @@ Idea: prompt text is ignored, but a prefilled assistant turn must be continued.
 - **Construction:** default AV prompt with injection exactly as `nla_lib`, then prefill the
 assistant turn with `<explanation>\nQuestion: {q} Answer:` and read the next-token logits.
 Score = `logit(" Yes") − logit(" No")` (assert both are single tokens; else log token ids used).
-- **Questions (fixed):** `Is this activation from a text about {topic}?` for true and foreign
+- **Second format, closer to training (candidate continuation):** prefill
+`<explanation>\nThe passage concerns` and compare the summed log-prob of the continuation
+` {topic_true}` vs ` {topic_foreign}` (tokenize both; report token counts; length-normalise and
+also report unnormalised). Same for the 490 S3 claim pairs where the corruption changes a single
+word: prefill the claim up to the changed word and compare the original vs corrupted word's
+log-prob. **Swap control:** the same prefix with the foreign activation injected must prefer the
+foreign topic — report both directions.
+- **Questions (fixed, yes/no format):** `Is this activation from a text about {topic}?` for true and foreign
 topic; `Is the model confident about the next token?`; `Is the model torn between two
 continuations?`; and a **no-injection control**: the same prompts with the marker embedding left
 as the raw `㈎` embedding (asserted), to measure prompt-only bias.
-- **Kill test T2:** AUROC of yes-minus-no for true vs foreign topic over evaluation stimuli
-**≤ 0.60 → MET**. Also report the no-injection AUROC (should be ≈0.5) and
+- **Subset that matters:** split stimuli by whether `topic_true` (case-insensitive) appears in the
+default explanation from `explanations.jsonl`. Report every T2 statistic on the subset where it
+does NOT appear — that is where a readout beats "default description + text-only QA".
+- **Kill test T2:** AUROC of the candidate-continuation score for true vs foreign topic over
+evaluation stimuli **≤ 0.60 → MET** (the yes/no format is reported alongside; a general
+preference for "Yes" or for the commoner noun is not evidence — report the no-injection AUROC
+and the mean yes−no under no injection). Also report the no-injection AUROC (should be ≈0.5) and
 Spearman(confidence score, −entropy).
 - **Build:** `t2_prefix.py`. Outputs `t2_scores.csv`, `t2_summary.md` (AUROCs with CIs, no-injection
 AUROC, Spearmans, mean yes-minus-no per question, 10 fixed rows).
@@ -212,7 +239,11 @@ stoplist sentences; agent writes 32 simple parallel pairs, e.g. `The weather is 
 - **Steering:** add `α · d/‖d‖ · mean‖h_ℓ‖` at block ℓ output at every generated position,
 α ∈ {1, 2, 4}. Greedy, 200 tokens, injection unchanged and asserted.
 - **Measures:** French mechanical pass rate (S5 rule), word count (terse), parse_ok, cjk,
-`cos(AR(output), h)` vs the S5 V0 cos for the same stimulus.
+`cos(AR(output), h)` vs the S5 V0 cos for the same stimulus, **and separately** topic-preservation
+rate (does `topic_true` survive) and word-sequence similarity to V0 — a cos of 0.88 can survive
+while the topical claims change, so reconstruction alone is not evidence of preserved content.
+The directions are built from French vs English *text*, not from instructions, to avoid encoding
+the instruction words.
 - **Kill test T3:** French pass rate **< 0.25 at every (ℓ, α) with parse_ok ≥ 0.5 → MET** (the AV
 is not steerable by residual addition either, at doses that keep it fluent). INCONCLUSIVE if no
 cell reaches parse_ok ≥ 0.5.
@@ -225,10 +256,17 @@ Idea: the mirror of T3 — which directions can the AV read?
 - **Directions (difference of means in the TARGET at block 20, last token):** `sports` (32
 sentences about sports vs 32 matched neutral sentences, agent-written, fixed), `french` (the 32
 French/English pairs from T3, run through the TARGET). Norm-preserving mix:
-`h' = ‖h‖ · normalize((1−β) ĥ + β d̂)`, β ∈ {0.25, 0.5}.
+`h' = ‖h‖ · normalize((1−β) ĥ + β d̂)`, β ∈ {−0.5, −0.25, +0.25, +0.5}, plus a norm-matched **random direction** at β = 0.5.
+Record the **actual** geometry per item: `cos(h, h')` and the angle, since the AV renormalises to
+norm 150 and β is not a comparable dose across items.
 - **Measures:** keyword mention rate in the explanation (sports list / French-language detection),
-`cos(AR(desc'), h)` and `cos(AR(desc'), h')`, parse_ok.
-- **Kill test T4:** mention rate for `sports` **< 0.25 at both β → MET** (a large injected concept
+`cos(AR(desc'), h)` and `cos(AR(desc'), h')`, parse_ok, and **collateral**: does `topic_true`
+still appear in the description (topic-preservation rate), word-sequence similarity to the
+unperturbed explanation.
+- **Prior art (UNVERIFIED, from a critique): a LessWrong post "NLAs read thoughts beyond the
+J-space" reportedly shows NLAs recover injected concepts; if so T4 is a control/replication, not a
+finding. Fetch and read before writing.**
+- **Kill test T4:** mention rate for `sports` **< 0.25 at both positive β → MET** (a large injected concept
 direction does not surface in the description; the AV's readout is not direction-additive).
 - **Build:** `t4_inject.py`. Outputs `t4_outputs.jsonl`, `t4_summary.md`, 4 fixed examples.
 
@@ -260,7 +298,7 @@ examples, FOLLOWUPS, provenance, wall-clock. Commit. Stop the loop.
 | T4 | T4 | sports mention rate at both β, pilot | < 0.25 |
 | T5 | T5 (optional) | CI of (expect-edit − paraphrase-edit) log-prob effect | ≤ 0 |
 
-**Execution order:** T0 → T1 → T2 → T4 → T3 → T5 → T6. **Hard stop: 5 h after the first
-round-3 RUNLOG line.** All round-1/2 rules apply (pilot/eval split, cluster bootstrap by document,
+**Execution order:** T0 → T1 → T2 → T4 → T5 → T3 → T6. T3 is last and is the first stage dropped under the hard stop. **Hard stop: 5 h after the first
+round-3 RUNLOG line. Timing estimates in stage titles are hypotheses; T0 logs measured per-item costs and the orchestrator re-budgets from them.** All round-1/2 rules apply (pilot/eval split, cluster bootstrap by document,
 three outcomes, settings files created inside `main()`, raw outputs kept, FOLLOWUPS not pivots,
 never overwrite round-1/2 files).

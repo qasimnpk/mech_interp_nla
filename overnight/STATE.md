@@ -7,13 +7,13 @@ MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwe
 T5: NOT CONFIRMED (human must change this line to `T5: HUMAN-CONFIRMED` before launch for T5 to run)
 
 ## Stage status
-# Round 3 — see PLAN.md "Round 3 stages". EXECUTION ORDER: T0 → T1 → T2 → T4 → T3 → T5 → T6. Hard stop 5 h.
+# Round 3 — see PLAN.md "Round 3 stages". EXECUTION ORDER: T0 → T1 → T2 → T4 → T5 → T3 → T6 (T3 last, dropped first). Hard stop 5 h.
 T0  artifact check + topics + entropy .. TODO
 T1  AR as zero-shot probe ............... TODO
 T2  forced-prefix yes/no on AV .......... TODO
 T4  injected-vector perturbation ........ TODO
-T3  AV residual steering ................ TODO
 T5  steering specificity (OPTIONAL) ..... TODO
+T3  AV residual steering (last) ......... TODO
 T6  MORNING3.md ......................... TODO
 
 ## Blockers
