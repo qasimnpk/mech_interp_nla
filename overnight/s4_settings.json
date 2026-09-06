@@ -25,7 +25,7 @@
   "torch": "2.13.0",
   "transformers": "5.16.1",
   "wall_start": "2026-09-06T05:09:09",
-  "wall_end": null,
+  "wall_end": "2026-09-06T05:39:30",
   "max_new_tokens": 200,
   "decoding": "greedy",
   "n_left_only": 100,
@@ -33,5 +33,14 @@
   "blind_prompt": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. The model read the following text, and we are looking at its internal activation at the token marked with [[ ]].\n\n<text>{context_left_64}[[{token_str}]]{context_right_16}</text>\n\nDescribe the semantic content that this activation most likely encodes. Produce an explanation enclosed within <explanation> tags, consisting of 2-3 text snippets describing that vector, in the same style a trained activation verbalizer would use.",
   "left_only": "same prompt with context_right_16 removed, first 100 evaluation positions",
   "rawctx": "context_left_64 + token_str fed verbatim to AR as the explanation",
-  "bootstrap": "cluster by position, 1000 draws, seed 0"
+  "bootstrap": "cluster by position, 1000 draws, seed 0",
+  "blind_wall_s": 1738.9852192401886,
+  "blind_n_generated": 260,
+  "k4": {
+    "mean": 0.45338890762957007,
+    "lo": 0.4404359491560976,
+    "hi": 0.4672760514997838,
+    "n": 160,
+    "n_clusters": 160
+  }
 }
