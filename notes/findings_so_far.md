@@ -25,14 +25,18 @@ Target layer-20 last-token distance: corruption 0.040, paraphrase 0.134 (S_T = �
 - The last snippet in this checkpoint's format is the "Final token X ends … strongly expecting …" claim: local token + next-token prediction. The topical claims (article genre, subject) barely move the score.
 - Even corrupting the LAST claim costs only 0.0048 vs paraphrase 0.0055 (desk one-liner over s3_scores.csv joined to s2_claims.csv). So the AR reads the local snippet's wording, not its stated facts, either.
 
-## 5. The verbalizer is not promptable at inference (round 1, S5)
-0/80 mechanical compliance (one word, French), 0/120 agent-judged (opposite, angry, POS); outputs near-identical to default under every instruction, cos unchanged (±0.003). Injection asserts pass on every variant. (s5_summary)
+## 5. The verbalizer does not follow instructions at inference (round 1, S5)
+0/80 mechanical compliance (one word, French), 0/120 agent-judged (opposite, angry, POS); cos unchanged (±0.003). Injection asserts pass on every variant. (s5_summary)
+**Correction (desk check 2026-09-06 18:45, over s5_outputs.jsonl):** outputs are NOT literally identical to the default — 0/40 exact matches for every variant; word-sequence similarity to V0 is 0.55–0.59 (vs 0.17 between explanations of different stimuli); first sentence identical in 0–7 of 40. So the instruction text perturbs the greedy token stream the way a different sampling seed would, but content, format and length stay the default. "Trained to ignore all but the vector" is the right reading; a clean noise floor (V0 resampled at T=0.7, 40 gens, ~7 min) has not been run.
 
 ## 6. Length
 Spearman(n_tokens, cos) = −0.19 across explanations (longer slightly worse), but Spearman(claim words, cos_alone) = +0.70 within claims (longer claims carry more). (s1, r3)
 
 ## One-paragraph story (draft for the human to rewrite)
 The released Qwen2.5-7B NLA reconstructs its own position's activation well and is strongly position-specific, but its reconstruction score is a wording-match score, not a truth score: changing a fact in a claim costs less than rephrasing it, even when every claim is corrupted, while a claim about a different activation is caught easily. Nearly all of the score is carried by the final "what token is this and what comes next" snippet; the topical claims that a human would fact-check are almost invisible to the reconstructor. The target model's own layer-20 encoding of the claim sentences shows the same wording dominance, so the blindness is a property of single-token residual descriptions, not a bug in the reconstructor. The verbalizer ignores instruction text entirely, so inference-time prompting cannot pull out more. Net: using the reconstructor to remove hallucinated claims does not work on this checkpoint, for an interpretable reason.
+
+## Relation to the NLA paper's own deletion test (primary source read 2026-09-06; `notes/nla_paper_card.md`)
+The paper reports that removing true claims hurts more than removing false ones, that context-relevant false claims hurt more than unrelated ones, that both trends are "noisy on individual transcripts", and that "the AR is only a weak per-claim verifier". We did not run their natural true/false test; ours is the paired one-fact-corruption vs paraphrase test. Our results are consistent with theirs and sharpen them: the relevance gradient reproduces (off-topic AUROC 0.955), while a thematically faithful false claim — the paper's own characterisation of a typical confabulation — is invisible (AUROC 0.53). Do not write "failed to reproduce"; write "the verifier detects relevance, not truth, and confabulations are by their own account thematically faithful".
 
 ## Not yet done (see notes/progress_vs_advisor.md §B/§F)
 In-domain mean-direction baseline; human labelling of natural claims blind to Δ; role-reversal corruptions; random-vector control for S5; any 27B replication.
