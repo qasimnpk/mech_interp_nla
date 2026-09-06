@@ -26,3 +26,5 @@
 2026-09-06T09:18:09  R2  start  amplified corruption, AR only (every accepted claim replaced)
 2026-09-06T09:21:25  R2  done  160 eval explanations (all >=2 accepted claims), 635 AR forwards; R2 MET (paired diff=-0.00653 CI [-0.00992,-0.00260]); D_corrupt 0.00754, D_para 0.01407, frac corrupt>para 0.2125; det (n=155) diff -0.00506 CI [-0.00855,-0.00137]
 2026-09-06T09:21:25  R3  start  truncation curve, AR only (first k / last k claims), descriptive
+2026-09-06T09:24:32  R3  done  160 eval explanations, 916 AR forwards; median first-k lift >0.9 at k=3, last-k at k=1; Spearman(words, cos_alone)=0.7024; no kill test
+2026-09-06T09:24:32  R4  start  MORNING2.md
