@@ -30,6 +30,13 @@ text, can the *existing* checkpoints still be made to answer targeted questions 
 activation? Four routes, each with a built-in ground truth (the document's own topic; the target's
 next-token entropy), each on cached round-1 activations. Numbers only.
 
+**Third-advisor input (2026-09-06 late):** stay with NLAs; first make the existing result
+unassailable (position-vs-content control C1; matched semantic discrimination C2), then readout
+pilots (T1/T2/T4), then one frozen steering experiment with baselines (round 4 proposal). Working
+title suggested: "What does an NLA reconstruction score measure? Testing semantic readout and
+causal control beyond local-token reconstruction." The human intends to write up after round 3
+before refining further.
+
 **Round-1/2 artifacts to reuse (read-only):** `stimuli.csv` (topic = the wikitext document's
 first ` = Title = ` heading; R0 extracts it), `explanations.jsonl`, `out/acts_L20.npz`,
 `out/recon_L20.npz`, `s3_edits.jsonl`, `s3_scores.csv`, `nla_lib.py`, `s5_steer.py` (variant
@@ -167,6 +174,37 @@ document (strip ` = `), `topic_foreign` = the topic of the stimulus at `(stim_id
 target's top-1 next token string.
 - No kill test. Write `t0_check.md`.
 
+### C1 — position vs content: does the last snippet dominate because of what it says or where it sits? (AR only, ~10 min)
+Round 1–2 found the final "expecting X" snippet carries 88% of the lift. Two explanations: local
+content matters, or the AR weights the end of its input. Disentangle:
+- For each evaluation explanation with ≥ 3 claims: `z_rot` = the last claim moved to the FRONT, all
+other claims in original order (same claims, one position change). Also `z_rev` = claims reversed.
+- Score `cos(z_rot)`, `cos(z_rev)`; deletion cost of the local snippet in `z` (from S2) vs in `z_rot`
+(recompute: delete it from `z_rot`); deletion cost of the claim that is now last in `z_rot`.
+- **Kill C1:** paired CI of [local-snippet deletion cost in `z_rot` − in `z`] **≤ −0.05 → MET**
+(the snippet loses most of its weight when moved: dominance is positional, not content).
+Report the raw numbers whatever the outcome; both readings are useful.
+- **Build:** `c1_position.py`. Outputs `c1_expl.csv`, `c1_summary.md`.
+
+### C2 — matched semantic discrimination: two activations that differ in one fact (TARGET + AV + AR, ~40 min)
+The round-1 corruption test edited the *text*; the activation was fixed. This edits the
+*activation*: two contexts identical except one earlier fact, same final token and suffix.
+- **Stimuli (agent-written from fixed templates, 40 pairs, seed 0):** e.g.
+`The capital of the country is {Paris|Lyon}. Tourists arrive at the main station and walk to the`
+— 10 templates × 4 entity pairs, the differing entity 8–20 tokens before the end, the final 6+
+tokens identical. Record `h_a`, `h_b` at the shared final token (block 20). Assert the two contexts
+tokenize to the same length.
+- Verbalize both (80 generations, greedy). Record whether each description mentions its own entity,
+the other entity, or neither.
+- **Four-way matching:** `M = [cos(h_a,AR(d_a)) − cos(h_a,AR(d_b))] + [cos(h_b,AR(d_b)) − cos(h_b,AR(d_a))]`
+per pair. Also the cross-text control: `cos(h_a, AR(d_a with entity swapped to b's))` — the round-1
+style text edit — so text-edit and activation-edit sensitivity sit side by side.
+- **Kill C2:** CI of mean M (cluster by template) **≤ 0 → MET** (the score cannot tell which of two
+one-fact-different activations a description belongs to). Report the fraction of pairs with M > 0,
+and `|cos(h_a,h_b)|` (how different the activations are at all).
+- **Build:** `c2_matched.py`. Outputs `c2_pairs.csv`, `c2_descriptions.jsonl`, `c2_summary.md` with
+5 verbatim pairs (both descriptions, both contexts).
+
 ### T1 — the reconstructor as a zero-shot text probe (AR only, ~10 min)
 Idea: the AR maps English to activation space; cos(h, AR(sentence)) is a probe for any sentence.
 - **Probe sentences (fixed):**
@@ -292,13 +330,15 @@ examples, FOLLOWUPS, provenance, wall-clock. Commit. Stop the loop.
 ## Pre-registered thresholds (round 3)
 | K | stage | statistic | MET if |
 |---|---|---|---|
+| C1 | C1 | CI of [snippet deletion cost in z_rot − in z] | ≤ −0.05 |
+| C2 | C2 | CI of mean four-way margin M, cluster by template | ≤ 0 |
 | T1 | T1 | AUROC cos(h,AR(true topic)) vs foreign, eval, CI by document | ≤ 0.60 |
 | T2 | T2 | AUROC yes−no for true vs foreign topic, eval | ≤ 0.60 |
 | T3 | T3 | French pass rate at every (ℓ, α) with parse_ok ≥ 0.5, pilot | < 0.25 |
 | T4 | T4 | sports mention rate at both β, pilot | < 0.25 |
 | T5 | T5 (optional) | CI of (expect-edit − paraphrase-edit) log-prob effect | ≤ 0 |
 
-**Execution order:** T0 → T1 → T2 → T4 → T5 → T3 → T6. T3 is last and is the first stage dropped under the hard stop. **Hard stop: 5 h after the first
+**Execution order:** T0 → C1 → C2 → T1 → T2 → T4 → T5 → T3 → T6. C1/C2 are the mandatory controls on the existing result (third advisor); T3 is last and is dropped first under the hard stop. **Hard stop: 5 h after the first
 round-3 RUNLOG line. Timing estimates in stage titles are hypotheses; T0 logs measured per-item costs and the orchestrator re-budgets from them.** All round-1/2 rules apply (pilot/eval split, cluster bootstrap by document,
 three outcomes, settings files created inside `main()`, raw outputs kept, FOLLOWUPS not pivots,
 never overwrite round-1/2 files).
