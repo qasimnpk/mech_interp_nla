@@ -1,26 +1,23 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: ROUND 1 ENDED (S6 done 2026-09-06T05:40:31; all stages S0–S6 complete; loop stopped). Next: main reviews MORNING1.md, merges nightshift/round1, plans round 2.
-LAST UPDATED: 2026-09-06T05:40:31
+CURRENT STAGE: ROUND 2 NOT STARTED (round 1 complete, see MORNING1.md)
+LAST UPDATED: 2026-09-06 09:00
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
-# Round 1 — see PLAN.md "Stages".
-# EXECUTION ORDER (fail-fast): S0 → S1 → S2 → S3 → S5 → S4 → S6. S4 is optional (last; dropped first under the 07:30 / 7 h hard stop). Pilot = stimuli 0–39, evaluation = 40–199. Kill tests first in every stage.
-# Log every kill test to overnight/DISCONFIRMATION.md. A MET kill test is a result, not an abort.
-S0  download, load, one round trip .... DONE (K0 NOT MET; cjk 1/16; cos 0.785–0.955 on 16)
-S1  baseline round trip (200) ......... DONE (K1a NOT MET 0.882; K1b NOT MET samedoc 0.366)
-S2  claim deletion ..................... DONE (K2 NOT MET; D=0.0058 CI [0.0022,0.0096])
-S3  corrupted vs paraphrased claims .... DONE (K3 MET; A−P=-0.0018 CI [-0.0028,-0.0008]; K3-det MET)
-S5  prompt steering (pilot 40, 6 variants) DONE (K5 MET; follow_rate 0.000; judge csv filled)
-S4  blind-describer + raw-context (OPTIONAL) DONE (K4 NOT MET; gap 0.453 CI [0.440,0.467])
-S6  MORNING1.md ........................ DONE
+# Round 2 — see PLAN.md "Round 2 stages". EXECUTION ORDER: R0 → R1 → R2 → R3 → R4. Hard stop 5.5 h after first round-2 RUNLOG line.
+R0  artifact check ...................... TODO
+R1  fact-blindness locus (target vs AR) . TODO
+R2  amplified corruption (AR only) ...... TODO
+R3  truncation curve (AR only) .......... TODO
+R4  MORNING2.md ......................... TODO
 
 ## Blockers
 (none)
 
 ## Open decisions (research calls left for the human)
-(none logged; S1 diagnostic: cos_L19 > cos_own on 0.000 and cos_L21 > cos_own on 0.006 of evaluation positions, so no layer question was raised)
+(none)
 
 ## Notes
+Round 1 stages S0–S6 complete; artifacts in this directory and out/.
