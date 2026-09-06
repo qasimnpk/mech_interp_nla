@@ -63,7 +63,7 @@ def fixed_examples() -> list[tuple[int, int]]:
 def texts_of(df: pd.DataFrame) -> list[str]:
     s = set()
     for v in VARIANTS:
-        s.update(t for t in df[v].tolist() if t is not None)
+        s.update(t for t in df[v].tolist() if isinstance(t, str))  # pandas turns missing corrupt_det into NaN
     return sorted(s)
 
 
