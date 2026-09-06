@@ -28,3 +28,4 @@
 2026-09-06T09:21:25  R3  start  truncation curve, AR only (first k / last k claims), descriptive
 2026-09-06T09:24:32  R3  done  160 eval explanations, 916 AR forwards; median first-k lift >0.9 at k=3, last-k at k=1; Spearman(words, cos_alone)=0.7024; no kill test
 2026-09-06T09:24:32  R4  start  MORNING2.md
+2026-09-06T09:24:42  R4  done  MORNING2.md written; round 2 ended (started 09:03:21, well inside the 5.5 h stop); loop stops

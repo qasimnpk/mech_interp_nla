@@ -1,7 +1,7 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: R4 (MORNING2.md) RUNNING
+CURRENT STAGE: ROUND 2 COMPLETE (see MORNING2.md); loop stopped
 LAST UPDATED: 2026-09-06 09:24
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
@@ -11,7 +11,7 @@ R0  artifact check ...................... DONE (r0_check.md: 0.8820 vs 0.8820, a
 R1  fact-blindness locus (target vs AR) . DONE (R1 MET; r1_summary.md)
 R2  amplified corruption (AR only) ...... DONE (R2 MET; r2_summary.md)
 R3  truncation curve (AR only) .......... DONE (k*_first=3, k*_last=1; r3_summary.md)
-R4  MORNING2.md ......................... RUNNING
+R4  MORNING2.md ......................... DONE
 
 ## Blockers
 (none)
@@ -20,4 +20,4 @@ R4  MORNING2.md ......................... RUNNING
 (none)
 
 ## Notes
-Round 1 stages S0–S6 complete; artifacts in this directory and out/.
+Round 1 stages S0–S6 complete; round 2 stages R0–R4 complete (2026-09-06 09:03–09:25). Artifacts in this directory and out/ (npz caches regenerated in R0).
