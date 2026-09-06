@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: S3 (running; loop started 2026-09-06T02:18:09; hard stop 07:30 local)
-LAST UPDATED: 2026-09-06T03:15:07
+CURRENT STAGE: S5 (running; loop started 2026-09-06T02:18:09; hard stop 07:30 local)
+LAST UPDATED: 2026-09-06T04:26:57
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
@@ -12,8 +12,8 @@ MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwe
 S0  download, load, one round trip .... DONE (K0 NOT MET; cjk 1/16; cos 0.785–0.955 on 16)
 S1  baseline round trip (200) ......... DONE (K1a NOT MET 0.882; K1b NOT MET samedoc 0.366)
 S2  claim deletion ..................... DONE (K2 NOT MET; D=0.0058 CI [0.0022,0.0096])
-S3  corrupted vs paraphrased claims .... RUNNING
-S5  prompt steering (pilot 40, 6 variants) TODO
+S3  corrupted vs paraphrased claims .... DONE (K3 MET; A−P=-0.0018 CI [-0.0028,-0.0008]; K3-det MET)
+S5  prompt steering (pilot 40, 6 variants) RUNNING
 S4  blind-describer + raw-context (OPTIONAL) TODO
 S6  MORNING1.md ........................ TODO
 

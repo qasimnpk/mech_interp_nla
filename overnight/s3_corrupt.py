@@ -166,7 +166,7 @@ def main():
             cos_z_joined = score(" ".join(cs), i)
         except Exception:
             cos_rest = cos_z_joined = float("nan")
-        cos_z = float(r.cos_z); d_z = float(r["Δcos"]) if hasattr(r, "Δcos") else float(cl.loc[cl.row == row, "Δcos"].iloc[0])
+        cos_z = float(r.cos_z); d_z = float(cl.loc[cl.row == row, "Δcos"].iloc[0])
         for et in EDIT_TYPES:
             new = rec.get(et)
             ok = {"corrupt": rec["edit_ok"], "paraphrase": rec["edit_ok"], "corrupt_det": rec["numeric_ok"], "offtopic": True}[et]
