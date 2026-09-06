@@ -1,5 +1,9 @@
 # Findings so far (agent-drafted, 2026-09-06 ~10:00; every number traces to overnight/*.md or a one-liner noted here)
 
+## Advisor-facing progress summary (share this; rewrite in your own voice first)
+We ran the released Qwen2.5-7B-Instruct layer-20 natural language autoencoder end-to-end on 200 wikitext positions. The pipeline reproduces and is highly position-specific: 0.88 cosine on the right activation, 0.37 on a different position of the same document, and 0.35 with no explanation at all. The reconstructor treats claims as real units, since deleting one costs more than deleting a random span of the same length, and almost nothing you delete ever helps. But it is nearly blind to facts: changing europium to lead or Charles I to Charles II moves the score by 0.003, a meaning-preserving paraphrase moves it by 0.005, and this holds even when every claim in the explanation is corrupted at once, while a claim about a different activation is caught easily (AUROC 0.96). Almost the entire score is carried by the final "this token ends X, expecting Y" snippet (88% of the lift on its own); the topical claims a human would fact-check are nearly invisible to the reconstructor, and the target model's own layer-20 encoding of the claim sentences shows the same wording dominance. The verbalizer ignores every instruction we gave it (0/200), so inference-time prompting cannot pull out more. A describer that never sees the activation lands at the floor, so reconstruction genuinely needs the activation even though it does not track truth. Net: using the reconstructor to remove hallucinated claims does not work on this checkpoint, and the reason is interpretable: it scores a single-token residual whose description is dominated by local wording.
+
+
 Checkpoint: kitft Qwen2.5-7B-Instruct block-20 NLA pair (Anthropic release). 200 wikitext positions, 160 evaluation. All CIs cluster-bootstrap by explanation.
 
 ## 1. The pipeline reproduces and is position-specific (round 1, S1)
@@ -32,3 +36,6 @@ The released Qwen2.5-7B NLA reconstructs its own position's activation well and 
 
 ## Not yet done (see notes/progress_vs_advisor.md §B/§F)
 In-domain mean-direction baseline; human labelling of natural claims blind to Δ; role-reversal corruptions; random-vector control for S5; any 27B replication.
+
+## Desk check 2026-09-06 ~10:30 — does corruption cost depend on where the fact sits? (crude, word-overlap)
+Split the 402 accepted corruptions by whether the swapped-out word appears within ~80 chars before the target token ("near", n=62), elsewhere in the 64-token left context ("ctx", n=27), or not in the context at all ("absent", n=313). Corruption cost: near 0.0036, ctx 0.0032, absent 0.0022 (medians ≈0.001 in all three). Weak gradient in the expected direction, all far below the paraphrase cost of ~0.005. Word-overlap heuristic only; not a substitute for a real locality experiment.
