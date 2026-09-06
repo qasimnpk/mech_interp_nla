@@ -1,0 +1,4 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  16%|█▌        | 53/339 [00:00<00:00, 366.66it/s]Loading weights:  27%|██▋       | 90/339 [00:00<00:02, 94.90it/s] Loading weights:  36%|███▌      | 122/339 [00:00<00:01, 129.63it/s]Loading weights: 100%|██████████| 339/339 [00:00<00:00, 360.06it/s]
+[05:09:14 rss=6.0G] TARGET loaded
+[05:09:30 rss=6.2G] blind 0/160 stim 40 'ium' parse_ok=True (8.0s/gen)
+[05:09:45 rss=6.2G] blind 1/160 stim 41 ' \n' parse_ok=True (7.8s/gen)
