@@ -18,3 +18,14 @@
 2026-09-06T05:39:48  S6  start  MORNING1.md
 2026-09-06T05:40:11  S6  note  s2_settings.json and s5_settings.json restored from commits d62ca4b / 66c5301 (clobbered at import time by S3 and by the S5 --summary rerun); no script edited
 2026-09-06T05:40:31  S6  done  MORNING1.md written; round 1 ended; loop stops
+2026-09-06T09:03:21  R0  start  round 2 begins; artifact check + regenerate out/acts_L20.npz and out/recon_L20.npz; hard stop = 2026-09-06T09:03:21 + 5.5 h
+2026-09-06T09:08:40  R0  done  counts OK (200/200/671/538/490); acts_L20.npz + recon_L20.npz regenerated; eval mean cos_own 0.8820 vs round-1 0.8820 (diff +0.00003, per-row max |diff| 0.00000); ACCEPTED; 226 s acts, 0.28 s/AR score
+2026-09-06T09:08:40  R1  start  fact-blindness locus: 490 S3 triples through TARGET (last token + mean) and AR; TARGET then AR sequentially
+2026-09-06T09:09:04  R1  crashfix  iteration 1 crashed before any model load (TypeError sorting text set: pandas NaN for missing corrupt_det); texts_of now keeps only str entries; no statistic changed; rerun
+2026-09-06T09:18:09  R1  done  490 triples (402 with det), 1860 texts x TARGET + AR; R1 MET (mean S_T=-0.09405 CI [-0.10376,-0.08445]); S_AR=-0.04945 CI [-0.05569,-0.04328]; mean-pooled S_T=-0.00121; one pre-model crash fix logged above
+2026-09-06T09:18:09  R2  start  amplified corruption, AR only (every accepted claim replaced)
+2026-09-06T09:21:25  R2  done  160 eval explanations (all >=2 accepted claims), 635 AR forwards; R2 MET (paired diff=-0.00653 CI [-0.00992,-0.00260]); D_corrupt 0.00754, D_para 0.01407, frac corrupt>para 0.2125; det (n=155) diff -0.00506 CI [-0.00855,-0.00137]
+2026-09-06T09:21:25  R3  start  truncation curve, AR only (first k / last k claims), descriptive
+2026-09-06T09:24:32  R3  done  160 eval explanations, 916 AR forwards; median first-k lift >0.9 at k=3, last-k at k=1; Spearman(words, cos_alone)=0.7024; no kill test
+2026-09-06T09:24:32  R4  start  MORNING2.md
+2026-09-06T09:24:42  R4  done  MORNING2.md written; round 2 ended (started 09:03:21, well inside the 5.5 h stop); loop stops
