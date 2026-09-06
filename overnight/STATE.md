@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: S6 (running; loop started 2026-09-06T02:18:09; hard stop 07:30 local)
-LAST UPDATED: 2026-09-06T05:39:48
+CURRENT STAGE: ROUND 1 ENDED (S6 done 2026-09-06T05:40:31; all stages S0–S6 complete; loop stopped). Next: main reviews MORNING1.md, merges nightshift/round1, plans round 2.
+LAST UPDATED: 2026-09-06T05:40:31
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
@@ -15,12 +15,12 @@ S2  claim deletion ..................... DONE (K2 NOT MET; D=0.0058 CI [0.0022,0
 S3  corrupted vs paraphrased claims .... DONE (K3 MET; A−P=-0.0018 CI [-0.0028,-0.0008]; K3-det MET)
 S5  prompt steering (pilot 40, 6 variants) DONE (K5 MET; follow_rate 0.000; judge csv filled)
 S4  blind-describer + raw-context (OPTIONAL) DONE (K4 NOT MET; gap 0.453 CI [0.440,0.467])
-S6  MORNING1.md ........................ RUNNING
+S6  MORNING1.md ........................ DONE
 
 ## Blockers
 (none)
 
 ## Open decisions (research calls left for the human)
-(none)
+(none logged; S1 diagnostic: cos_L19 > cos_own on 0.000 and cos_L21 > cos_own on 0.006 of evaluation positions, so no layer question was raised)
 
 ## Notes

@@ -1,9 +1,8 @@
 {
   "stage": "s5",
-  "git_hash": "66c5301988d6fde82e4b5435e34a45fc73cbc61a",
+  "git_hash": "92e4d3cdfd79cf37912cb7a73abb57aa046286ee",
   "argv": [
-    "overnight/s5_steer.py",
-    "--summary"
+    "overnight/s5_steer.py"
   ],
   "models": {
     "TARGET": {
@@ -25,8 +24,8 @@
   "device": "mps",
   "torch": "2.13.0",
   "transformers": "5.16.1",
-  "wall_start": "2026-09-06T05:09:46",
-  "wall_end": null,
+  "wall_start": "2026-09-06T04:27:01",
+  "wall_end": "2026-09-06T05:08:35",
   "n_pilot": 40,
   "max_new_tokens": 200,
   "decoding": "greedy",
@@ -45,5 +44,22 @@
     "V3": "word count of explanation == 1",
     "V4": "fraction of ASCII-letter tokens in French stoplist >= 0.15",
     "V5": "first word in {NOUN,VERB,OTHER}; agreement with content-word rule (alphabetic token_str not in function list)"
+  },
+  "prompts_verbatim": {
+    "V0": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. The explanation consists of 2-3 text snippets describing that vector.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation.",
+    "V1": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. The explanation consists of 2-3 text snippets describing the OPPOSITE of the semantic content of that vector.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation.",
+    "V2": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. The explanation consists of 2-3 text snippets describing that vector, written in a furious, exasperated tone.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation.",
+    "V3": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. The explanation consists of exactly ONE word that best describes that vector. Output nothing else inside the tags.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation.",
+    "V4": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. The explanation consists of 2-3 text snippets describing that vector, written entirely in French.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation.",
+    "V5": "You are a meticulous AI researcher conducting an important investigation into activation vectors from a language model. Your overall task is to describe the semantic content of that activation vector.\n\nWe will pass the vector enclosed in <concept> tags into your context. You must then produce an explanation for the vector, enclosed within <explanation> tags. Answer this question about the vector, then give 1-2 text snippets: is the token this vector was taken from most likely a NOUN, VERB, or OTHER? Start the explanation with one of those three words in capitals.\n\nHere is the vector:\n\n<concept>㈎</concept>\n\nPlease provide an explanation."
+  },
+  "av_wall_s": 2416.3880698680878,
+  "av_n_generated": 240,
+  "k5": {
+    "mean": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "n": 80,
+    "n_clusters": 40
   }
 }

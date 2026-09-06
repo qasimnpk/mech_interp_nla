@@ -66,10 +66,10 @@ for l in disc:
         out.append(f"| {m.group(3)} | {m.group(2)} | {m.group(4)} |")
 out += ["", "## Stage status and wall-clock", "", "```", stage_status, "```", "", "| stage | wall-clock (settings.json) |", "|---|---|"]
 for k in ["s0", "s1", "s2", "s3", "s5", "s4"]:
-    out.append(f"| {k.upper()} | {wall(k)} |")
+    out.append(f"| {k.upper()} | {wall(k)}{' (AR rerun after crash fix; editor pass 03:15:07 → 04:14, see RUNLOG)' if k == 's3' else ''} |")
 out += ["", "RUNLOG:", "", "```"] + runlog + ["```", "", "Blockers:", "", blockers, ""]
 
-out += ["## S0 — library + stimuli + smoke", "", section(s0, "## Timings", "## 16 smoke"), "", section(s0, "cos: mean"), ""]
+out += ["## S0 — library + stimuli + smoke", "", section(s0, "## Timings", "## 16 smoke"), "", section(s0, "cos: mean", "## Explanations"), ""]
 out += ["## S1 — baseline round trip (evaluation set n=160)", "", section(s1, "## Timings", "## Pilot set"), "", section(s1, "## 5 evaluation explanations"), ""]
 out += ["## S2 — claim deletion", "", section(s2, "- explanations:", "## Kill test"), ""]
 out += ["## S3 — corrupted vs paraphrased claims", "", section(s3, "## Editor acceptance", "## Kill test"), "", section(s3, "## 10 fixed examples"), ""]
@@ -95,6 +95,7 @@ out += ["## Provenance", "",
         "- S5: variant prompts built by replacing the default instruction sentence inside the checkpoint's own AV template (asserted V0 == default); the 200-word French stoplist and 50-word English function-word list were hard-coded by the agent; the injection asserts were run for every variant.",
         "- S5 judge: 120 items scored by the orchestrating agent reading each output next to V0 under the PLAN rubric; `followed`=0 for every V1/V2/V5 output, `same_referent`=1 for every output; one note (stim 22 V1) recorded in the CSV.",
         "- Crash fixes (logged in RUNLOG): S0 pandas `itertuples` dropped the `_ids` column (fixed before any output existed); S3 AR phase indexed a namedtuple with a string (fixed after the editor pass, before any AR score existed; editor outputs preserved and reused).",
+        "- Settings-file clobber: `s2_settings.json` and `s5_settings.json` were overwritten at import time (S3 imports the S2 splitter; the S5 `--summary` rerun re-imports its own module) after their stages had finished; both were restored verbatim from the S2 and S5 stage commits (d62ca4b, 66c5301) before this report. The stage scripts were not edited.",
         "- Time: hard stop fixed at 07:30 local (earlier than first RUNLOG line + 7 h).", ""]
 (OV / "MORNING1.md").write_text("\n".join(out) + "\n")
 print("wrote MORNING1.md", len(out), "lines")

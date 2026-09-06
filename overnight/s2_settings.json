@@ -1,8 +1,8 @@
 {
   "stage": "s2",
-  "git_hash": "d62ca4be5285c535708d946d1521165d0223b34f",
+  "git_hash": "921c1c3f9f69ea5cbbd69e0cb83ac6e16cb266bc",
   "argv": [
-    "overnight/s3_corrupt.py"
+    "overnight/s2_deletion.py"
   ],
   "models": {
     "TARGET": {
@@ -24,8 +24,8 @@
   "device": "mps",
   "torch": "2.13.0",
   "transformers": "5.16.1",
-  "wall_start": "2026-09-06T04:15:11",
-  "wall_end": null,
+  "wall_start": "2026-09-06T02:59:48",
+  "wall_end": "2026-09-06T03:14:37",
   "splitter": "split on newlines, then (?<=[.!?])\\s+; strip; drop leading list marker ^\\s*(\\d+[.)]|[-*•])\\s*; drop pieces < 3 words (word count taken after marker removal)",
   "min_words": 3,
   "n_randspan": 3,
@@ -35,5 +35,14 @@
     "shuffle_order": "np.random.default_rng(5000 + stim_idx)"
   },
   "randspan_rule": "words = z.split(); start ~ U{0..len-k}; redraw (<=50) if [start,start+k) equals the word span of any claim; remaining words joined by single space",
-  "bootstrap": "cluster by explanation (stim_idx), 1000 draws, seed 0"
+  "bootstrap": "cluster by explanation (stim_idx), 1000 draws, seed 0",
+  "k2": {
+    "mean": 0.0057814286308009895,
+    "lo": 0.002243785078679663,
+    "hi": 0.009637164591041615,
+    "n": 538,
+    "n_clusters": 160
+  },
+  "n_forward": 4356,
+  "n_excluded": 0
 }
