@@ -18,3 +18,6 @@
 2026-09-06T05:39:48  S6  start  MORNING1.md
 2026-09-06T05:40:11  S6  note  s2_settings.json and s5_settings.json restored from commits d62ca4b / 66c5301 (clobbered at import time by S3 and by the S5 --summary rerun); no script edited
 2026-09-06T05:40:31  S6  done  MORNING1.md written; round 1 ended; loop stops
+2026-09-06T09:03:21  R0  start  round 2 begins; artifact check + regenerate out/acts_L20.npz and out/recon_L20.npz; hard stop = 2026-09-06T09:03:21 + 5.5 h
+2026-09-06T09:08:40  R0  done  counts OK (200/200/671/538/490); acts_L20.npz + recon_L20.npz regenerated; eval mean cos_own 0.8820 vs round-1 0.8820 (diff +0.00003, per-row max |diff| 0.00000); ACCEPTED; 226 s acts, 0.28 s/AR score
+2026-09-06T09:08:40  R1  start  fact-blindness locus: 490 S3 triples through TARGET (last token + mean) and AR; TARGET then AR sequentially
