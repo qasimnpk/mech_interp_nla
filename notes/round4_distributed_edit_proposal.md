@@ -92,6 +92,12 @@ Earlier positions are excluded on purpose (cannot represent later facts).
 - Novelty of the distributed-edit protocol is unverified; the NLA paper's steering section must be
   read in full before any claim (its text is in `notes/nla_paper_2026_text.txt`, grep "steer").
 
+## Prior art in the NLA paper, read at primary source (2026-09-06)
+- Poetry: "we edit the NLA explanation at the newline ... take the difference Δ = AR(AV_edit) − AR(AV_orig) as the edit direction. We then steer with this direction at the newline token only, at the layer the NLA is trained on ... h_orig → h_orig + α‖h_orig‖ Δ/‖Δ‖." Result: "steering is only successful roughly 50% of the time"; "fewer than 80% of completions actually end with 'mouse' or 'house' because they partially degenerate."
+- Rewards: edit "reward"→"penalty" in five rollouts on one token, average the five Δ's, steer at that single token; more odd answers than a random vector; the edit word does not appear in the output, so not token-boosting.
+- Their own framing: "We do not aim to outperform existing steering methods: the purpose ... is to demonstrate that NLA explanations bear a causal relationship to model outputs."
+**Consequences for us:** single-token, single-edit, no budget-matched controls, no paraphrase null, no comparison with a context-encoding direction, no multi-position coordination, no link to reconstruction importance. Every one of those is what D-steer adds. Also adopt their rescaling convention (α‖h‖ Δ/‖Δ‖) so doses are comparable, and report degeneration rate as they do.
+
 ## What the human decides
 1. Task family: ownership transfer as above, or a different intermediate variable?
 2. Run D-score alone first (one night) and D-steer the next, or both in one night?
