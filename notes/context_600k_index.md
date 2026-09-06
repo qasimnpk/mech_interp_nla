@@ -1,0 +1,1642 @@
+# Index — notes/context_600k.md
+
+Curated mech-interp context file (≈600k tokens, 41,361 lines, 2.2 MB). Three parts:
+research philosophy (Neel Nanda's Explore/Understand/Distill sequence, Steinhardt, paper-writing
+advice) · foundations (glossary, annotated paper list, Ferrando primer, Sharkey open problems) ·
+tooling (TransformerLens, NNsight, ARENA tutorials as raw notebook source).
+
+**How to use.** Do not load the whole file. Find the section here, then read by line range
+(`Read` with `offset`/`limit`, or `sed -n 'A,Bp'`), or grep:
+`grep -n "term" notes/context_600k.md`. Line numbers below are 1-based and current as of the
+file's 2026-09-05 copy; regenerate with `python3 scripts/mkindex_context600k.py` after any edit.
+
+**What the outline filters out.** Part III contains ARENA notebook source, whose cell markers
+(`# ! CELL TYPE`, `# ! TAGS`, `# ! FILTERS`, `# HIDE`) look like ~4,150 H1 headings. They are
+excluded. Real headings kept: 1017 H1 · 232 H2 · 285 H3.
+
+---
+
+## 1. Curated table of contents (verbatim from the file head, lines 1–84)
+
+### **Part I: Research Philosophy and Strategy**
+ 
+- **Neel Nanda's Research Process Framework**
+
+	- 1.1. How I Think About My Research Process: Explore, Understand, Distill
+
+		- Stage 1: Ideation - Choosing a Problem
+		- Stage 2: Exploration - Gaining Surface Area
+		- Stage 3: Understanding - Testing Hypotheses
+		- Stage 4: Distillation - Compressing, Refining, and Communicating
+	- 1.2. Key Mindsets for Research: Truth-Seeking, Prioritization, Moving Fast
+
+		- Truth-Seeking and Resisting Bias
+		- Prioritization and Goal-Setting
+		- Moving Fast and Acting Under Uncertainty
+	- 1.3. Understanding and Cultivating Research Taste
+
+		- Decomposing Taste: Intuition, Conceptual Frameworks, and Strategic Picture
+		- Methods for Cultivating Taste: Leveraging Mentors, Papers, and Reflection
+- **Jacob Steinhardt on Research as a Stochastic Decision Process**
+
+	- 2.1. Prioritizing by Information Rate vs. Naive Strategies
+	- 2.2. De-risking, Front-loading Information, and Practical Patterns
+	- 2.3. Research as a Branching Search Tree
+- **Advice on Writing Machine Learning Papers**
+
+	- 3.1. The Essence of a Paper: Crafting a Cohesive Narrative
+	- 3.2. Providing Rigorous Supporting Evidence and Avoiding Pitfalls
+	- 3.3. Iterative Writing Process: Compress then Expand
+	- 3.4. Detailed Paper Structure: Abstract, Introduction, Main Body, Figures, etc.
+
+---
+
+### **Part II: Foundations of Mechanistic Interpretability**
+
+- **Core Concepts and Terminology**
+
+	- 1.1. A Comprehensive Mechanistic Interpretability Explainer & Glossary (Neel Nanda)
+
+		- General Concepts: Features, Circuits, Decomposability
+		- Representations: Linear Representation Hypothesis, Privileged Basis
+		- Superposition: Bottleneck vs. Neuron Superposition, Polysemanticity
+		- Transformer-Specific Concepts and Techniques
+- **Surveys of the Field: Key Papers and Open Problems**
+
+	- 2.1. An Extremely Opinionated Annotated List of My Favourite Mechanistic Interpretability Papers (Neel Nanda)
+
+		- Foundational Work (e.g., A Mathematical Framework for Transformer Circuits)
+		- Superposition & Sparse Autoencoders (SAEs)
+		- Activation Patching & Causal Interventions
+		- Narrow Circuits (e.g., Indirect Object Identification)
+	- 2.2. A Primer on the Inner Workings of Transformer-Based Language Models (Javier Ferrando et al.)
+
+		- Transformer Components and the Residual Stream Perspective
+		- Techniques for Behavior Localization (Attribution, Causal Interventions)
+		- Techniques for Information Decoding (Probing, SAEs)
+		- Discovered Inner Behaviors and Known Circuits
+	- 2.3. Open Problems in Mechanistic Interpretability (Lee Sharkey et al.)
+
+		- Challenges in Methods: Reverse Engineering, Decomposition, and Validation
+		- Challenges in Applications: Monitoring, Control, Prediction, and Microscope AI
+		- Socio-technical and Governance Challenges
+
+---
+
+### **Part III: Tooling & Hands-On Tutorials**
+
+- **TransformerLens: A Library for Mechanistic Interpretability**
+
+	- 1.1. Introduction and Getting Started
+	- 1.2. Key Features: Hooks, Activation Caching, Model Loading
+	- 1.3. ARENA Tutorials with TransformerLens:
+
+		- 1.3.1. Building a Transformer from Scratch
+		- 1.3.2. Introduction to Mech Interp & Finding Induction Heads
+		- 1.3.3. Indirect Object Identification (IOI) Circuit Analysis
+		- 1.3.4. Toy Models of Superposition & Sparse Autoencoders (SAEs)
+- **NNsight: A Library for Transparent Science on Black-Box AI**
+
+	- 2.1. Introduction and Getting Started with Remote Execution (NDIF)
+	- 2.2. Core Concepts: The Intervention Graph
+	- 2.3. Key Features: Getting/Setting Activations, Gradients, Cross-Prompt Interventions, Multi-Token Generation
+	- 2.4. ARENA Tutorial with NNsight: Function Vectors & Model Steering
+
+---
+
+## 2. Line-numbered outline (H1–H3, code blocks and cell markers skipped)
+
+    - L1: Part I: Research Philosophy and Strategy
+    - L34: Part II: Foundations of Mechanistic Interpretability
+    - L66: Part III: Tooling & Hands-On Tutorials
+- L85: [How I Think About My Research Process: Explore, Understand, Distill]
+  - L91: Introduction
+  - L107: The key stages
+    - L119: Ideation (Stage 1): Choose a problem
+    - L133: Exploration (Stage 2): Gain surface area
+    - L151: Understanding (Stage 3): Test Hypotheses
+    - L168: Distillation (Stage 4): Compress, Refine, Communicate
+- L189: [My Research Process: Key Mindsets - Truth-Seeking, Prioritisation, Moving Fast]
+  - L204: Truth Seeking
+  - L241: Prioritisation
+  - L286: Moving Fast
+    - L321: Taking action under uncertainty
+- L330: [My Research Process: Understanding and Cultivating Research Taste]
+- L334: Introduction
+- L348: What is Taste?
+  - L366: Decomposing Research Taste
+- L399: Cultivating Research Taste
+- L427: Conclusion: Patience and Process
+- L437: Research as a Stochastic Decision Process
+    - L444: Warm-Up
+    - L465: A Better Strategy: Sorting by Information Rate
+    - L539: A further improvement: opening up the "task" black box
+    - L554: General principle: stochastic decision process
+    - L567: Some further practical ideas
+    - L594: Exponentially branching search trees
+    - L621: Summary
+    - L631: Appendix A: Poisson Process Calculation
+  - L639: Notes
+- L647: [Highly Opinionated Advice on How to Write ML Papers]
+  - L675: Introduction
+  - L685: The Essence of a Paper
+    - L695: Crafting a Narrative
+    - L740: When to Start?
+    - L756: Novelty
+    - L798: Rigorous Supporting Evidence
+    - L858: Paper Structure Summary
+  - L876: Analysing My Grokking Work
+  - L902: The Writing Process: Compress then Iteratively Expand
+    - L912: Compress
+    - L936: Iteratively Expand
+  - L958: The Anatomy of a Paper
+    - L962: Abstract
+    - L995: Introduction
+    - L1018: Figures
+    - L1066: Main Body (Background, Methods and Results)
+    - L1089: Discussion
+    - L1099: Related Work
+    - L1109: Appendices
+  - L1117: Common Pitfalls and How to Avoid Them
+    - L1119: Obsessing Over Publishability
+    - L1129: Unnecessary Complexity and Verbosity
+    - L1135: Not Prioritizing the Writing Process
+  - L1141: Tacit Knowledge and Beyond
+  - L1157: Conclusion
+- L9105: Installation
+- L9113: Adding Tutorials
+- L9133: Compiling Sphinx to HTML
+- L9143: Changelog
+  - L9145: `0.3.0`
+    - L9153: Breaking Changes
+    - L9162: New Features
+- L9191: Contributor Covenant Code of Conduct
+  - L9193: Our Pledge
+  - L9205: Our Standards
+  - L9229: Enforcement Responsibilities
+  - L9241: Scope
+  - L9249: Enforcement
+  - L9258: Enforcement Guidelines
+    - L9263: 1. Correction
+    - L9272: 2. Warning
+    - L9284: 3. Temporary Ban
+    - L9295: 4. Permanent Ban
+  - L9304: Attribution
+- L9331: nnsight
+    - L9684: Citation
+- L9979: TransformerLens 2.0
+  - L9983: First, an introduction
+  - L9993: Adopting Semantic Versioning
+  - L9997: Deprecations
+  - L10005: Roadmap
+    - L10009: Immediate - within the next month
+    - L10013: Mid-term - within the next 3 months
+    - L10027: Long-term - within the next year
+  - L10041: Contributors
+    - L10045: New Dev Branches
+    - L10051: Integration Tests
+    - L10057: Test Coverage
+    - L10061: Components Refactor
+  - L10065: Conclusion
+  - L10071: Appendix
+    - L10073: Semantic Versioning
+- L10090: Citation
+- L10109: Contributing
+  - L10111: Setup
+    - L10113: DevContainer
+    - L10120: Manual Setup
+  - L10130: Testing
+    - L10138: Running the tests
+  - L10146: Formatting
+  - L10156: Documentation
+    - L10166: Docstring Style Guide
+- L10260: Gallery
+- L10305: Getting Started in Mechanistic Interpretability
+- L10348: Getting Started
+  - L10358: Advice for Reading the Code
+  - L10362: Installation
+  - L10370: Huggingface Gated Access
+- L10386: Special Cases
+  - L10388: Mixture of Experts error rates
+- L10404: Tutorials
+  - L10408: Where To Start
+  - L10414: Demos
+- L10446: Further Details on Config Options
+  - L10447: Shortformer Attention (`positional_embeddings_type == "shortformer"`)
+- L10452: Weight Processing
+  - L10453: What is LayerNorm Folding? (`fold_ln`)
+  - L10512: Centering Writing Weights (`center_writing_weight`)
+  - L10516: Centering Unembed (`center_unembed`)
+  - L10520: Fold Value Biases (`fold_value_biases`)
+- L10535: TransformerLens
+  - L10561: Quick Start
+    - L10563: Install
+    - L10569: Use
+  - L10581: Key Tutorials
+  - L10587: Gallery
+  - L10631: Getting Started in Mechanistic Interpretability
+  - L10669: Support & Community
+  - L10693: Credits
+    - L10702: Creator's Note (Neel Nanda)
+    - L10713: Citation
+- L10726: ARENA_Content.ipynb
+- L10889: Activation_Patching_in_TL_Demo.ipynb
+- L10894: Attribution_Patching_Demo.ipynb
+- L10899: BERT.ipynb
+- L10905: BERT in TransformerLens
+- L10908: Setup
+- L10976: BERT
+  - L10986: Masked Language Modelling
+  - L11011: Next Sentence Prediction
+- L11030: Inputting tokens directly
+- L11049: Colab_Compatibility.ipynb
+- L11503: Config_Overhaul.ipynb
+- L11505: Overview
+  - L11556: The constructor
+  - L11586: Boolean Variables
+  - L11609: Additional Options
+  - L11631: Config Final Thoughts
+  - L11653: Further Changes
+  - L11670: Impact on Testing
+  - L11676: Summary
+- L11687: Exploratory_Analysis_Demo.ipynb
+- L11691: Exploratory Analysis Demo
+  - L11698: Tips for Reading This
+  - L11710: Setup
+    - L11712: Environment Setup (ignore)
+    - L11744: Imports
+    - L11764: PyTorch Setup
+    - L11773: Plotting Helper Functions (ignore)
+  - L11803: Introduction
+    - L11814: Indirect Object Identification
+  - L11963: Brainstorm What's Actually Going On (Optional)
+  - L11999: Direct Logit Attribution
+    - L12077: Logit Lens
+    - L12122: Layer Attribution
+  - L12138: Head Attribution
+  - L12168: Attention Analysis
+  - L12257: Activation Patching
+  - L12301: Residual Stream
+  - L12383: Layers
+  - L12456: Heads
+  - L12502: Decomposing Heads
+  - L12612: Consolidating Understanding
+    - L12620: Visualizing Attention Patterns
+    - L12659: Comparing to the Paper
+  - L12682: Bonus: Exploring Anomalies
+    - L12684: Early Heads are Induction Heads(?!)
+    - L12847: Backup Name Mover Heads
+- L12943: Grokking_Demo.ipynb
+- L12949: Grokking Demo Notebook
+- L12953: Setup
+- L13068: Model Training
+  - L13070: Config
+  - L13087: Define Task
+  - L13134: Define Model
+  - L13168: Define Optimizer + Loss
+  - L13195: Actually Train
+  - L13252: Show Model Training Statistics, Check that it groks!
+- L13260: Analysing the Model
+  - L13262: Standard Things to Try
+    - L13285: Looking at Activations
+    - L13337: Singular Value Decomposition
+  - L13356: Explaining Algorithm
+    - L13358: Analyse the Embedding - It's a Lookup Table!
+    - L13389: Analyse the Embedding
+    - L13408: Key Frequencies
+  - L13418: Analyse Neurons
+    - L13452: Neuron Clusters
+  - L13475: Read Off the Neuron-Logit Weights to Interpret
+- L13517: Black Box Methods + Progress Measures
+  - L13519: Setup Code
+  - L13613: Defining Progress Measures
+    - L13615: Loss Curves
+    - L13636: Logit Periodicity
+  - L13744: Restricted Loss
+    - L13786: Look During Training
+  - L13829: Excluded Loss
+- L13888: Head_Detector_Demo.ipynb
+- L13894: TransformerLens Head Detector Demo
+  - L13900: How to use this notebook
+  - L13912: Setup (Ignore)
+    - L13974: Some plotting utils
+  - L13996: Head detector
+  - L14289: Using Head Detector For Premade Heads
+  - L14352: Using Head Detector for Custom Heads
+    - L14360: 1. `"mul"` (default) multiplies both tensors element-wise and divides the sum of the result by the sum of t...
+    - L14397: 2. `"abs"` calculates the mean element-wise absolute difference between the detection pattern and the actua...
+    - L14456: Which one should you use?
+  - L14539: Processing Many Prompts
+  - L14593: Why not element-wise multiplication - robustness against [Goodharting]
+  - L14637: Further improvements
+    - L14641: Other
+- L14649: Interactive_Neuroscope.ipynb
+- L14655: Interactive Neuroscope
+  - L14667: Setup
+  - L14704: Extracting Model Activations
+  - L14742: Visualizing Model Activations
+  - L14838: Create Interactive UI
+- L14882: LLaMA.ipynb
+- L14887: LLaMA2_GPU_Quantized.ipynb
+- L14892: LLaVA.ipynb
+    - L14894: LLaVA use case demonstration
+- L15077: Main_Demo.ipynb
+- L15082: No_Position_Experiment.ipynb
+- L15088: Introduction
+- L15094: Setup
+- L15158: Model Training
+  - L15160: Setup
+    - L15162: Defining the Model
+    - L15192: Define data + Loss function
+    - L15233: Setup Optimizer
+  - L15248: Model Training
+- L15273: Model Interpretability
+  - L15279: Look at attention patterns
+  - L15314: Look at how different bits of the model directly contribute to the logits
+  - L15344: Folding In LayerNorm
+  - L15371: Understand Attn 0
+  - L15387: Understand MLP 0
+  - L15396: Understand Attn 1
+  - L15398: Understand MLP 1
+- L15404: Experiment
+- L15449: Othello_GPT.ipynb
+- L15478: Setup (Skip)
+- L15604: Othello GPT
+- L15862: Patchscopes_Generation_Demo.ipynb
+- L15867: Qwen.ipynb
+  - L15937: Qwen, first generation
+  - L15968: Qwen, new generation
+- L15998: SVD_Interpreter_Demo.ipynb
+  - L16004: TransformerLens SVD Interpreter Demo
+  - L16020: Setup (Can be ignored)
+  - L16074: SVD Interpretation
+- L16121: Santa_Coder.ipynb
+- L16272: T5.ipynb
+- L16277: Tracr_to_Transformer_Lens_Demo.ipynb
+- L16283: Tracr to TransformerLens Converter
+- L16525: comparing-to-huggingface.ipynb
+  - L16529: setup
+  - L16567: TransformerLens model
+  - L16584: Huggingface Model
+  - L16597: Compare Model Weights
+  - L16651: Compare Layer Outputs
+  - L16692: Compare MLP Outputs
+  - L16755: Compare Attention Outputs
+- L16792: hf-tl-logit-comparator.ipynb
+- L16794: Logit Comparator for HuggingFace and TransformerLens Outputs
+  - L16811: Comparator Setup
+  - L16823: Get Transformers Logits
+  - L16856: Get TransformerLens Logits
+  - L16864: Compare Logit Distributions
+    - L16867: Shape
+    - L16874: Tensor Comparison
+    - L16881: Mean Squared Error
+    - L16889: Maximum Absolute Difference
+    - L16896: Cosine Similarity
+    - L16903: KL Divergence
+- L16923: stable_lm.ipynb
+- L16965: [1.1] - Transformers from scratch
+- L16981: Introduction
+  - L17001: Content & Learning Objectives
+    - L17003: 1️⃣ Understanding Inputs & Outputs of a Transformer
+    - L17014: 2️⃣ Clean Transformer Implementation
+    - L17030: 3️⃣ Training a Transformer
+    - L17040: 4️⃣ Sampling from a Transformer
+  - L17059: Setup code
+- L17076: import os
+- L17077: import sys
+- L17078: from pathlib import Path
+- L17080: IN_COLAB = "google.colab" in sys.modules
+- L17082: chapter = "chapter1_transformer_interp"
+- L17083: repo = "ARENA_3.0"
+- L17084: branch = "main"
+- L17086: # Install dependencies
+- L17087: try:
+- L17088: import transformer_lens
+- L17089: except:
+- L17092: # Get root directory, handling 3 different cases: (1) Colab, (2) notebook not in ARENA repo, (3) notebook i...
+- L17093: root = (
+- L17094: "/content"
+- L17095: if IN_COLAB
+- L17096: else "/root"
+- L17097: if repo not in os.getcwd()
+- L17098: else str(next(p for p in Path.cwd().parents if p.name == repo))
+- L17099: )
+- L17101: if Path(root).exists() and not Path(f"{root}/{chapter}").exists():
+- L17102: if not IN_COLAB:
+- L17106: if not os.path.exists(f"{root}/{chapter}"):
+- L17114: if f"{root}/{chapter}/exercises" not in sys.path:
+- L17115: sys.path.append(f"{root}/{chapter}/exercises")
+- L17117: os.chdir(f"{root}/{chapter}/exercises")
+- L17151: Make sure exercises are in the path
+- L17157: FILTERS: ~colab
+- L17160: END FILTERS
+- L17173: 1️⃣ Understanding Inputs & Outputs of a Transformer
+  - L17181: What is the point of a transformer?
+    - L17195: How is the model trained?
+  - L17241: Tokens - Transformer Inputs
+    - L17264: Converting sub-units to vectors
+    - L17300: Splitting language into sub-units
+    - L17425: Some tokenization annoyances
+  - L17495: Text generation
+    - L17658: Step 5: Add this to the end of the input, re-run
+- L17719: 2️⃣ Clean Transformer Implementation
+  - L17727: High-Level architecture
+    - L17741: Tokenization & Embedding
+    - L17753: Residual stream
+    - L17775: Transformer blocks
+    - L17789: Attention
+    - L17841: MLP
+    - L17931: Unembedding
+    - L17958: Bonus things - less conceptually important but key technical details
+  - L17991: Actual Code!
+    - L18011: Parameters and Activations
+    - L18125: Config
+- L18134: As a reference - note there's a lot of stuff we don't care about in here, to do with library internals or o...
+    - L18204: Tests
+    - L18262: Exercise - implement `LayerNorm`
+- L18323: END HIDE
+    - L18330: Exercise - implement `Embed`
+- L18370: END HIDE
+    - L18393: Exercise - implement `PosEmbed`
+- L18432: END HIDE
+    - L18439: Exercise - implement `apply_causal_mask`
+- L18503: END HIDE
+    - L18530: Exercise - implement `Attention`
+- L18824: END HIDE
+    - L18862: Exercise - implement `MLP`
+- L18923: END HIDE
+    - L18930: Exercise - implement `TransformerBlock`
+- L18972: END HIDE
+    - L18992: Exercise - implement `Unembed`
+- L19038: END HIDE
+    - L19045: Exercise - implement `DemoTransformer`
+- L19088: END HIDE
+- L19208: 3️⃣ Training a Transformer
+  - L19228: Create Model
+  - L19252: Training Args
+  - L19281: Create Data
+  - L19346: Training Loop
+    - L19369: Exercise - write training loop
+- L19500: END HIDE
+    - L19584: A note on this loss curve (optional)
+    - L19669: Exercise (optional) - log completions
+- L19723: EXERCISE
+- L19724: # YOUR CODE HERE - rewrite the TransformerTrainer.train method, so that it logs completions
+- L19725: END EXERCISE
+- L19726: SOLUTION
+- L19789: END SOLUTION
+- L19818: 4️⃣ Sampling from a Transformer
+  - L19838: `TransformerSampler` class
+    - L19867: Exercise - implement `sample`
+  - L20154: Sampling with Categorical
+    - L20170: Exercise - `sample_basic`
+    - L20242: Exercise - `apply_temperature`
+    - L20295: Exercise - `apply_frequency_penalty`
+    - L20368: Sampling - Manual Testing
+  - L20443: Top-K Sampling
+    - L20456: Exercise - `sample_top_k`
+  - L20576: Top-p aka Nucleus Sampling
+    - L20598: Exercise - `sample_top_p`
+  - L20714: Beam search
+    - L20770: Exercise - implement `beam_search`
+- L21130: Start with prompt "When I was", get top 3 tokens (and their logprobs), and use that to create & display the...
+- L21329: Print all the best output
+  - L21369: KV Caching
+    - L21385: How can caching help us?
+    - L21407: Exercise - implement KV caching
+  - L21809: Bonus - cached beam search
+- L22063: [1.2] Intro to Mechanistic Interpretability: TransformerLens & induction circuits
+- L22079: Introduction
+  - L22112: Content & Learning Objectives
+    - L22114: 1️⃣ TransformerLens: Introduction
+    - L22126: 2️⃣ Finding induction heads
+    - L22136: 3️⃣ TransformerLens: Hooks
+    - L22147: 4️⃣ Reverse-engineering induction circuits
+  - L22163: Setup code
+- L22180: import os
+- L22181: import sys
+- L22182: from pathlib import Path
+- L22184: import pkg_resources
+- L22186: IN_COLAB = "google.colab" in sys.modules
+- L22188: chapter = "chapter1_transformer_interp"
+- L22189: repo = "ARENA_3.0"
+- L22190: branch = "main"
+- L22192: # Install dependencies
+- L22193: installed_packages = [pkg.key for pkg in pkg_resources.working_set]
+- L22194: if "transformer-lens" not in installed_packages:
+- L22197: # Get root directory, handling 3 different cases: (1) Colab, (2) notebook not in ARENA repo, (3) notebook i...
+- L22198: root = (
+- L22199: "/content"
+- L22200: if IN_COLAB
+- L22201: else "/root"
+- L22202: if repo not in os.getcwd()
+- L22203: else str(next(p for p in Path.cwd().parents if p.name == repo))
+- L22204: )
+- L22206: if Path(root).exists() and not Path(f"{root}/{chapter}").exists():
+- L22207: if not IN_COLAB:
+- L22211: if not os.path.exists(f"{root}/{chapter}"):
+- L22219: if f"{root}/{chapter}/exercises" not in sys.path:
+- L22220: sys.path.append(f"{root}/{chapter}/exercises")
+- L22222: os.chdir(f"{root}/{chapter}/exercises")
+- L22257: Make sure exercises are in the path
+- L22263: FILTERS: ~colab
+- L22266: END FILTERS
+- L22277: Saves computation time, since we don't need it for the contents of this notebook
+- L22287: 1️⃣ TransformerLens: Introduction
+  - L22295: Introduction
+  - L22311: Loading and Running Models
+    - L22327: HookedTransformerConfig
+    - L22339: Exercise - inspect your model
+    - L22373: Running your model
+  - L22409: Transformer architecture
+    - L22440: Parameters and Activations
+  - L22480: Tokenization
+    - L22535: Exercise - how many tokens does your model guess correctly?
+- L22554: EXERCISE
+- L22555: # YOUR CODE HERE - get the model's prediction on the text
+- L22556: END EXERCISE
+- L22557: SOLUTION
+- L22563: END SOLUTION
+  - L22618: Caching all Activations
+    - L22687: Exercise - verify activations
+- L22707: EXERCISE
+- L22708: # YOUR CODE HERE - define `layer0_pattern_from_q_and_k` manually, by manually performing the
+- L22709: # steps of the attention calculation (dot product, masking, scaling, softmax)
+- L22710: END EXERCISE
+- L22711: SOLUTION
+- L22719: END SOLUTION
+- L22723: END HIDE
+  - L22747: Visualising Attention Heads
+- L22783: FILTERS: ~
+- L22784: html = cv.attention.attention_patterns(
+- L22785: tokens=gpt2_str_tokens,
+- L22786: attention=attention_pattern,
+- L22787: attention_head_names=[f"L0H{i}" for i in range(12)],
+- L22788: )
+- L22789: with open(section_dir / "1201.html", "w") as f:
+- L22790: f.write(str(html))
+- L22791: END FILTERS
+- L22856: 2️⃣ Finding induction heads
+  - L22864: Introducing Our Toy Attention-Only Model
+    - L22948: Exercise - visualise & inspect attention patterns
+- L22988: EXERCISE
+- L22989: # YOUR CODE HERE - visualize attention
+- L22990: END EXERCISE
+- L22991: SOLUTION
+- L22996: END SOLUTION
+- L22998: FILTERS: ~
+- L22999: for layer in range(model.cfg.n_layers):
+- L23000: attention_pattern = cache["pattern", layer]
+- L23001: html = cv.attention.attention_patterns(
+- L23002: tokens=gpt2_str_tokens,
+- L23003: attention=attention_pattern,
+- L23004: attention_head_names=[f"L0H{i}" for i in range(12)],
+- L23005: )
+- L23006: with open(section_dir / f"1202-{layer}.html", "w") as f:
+- L23007: f.write(str(html))
+- L23008: END FILTERS
+    - L23060: Exercise - write your own detectors
+- L23147: END HIDE
+  - L23213: What are induction heads?
+  - L23252: Checking for the induction capability
+    - L23266: Exercise - plot per-token loss on repeated sequence
+- L23347: END HIDE
+- L23349: FILTERS: ~
+- L23350: plot_loss_difference(log_probs, rep_str, seq_len, filename=str(section_dir / "1203.html"))
+- L23351: END FILTERS
+    - L23380: Looking for Induction Attention Patterns
+- L23393: EXERCISE
+- L23394: YOUR CODE HERE - display the attention patterns stored in `rep_cache`, for each layer
+- L23395: END EXERCISE
+- L23396: SOLUTION
+- L23400: END SOLUTION
+- L23401: FILTERS: ~
+- L23402: for layer in range(model.cfg.n_layers):
+- L23403: attention_pattern = rep_cache["pattern", layer]
+- L23404: html = cv.attention.attention_patterns(tokens=rep_str, attention=attention_pattern)
+- L23405: with open(section_dir / f"1204-L{layer}.html", "w") as f:
+- L23406: f.write(str(html))
+- L23407: END FILTERS
+    - L23438: Exercise - make an induction-head detector
+- L23487: END HIDE
+- L23514: 3️⃣ TransformerLens: Hooks
+  - L23522: What are hooks?
+    - L23538: Hook functions
+    - L23568: Running with hooks
+    - L23603: A bit more about hooks
+  - L23708: Hooks: Accessing Activations
+    - L23725: Exercise - calculate induction scores with hooks
+    - L23881: Exercise - find induction heads in GPT2-small
+- L23921: END HIDE
+- L23923: EXERCISE
+- L23924: # YOUR CODE HERE - find induction heads in gpt2_small
+- L23925: END EXERCISE
+- L23926: SOLUTION
+- L23965: END SOLUTION
+- L23967: FILTERS: ~
+- L23968: fig = imshow(
+- L23969: induction_score_store,
+- L23970: labels={"x": "Head", "y": "Layer"},
+- L23971: title="Induction Score by Head",
+- L23972: text_auto=".1f",
+- L23973: width=700,
+- L23974: height=500,
+- L23975: return_fig=True,
+- L23976: )
+- L23977: fig.write_html(section_dir / "1206-A.html")
+- L23979: def save_pattern_hook(
+- L23980: pattern: Float[Tensor, "batch head_index dest_pos source_pos"],
+- L23981: hook: HookPoint,
+- L23982: ):
+- L23983: html = cv.attention.attention_patterns(tokens=gpt2_small.to_str_tokens(rep_tokens[0]), attention=pattern.me...
+- L23984: with open(section_dir / f"1206-B{hook.layer()}.html", "w") as f:
+- L23985: f.write(str(html))
+- L23987: fwd_hooks = [
+- L23988: (utils.get_act_name("pattern", induction_head_layer), save_pattern_hook)
+- L23989: for induction_head_layer in induction_head_layers
+- L23990: ]
+- L23991: gpt2_small.run_with_hooks(
+- L23992: rep_tokens,
+- L23993: return_type=None,
+- L23994: fwd_hooks=fwd_hooks,
+- L23995: )
+- L23996: END FILTERS
+  - L24014: Building interpretability tools
+    - L24024: Direct Logit attribution
+    - L24069: Exercise - build logit attribution tool
+- L24144: END HIDE
+- L24165: FILTERS: ~
+- L24166: plot_logit_attribution(
+- L24167: model, logit_attr, tokens, title="Logit attribution (demo prompt)", filename=str(section_dir / "1207.html")
+- L24168: )
+- L24169: END FILTERS
+    - L24223: Exercise - interpret logit attribution for the induction heads
+- L24249: EXERCISE
+- L24250: # YOUR CODE HERE - plot logit attribution for the induction sequence (i.e. using `rep_tokens` and
+- L24251: # `rep_cache`), and interpret the results.
+- L24252: END EXERCISE
+- L24253: SOLUTION
+- L24264: END SOLUTION
+- L24266: FILTERS: ~
+- L24267: plot_logit_attribution(
+- L24268: model,
+- L24269: logit_attr,
+- L24270: rep_tokens.squeeze(),
+- L24271: title="Logit attribution (random induction prompt)",
+- L24272: filename=str(section_dir / "1208.html"),
+- L24273: )
+- L24274: END FILTERS
+  - L24306: Hooks: Intervening on Activations
+    - L24310: Ablations
+    - L24322: Exercise - induction head ablation
+- L24408: END HIDE
+- L24431: FILTERS: ~
+- L24432: imshow(
+- L24433: ablation_scores,
+- L24434: labels={"x": "Head", "y": "Layer", "color": "Logit diff"},
+- L24435: title="Loss Difference After Ablating Heads",
+- L24436: text_auto=".2f",
+- L24437: width=900,
+- L24438: height=350,
+- L24439: return_fig=True,
+- L24440: ).write_html(str(section_dir / "1209.html"))
+- L24441: END FILTERS
+    - L24474: Exercise - mean ablation
+  - L24544: Bonus - understand heads 0.4 & 0.11 (very hard!)
+- L24782: FILTERS: ~
+- L24783: imshow(
+- L24784: t.stack(z_ablation_scores),
+- L24785: labels={"x": "Head", "y": "Position offset", "color": "Logit diff"},
+- L24786: title="Loss Difference (ablating heads everywhere except for certain offset positions)",
+- L24787: text_auto=".2f",
+- L24788: y=[str(offset) for offset in offsets],
+- L24789: width=900,
+- L24790: height=400,
+- L24791: return_fig=True,
+- L24792: ).write_html(str(section_dir / "1210-A.html"))
+- L24793: END FILTERS
+- L24836: COLAB-SPLIT
+- L24847: FILTERS: ~
+- L24848: imshow(
+- L24849: mean_ablation_scores,
+- L24850: labels={"x": "Head", "y": "Layer", "color": "Logit diff"},
+- L24851: title="Loss Difference After Ablating Heads",
+- L24852: text_auto=".2f",
+- L24853: width=900,
+- L24854: height=350,
+- L24855: return_fig=True,
+- L24856: ).write_html(str(section_dir / "1210-B.html"))
+- L24857: END FILTERS
+- L24872: 4️⃣ Reverse-engineering induction circuits
+  - L24890: Refresher - the induction circuit
+  - L24927: Refresher - QK and OV circuits
+  - L25065: Factored Matrix class
+    - L25081: Exercise - deriving properties of a factored matrix
+    - L25202: Basic Examples
+  - L25293: Reverse-engineering circuits
+  - L25319: [1] OV copying circuit
+    - L25368: Exercise - compute OV circuit for `1.4`
+- L25397: EXERCISE
+- L25398: # YOUR CODE HERE - complete the `full_OV_circuit` object
+- L25399: END EXERCISE
+- L25400: SOLUTION
+- L25408: END SOLUTION
+- L25412: END HIDE
+- L25462: FILTERS: ~
+- L25463: imshow(
+- L25464: full_OV_circuit_sample,
+- L25465: labels={"x": "Logits on output token", "y": "Input token"},
+- L25466: title="Full OV circuit for copying head",
+- L25467: width=700,
+- L25468: height=600,
+- L25469: return_fig=True,
+- L25470: ).write_html(section_dir / "1211.html")
+- L25471: END FILTERS
+    - L25498: Exercise - compute circuit accuracy
+- L25541: END HIDE
+    - L25580: Exercise - compute effective circuit
+- L25617: EXERCISE
+- L25618: # YOUR CODE HERE - compute the effective OV circuit, and run `top_1_acc` on it
+- L25619: END EXERCISE
+- L25620: SOLUTION
+- L25627: END SOLUTION
+  - L25649: [2] QK prev-token circuit
+    - L25669: Exercise - interpret full QK-circuit for `0.7`
+- L25688: Compute full QK matrix (for positional embeddings)
+- L25693: Mask, scale and softmax the scores
+- L25697: Plot the results
+- L25706: FILTERS: ~
+- L25707: imshow(
+- L25708: utils.to_numpy(pos_by_pos_pattern[:200, :200]),
+- L25709: labels={"x": "Key", "y": "Query"},
+- L25710: title="Attention patterns for prev-token QK circuit, first 100 indices",
+- L25711: width=700,
+- L25712: height=600,
+- L25713: return_fig=True,
+- L25714: ).write_html(section_dir / "1212.html")
+- L25715: END FILTERS
+  - L25737: [3] K-composition circuit
+    - L25770: Exercise - analyse the relative importance
+    - L25958: Exercise - decompose attention scores
+- L26029: END HIDE
+- L26043: First plot: attention score contribution from (query_component, key_component) = (Embed, L0H7), you can rep...
+- L26044: with any other pair and see that the values are generally much smaller, i.e. this pair dominates the attent...
+- L26045: calculation
+- L26061: Second plot: std dev over query and key positions, shown by component. This shows us that the other pairs of
+- L26062: (query_component, key_component) are much less important, without us having to look at each one individuall...
+- L26063: did in the first plot!
+- L26135: FILTERS: ~
+- L26136: fig.write_html(section_dir / "1214-C.html")
+- L26137: END FILTERS
+    - L26152: Interpreting the full circuit
+    - L26197: Exercise - compute the K-comp circuit
+- L26268: END HIDE
+  - L26283: Further Exploration of Induction Circuits
+    - L26287: Composition scores
+    - L26316: Exercise - calculate composition scores
+- L26356: END HIDE
+- L26371: Get all QK and OV matrices
+- L26375: Define tensors to hold the composition scores
+- L26381: END HIDE
+- L26383: EXERCISE
+- L26384: # YOUR CODE HERE - fill in values of the `composition_scores` dict, using `get_comp_score`
+- L26385: END EXERCISE
+- L26386: SOLUTION
+- L26392: END SOLUTION
+- L26395: Plot the composition scores
+- L26406: END HIDE
+    - L26423: Exercise - Setting a Baseline
+- L26486: END HIDE
+- L26488: FILTERS: ~
+- L26489: hist(
+- L26490: comp_scores_baseline,
+- L26491: nbins=50,
+- L26492: width=800,
+- L26493: labels={"x": "Composition score"},
+- L26494: title="Random composition scores",
+- L26495: return_fig=True,
+- L26496: ).write_html(str(section_dir / "1216.html"))
+- L26497: END FILTERS
+    - L26653: Exercise - batching, and using the `FactoredMatrix` class
+- L26730: END HIDE
+    - L26760: Targeted Ablations
+  - L26825: Bonus
+    - L26827: Looking for Circuits in Real LLMs
+    - L26880: Training Your Own Toy Models
+    - L26901: Interpreting Induction Heads During Training
+    - L26911: Further discussion / investigation
+- L26964: [1.3.1] Toy Models of Superposition & Sparse Autoencoders
+- L26980: Introduction
+  - L27004: Reading Material
+  - L27021: Content & Learning Objectives
+    - L27023: 1️⃣ Toy Models of Superposition: Superposition in a Nonprivileged Basis
+    - L27035: 2️⃣ Toy Models of Superposition: Superposition in a Privileged Basis
+    - L27044: 3️⃣ Feature Geometry
+    - L27053: 4️⃣ Superposition & Deep Double Descent
+    - L27065: 5️⃣ Sparse Autoencoders in Toy Models
+    - L27075: ☆ Bonus
+  - L27085: Questions
+  - L27164: Setup (don't read, just run)
+- L27181: import os
+- L27182: import sys
+- L27183: from pathlib import Path
+- L27185: IN_COLAB = "google.colab" in sys.modules
+- L27187: chapter = "chapter1_transformer_interp"
+- L27188: repo = "ARENA_3.0"
+- L27189: branch = "main"
+- L27191: # Install dependencies
+- L27192: try:
+- L27193: import transformer_lens
+- L27194: except:
+- L27198: # Get root directory, handling 3 different cases: (1) Colab, (2) notebook not in ARENA repo, (3) notebook i...
+- L27199: root = (
+- L27200: "/content"
+- L27201: if IN_COLAB
+- L27202: else "/root"
+- L27203: if repo not in os.getcwd()
+- L27204: else str(next(p for p in Path.cwd().parents if p.name == repo))
+- L27205: )
+- L27207: if Path(root).exists() and not Path(f"{root}/{chapter}").exists():
+- L27208: if not IN_COLAB:
+- L27212: if not os.path.exists(f"{root}/{chapter}"):
+- L27220: if f"{root}/{chapter}/exercises" not in sys.path:
+- L27221: sys.path.append(f"{root}/{chapter}/exercises")
+- L27223: os.chdir(f"{root}/{chapter}/exercises")
+- L27251: Make sure exercises are in the path
+- L27257: FILTERS: ~colab
+- L27260: END FILTERS
+- L27273: 1️⃣ TMS: Superposition in a Nonprivileged Basis
+  - L27281: Toy Model setup
+    - L27301: What's the motivation for this setup?
+- L27335: FILTERS: ~
+- L27336: fig = imshow(
+- L27337: W_normed.T @ W_normed, title="Cosine similarities of each pair of 2D feature embeddings", width=600, return...
+- L27338: )
+- L27339: fig.write_html(section_dir / "13110.html")
+- L27340: END FILTERS
+    - L27407: Defining our model
+    - L27433: Exercise - implement `forward`
+    - L27616: Exercise - implement `generate_batch`
+- L27642: SOLUTION
+- L27654: END SOLUTION
+- L27655: EXERCISE
+- L27656: # Go back up and edit your `ToyModel.generate_batch` method, then run the test below
+- L27657: END EXERCISE
+- L27662: END HIDE
+  - L27669: Training our model
+    - L27679: Exercise - implement `calculate_loss`
+- L27721: SOLUTION
+- L27740: END SOLUTION
+- L27741: EXERCISE
+- L27742: # Go back up and edit your `ToyModel.calculate_loss` method, then run the test below
+- L27743: END EXERCISE
+- L27748: END HIDE
+- L27767: importance varies within features for each instance
+- L27770: sparsity is the same for all features in a given instance, but varies over instances
+- L27796: COLAB-SPLIT
+    - L27818: Exercise - interpret these diagrams
+    - L27881: Visualizing features across varying sparsity
+  - L27963: Superposition with correlation
+    - L27977: Exercise - implement `generate_correlated_batch`
+- L28129: END HIDE
+- L28151: Generate a batch of 4 features: first 2 are correlated, second 2 are anticorrelated
+- L28179: Generate a batch of 4 features: first 2 are correlated, second 2 are anticorrelated
+- L28183: Plot correlated features
+- L28222: All same importance, very low feature probabilities (ranging from 5% down to 0.25%)
+- L28232: COLAB-SPLIT
+    - L28254: Exercise - generate more correlated feature plots
+- L28280: EXERCISE
+- L28281: # YOUR CODE HERE - generate more correlated feature plots
+- L28282: END EXERCISE
+- L28283: SOLUTION
+- L28284: Anticorrelated feature pairs
+- L28287: All same importance, not-super-low feature probabilities (all >10%)
+- L28300: 3 correlated feature pairs
+- L28303: All same importance, very low feature probabilities (ranging from 5% down to 0.25%)
+- L28315: END SOLUTION
+- L28373: 2️⃣ TMS: Superposition in a Privileged Basis
+  - L28381: Introduction
+    - L28405: Exercise - implement `NeuronModel`
+- L28445: END HIDE
+- L28474: COLAB-SPLIT
+    - L28498: Exercise - interpret these plots
+    - L28561: Exercise (optional) - replicate plots more faithfully
+  - L28584: Computation in superposition
+    - L28598: Exercise - implement `NeuronComputationModel`
+- L28787: COLAB-SPLIT
+- L28831: COLAB-SPLIT
+  - L28858: Bonus - the asymmetric superposition motif
+- L28886: COLAB-SPLIT
+  - L28910: Summary - what have we learned?
+- L28927: 3️⃣ Feature Geometry
+  - L28943: Dimensionality
+- L28970: For this experiment, use constant importance across features (but still vary sparsity across instances)
+- L28980: COLAB-SPLIT
+- L28984: FILTERS: ~
+- L28985: utils.plot_feature_geometry(model, filename=str(section_dir / "1320-G1.html"))
+- L28986: END FILTERS
+    - L29027: Exercise - compute dimensionality
+- L29065: END HIDE
+- L29084: FILTERS: ~
+- L29085: utils.plot_feature_geometry(model, dim_fracs=dim_fracs, filename=str(section_dir / "1320-G2.html"))
+- L29086: END FILTERS
+- L29119: 4️⃣ Superposition & Deep Double Descent
+- L29222: EXERCISE
+- L29223: # YOUR CODE HERE - replicate the results from the Superposition & Deep Double Descent paper!
+- L29224: END EXERCISE
+- L29225: SOLUTION
+- L29234: EVAL_N_DATAPOINTS = 1_000
+- L29240: SMALLER_BATCH_SIZES = [3, 6, 10, 30, 100, 500, 2000]
+- L29455: END SOLUTION
+- L29747: 5️⃣ Sparse Autoencoders in Toy Models
+    - L29802: Problem setup
+    - L29834: Notation
+    - L29864: SAE class
+    - L30093: Exercise - implement `__init__`
+- L30128: SOLUTION
+- L30151: END SOLUTION
+- L30152: EXERCISE
+- L30153: # Go back up and edit your `ToySAE.__init__` method, then run the test below
+- L30154: END EXERCISE
+- L30159: END HIDE
+    - L30166: Exercise - implement `W_dec_normalized`
+- L30191: SOLUTION
+- L30199: END SOLUTION
+- L30200: EXERCISE
+- L30201: # Go back up and edit your `ToySAE.W_dec_normalized` method, then run the test below
+- L30202: END EXERCISE
+- L30207: END HIDE
+    - L30214: Exercise - implement `generate_batch`
+- L30232: SOLUTION
+- L30245: END SOLUTION
+- L30246: EXERCISE
+- L30247: # Go back up and edit your `ToySAE.generate_batch` method, then run the test below
+- L30248: END EXERCISE
+- L30253: END HIDE
+    - L30260: Exercise - implement `forward`
+- L30299: SOLUTION
+- L30347: END SOLUTION
+- L30348: EXERCISE
+- L30349: # Go back up and edit your `ToySAE.forward` method, then run the test below
+- L30350: END EXERCISE
+- L30355: END HIDE
+  - L30362: Training your SAE
+- L30383: Create a toy model, and train it to convergence
+- L30420: If this display code doesn't work, try saving & opening animation in your browser
+  - L30467: Resampling
+    - L30481: Exercise - implement `resample_simple`
+- L30506: SOLUTION
+- L30542: END SOLUTION
+- L30543: EXERCISE
+- L30544: # Go back up and edit your `ToySAE.resample_simple` method, then run the test below
+- L30545: END EXERCISE
+- L30550: END HIDE
+    - L30634: Exercise - implement `resample_advanced`
+- L30691: SOLUTION
+- L30752: END SOLUTION
+- L30753: EXERCISE
+- L30754: # Go back up and edit your `ToySAE.resample_advanced` method, then run the test below
+- L30755: END EXERCISE
+- L30760: END HIDE
+  - L30775: Gated & JumpReLU SAEs
+    - L30785: Gated SAEs
+    - L30832: Exercise - implement Gated SAEs
+- L31112: Animate the best instances, ranked according to average loss near the end of training
+    - L31140: Exercise - demonstrate advantage of Gated models
+- L31164: SOLUTION
+- L31304: END SOLUTION
+- L31305: EXERCISE
+- L31306: # YOUR CODE HERE - replicate figure 15a & 15b from the paper
+- L31307: END EXERCISE
+    - L31359: JumpReLU SAEs
+    - L31455: Exercise - implement custom gradient functions
+- L31493: Test our function, and its gradient
+- L31615: END HIDE
+- L31701: END HIDE
+    - L31723: Exercise - implement JumpReLU SAEs
+- L31929: Replicate figure 15 for jumprelu SAE (should get same results as for gated)
+- L31953: ☆ Bonus
+  - L31961: Suggested paper replications
+    - L31969: [Toy Models of Superposition]
+    - L31987: [Polysemanticity and Capacity in Neural Networks]
+  - L32014: Suggested topics for further exploration
+    - L32022: [Softmax Linear Units]
+    - L32040: [Towards Monosemanticity: Decomposing Language Models With Dictionary Learning]
+    - L32052: [Exciting Open Problems In Mech Interp v2]
+- L32088: [1.4.1] Indirect Object Identification
+- L32104: Introduction
+  - L32135: The purpose / structure of these exercises
+  - L32150: The IOI task
+  - L32174: Keeping track of your guesses & predictions
+  - L32234: Content & Learning Objectives
+    - L32236: 1️⃣ Model & Task Setup
+    - L32245: 2️⃣ Logit Attribution
+    - L32254: 3️⃣ Activation Patching
+    - L32265: 4️⃣ Path Patching
+    - L32275: 5️⃣ Full Replication: Minimial Circuits and more
+    - L32284: ☆ Bonus / exploring anomalies
+  - L32300: Setup code
+- L32317: import os
+- L32318: import sys
+- L32319: from pathlib import Path
+- L32321: IN_COLAB = "google.colab" in sys.modules
+- L32323: chapter = "chapter1_transformer_interp"
+- L32324: repo = "ARENA_3.0"
+- L32325: branch = "main"
+- L32327: # Install dependencies
+- L32328: try:
+- L32329: import transformer_lens
+- L32330: except:
+- L32333: # Get root directory, handling 3 different cases: (1) Colab, (2) notebook not in ARENA repo, (3) notebook i...
+- L32334: root = (
+- L32335: "/content"
+- L32336: if IN_COLAB
+- L32337: else "/root"
+- L32338: if repo not in os.getcwd()
+- L32339: else str(next(p for p in Path.cwd().parents if p.name == repo))
+- L32340: )
+- L32342: if Path(root).exists() and not Path(f"{root}/{chapter}").exists():
+- L32343: if not IN_COLAB:
+- L32347: if not os.path.exists(f"{root}/{chapter}"):
+- L32355: if f"{root}/{chapter}/exercises" not in sys.path:
+- L32356: sys.path.append(f"{root}/{chapter}/exercises")
+- L32358: os.chdir(f"{root}/{chapter}/exercises")
+- L32391: Make sure exercises are in the path
+- L32397: FILTERS: ~colab
+- L32400: END FILTERS
+- L32412: 1️⃣ Model & Task Setup
+  - L32420: Loading our model
+- L32496: Here is where we test on a single prompt
+- L32497: Result: 70% probability on Mary, as we expect
+- L32564: Define 8 prompts, in 4 groups of 2 (with adjacent prompts having answers swapped)
+- L32570: Define the answers for each prompt, in the form (correct, incorrect)
+- L32572: Define the answer tokens (same shape as the answers)
+- L32679: Move the tokens to the GPU
+- L32681: Run the model and cache all activations
+    - L32697: Exercise - implement the performance evaluation function
+- L32759: END HIDE
+  - L32787: Brainstorm What's Actually Going On
+- L32841: 2️⃣ Logit Attribution
+  - L32849: Direct Logit Attribution
+    - L32869: Background and motivation of the logit difference
+    - L32943: Logit diff directions
+- L33033: Cache syntax: resid_post is the residual stream at the end of the layer, -1 gets the final layer.
+- L33034: The general syntax is [activation_name, layer_index, sub_layer_type].
+- L33039: Apply LayerNorm scaling (to just the final sequence position)
+- L33040: pos_slice is the subset of the positions we take - here the final token of each prompt
+  - L33059: Logit Lens
+    - L33075: Exercise - implement `residual_stack_to_logit_diff`
+- L33117: Test function by checking that it gives the same result as the original logit difference
+- L33121: END HIDE
+- L33148: accumulated_residual has shape (component, batch, d_model)
+- L33162: FILTERS: ~
+- L33163: line(
+- L33164: logit_lens_logit_diffs,
+- L33165: hovermode="x unified",
+- L33166: title="Logit Difference From Accumulated Residual Stream",
+- L33167: labels={"x": "Layer", "y": "Logit Diff"},
+- L33168: xaxis_tickvals=labels,
+- L33169: width=800,
+- L33170: return_fig=True,
+- L33171: ).write_html(section_dir / "14101.html")
+- L33172: END FILTERS
+  - L33201: Layer Attribution
+- L33230: FILTERS: ~
+- L33231: line(
+- L33232: per_layer_logit_diffs,
+- L33233: hovermode="x unified",
+- L33234: title="Logit Difference From Each Layer",
+- L33235: labels={"x": "Layer", "y": "Logit Diff"},
+- L33236: xaxis_tickvals=labels,
+- L33237: width=800,
+- L33238: return_fig=True,
+- L33239: ).write_html(section_dir / "14102.html")
+- L33240: END FILTERS
+  - L33267: Head Attribution
+- L33300: FILTERS: ~
+- L33301: fig = imshow(
+- L33302: per_head_logit_diffs,
+- L33303: labels={"x": "Head", "y": "Layer"},
+- L33304: title="Logit Difference From Each Head",
+- L33305: width=600,
+- L33306: return_fig=True,
+- L33307: )
+- L33308: fig.write_html(section_dir / "14103.html")
+- L33309: fig.show()
+- L33310: END FILTERS
+  - L33335: Recap of useful functions from this section
+  - L33360: Attention Analysis
+- L33478: 3️⃣ Activation Patching
+  - L33486: Introduction
+    - L33540: Noising vs denoising
+    - L33552: Example: denoising the residual stream
+  - L33624: Creating a metric
+- L33647: Swap each adjacent pair to get corrupted tokens
+    - L33672: Exercise - create a metric
+  - L33720: Residual Stream Patching
+- L33744: FILTERS: st,py
+- L33752: END FILTERS
+- L33754: FILTERS: ~
+- L33755: fig = imshow(
+- L33756: act_patch_resid_pre,
+- L33757: labels={"x": "Position", "y": "Layer"},
+- L33758: x=labels,
+- L33759: title="resid_pre Activation Patching",
+- L33760: width=700,
+- L33761: return_fig=True,
+- L33762: )
+- L33763: fig.write_html(section_dir / "14105.html")
+- L33764: END FILTERS
+- L33770: imshow(
+- L33771: act_patch_resid_pre,
+- L33772: labels={"x": "Position", "y": "Layer"},
+- L33773: x=labels,
+- L33774: title="resid_pre Activation Patching",
+- L33775: width=600
+- L33776: )
+    - L33818: Exercise - implement head-to-residual patching
+- L33902: END HIDE
+- L33924: FILTERS: ~
+- L33925: fig = imshow(
+- L33926: act_patch_resid_pre_own,
+- L33927: x=labels,
+- L33928: title="Logit Difference From Patched Residual Stream",
+- L33929: labels={"x": "Sequence Position", "y": "Layer"},
+- L33930: width=700,
+- L33931: return_fig=True,
+- L33932: )
+- L33933: fig.write_html(section_dir / "14106.html")
+- L33934: END FILTERS
+  - L33949: Patching in residual stream by block
+- L33972: FILTERS: st,py
+- L33982: END FILTERS
+- L33984: FILTERS: ~
+- L33985: fig = imshow(
+- L33986: act_patch_block_every,
+- L33987: x=labels,
+- L33988: facet_col=0,  # This argument tells plotly which dimension to split into separate plots
+- L33989: facet_labels=["Residual Stream", "Attn Output", "MLP Output"],  # Subtitles of separate plots
+- L33990: title="Logit Difference From Patched Attn Head Output",
+- L33991: labels={"x": "Sequence Position", "y": "Layer"},
+- L33992: width=1200,
+- L33993: return_fig=True,
+- L33994: )
+- L33995: fig.write_html(section_dir / "14107.html")
+- L33996: END FILTERS
+- L34002: imshow(
+- L34003: act_patch_block_every,
+- L34004: x=labels,
+- L34005: facet_col=0, # This argument tells plotly which dimension to split into separate plots
+- L34006: facet_labels=["Residual Stream", "Attn Output", "MLP Output"], # Subtitles of separate plots
+- L34007: title="Logit Difference From Patched Attn Head Output",
+- L34008: labels={"x": "Sequence Position", "y": "Layer"},
+- L34009: width=1200,
+- L34010: )
+    - L34095: Tied embeddings (what MLP0 is doing)
+    - L34109: Exercise (optional) - implement head-to-block patching
+- L34194: END HIDE
+- L34200: imshow(
+- L34201: act_patch_block_every_own,
+- L34202: x=labels,
+- L34203: facet_col=0,
+- L34204: facet_labels=["Residual Stream", "Attn Output", "MLP Output"],
+- L34205: title="Logit Difference From Patched Attn Head Output",
+- L34206: labels={"x": "Sequence Position", "y": "Layer"},
+- L34207: width=1200
+- L34208: )
+  - L34223: Head Patching
+- L34244: FILTERS: st,py
+- L34251: END FILTERS
+- L34253: FILTERS: ~
+- L34254: fig = imshow(
+- L34255: act_patch_attn_head_out_all_pos,
+- L34256: labels={"y": "Layer", "x": "Head"},
+- L34257: title="attn_head_out Activation Patching (All Pos)",
+- L34258: width=600,
+- L34259: return_fig=True,
+- L34260: )
+- L34261: fig.write_html(section_dir / "14109.html")
+- L34262: END FILTERS
+- L34268: imshow(
+- L34269: act_patch_attn_head_out_all_pos,
+- L34270: labels={"y": "Layer", "x": "Head"},
+- L34271: title="attn_head_out Activation Patching (All Pos)",
+- L34272: width=600
+- L34273: )
+    - L34304: Exercise - implement head-to-head patching
+- L34387: FILTERS: st,py
+- L34401: END FILTERS
+- L34403: FILTERS: ~
+- L34404: fig = imshow(
+- L34405: act_patch_attn_head_out_all_pos_own,
+- L34406: labels={"y": "Layer", "x": "Head"},
+- L34407: title="Logit Difference From Patched Attn Head Output",
+- L34408: width=600,
+- L34409: return_fig=True,
+- L34410: )
+- L34411: fig.write_html(section_dir / "14110.html")
+- L34412: END FILTERS
+- L34418: act_patch_attn_head_out_all_pos_own = get_act_patch_attn_head_out_all_pos(
+- L34419: model, corrupted_tokens, clean_cache, ioi_metric
+- L34420: )
+- L34422: t.testing.assert_close(act_patch_attn_head_out_all_pos, act_patch_attn_head_out_all_pos_own)
+- L34428: imshow(
+- L34429: act_patch_attn_head_out_all_pos_own,
+- L34430: title="Logit Difference From Patched Attn Head Output",
+- L34431: labels={"x":"Head", "y":"Layer"},
+- L34432: width=600
+- L34433: )
+  - L34448: Decomposing Heads
+- L34484: FILTERS: st,py
+- L34493: END FILTERS
+- L34495: FILTERS: ~
+- L34496: fig = imshow(
+- L34497: act_patch_attn_head_all_pos_every,
+- L34498: facet_col=0,
+- L34499: facet_labels=["Output", "Query", "Key", "Value", "Pattern"],
+- L34500: title="Activation Patching Per Head (All Pos)",
+- L34501: labels={"x": "Head", "y": "Layer"},
+- L34502: width=1200,
+- L34503: return_fig=True,
+- L34504: )
+- L34505: fig.write_html(section_dir / "14111.html")
+- L34506: END FILTERS
+- L34512: imshow(
+- L34513: act_patch_attn_head_all_pos_every,
+- L34514: facet_col=0,
+- L34515: facet_labels=["Output", "Query", "Key", "Value", "Pattern"],
+- L34516: title="Activation Patching Per Head (All Pos)",
+- L34517: labels={"x": "Head", "y": "Layer"},
+- L34518: )
+    - L34533: Exercise (optional) - implement head-to-head-input patching
+- L34643: imshow(
+- L34644: act_patch_attn_head_all_pos_every_own,
+- L34645: facet_col=0,
+- L34646: facet_labels=["Output", "Query", "Key", "Value", "Pattern"],
+- L34647: title="Activation Patching Per Head (All Pos)",
+- L34648: labels={"x": "Head", "y": "Layer"},
+- L34649: width=1200
+- L34650: )
+  - L34725: Consolidating Understanding
+- L34870: 4️⃣ Path Patching
+  - L34886: Setup
+  - L35179: What is path patching?
+    - L35247: Why MLPs?
+  - L35282: Path Patching: Name Mover Heads
+    - L35316: Exercise - implement path patching to the final residual stream value
+- L35534: COLAB-SPLIT
+- L35544: FILTERS: ~
+- L35545: fig = imshow(
+- L35546: 100 * path_patch_head_to_final_resid_post,
+- L35547: title="Direct effect on logit difference",
+- L35548: labels={"x": "Head", "y": "Layer", "color": "Logit diff. variation"},
+- L35549: coloraxis=dict(colorbar_ticksuffix="%"),
+- L35550: width=600,
+- L35551: return_fig=True,
+- L35552: )
+- L35553: fig.write_html(section_dir / "14113.html")
+- L35554: END FILTERS
+  - L35629: Path Patching: S-Inhibition Heads
+    - L35649: Exercise - implement path patching from head to head
+- L35798: COLAB-SPLIT
+- L35808: FILTERS: ~
+- L35809: fig = imshow(
+- L35810: 100 * s_inhibition_value_path_patching_results,
+- L35811: title="Direct effect on S-Inhibition Heads' values",
+- L35812: labels={"x": "Head", "y": "Layer", "color": "Logit diff.<br>variation"},
+- L35813: width=600,
+- L35814: coloraxis=dict(colorbar_ticksuffix="%"),
+- L35815: return_fig=True,
+- L35816: )
+- L35817: fig.write_html(section_dir / "14114.html")
+- L35818: END FILTERS
+- L35845: 5️⃣ Full Replication: Minimial Circuits and more
+  - L35861: Copying & writing direction results
+    - L35877: Exercise - replicate writing direction results
+    - L36017: Exercise - replicate copying score results
+- L36123: FILTERS: st,py
+- L36147: END FILTERS
+- L36149: FILTERS: ~
+- L36150: fig = imshow(
+- L36151: copying_results,
+- L36152: facet_col=0,
+- L36153: facet_labels=["Positive copying scores", "Negative copying scores"],
+- L36154: title="Copying scores of attention heads' OV circuits",
+- L36155: width=900,
+- L36156: return_fig=True,
+- L36157: )
+- L36158: fig.write_html(section_dir / "14116.html")
+- L36159: END FILTERS
+- L36165: copying_results = get_copying_scores(model)
+- L36167: imshow(
+- L36168: copying_results,
+- L36169: facet_col=0,
+- L36170: facet_labels=["Positive copying scores", "Negative copying scores"],
+- L36171: title="Copying scores of attention heads' OV circuits",
+- L36172: width=800
+- L36173: )
+- L36179: heads = {"name mover": [(9, 9), (10, 0), (9, 6)], "negative name mover": [(10, 7), (11, 10)]}
+- L36181: for i, name in enumerate(["name mover", "negative name mover"]):
+- L36182: make_table(
+- L36183: title=f"Copying Scores ({name} heads)",
+- L36184: colnames=["Head", "Score"],
+- L36185: cols=[
+- L36186: list(map(str, heads[name])) + ["[dark_orange bold]Average"],
+- L36187: [f"{copying_results[i, layer-1, head]:.2%}" for (layer, head) in heads[name]] + [f"[dark_orange bold]{copyi...
+- L36188: ]
+- L36189: )
+  - L36227: Validation of early heads
+    - L36259: Exercise - perform head validation
+- L36369: FILTERS: st,py
+- L36373: END FILTERS
+- L36379: model.reset_hooks()
+- L36380: plot_early_head_validation_results()
+  - L36405: Minimal Circuit
+    - L36413: Background: faithfulness, completeness, and minimality
+    - L36505: Exercise - constructing the minimal circuit
+- L36590: SOLUTION
+- L36678: END SOLUTION
+    - L36841: Exercise - calculate minimality scores
+- L36966: EXERCISE
+- L36967: minimality_scores = {(9, 9): ...}
+- L36968: plot_minimal_set_results(minimality_scores)
+- L36969: # YOUR CODE HERE - create the `minimality_scores` dictionary, to be used in the plot function given above
+- L36970: END EXERCISE
+- L36971: SOLUTION
+- L37043: END SOLUTION
+- L37130: ☆ Bonus / exploring anomalies
+  - L37152: Early induction heads
+- L37201: Get repeating sequences (note we could also take mean over larger batch)
+- L37206: Run cache (we only need attention patterns for layers 5 and 6)
+- L37214: Display results
+- L37222: FILTERS: ~
+- L37230: END FILTERS
+    - L37249: Exercise - validate prev token heads via patching
+- L37275: EXERCISE
+- L37276: # YOUR CODE HERE - create `induction_head_key_path_patching_results`
+- L37277: END EXERCISE
+- L37278: SOLUTION
+- L37282: END SOLUTION
+- L37284: COLAB-SPLIT
+- L37294: FILTERS: ~
+- L37295: fig = imshow(
+- L37296: 100 * induction_head_key_path_patching_results,
+- L37297: title="Direct effect on Induction Heads' keys",
+- L37298: labels={"x": "Head", "y": "Layer", "color": "Logit diff.<br>variation"},
+- L37299: coloraxis=dict(colorbar_ticksuffix="%"),
+- L37300: width=600,
+- L37301: return_fig=True,
+- L37302: )
+- L37303: fig.write_html(section_dir / "14120.html")
+- L37304: END FILTERS
+  - L37357: Backup name mover heads
+- L37407: Getting means we can use to ablate
+- L37411: Define hook function and add to model
+- L37424: Run the model, temporarily adds caching hooks and then removes *all* hooks after running,
+- L37425: including the ablation hook.
+- L37481: COLAB-SPLIT
+- L37510: FILTERS: ~
+- L37511: fig = imshow(
+- L37512: t.stack([per_head_logit_diffs, per_head_ablated_logit_diffs, per_head_ablated_logit_diffs - per_head_logit_...
+- L37513: title="Direct logit contribution by head, pre / post ablation",
+- L37514: labels={"x": "Head", "y": "Layer"},
+- L37515: facet_col=0,
+- L37516: facet_labels=["No ablation", "9.9 is ablated", "Change in head contribution post-ablation"],
+- L37517: return_fig=True,
+- L37518: width=1200,
+- L37519: )
+- L37520: fig.write_html(section_dir / "14121.html")
+- L37522: fig = scatter(
+- L37523: y=per_head_logit_diffs.flatten(),
+- L37524: x=per_head_ablated_logit_diffs.flatten(),
+- L37525: hover_name=labels,
+- L37526: range_x=(-1, 1),
+- L37527: range_y=(-2, 2),
+- L37528: labels={"x": "Ablated", "y": "Original"},
+- L37529: title="Original vs Post-Ablation Direct Logit Attribution of Heads",
+- L37530: width=600,
+- L37531: add_line="y=x",
+- L37532: return_fig=True,
+- L37533: )
+- L37534: fig.write_html(section_dir / "14122.html")
+- L37535: END FILTERS
+- L37567: FILTERS: st,py
+- L37576: END FILTERS
+- L37578: FILTERS: ~
+- L37579: fig = scatter(
+- L37580: y=ln_scaling_ablated,
+- L37581: x=ln_scaling_no_ablation,
+- L37582: labels={"x": "No ablation", "y": "Ablation"},
+- L37583: title=f"Final LN scaling factors compared (ablation vs no ablation)<br>Average ratio = {(ln_scaling_no_abla...
+- L37584: width=700,
+- L37585: add_line="y=x",
+- L37586: return_fig=True,
+- L37587: )
+- L37588: fig.write_html(section_dir / "14123.html")
+- L37589: END FILTERS
+- L37595: scatter(
+- L37596: y=ln_scaling_ablated,
+- L37597: x=ln_scaling_no_ablation,
+- L37598: labels={"x": "No ablation", "y": "Ablation"},
+- L37599: title=f"Final LN scaling factors compared (ablation vs no ablation)<br>Average ratio = {(ln_scaling_no_abla...
+- L37600: width=700,
+- L37601: add_line="y=x"
+- L37602: )
+  - L37625: Positional vs token information being moved
+- L37732: FILTERS: st,py
+- L37742: END FILTERS
+- L37744: FILTERS: ~
+- L37745: fig = imshow(
+- L37746: results,
+- L37747: labels={"x": "Positional signal", "y": "Token signal"},
+- L37748: x=["Original", "Inverted"],
+- L37749: y=["Original", "Random", "Inverted"],
+- L37750: title="Logit diff after changing all S2 inhibition heads' output signals via patching",
+- L37751: text_auto=".2f",
+- L37752: width=700,
+- L37753: return_fig=True,
+- L37754: )
+- L37755: fig.write_html(section_dir / "14124.html")
+- L37756: END FILTERS
+- L37762: imshow(
+- L37763: results,
+- L37764: labels={"x": "Positional signal", "y": "Token signal"},
+- L37765: x=["Original", "Inverted"],
+- L37766: y=["Original", "Random", "Inverted"],
+- L37767: title="Logit diff after changing all S2 inhibition heads' output signals via patching",
+- L37768: text_auto=".2f",
+- L37769: )
+    - L37817: Exercise - decompose S-Inhibition heads
+- L37841: EXERCISE
+- L37842: YOUR CODE HERE - fill in the `results` tensor!
+- L37843: END EXERCISE
+- L37844: SOLUTION
+- L37890: FILTERS: ~
+- L37891: fig = imshow(
+- L37892: (results - results[0, 0, 0]) / results[0, 0, 0],
+- L37893: labels={"x": "Positional signal", "y": "Token signal"},
+- L37894: x=["Original", "Inverted"],
+- L37895: y=["Original", "Random", "Inverted"],
+- L37896: title="Logit diff after patching individual S2 inhibition heads (as proportion of clean logit diff)",
+- L37897: facet_col=0,
+- L37898: facet_labels=[f"{layer}.{head}" for (layer, head) in CIRCUIT["s2 inhibition"]],
+- L37899: facet_col_spacing=0.08,
+- L37900: text_auto=".2f",
+- L37901: return_fig=True,
+- L37902: width=1100,
+- L37903: )
+- L37904: fig.write_html(section_dir / "14125.html")
+- L37905: END FILTERS
+  - L37934: Further Reading
+  - L37949: Suggested topics for further exploration
+  - L37985: Suggested paper replications
+    - L37989: [A circuit for Python docstrings in a 4-layer attention-only transformer]
+    - L38013: [Mechanistically interpreting time in GPT-2 small]
+    - L38019: [How does GPT-2 compute greater-than? Interpreting mathematical abilities in a pre-trained language model]
+    - L38032: [Towards Automated Circuit Discovery for Mechanistic Interpretability] / [Attribution Patching Outperforms ...
+- L38073: [1.4.2] Function Vectors & Model Steering
+- L38097: Introduction
+  - L38121: Content & Learning Objectives
+    - L38123: 1️⃣ Introduction to `nnsight`
+    - L38133: 2️⃣ Task-encoding hidden states
+    - L38151: 3️⃣ Function Vectors
+    - L38165: 4️⃣ Steering Vectors in GPT2-XL
+    - L38174: ☆ Bonus
+  - L38184: Setup code
+- L38201: import os
+- L38202: import sys
+- L38203: from pathlib import Path
+- L38205: IN_COLAB = "google.colab" in sys.modules
+- L38207: chapter = "chapter1_transformer_interp"
+- L38208: repo = "ARENA_3.0"
+- L38209: branch = "main"
+- L38211: # Install dependencies
+- L38212: try:
+- L38213: import nnsight
+- L38214: except:
+- L38218: # Get root directory, handling 3 different cases: (1) Colab, (2) notebook not in ARENA repo, (3) notebook i...
+- L38219: root = (
+- L38220: "/content"
+- L38221: if IN_COLAB
+- L38222: else "/root"
+- L38223: if repo not in os.getcwd()
+- L38224: else str(next(p for p in Path.cwd().parents if p.name == repo))
+- L38225: )
+- L38227: if Path(root).exists() and not Path(f"{root}/{chapter}").exists():
+- L38228: if not IN_COLAB:
+- L38232: if not os.path.exists(f"{root}/{chapter}"):
+- L38240: if f"{root}/{chapter}/exercises" not in sys.path:
+- L38241: sys.path.append(f"{root}/{chapter}/exercises")
+- L38243: os.chdir(f"{root}/{chapter}/exercises")
+- L38268: Hide some info logging messages from nnsight
+- L38276: Make sure exercises are in the path
+- L38282: FILTERS: ~colab
+- L38285: END FILTERS
+- L38298: 1️⃣ Introduction to `nnsight`
+  - L38306: Remote execution
+  - L38328: Important syntax
+    - L38332: Model config
+    - L38415: Tokenizers
+- L38441: Calling tokenizer returns a dictionary, containing input ids & other data.
+- L38442: If returned as a tensor, then by default it will have a batch dimension.
+- L38445: Decoding a list of integers, into a concatenated string.
+- L38448: Using batch decode, on both 1D and 2D input.
+- L38452: Split sentence into tokens (note we see the special Ġ character in place of prepended spaces).
+    - L38494: Model outputs
+- L38507: If you have an API key & want to work remotely, then set REMOTE = True and replace "YOUR-API-KEY"
+- L38508: with your actual key. If not, then leave REMOTE = False.
+    - L38604: Output vs input
+    - L38610: Which objects to save
+  - L38620: Putting this into practice
+    - L38628: Exercise - visualize attention heads
+- L38682: EXERCISE
+- L38683: # YOUR CODE HERE - extract and visualize attention
+- L38684: END EXERCISE
+- L38685: SOLUTION
+- L38699: END SOLUTION
+- L38701: FILTERS: ~
+- L38702: html = cv.attention.attention_patterns(tokens=str_tokens, attention=attn_patterns_value)
+- L38703: with open(section_dir / "14201.html", "w") as f:
+- L38704: f.write(str(html))
+- L38705: END FILTERS
+- L38767: 2️⃣ Task-encoding hidden states
+  - L38791: ICL Task
+    - L38799: Exercise (optional) - generate your own antonym pairs
+  - L38936: ICL Dataset
+  - L39243: Task-encoding vector
+    - L39251: Exercise - forward pass on antonym dataset
+- L39323: END HIDE
+    - L39419: Using multiple invokes
+    - L39462: Exercise - intervene with $h$
+- L39558: END HIDE
+- L39578: Run previous function to get h-vector
+- L39581: Run new function to intervene with h-vector
+    - L39688: Exercise - combine the last two functions
+- L39790: END HIDE
+    - L39831: Exercise - compute change in accuracy
+- L40009: 3️⃣ Function Vectors
+  - L40037: Extracting & using FVs
+    - L40045: A note on `out_proj`
+    - L40114: Exercise - implement `calculate_fn_vectors_and_intervene`
+- L40272: If this fails to run, you should reduce the batch size so the forward passes are split up more, or
+- L40273: reduce dataset size
+- L40282: FILTERS: st,py
+- L40291: END FILTERS
+- L40293: FILTERS: ~
+- L40294: fig = imshow(
+- L40295: results.T,
+- L40296: title="Average indirect effect of function-vector intervention on antonym task",
+- L40297: width=1000,
+- L40298: height=600,
+- L40299: labels={"x": "Layer", "y": "Head"},
+- L40300: aspect="equal",
+- L40301: return_fig=True,
+- L40302: )
+- L40303: fig.write_html(section_dir / "14202.html")
+- L40304: END FILTERS
+- L40318: imshow(
+- L40319: results.T,
+- L40320: title="Average indirect effect of function-vector intervention on antonym task",
+- L40321: width=1000,
+- L40322: height=600,
+- L40323: labels={"x": "Layer", "y": "Head"},
+- L40324: aspect="equal",
+- L40325: )
+    - L40332: Exercise - calculate the function vector
+- L40410: END HIDE
+  - L40417: Multi-token generation
+    - L40429: Using `nnsight` for multi-token generation
+    - L40532: Key-Value Caching
+    - L40545: Generator Output
+    - L40557: Exercise - intervene with function vector, in multi-token generation
+- L40642: Remove word from our pairs, so it can be a holdout
+- L40646: Define our dataset, and the attention heads we'll use
+- L40661: Extract the function vector
+- L40664: Intervene with the function vector
+    - L40700: Exercise - generalize results to another task (optional)
+- L40751: Intervene with the function vector
+- L40785: 4️⃣ Steering Vectors in GPT2-XL
+  - L40801: Steering model behaviour
+- L40841: If you are using gpt2_xl, set REMOTE = False as gpt2_xl is not hosted remotely by nnsight. You can
+- L40842: set REMOTE = True for a remotely hosted model here (https://nnsight.net/status/)
+    - L40849: Exercise - replicate the steering vector results
+    - L40864: Caching
+    - L40881: Padding
+    - L40890: Sampling
+    - L40906: Other tips / notes
+- L41196: ☆ Bonus
+  - L41204: Extensions of the Function Vectors Paper
+    - L41214: The Decoded Vocabulary of Function Vectors (3.2)
+- L41230: EXERCISE
+- L41231: # YOUR CODE HERE - find the decoded vocabulary
+- L41232: END EXERCISE
+- L41233: SOLUTION
+- L41234: Code to calculate decoded vocabulary:
+- L41239: END SOLUTION
+    - L41284: Vector Algebra on Function Vectors (3.3)
+  - L41296: Extensions of the Steering Vectors Post
+  - L41310: Suggested paper replications
+    - L41312: [Inference-Time Intervention: Eliciting Truthful Answers from a Language Model]
+    - L41322: [Steering Llama 2 via Contrastive Activation Addition]
+    - L41335: [Red-teaming language models via activation engineering]

@@ -1,0 +1,18 @@
+# venv / build
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# outputs
+figures/
+artifacts/
+*.pt
+*.safetensors
+*.npy
+*.npz
+
+# HuggingFace cache (in case HF_HOME is ever pointed inside the repo)
+.cache/
+hf_cache/
+.huggingface/
