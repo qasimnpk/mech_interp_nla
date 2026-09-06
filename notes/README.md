@@ -12,6 +12,7 @@ Rule for the large ones: **navigate by index, read by line range, never bulk-loa
 | `nla_setup/README.md` | Agent setup log for both NLA checkpoint families: sizes, sidecar values, injection mechanics, the 27B infeasibility, model-card inconsistencies; raw round-trip output alongside | Checkpoint facts; re-derive before quoting |
 | `findings_so_far.md` | Agent-drafted running summary of results with file pointers; advisor-facing paragraph at top | Rewrite in own voice for progress updates and the exec summary |
 | `nla_paper_card.md` + `nla_paper_2026_text.txt` | The NLA paper: verbatim quotes on claim deletion, recurrence, confabulation, steganography; stripped full text | Primary source for every paper claim in the write-up |
+| `round4_distributed_edit_proposal.md` | Desk design for the distributed-concept / coordinated-edit direction (second advisor); gates, kills, budget, decisions for the human | Review before it becomes a round |
 | `progress_vs_advisor.md` | Our results walked through the external advisor's decision tree and proposals; controls run vs not run; unverified citations | Day-2 planning |
 | `advisor_nla_strategy_2026-09-06.md` | External advisor report, verbatim, unverified | Reference only |
 | `environment.md` | The local MPS environment as built | Setup questions |

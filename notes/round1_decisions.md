@@ -79,3 +79,10 @@ worse; block 20 beats 19 and 21 by ~0.05, layer confirmed.
 - **Chat-style stimuli:** one WildChat-like slice (needs a download decision) to check the
   wikitext numbers transfer to the training distribution's other half.
 - **Random-vector control for steering:** same six prompts with a random unit vector at norm 150.
+
+## Human review of rounds 1–2 and round-3 planning (2026-09-06 evening)
+Recorded in full at the top of `overnight/PLAN.md` (commit 650daeb). Summary: findings accepted;
+two framings redirected (no "failed to reproduce"; steered outputs not "identical"); 27B rejected
+for now; four inference-only promptability routes accepted as round 3 (T1–T4); desk-proposed T5
+awaiting confirmation; distributed-edit direction written up for review in
+`notes/round4_distributed_edit_proposal.md`.
