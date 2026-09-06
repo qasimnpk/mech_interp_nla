@@ -1,20 +1,42 @@
-# Nightshift — Round 2 plan for the NLA project (round 1 artifacts are in this directory; never overwrite them)
+# Nightshift — Round 3 plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
 
-**Purpose (round 2, 2026-09-06 daytime, ~6 h).** Round 1 found the reconstructor (AR) is
-nearly blind to factual corruption of a claim: corrupting one fact moves cos by ~0.003, a
-paraphrase by ~0.005 (K3 MET). Round 2 asks three cheap questions on the round-1 artifacts,
-with no new verbalizer generation: **(R1) where is the fact-blindness — in the AR, or already
-in the target model's own layer-20 representation of the claim text?** **(R2) does the
-blindness survive amplification — corrupt every claim of an explanation, not one?** **(R3) how
-much of the reconstruction does the first k claims carry (truncation curve)?** Numbers only.
+**Human review of rounds 1–2 (2026-09-06 evening), recorded before round 3 was planned.**
+The human read the round-1/2 morning reports, the desk summary (`notes/findings_so_far.md`) and
+the gap analysis against an external advisor (`notes/progress_vs_advisor.md`), and:
+- **Accepted** the findings as stated: pipeline reproduces (cos 0.882, position-specific); the
+  reconstructor scores wording and relevance, not facts (one-fact corruption 0.003 < paraphrase
+  0.005, all-claims corruption 0.0075 < 0.014, off-topic swap AUROC 0.955); the final "expecting X"
+  snippet carries 88% of the lift; the verbalizer does not follow instruction text (0/200).
+- **Redirected** two framings: (a) do not write "failed to reproduce" the NLA paper's deletion
+  result — we did not run their natural true/false test; ours refines it (`notes/nla_paper_card.md`);
+  (b) do not say steered outputs were "identical" — they differ like a sampling seed would
+  (similarity 0.57 vs 0.17 across stimuli), content/format/length unchanged.
+- **Rejected** for now: migrating to the 27B checkpoint (hardware; revisit only as a late
+  robustness replication).
+- **Accepted for round 3** (this plan): four inference-only ways to make the existing AV/AR pair
+  answer questions about an activation without retraining — AR as a zero-shot text probe (T1),
+  forced-prefix yes/no readout from the AV (T2), residual-stream steering of the AV itself (T3),
+  and perturbing the injected vector with a target-model concept direction (T4). The human wants
+  these because they are the inference-time route to "is concept X in this activation / is the
+  model confident / in conflict" questions, which the fixed template cannot ask.
+- **Desk-proposed, human has NOT yet confirmed:** T5, a steering-specificity test on the target
+  using the round-1 corrupted/paraphrased claims. It runs last and only if STATE.md carries the
+  line `T5: HUMAN-CONFIRMED`; otherwise skip it and say so.
+- **Deferred to a round-4 proposal** (`notes/round4_distributed_edit_proposal.md`, under
+  review): the distributed / coordinated-edit direction from a second advisor.
 
-**Round-1 artifacts to reuse (read-only):** `stimuli.csv`, `explanations.jsonl`,
-`s2_claims.csv`, `s3_edits.jsonl` (490 accepted claim triples: original / corrupt / paraphrase,
-plus corrupt_det), `s3_scores.csv`, `out/acts_L20.npz`, `out/recon_L20.npz`, `nla_lib.py`.
-The `out/*.npz` caches were lost with the round-1 worktree; **R0 regenerates them** (see R0).
+**Purpose (round 3, overnight 2026-09-06→07, ~4 h).** Given that the verbalizer ignores prompt
+text, can the *existing* checkpoints still be made to answer targeted questions about an
+activation? Four routes, each with a built-in ground truth (the document's own topic; the target's
+next-token entropy), each on cached round-1 activations. Numbers only.
+
+**Round-1/2 artifacts to reuse (read-only):** `stimuli.csv` (topic = the wikitext document's
+first ` = Title = ` heading; R0 extracts it), `explanations.jsonl`, `out/acts_L20.npz`,
+`out/recon_L20.npz`, `s3_edits.jsonl`, `s3_scores.csv`, `nla_lib.py`, `s5_steer.py` (variant
+prompt construction), `src/patching.py` (block hooks; read-only).
 
 **You are:** an autonomous orchestrator running under `/loop` inside a git worktree.
-Branch `nightshift/round2`. Your working directory is this worktree.
+Branch `nightshift/round3`. Your working directory is this worktree.
 
 ---
 
@@ -67,7 +89,7 @@ No per-head work, no extra sweeps, no verdicts.
 - **Files:** code in `overnight/*.py`; small outputs (`.csv`, `.txt`, `.md`, `.jsonl`) commit
 normally; large caches (`.npz`, `.pt`, `.safetensors`) go in `overnight/out/` and are
 gitignored by extension — keep them, the morning review needs them.
-- **Round end:** write `overnight/MORNING2.md` (measurements, kill-test log, provenance:
+- **Round end:** write `overnight/MORNING3.md` (measurements, kill-test log, provenance:
 what the agent built vs what the human pre-registered), commit, stop the loop.
 
 ---
@@ -132,60 +154,113 @@ badly; that is expected, not a bug.
 
 ---
 
-## Round 2 stages
+## Round 3 stages
 
-### R0 — artifact check + cache regeneration (~15 min)
-- Assert every reused file above exists and row counts match round 1 (200 stimuli, 671 claims,
-538 S3 edit rows with 490 `edit_ok`).
-- Regenerate `out/acts_L20.npz` exactly as round-1 S0 did (`s0_smoke.py` stimulus/activation
-code; same docs, `pos`, `pos2` from `stimuli.csv`; TARGET `hidden_states[21]`, batch 1, raw text)
-and `out/recon_L20.npz` (AR on every `explanations.jsonl` text). **Acceptance:** mean cos_own on
-the evaluation set recomputed from the regenerated caches equals the round-1 value 0.8820 to
-±0.002 — write both numbers to `r0_check.md`. If not, STOP with the blocker. No kill test.
+### T0 — artifact check + topic and entropy sidecar (~10 min)
+- Assert counts as in round 2 R0 (200 / 200 / 671 / 538 / 490) and that both npz caches exist
+(if not, regenerate exactly as round-2 R0 did, with the same ±0.002 acceptance).
+- **Topics:** for each stimulus, `topic_true` = the first ` = X = ` heading of its wikitext
+document (strip ` = `), `topic_foreign` = the topic of the stimulus at `(stim_idx + 100) mod 200`
+(disjoint documents by construction). Write `t0_topics.csv`.
+- **Entropy:** one TARGET pass per document (batch 1, raw text) recording next-token entropy
+(nats) and top-1 probability at `pos` for all 200 stimuli → `t0_entropy.csv`. Also record the
+target's top-1 next token string.
+- No kill test. Write `t0_check.md`.
 
-### R1 — fact-blindness locus: target representation vs reconstructor
-- **Inputs:** the 490 accepted S3 triples (c, c*, c~) plus `corrupt_det` where present.
-- **Target side:** run each claim text through TARGET (raw text, no chat template,
-`add_special_tokens=False`), take `hidden_states[21]` at the **last token** and also the
-**mean over tokens**. `d_corr_T = 1 − cos(h(c), h(c*))`, `d_para_T = 1 − cos(h(c), h(c~))`.
-- **AR side:** `d_corr_AR = 1 − cos(AR(c), AR(c*))`, `d_para_AR = 1 − cos(AR(c), AR(c~))`
-(AR on the single claim, template as usual).
-- **Kill test R1:** paired `S_T = d_corr_T − d_para_T` (last-token). **MET if the cluster-bootstrap
-95% CI (by explanation) of mean S_T ≤ 0** (the target's own representation of the claim text
-is no more sensitive to the factual change than to rewording — blindness is upstream of the
-AR). Report `S_AR` the same way, and the ratio `d_corr/d_para` for both, plus mean-pooled
-variants. INCONCLUSIVE if the CI straddles 0.
-- **Build:** `r1_locus.py`, TARGET + AR co-resident. Outputs `r1_scores.csv` (one row per
-triple: all d's), `r1_summary.md` with a 2×2 table (target / AR × corrupt / paraphrase) and
-the 10 fixed S3 example rows with their four d values.
+### T1 — the reconstructor as a zero-shot text probe (AR only, ~10 min)
+Idea: the AR maps English to activation space; cos(h, AR(sentence)) is a probe for any sentence.
+- **Probe sentences (fixed):**
+  - topic: `This text is about {topic}.` for `topic_true` and `topic_foreign`.
+  - confidence: `The model is highly confident about the next token.` vs
+  `The model is uncertain about the next token.`
+  - conflict (exploratory): `The model is torn between two continuations.` vs
+  `The model has one clear continuation in mind.`
+  - two neutral fillers as a floor: `This is a sentence.`, `Text.`
+- **Scores:** `s_topic = cos(h, AR(true)) − cos(h, AR(foreign))`; `s_conf = cos(h, AR(confident))
+− cos(h, AR(uncertain))`; likewise `s_conflict`. AUROC of `cos(h, AR(true))` vs
+`cos(h, AR(foreign))` over the 160 evaluation stimuli (paired). Spearman(`s_conf`, −entropy) and
+Spearman(`s_conflict`, entropy).
+- **Kill test T1:** topic AUROC (evaluation) with 95% bootstrap CI (by document) **≤ 0.60 → MET**
+(the AR's text space does not support zero-shot topic probing; the confidence/conflict probes
+are then reported but not interpreted).
+- **Build:** `t1_arprobe.py`. Outputs `t1_scores.csv` (per stimulus, all cosines), `t1_summary.md`
+with AUROC + CI, the two Spearmans with CIs, mean cos for fillers, and 10 fixed rows (eval rows
+0,16,…,144) showing topic_true / topic_foreign / both cosines / entropy.
 
-### R2 — amplified corruption (AR only)
-- For each evaluation explanation with ≥ 2 accepted claims: `z**` = every accepted claim
-replaced by its corruption (unaccepted claims kept original), `z~~` = every accepted claim
-replaced by its paraphrase, `z*det` likewise with `corrupt_det` where present.
-- Report `cos(z) − cos(z**)`, `cos(z) − cos(z~~)`, paired difference with CI, fraction of
-explanations where corruption hurts more than paraphrase.
-- **Kill test R2:** CI of mean[(cos(z) − cos(z**)) − (cos(z) − cos(z~~))] ≤ 0 → MET (even
-corrupting every claim is indistinguishable from paraphrasing every claim).
-- **Build:** `r2_amplify.py`. Outputs `r2_expl.csv`, `r2_summary.md`.
+### T2 — forced-prefix yes/no readout from the verbalizer (AV forward only, ~15 min)
+Idea: prompt text is ignored, but a prefilled assistant turn must be continued.
+- **Construction:** default AV prompt with injection exactly as `nla_lib`, then prefill the
+assistant turn with `<explanation>\nQuestion: {q} Answer:` and read the next-token logits.
+Score = `logit(" Yes") − logit(" No")` (assert both are single tokens; else log token ids used).
+- **Questions (fixed):** `Is this activation from a text about {topic}?` for true and foreign
+topic; `Is the model confident about the next token?`; `Is the model torn between two
+continuations?`; and a **no-injection control**: the same prompts with the marker embedding left
+as the raw `㈎` embedding (asserted), to measure prompt-only bias.
+- **Kill test T2:** AUROC of yes-minus-no for true vs foreign topic over evaluation stimuli
+**≤ 0.60 → MET**. Also report the no-injection AUROC (should be ≈0.5) and
+Spearman(confidence score, −entropy).
+- **Build:** `t2_prefix.py`. Outputs `t2_scores.csv`, `t2_summary.md` (AUROCs with CIs, no-injection
+AUROC, Spearmans, mean yes-minus-no per question, 10 fixed rows).
 
-### R3 — truncation curve (AR only)
-- For each evaluation explanation with n claims, score the first k claims for k = 1..n, and
-the last k claims, and (from S2) each single claim alone. Report mean cos vs k, lift over floor
-`(cos_k − cos_empty)/(cos_z − cos_empty)`, the k at which median lift first exceeds 0.9, and
-Spearman(claim word count, cos_alone). No kill test; descriptive.
-- **Build:** `r3_truncate.py`. Outputs `r3_curve.csv`, `r3_summary.md`.
+### T3 — residual-stream steering of the verbalizer itself (AV + AR, ~45 min, pilot set 0–39)
+Idea: bypass the ignored prompt by adding a direction inside the AV during generation.
+- **Directions (difference of means inside the AV, computed once):** run the AV (no injection,
+plain text) on 32 French vs 32 English sentences (fixed list hard-coded from the S5 French
+stoplist sentences; agent writes 32 simple parallel pairs, e.g. `The weather is cold today.` /
+`Il fait froid aujourd'hui.`) and take mean residual difference at block ℓ over the last token;
+ℓ ∈ {8, 14}. Second direction: `terse` — 32 one-word answers vs 32 long sentences.
+- **Steering:** add `α · d/‖d‖ · mean‖h_ℓ‖` at block ℓ output at every generated position,
+α ∈ {1, 2, 4}. Greedy, 200 tokens, injection unchanged and asserted.
+- **Measures:** French mechanical pass rate (S5 rule), word count (terse), parse_ok, cjk,
+`cos(AR(output), h)` vs the S5 V0 cos for the same stimulus.
+- **Kill test T3:** French pass rate **< 0.25 at every (ℓ, α) with parse_ok ≥ 0.5 → MET** (the AV
+is not steerable by residual addition either, at doses that keep it fluent). INCONCLUSIVE if no
+cell reaches parse_ok ≥ 0.5.
+- **Build:** `t3_avsteer.py`. Outputs `t3_outputs.jsonl`, `t3_summary.md` (grid table: pass rate,
+parse_ok, mean cos, mean Δcos vs V0; 4 fixed verbatim examples at stimuli 0, 7, 19, 33 for the
+best cell).
 
-### R4 — morning report
-- `overnight/MORNING2.md`: kill lines, the R1 2×2 table, R2 and R3 headline tables, wall-clock,
-FOLLOWUPS, provenance. Commit. Stop the loop.
+### T4 — perturbing the injected vector with a target-model concept direction (AV + AR, ~30 min, pilot set)
+Idea: the mirror of T3 — which directions can the AV read?
+- **Directions (difference of means in the TARGET at block 20, last token):** `sports` (32
+sentences about sports vs 32 matched neutral sentences, agent-written, fixed), `french` (the 32
+French/English pairs from T3, run through the TARGET). Norm-preserving mix:
+`h' = ‖h‖ · normalize((1−β) ĥ + β d̂)`, β ∈ {0.25, 0.5}.
+- **Measures:** keyword mention rate in the explanation (sports list / French-language detection),
+`cos(AR(desc'), h)` and `cos(AR(desc'), h')`, parse_ok.
+- **Kill test T4:** mention rate for `sports` **< 0.25 at both β → MET** (a large injected concept
+direction does not surface in the description; the AV's readout is not direction-additive).
+- **Build:** `t4_inject.py`. Outputs `t4_outputs.jsonl`, `t4_summary.md`, 4 fixed examples.
 
-## Pre-registered thresholds (round 2)
-| K | stage | statistic (evaluation set) | MET if |
+### T5 — steering-specificity test on the target (OPTIONAL; runs only if STATE.md says `T5: HUMAN-CONFIRMED`)
+- **Gate G5 (donor patch):** for 40 pilot stimuli, replace h at `pos` with h_pos2 (same document)
+at block 20 and measure the KL between original and patched next-token distributions; **if median
+KL < 0.05 nats → site not steerable, skip the rest and report.**
+- **Edits:** from `s3_edits.jsonl`, three edit types of the LAST claim only (the one that carries
+the score): corrupt, paraphrase, and a desk-supplied `expect` edit that changes the quoted
+expected continuation (agent builds it by replacing the quoted string after "expecting" with the
+target's actual top-1 next token vs a random other token; log the rule).
+- **Vector:** `u(d) = AR(d)/‖AR(d)‖`, `v = ‖h‖ (u(d*) − u(d))`, `h' = h + α v`, α ∈ {0.5, 1, 2}.
+- **Measures:** change in log-prob of the edited-in expected token and of the original top-1; KL
+to original; the same for paraphrase-derived v (null) and norm-matched random v.
+- **Kill test T5:** paired (expect-edit effect − paraphrase-edit effect) on the edited-in token's
+log-prob, CI ≤ 0 → MET.
+- **Build:** `t5_specificity.py`. Outputs `t5_scores.csv`, `t5_summary.md`.
+
+### T6 — morning report
+`overnight/MORNING3.md`: kill lines, the T1/T2 AUROC table, T3/T4 grids, T5 if run, verbatim
+examples, FOLLOWUPS, provenance, wall-clock. Commit. Stop the loop.
+
+## Pre-registered thresholds (round 3)
+| K | stage | statistic | MET if |
 |---|---|---|---|
-| R1 | R1 | CI of mean(d_corr_T − d_para_T), last-token, n ≥ 300 | ≤ 0 |
-| R2 | R2 | CI of mean[(cos z − cos z**) − (cos z − cos z~~)] | ≤ 0 |
+| T1 | T1 | AUROC cos(h,AR(true topic)) vs foreign, eval, CI by document | ≤ 0.60 |
+| T2 | T2 | AUROC yes−no for true vs foreign topic, eval | ≤ 0.60 |
+| T3 | T3 | French pass rate at every (ℓ, α) with parse_ok ≥ 0.5, pilot | < 0.25 |
+| T4 | T4 | sports mention rate at both β, pilot | < 0.25 |
+| T5 | T5 (optional) | CI of (expect-edit − paraphrase-edit) log-prob effect | ≤ 0 |
 
-**Execution order:** R0 → R1 → R2 → R3 → R4. **Hard stop: 5.5 h after the first round-2 RUNLOG
-line.** Round-1 rules (pilot/eval split, cluster bootstrap, three outcomes, settings files
-created inside `main()` not at import, raw outputs kept, FOLLOWUPS instead of pivots) all apply.
+**Execution order:** T0 → T1 → T2 → T4 → T3 → T5 → T6. **Hard stop: 5 h after the first
+round-3 RUNLOG line.** All round-1/2 rules apply (pilot/eval split, cluster bootstrap by document,
+three outcomes, settings files created inside `main()`, raw outputs kept, FOLLOWUPS not pivots,
+never overwrite round-1/2 files).
