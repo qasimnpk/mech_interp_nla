@@ -29,3 +29,6 @@
 2026-09-06T09:24:32  R3  done  160 eval explanations, 916 AR forwards; median first-k lift >0.9 at k=3, last-k at k=1; Spearman(words, cos_alone)=0.7024; no kill test
 2026-09-06T09:24:32  R4  start  MORNING2.md
 2026-09-06T09:24:42  R4  done  MORNING2.md written; round 2 ended (started 09:03:21, well inside the 5.5 h stop); loop stops
+2026-09-06T19:47:49  T0  start  round 3 begins; artifact check + topics + entropy sidecar; hard stop = 2026-09-06T19:47:49 + 5 h = 2026-09-07T00:47:49
+2026-09-06T19:55:02  T0  done  counts OK (200/200/671/538/490), both npz caches present; t0_topics.csv 200 rows (199 unique, 0 doc collisions, topic_true in default explanation 6/200); t0_entropy.csv 200 rows 0 errors (eval mean entropy 1.411 nats, top1_prob 0.647); measured costs: AV 10.6 s/expl, AV fwd 0.28 s, AR 0.36 s/score (0.07 s short), TARGET 1.15 s/doc, 0.11 s/short; re-budget total 244 min (T3 111 min > 90-min cap, run stimulus-outer and cut at cap)
+2026-09-06T19:55:02  C1  start  position vs content, AR only (160 eval explanations, ≥3 claims)
