@@ -57,7 +57,7 @@ facts weakly but selectively.**
 | claim word, AV's own prefix (T2b) | d = lp(orig) − lp(corrupt): own / same-doc donor / foreign / none | 13.0 / 5.6 / 2.9 / 2.7 |
 | | own − same-doc donor [CI] | 7.35 [6.56, 8.14] |
 | | fraction preferring original: own / same-doc / foreign / none | 0.973 / 0.792 / 0.645 / 0.712 |
-| | original word visible in left context: 192/691; d_own when visible / not | 18.2 / 11.0 |
+| | original word present in the full prefix: 257/691; d_own when present / absent | 16.7 / 10.8 |
 
 Readings:
 - Topic: strong, activation-dependent, replicated on a held-out wording. The prior-corrected number is
@@ -70,15 +70,17 @@ Readings:
   both-correct; capital city 1.2; instruments, animals, weekdays ≈ 0 (n=4 per template, descriptive only).
 - Claim word: mostly self-consistency. A foreign activation is no better than no activation (2.9 vs 2.7
   nats) and the AV still prefers its own word in 65% of rows. About 7 of the 13 nats are specific to the
-  exact position, 3 to the document. 499/691 "original" words are not in the visible left context and the
-  AV prefers them by 11 nats under its own activation; whether those are inferences or confabulations needs
-  the 30-row human labelling sheet (`t2b_support_sheet.csv`, still unlabelled).
+  exact position, 3 to the document. 434/691 "original" words occur nowhere in the full prefix the activation
+  saw (up to 512 tokens; the 64-token window is display only) and the AV still prefers them by 10.8 nats under
+  its own activation (5.8 position-specific); absence of the word is not absence of support. Whether those are
+  inferences or confabulations needs the 30-row blinded labelling sheet (`notes/t2b_support_sheet_BLIND.csv`,
+  unlabelled).
 
 ## The one-paragraph story (draft)
 On the released Qwen2.5-7B layer-20 NLA, reconstruction fidelity is high and position-specific, but the
-reconstruction score is a poor claim verifier: it is more sensitive to wording and relevance than to the
-tested factual corruptions, on the text side and on the activation side, and most of it comes from the
-local "final token … expecting …" snippet. The same activation, read by forced-prefix likelihood in the
+reconstruction score is a poor claim verifier: it penalises a meaning-preserving paraphrase more than a
+one-fact corruption, detects a changed source representation without distinguishing why it changed, and
+draws most of its value from the local "final token … expecting …" snippet. The same activation, read by forced-prefix likelihood in the
 verbalizer instead of by reconstruction, yields the document's topic reliably (pair accuracy 0.78 raw,
 0.94 prior-corrected, replicated on a held-out prefix) and an upstream entity weakly: the likelihood moves
 the right way when the activation changes and is unmoved by a phrasing change, but the shift is too small
