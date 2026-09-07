@@ -36,3 +36,5 @@
 2026-09-06T20:00:05  C2  start  matched one-fact activation pairs: TARGET (80 contexts) -> AV (80 generations) -> AR
 2026-09-06T20:17:28  C2  done  40 pairs / 10 templates, 80 AV generations (parse_ok 80/80, 9.9 s/gen), 200 AR forwards; C2 NOT MET (mean M=0.01877 CI [0.00982,0.03382], frac M>0 40/40, cos(h_a,h_b) 0.9664); own-entity mention 11/80, other 3/80
 2026-09-06T20:17:28  T1  start  AR as zero-shot text probe: TARGET RepE (3200 short forwards) then AR (topic/probe/490 claims x3)
+2026-09-06T20:27:13  T1  done  200 stimuli, 3200 RepE TARGET forwards + 2065 AR forwards; T1 INCONCLUSIVE (AUROC 0.6125 CI [0.5887,0.6400] straddles 0.60; RepE centred 0.7405 [0.6825,0.7972]); claims-alone: true−corrupt 0.01454 < true−para 0.03575 (para−corrupt −0.02121 CI [−0.02672,−0.01570], MET as reported-only line); Spearman(s_conf,−entropy) +0.355 [+0.203,+0.479]
+2026-09-06T20:27:13  T2  start  forced-prefix readout, AV forward only (200 stimuli x yes/no + candidate continuation incl. swap and no-injection; single-word claim pairs)
