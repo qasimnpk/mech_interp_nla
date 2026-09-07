@@ -78,3 +78,19 @@ edits alone 0.777, wording edits alone 0.735). In the 16 cells where the wording
 the entity edit, mean M_fact 0.005 vs M_wording 0.014; in the other 24, M_fact 0.028 vs M_wording 0.0065.
 Reading: the margin follows activation displacement regardless of edit type. Not a mechanism test (no
 distance-matched design); report as consistent-with, not as established.
+
+## S3 edit audit, agent-side (2026-09-07 04:00; qualitative human audit sheet in notes/s3_edit_validity_BLIND.csv)
+- Pool: 490 evaluation triples with corrupt and paraphrase both accepted (bench acceptance: tags parsed, word count
+  within ±30%, ≥1 word changed, corrupt ≠ paraphrase). 18 sampled with seed 0, shuffled, edit order randomised,
+  full prefix attached; key in `notes/s3_edit_validity_KEY.csv` (do not open while labelling).
+- **Edit-size mismatch (word-level diff after stripping punctuation and case):** corruptions change median 1
+  word (mean 1.6; 311 change exactly one word, 24 change more than three); paraphrases change median 14 words
+  (mean 14.5). The corruption-vs-paraphrase comparison is therefore also a small-edit-vs-large-edit comparison;
+  the lexical size of the edit is not controlled. The deterministic single-token swaps (K3-det, same ordering) and
+  the every-claim version (R2) do not remove this confound either. State it in limitations.
+- **Punctuation-only corruptions:** 6 of 490 differ from the original only in punctuation
+  (`notes/s3_punctuation_only_corruptions.csv`). Five are real edits of the stated final token or expected
+  continuation (". → !", "( → [", "−1 → +1"); row 465 is a non-edit (a closing quote only). Their costs range
+  −0.0005 to 0.073. Excluding row 465 changes A − P in the fourth decimal; no separate estimate is needed.
+- Bench statistic verified: A = cos(z) − cos(z*) per accepted row; A = 0.00313, P = 0.00494, A − P = −0.00181,
+  n = 490 rows in 160 explanations (`s3_scores.csv`, `edit_ok` and `stim_idx ≥ 40`, `cos_z − cos_z_edit`).

@@ -1,7 +1,6 @@
 # State of knowledge after rounds 1–3b (agent draft, 2026-09-07 01:00; for the human to share with an advisor)
 
-Numbers trace to `overnight/*_summary.md` and `DISCONFIRMATION.md` (rounds 1–3 in main; round 3b in
-`../mech_interp_nla-nightshift/overnight/`, branch `nightshift/round3b`, unmerged). Setup as in
+Numbers trace to `overnight/*_summary.md` and `DISCONFIRMATION.md` (all rounds merged into main; round 3b merge commit 2d2d91e; `overnight/` on main is the source of record). Setup as in
 `notes/summary_rounds1-3.md`. Wording follows the advisor's corrections (`notes/advisor_round3_feedback.md`).
 
 ## What we know, precisely
