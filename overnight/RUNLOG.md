@@ -46,3 +46,6 @@
 2026-09-06T23:30:16  T3  done  420 items (35 of 40 pilot stimuli x 12 cells; generation cut at the 85-min stage cap before stimulus 35), 0 errors, 12.3 s/item; T3 MET (eligible french cells with parse_ok>=0.5: 1/6 = L8 α=1, pass 0.057 CI [0.000,0.143]; α>=2 destroys the <explanation> format at both layers, French pass up to 0.514 at L14 α=4 with parse_ok 0)
 2026-09-06T23:30:16  T6  start  MORNING3.md
 2026-09-06T23:30:16  T6  done  MORNING3.md written; round 3 ended (started 19:47:49, hard stop 00:47:49 not reached); loop stops
+2026-09-06T23:49:14  U0  start  round 3b begins; artifact check + T3 closeout; hard stop = 2026-09-06T23:49:14 + 2.5 h = 2026-09-07T02:19:14
+2026-09-06T23:50:35  U0  done  18/18 artifact checks OK (c2_pairs 40, t2_scores 200, t2_claims 691 single-word non-error = 298 LLM + 393 det, t0_topics 200, acts_L20 [200,3584] x2, c2_acts [40,2,3584]); T3 closeout: 420 items = 35 pilot stimuli x 12 cells, cut at the 5100 s cap, kill line MET as written; re-budget 44 min compute
+2026-09-06T23:50:35  T2c  start  forced-prefix entity readout on the 40 C2 pairs, AV forward only; p1 kill, p2 confirmation
