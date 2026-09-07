@@ -51,3 +51,5 @@
 2026-09-06T23:50:35  T2c  start  forced-prefix entity readout on the 40 C2 pairs, AV forward only; p1 kill, p2 confirmation
 2026-09-06T23:55:31  T2c  done  40 pairs, 480 AV forwards (0.38 s), 0 errors; T2c NOT MET (mean D(h_a)−D(h_b) under p1 = 1.7379 CI [0.6272,3.2762], frac>0 0.775; both-correct raw 0.225, prior-centred 0.150; choice accuracy raw 0.600 [0.525,0.688]; AUROC 0.6516; p2 donor 1.8342 [0.7561,3.0039])
 2026-09-06T23:55:31  T2a  start  audit of round-3 topic readout (no model) + held-out prefix p3 on 200 stimuli (own / foreign / no-injection), AV forward only
+2026-09-07T00:04:12  T2a  done  audit 9/9 checks OK (prior-corrected AUROC not pre-registered in round 3; recomputed 0.9347 CI [0.9111,0.9580]); p3 held-out prefix: 999 AV forwards (0.38 s), 0 errors; T2a NOT MET (p3 raw AUROC eval 0.7605 CI [0.7126,0.8059]; no-inj 0.4862; prior-corrected 0.9431 [0.9214,0.9643]; swap 0.7857; acc raw 0.781 corr 0.944)
+2026-09-07T00:04:12  T2b  start  activation-dependence control for the round-3 claim-word readout: 691 single-word rows x 2 words x 2 donors (h_pos2, h_foreign), AV forward only; support sheet for the human
