@@ -29,3 +29,20 @@
 2026-09-06T09:24:32  R3  done  160 eval explanations, 916 AR forwards; median first-k lift >0.9 at k=3, last-k at k=1; Spearman(words, cos_alone)=0.7024; no kill test
 2026-09-06T09:24:32  R4  start  MORNING2.md
 2026-09-06T09:24:42  R4  done  MORNING2.md written; round 2 ended (started 09:03:21, well inside the 5.5 h stop); loop stops
+2026-09-06T19:47:49  T0  start  round 3 begins; artifact check + topics + entropy sidecar; hard stop = 2026-09-06T19:47:49 + 5 h = 2026-09-07T00:47:49
+2026-09-06T19:55:02  T0  done  counts OK (200/200/671/538/490), both npz caches present; t0_topics.csv 200 rows (199 unique, 0 doc collisions, topic_true in default explanation 6/200); t0_entropy.csv 200 rows 0 errors (eval mean entropy 1.411 nats, top1_prob 0.647); measured costs: AV 10.6 s/expl, AV fwd 0.28 s, AR 0.36 s/score (0.07 s short), TARGET 1.15 s/doc, 0.11 s/short; re-budget total 244 min (T3 111 min > 90-min cap, run stimulus-outer and cut at cap)
+2026-09-06T19:55:02  C1  start  position vs content, AR only (160 eval explanations, ≥3 claims)
+2026-09-06T20:00:05  C1  done  160 eval explanations (all >=3 claims), 800 AR forwards; C1 NOT MET (paired diff=-0.02642 CI [-0.03215,-0.02126]; snippet cost in z 0.1253, in z_rot 0.0989, in z_rev 0.1320; ratio 0.789); secondary joined baseline NOT MET
+2026-09-06T20:00:05  C2  start  matched one-fact activation pairs: TARGET (80 contexts) -> AV (80 generations) -> AR
+2026-09-06T20:17:28  C2  done  40 pairs / 10 templates, 80 AV generations (parse_ok 80/80, 9.9 s/gen), 200 AR forwards; C2 NOT MET (mean M=0.01877 CI [0.00982,0.03382], frac M>0 40/40, cos(h_a,h_b) 0.9664); own-entity mention 11/80, other 3/80
+2026-09-06T20:17:28  T1  start  AR as zero-shot text probe: TARGET RepE (3200 short forwards) then AR (topic/probe/490 claims x3)
+2026-09-06T20:27:13  T1  done  200 stimuli, 3200 RepE TARGET forwards + 2065 AR forwards; T1 INCONCLUSIVE (AUROC 0.6125 CI [0.5887,0.6400] straddles 0.60; RepE centred 0.7405 [0.6825,0.7972]); claims-alone: true−corrupt 0.01454 < true−para 0.03575 (para−corrupt −0.02121 CI [−0.02672,−0.01570], MET as reported-only line); Spearman(s_conf,−entropy) +0.355 [+0.203,+0.479]
+2026-09-06T20:27:13  T2  start  forced-prefix readout, AV forward only (200 stimuli x yes/no + candidate continuation incl. swap and no-injection; single-word claim pairs)
+2026-09-06T21:01:47  T2  done  200 stimuli + 691 single-word claim pairs, 5164 AV forwards, 0 errors; T2 NOT MET (candidate-continuation AUROC 0.7516 CI [0.7017,0.7983]; no-injection 0.4880; prior-corrected 0.9347; swap prefers foreign 0.7749); T2-yesno MET (0.5502 CI [0.5227,0.5777]); claims: injected lp_orig−lp_corrupt 9.78 vs no-inj 1.39, frac 0.973
+2026-09-06T21:01:47  T4  start  injected-vector perturbation, pilot 0-39: TARGET directions (sports, french) then AV+AR co-resident, 9 cells x 40 = 360 generations (budget ~70 min, cap 85 min)
+2026-09-06T22:03:04  T4  done  360 items (40 pilot x 9 cells), 0 errors, 10.0 s/item; T4 NOT MET (sports mention 1.000 at β=+0.25 and +0.5, baseline 0.125, random 0.175; french pass 0.725/0.950 at +0.25/+0.5); collateral: seq-sim to V0 0.44/0.31, cos(AR,h) −0.019/−0.144 vs V0
+2026-09-06T22:03:04  T5  skipped  STATE.md carries 'T5: SKIP' (desk recommendation: superseded by the round-4 steering design), not 'T5: HUMAN-CONFIRMED'; no gate G5 run
+2026-09-06T22:03:04  T3  start  AV residual steering, pilot 0-39: french/terse directions at blocks 8,14 x α 1,2,4 = 12 cells x 40 = 480 generations (budget 111 min > 85-min cap; stimulus-outer, cut at cap)
+2026-09-06T23:30:16  T3  done  420 items (35 of 40 pilot stimuli x 12 cells; generation cut at the 85-min stage cap before stimulus 35), 0 errors, 12.3 s/item; T3 MET (eligible french cells with parse_ok>=0.5: 1/6 = L8 α=1, pass 0.057 CI [0.000,0.143]; α>=2 destroys the <explanation> format at both layers, French pass up to 0.514 at L14 α=4 with parse_ok 0)
+2026-09-06T23:30:16  T6  start  MORNING3.md
+2026-09-06T23:30:16  T6  done  MORNING3.md written; round 3 ended (started 19:47:49, hard stop 00:47:49 not reached); loop stops
