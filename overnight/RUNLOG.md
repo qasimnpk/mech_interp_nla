@@ -34,3 +34,5 @@
 2026-09-06T19:55:02  C1  start  position vs content, AR only (160 eval explanations, ≥3 claims)
 2026-09-06T20:00:05  C1  done  160 eval explanations (all >=3 claims), 800 AR forwards; C1 NOT MET (paired diff=-0.02642 CI [-0.03215,-0.02126]; snippet cost in z 0.1253, in z_rot 0.0989, in z_rev 0.1320; ratio 0.789); secondary joined baseline NOT MET
 2026-09-06T20:00:05  C2  start  matched one-fact activation pairs: TARGET (80 contexts) -> AV (80 generations) -> AR
+2026-09-06T20:17:28  C2  done  40 pairs / 10 templates, 80 AV generations (parse_ok 80/80, 9.9 s/gen), 200 AR forwards; C2 NOT MET (mean M=0.01877 CI [0.00982,0.03382], frac M>0 40/40, cos(h_a,h_b) 0.9664); own-entity mention 11/80, other 3/80
+2026-09-06T20:17:28  T1  start  AR as zero-shot text probe: TARGET RepE (3200 short forwards) then AR (topic/probe/490 claims x3)
