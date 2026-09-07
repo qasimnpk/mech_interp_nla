@@ -28,3 +28,7 @@ Worktree recreated on `nightshift/round2` at merge `893a21d` (plan `d5e64d7` + R
 Prompt: as round 1 (in this file above) with execution order R0 → R1 → R2 → R3 → R4, R0 acceptance on the regenerated caches, settings files created in main(), hard stop 5.5 h.
 
 Round 2 finished 09:24 (22 min). R1 MET, R2 MET, R3 descriptive. Merged into main as e25793b.
+
+## Round 3 and 3b — 2026-09-06 19:47 → 2026-09-07 00:43 (desk record; human review owed)
+Round 3 (`nightshift/round3`, merged 0f9f122): C1 NOT MET, C2 NOT MET, T1 INCONCLUSIVE, T2 NOT MET (yes/no MET), T4 NOT MET, T3 MET at the 85-min cap (35/40), T5 skipped. Round 3b (`nightshift/round3b`, merged 2d2d91e; plan fe12e3b after the third advisor's feedback): T2c NOT MET, T2a NOT MET, T2b NOT MET, C3-score INCONCLUSIVE, C3-readout NOT MET. Crash fixes logged in RUNLOG (round 1 S3 line 12, round 2 R1 line 24, round 3b C3 line 58), all pre-output, no statistic changed.
+- 2026-09-07 01:20 (AGENT, desk): re-derived T2c donor 1.738 / frac 0.775 / both-correct 0.225 (t2c_pairs.csv); T2a p3 accuracy raw 0.781 / corrected 0.944 (t2a_scores.csv, eval); T2b d_own − d_pos2 = 7.347 (t2b_claims.csv); C3 fact − wording 0.00782, readout 1.772 (c3_cells.csv). Human re-derivation still owed — one-liners in human-plan.md §2.
