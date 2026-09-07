@@ -1,4 +1,46 @@
-# Nightshift — Round 3 plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
+# Nightshift — Round 3 / 3b plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
+
+**ROUND 3b (planned 2026-09-06 23:15, runs after round 3 has written MORNING3.md) — THIS IS THE ROUND TO
+EXECUTE. Stages are in "Round 3b stages" at the end of this file; execution order is in STATE.md.
+Round-3 stages above are complete (T3 cut at its cap) and are reused read-only.**
+
+**Human review of round 3 with the third advisor (2026-09-06 ~23:00; verbatim in
+`notes/advisor_round3_feedback.md`).** Round 3 results: C1 NOT MET (snippet keeps 79% of its deletion
+cost when moved to the front), C2 NOT MET (four-way margin M = 0.019, 40/40 pairs > 0), T1 INCONCLUSIVE
+(AR topic probe AUROC 0.61; RepE 0.74–0.81), T2 NOT MET (candidate-continuation topic AUROC 0.75,
+no-injection 0.49, foreign-swap 0.77; yes/no format 0.55 MET), T2-claims lp(original) − lp(corrupt)
+9.78 injected vs 1.39 no injection, T4 NOT MET (sports words in 100% of descriptions at an 18° rotation
+of the injected vector; random direction 17.5%). The human and advisor:
+- **Prioritise validating the forced-prefix readout over any new steering experiment.** The emerging
+  result is a comparison of two interfaces to one NLA: reconstruction scoring largely misses the tested
+  factual edits; targeted AV likelihoods may recover the information. Round 4 (distributed edits) stays
+  deferred.
+- **Three things to keep apart in every readout number:** *self-consistency* (the AV prefers a word it
+  generated itself), *activation dependence* (the preference changes when the activation changes),
+  *factual recovery* (the preference follows an independently known source fact). The T2-claims 97.3%
+  number is self-consistency by construction (prefix and "original" word are the AV's own greedy output;
+  "original" ≠ "true"). T2b tests activation dependence only; **T2c is the factual-recovery test and the
+  primary stage of this round**; C3 is a meaning-preserving phrasing control, not a zero-information edit.
+- **Audit before headline:** the prior-corrected AUROC 0.935 was not pre-registered (round-3 T2 asked
+  only for the no-injection AUROC) → exploratory. T2a confirms on a held-out prefix wording frozen below,
+  reports within-pair choice accuracy with CIs, and compares AR-probe / RepE / prefix readout on the same
+  160 items and labels.
+- **Wording corrections for the write-up (bench: use these phrasings in MORNING3b):** "substantially more
+  sensitive to wording and relevance than to the tested factual corruptions" (not "reads wording, not
+  facts"); "local-snippet dominance persists across positions" (moving it cut its cost by ~21%, so not
+  "content, not position"); "the tested instructions did not produce the requested changes" (not "ignores
+  instruction text"); T4 "replicates injected-concept sensitivity", not the outside-J-space result (no
+  J-space complement was built); report rotation angles as angles (18° ≈ 31% of the norm for equal-norm
+  vectors, not "small"); the blind/raw-context scores 0.429/0.473 sit well above the empty baseline 0.347.
+- **Finish plan:** T2c → T2a → T2b → C3; cut T3 at its cap and report the completed sample and stopping
+  rule; no new steering task; three central figures (reconstruction specificity, local-snippet ablation,
+  targeted readout with donor controls).
+
+**Merge note for the desk (not the bench):** merge round 3 with
+`git merge --no-commit --no-ff nightshift/round3 && git checkout HEAD -- CLAUDE.md overnight/PLAN.md overnight/STATE.md`
+so main's plan and stage list win; copy `overnight/out/*.npz` (acts_L20, recon_L20, c2_acts, t1_repe,
+t3_dirs, t4_dirs) before removing the worktree.
+
 
 **Human review of rounds 1–2 (2026-09-06 evening), recorded before round 3 was planned.**
 The human read the round-1/2 morning reports, the desk summary (`notes/findings_so_far.md`) and
@@ -342,3 +384,163 @@ examples, FOLLOWUPS, provenance, wall-clock. Commit. Stop the loop.
 round-3 RUNLOG line. Timing estimates in stage titles are hypotheses; T0 logs measured per-item costs and the orchestrator re-budgets from them.** All round-1/2 rules apply (pilot/eval split, cluster bootstrap by document,
 three outcomes, settings files created inside `main()`, raw outputs kept, FOLLOWUPS not pivots,
 never overwrite round-1/2 files).
+
+---
+
+## Round 3b stages (2026-09-07; ~1 h compute; hard stop 2.5 h after the first round-3b RUNLOG line)
+
+**Purpose.** Establish whether the forced-prefix likelihood readout (round-3 T2) recovers *source facts*
+from the activation, as opposed to reproducing the AV's own output or reflecting broad topic
+compatibility; give C2 a phrasing control; audit the T2 topic result on a held-out wording. Everything
+runs on cached round-1/3 artifacts plus 80 new C3 contexts. Numbers only; all round-1/2/3 rules apply
+(pilot/eval split, cluster bootstrap 1000 draws seed 0, three-way outcomes, settings files created in
+`main()`, raw outputs kept, FOLLOWUPS not pivots, never overwrite an earlier round's files).
+
+**Round-3 artifacts to reuse (read-only):** `c2_pairs.csv`, `c2_descriptions.jsonl`, `out/c2_acts.npz`,
+`t2_scores.csv`, `t2_claims.csv`, `t2_prefix.py` (the `Prefix` class: injection, prefill, `cont_logprob`;
+import-safe only if its Settings creation is inside `main()`, otherwise copy the class), `t0_topics.csv`,
+`stimuli.csv`, `out/acts_L20.npz` (`h20`, `h20_pos2`), `c2_matched.py` (`TEMPLATES`, `build_pairs`).
+
+**Shared readout definition (used by T2c, T2a, T2b, C3).** With activation `h` injected exactly as
+`nla_lib` does (marker row replaced, asserted) and the assistant turn prefilled with `p`, the score of a
+candidate string `c` is the **summed log-prob of every token of `" " + c`** (leading space; record the
+token count; also report the per-token mean). `h_0` = no injection (raw marker embedding, asserted), the
+prompt-only prior. Nothing generated by the AV appears in any prefix of T2c, T2a or C3.
+
+### U0 — artifact check + T3 closeout (~5 min)
+- Assert the round-3 files above exist and have the expected row counts (c2_pairs 40, t2_scores 200,
+  t2_claims 691 non-error rows, t0_topics 200, acts_L20 h20/h20_pos2 [200, 3584], c2_acts 80 rows).
+- **T3 closeout, report only:** from `t3_summary.md` / `t3_outputs.jsonl`, the number of pilot stimuli
+  and items completed before the 5100 s cap, the stopping rule as pre-registered, and the kill line
+  as written. Do NOT rerun or extend T3.
+- No kill test. Write `u0_check.md`.
+
+### T2c — forced-prefix entity readout on the C2 matched activation pairs (AV forward only, ~10 min) — PRIMARY
+Question: is the upstream entity (11–17 tokens before the extraction point, never in the suffix) readable
+from the final-token activation by likelihood, given that the default descriptions name it in only 11/80?
+- **Prefixes (frozen; one noun per C2 template, index = template_id):**
+  nouns = `["city", "ingredient", "time", "instrument", "metal", "city", "illness", "profession", "animal", "subject"]`.
+  Primary `p1` = `<explanation>\nThe {noun} mentioned in the passage is`; held-out paraphrase
+  `p2` = `<explanation>\nThe passage mentions the {noun}`. Same `<explanation>\n` prefill convention as
+  round-3 T2. Both prefixes are run on every item; `p1` is the kill statistic, `p2` is the confirmation.
+- **Candidates:** the pair's own entities `e_a`, `e_b` from `c2_pairs.csv`, scored as `" " + e` in full.
+  Assert both candidates' token counts are recorded; report the count distribution.
+- **Activations:** `h_a`, `h_b` from `out/c2_acts.npz`; `h_0` no injection.
+- **Score:** `D(h) = lp(e_a | p, h) − lp(e_b | p, h)`. Per pair report `D(h_a)`, `D(h_b)`, `D(h_0)`.
+- **Statistics (cluster bootstrap by template, 10 clusters):**
+  1. *Donor sensitivity:* mean `[D(h_a) − D(h_b)]`, CI, fraction of pairs > 0. (The prior cancels here.)
+  2. *Correct discrimination, raw:* fraction of pairs with `D(h_a) > 0` AND `D(h_b) < 0`; also each side.
+  3. *Correct discrimination, prior-centred:* same with `D(h) − D(h_0)`.
+  4. *Within-pair choice accuracy* for each activation: `argmax_c lp(c | p, h)` equals the entity in
+     that context (raw and prior-centred), pooled over 80 activations, CI by template.
+  5. Paired AUROC of `D(h_a)` vs `D(h_b)` over the 40 pairs.
+  6. Per-template table: mean donor sensitivity, both-correct rate, own-entity mention rate from C2.
+  7. Everything in 1–5 again with `p2`, and per-token-normalised.
+- **Kill T2c:** CI of mean `[D(h_a) − D(h_b)]` under `p1` **≤ 0 → MET** (the entity is not readable
+  from the final-token activation by forced prefix). INCONCLUSIVE if the CI straddles 0.
+- **Build:** `t2c_entity.py`. Outputs `t2c_pairs.csv` (one row per pair with every lp and D), `t2c_summary.md`
+  (all statistics, the full 40-row table, both prefixes). ~500 AV forwards.
+
+### T2a — audit of the round-3 topic readout + held-out wording confirmation (AV forward only, ~10 min)
+- **Audit from `t2_scores.csv` and `t2_prefix.py` (no model):** assert that the prior-corrected statistic
+  used the identical prefix (`PREFILL_CC`) and candidate strings (`" " + topic`) for injected and
+  no-injection runs; state in the summary that the prior-corrected AUROC was **not pre-registered** in
+  round-3 PLAN (exploratory); confirm that the `(i+100) mod 200` pairing makes every title both a true and a
+  foreign candidate; report **within-pair choice accuracy** with CI (by document) for raw
+  (`cc_true > cc_foreign`, own activation), prior-corrected, and swap; recompute the prior-corrected AUROC
+  with its CI (it was reported without one in DISCONFIRMATION.md).
+- **Held-out wording (frozen now, never seen by any model):** `p3` = `<explanation>\nThe document is about`.
+  Score `" " + topic_true` vs `" " + topic_foreign` on all 200 stimuli under own activation, foreign
+  activation (`(i+100) mod 200`), and no injection. Evaluation set n=160 is the headline; pilot reported.
+- **Same-items comparison table:** on the 160 evaluation stimuli with the same true/foreign labels: AR
+  probe (T1 `t1_scores.csv`), RepE centred and direction (T1), T2 `PREFILL_CC` raw and prior-corrected,
+  `p3` raw and prior-corrected. Assert the row sets are identical.
+- **Kill T2a:** raw AUROC of `p3` candidate continuation (own activation, eval, CI by document) **≤ 0.60
+  → MET** (the round-3 topic readout does not hold up on a held-out wording). Report prior-corrected
+  AUROC with CI, within-pair accuracy with CI, swap AUROC, alongside.
+- **Build:** `t2a_audit.py`. Outputs `t2a_scores.csv`, `t2a_summary.md`. ~1000 AV forwards.
+
+### T2b — activation-dependence control for the round-3 claim-word readout (AV forward only, ~20 min)
+Label in every output: **activation-dependence test, not a truth test.** The prefix and the "original" word
+are the AV's own greedy output.
+- **Rows:** every non-error row of `t2_claims.csv` (298 LLM single-word + 393 deterministic). Prefix and
+  both candidate words exactly as round-3 T2 (`PREFILL_CLAIM + prefix words`; `word_orig`, `word_corrupt`).
+  Reuse `lp_*` own and no-injection from the file; do not recompute them.
+- **Donors:** (i) `h_pos2` = same document, other position (`acts_L20.npz["h20_pos2"]`) — the near donor,
+  the kill statistic; (ii) `h_foreign` = `h20` of stimulus `(i+100) mod 200` — the far donor.
+- **Scores:** `d = lp_orig − lp_corrupt` under own (`d_own`, from file), `d_pos2`, `d_foreign`, `d_noinj`
+  (from file). Paired `d_own − d_pos2`, `d_own − d_foreign`; fraction `d > 0` under each; split LLM /
+  deterministic / last-claim-only as in `t2_summary.md`; CIs cluster by explanation.
+- **Source-support proxy (mechanical, reported):** `in_ctx` = `word_orig` occurs (case-insensitive whole
+  word) in `context_left_64 + token_str` of the stimulus (what the activation could have seen); also with
+  `context_right_16` added. Report every statistic split by `in_ctx`.
+- **Human labelling sheet (bench builds, human fills in the morning):** `t2b_support_sheet.csv`, 30 rows
+  sampled with seed 0 from evaluation LLM-corrupt rows: `row, stim_idx, claim, word_orig, word_corrupt,
+  context_left_64, token_str, context_right_16, d_own, d_pos2, d_foreign, d_noinj, label_supported`
+  (last column empty). The bench does NOT fill the label.
+- **Kill T2b:** CI of mean `(d_own − d_pos2)` **≤ 0 → MET** (the preference for the original word does
+  not depend on which activation of the same document is injected: self-consistency, not readout).
+  Report `d_own − d_foreign` alongside, not as a kill.
+- **Build:** `t2b_donor.py`. Outputs `t2b_claims.csv`, `t2b_support_sheet.csv`, `t2b_summary.md`.
+  ~2800 AV forwards at ~0.4 s.
+
+### C3 — meaning-preserving phrasing control for C2, factorial (TARGET + AV + AR, ~25 min)
+C2 has no null: a description generated from `h_a` fits `h_a` better than one generated from any other
+activation. This adds a one-word, meaning-preserving wording change in the same sentence as the entity
+and asks (i) whether the score's margin for the fact edit exceeds its margin for the phrasing edit and
+(ii) whether the T2c entity readout survives the phrasing change. Call it a *phrasing control*, not a
+zero-information edit.
+- **Wording pairs (frozen; index = template_id; `(w1 → w2)` replaces the first occurrence in the
+  template's first sentence; `w1` is the existing C2 text):** primary
+  `[("country","nation"), ("calls","asks"), ("moved","shifted"), ("orchestra","ensemble"), ("pure","solid"),
+  ("story","tale"), ("was","got"), ("worked","served"), ("team's","club's"), ("shows","depicts")]`;
+  fallback if the primary changes the token count under the TARGET tokenizer:
+  `[("Tourists","Visitors"), ("Stir","Mix"), ("printed","typed"), ("plays","performs"), ("carefully","gently"),
+  ("during","in"), ("explained","described"), ("leaves","exits"), ("wave","raise"), ("painting","picture")]`.
+  (Desk check 2026-09-06 23:20 with the Qwen2.5 tokenizer: all ten primaries preserve token count for all
+  entities; wording-word distance to the end 12–20 tokens vs entity 11–17. "clear→cloudless" was dropped
+  for changing the count. All 80 C2 entities are single tokens with a leading space.)
+  Assert equal token count for all four contexts of a cell and the same shared suffix rule as C2; if both
+  primary and fallback fail for a template, drop that template, log it, and report on the rest (never
+  invent a third pair). Record the wording word's distance to the end next to the entity's.
+- **Cells:** for each of the 40 C2 pairs, contexts A = (a, w1), B = (b, w1) (existing, activations and
+  descriptions reused from C2), C = (a, w2), D = (b, w2) (new: 80 TARGET forwards, 80 AV generations,
+  greedy 200 tokens). Record `h_C`, `h_D` at the final token as C2 did; save to `out/c3_acts.npz`.
+- **Reconstruction margins (AR):** score all four descriptions against all four activations (16 per cell).
+  `M_fact(w1)` = C2's M (recomputed from the same numbers, assert equal); `M_fact(w2)` on C, D;
+  `M_wording(a)` = `[cos(h_A,d_A) − cos(h_A,d_C)] + [cos(h_C,d_C) − cos(h_C,d_A)]`; `M_wording(b)` on B, D.
+  Report `cos(h_A,h_B)`, `cos(h_A,h_C)`, `cos(h_B,h_D)` (activation distance per edit type), entity
+  mention rates in the new descriptions, and identical-description count.
+- **Readout under the phrasing change (AV forward, `p1` from T2c):** `D(h)` for all four activations;
+  donor sensitivity at w2: `D(h_C) − D(h_D)`; 2×2 decomposition: entity main effect
+  `mean[D(h_A) + D(h_C)] − mean[D(h_B) + D(h_D)]` vs wording main effect
+  `mean[D(h_A) + D(h_B)] − mean[D(h_C) + D(h_D)]`; both-correct rate at w2.
+- **Kill C3 (score):** CI (cluster by template) of mean `[mean(M_fact(w1), M_fact(w2)) − mean(M_wording(a),
+  M_wording(b))]` **≤ 0 → MET** (the reconstruction score discriminates a one-word phrasing change as well
+  as a one-word fact change). Report the activation-distance difference next to it, since a larger
+  activation change trivially gives a larger M.
+- **Kill C3 (readout):** CI of mean `[D(h_C) − D(h_D)]` **≤ 0 → MET** (the T2c entity preference does not
+  survive a phrasing change). Only meaningful if T2c was NOT MET; report regardless.
+- **Build:** `c3_phrasing.py` reusing `c2_matched.py` and the T2c scorer. Outputs `c3_cells.csv`,
+  `c3_descriptions.jsonl`, `c3_summary.md` with 3 verbatim cells (all four contexts and descriptions).
+  Memory: TARGET alone, then AV+AR co-resident (AR for the margins, AV for the readout; never TARGET+AV).
+
+### T7 — morning report
+`overnight/MORNING3b.md`: kill lines, the T2c table (40 rows), the T2a same-items comparison table, the T2b
+donor table split by `in_ctx`, the C3 2×2 table, verbatim examples, the T3 closeout paragraph, FOLLOWUPS,
+provenance (what the bench built vs what was pre-registered here), wall-clock. Use the write-up phrasings
+listed in the round-3b review block at the top of this file. Commit. Stop the loop.
+
+## Pre-registered thresholds (round 3b)
+| K | stage | statistic | MET if |
+|---|---|---|---|
+| T2c | T2c | CI (by template) of mean [D(h_a) − D(h_b)] under p1 | ≤ 0 |
+| T2a | T2a | raw AUROC of held-out prefix p3, own activation, eval, CI by document | ≤ 0.60 |
+| T2b | T2b | CI (by explanation) of mean (d_own − d_pos2) | ≤ 0 |
+| C3-score | C3 | CI (by template) of mean [M_fact − M_wording] | ≤ 0 |
+| C3-readout | C3 | CI (by template) of mean [D(h_C) − D(h_D)] under p1 | ≤ 0 |
+
+**Execution order (round 3b):** U0 → T2c → T2a → T2b → C3 → T7. T2c is primary and runs first after the
+check; C3 is last and is dropped first under the hard stop. **Hard stop: 2.5 h after the first round-3b
+RUNLOG line.** Stage cap 45 min. Timing estimates are hypotheses; U0 may re-budget from round-3 measured
+costs (AV forward 0.3–0.4 s, AV generation 10 s, AR score 0.36 s, TARGET short forward 0.11 s).
