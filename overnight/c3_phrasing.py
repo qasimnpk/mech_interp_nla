@@ -109,7 +109,7 @@ def main():
         dCD = [k for k in range(len(iC)) if iC[k] != iD[k]]; dist_ent = len(iC) - dCD[0]
         assert DIST_RANGE[0] <= dist_ent <= DIST_RANGE[1], (ti, dist_ent)
         dAC = [k for k in range(len(iA)) if iA[k] != iC[k]]; dist_w = len(iA) - dAC[0]
-        cells.append({**{k: p[k] for k in ["pair_id", "template_id", "entity_a", "entity_b", "context_a", "context_b", "n_tokens", "dist_to_end", "cos_ha_hb"]},
+        cells.append({**{k: p[k] for k in ["pair_id", "template_id", "entity_a", "entity_b", "context_a", "context_b", "n_tokens", "dist_to_end"]}, "cos_ha_hb": float(c2.cos_ha_hb[p["pair_id"]]),
                       "wording_kind": kind, "w1": w1, "w2": w2, "context_c": cC, "context_d": cD, "entity_dist_to_end_w2": dist_ent, "shared_suffix_cd": suf,
                       "wording_dist_to_end": dist_w, "n_wording_diff_tokens": len(dAC), "noun": NOUNS[ti], "error": ""})
     S.update(wording_chosen={ti: {"kind": k, "w1": w1, "w2": w2} for ti, (k, w1, w2, _) in chosen.items()}, templates_dropped=dropped, n_cells=len(cells))
