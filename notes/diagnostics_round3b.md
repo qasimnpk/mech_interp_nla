@@ -71,3 +71,10 @@ activation saw; the AV still prefers them over the corruption by 10.8 nats under
 5.8 nats are specific to the exact position". Absence of the word is not absence of support (a paraphrase or
 inference may be supported); presence does not validate the relation the claim asserts. Only the human labels
 settle that, and they must be made against the full prefix (the blinded sheet now carries `full_prefix_to_pos`).
+
+## C3 — does the matching margin track activation distance? (descriptive, post hoc, 2026-09-07)
+Across all 160 margins (40 cells × {fact w1, fact w2, wording a, wording b}) Spearman(M, 1−cos) = 0.768 (fact
+edits alone 0.777, wording edits alone 0.735). In the 16 cells where the wording edit moved the activation more than
+the entity edit, mean M_fact 0.005 vs M_wording 0.014; in the other 24, M_fact 0.028 vs M_wording 0.0065.
+Reading: the margin follows activation displacement regardless of edit type. Not a mechanism test (no
+distance-matched design); report as consistent-with, not as established.

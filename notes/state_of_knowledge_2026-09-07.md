@@ -10,15 +10,23 @@ Numbers trace to `overnight/*_summary.md` and `DISCONFIRMATION.md` (rounds 1–3
 document other position; 0.320 other document; 0.347 empty explanation; 0.429 blind describer, 0.473 raw
 context (both well above the empty floor, well below the AV). Adjacent layers 0.835.
 
-**2. The reconstruction score is substantially more sensitive to wording and relevance than to the
-tested factual changes, on both sides of the interface.**
-- Text side: one-fact corruption costs 0.0031, paraphrase 0.0049 (diff −0.0018 [−0.0028, −0.0008], n=490);
-  every-claim corruption 0.0075 vs paraphrase 0.0141; off-topic swap 0.114 (AUROC 0.955); one-fact AUROC 0.53.
-- Activation side (C2/C3): two activations differing in one upstream entity are told apart (M_fact 0.019
-  [0.010, 0.034], 40/40), but a one-word meaning-preserving phrasing change is told apart about half as
-  well (M_wording 0.0097 [0.0058, 0.0137]) and the difference is not significant (0.0078 [−0.0035, 0.0241],
-  INCONCLUSIVE). Activation distance follows the same pattern (1−cos: fact 0.032, wording 0.024, diff n.s.).
-  Reading: the score tracks how far the activation moved, not what moved it.
+**2. Reconstruction is more sensitive to the tested explanation paraphrases and off-topic substitutions
+than to factual corrupt­ions.** (Rewritten 2026-09-07 after advisor review; the earlier heading conflated two tests.)
+- Text side (activation fixed, description edited): changing a fact in an explanation reduced reconstruction cosine
+  less than a meaning-preserving paraphrase did: 0.0031 vs 0.0049, paired difference −0.0018 [−0.0028, −0.0008],
+  n=490. Every-claim corruption 0.0075 vs paraphrase 0.0141. Off-topic substitutions cost 0.114 (AUROC 0.955);
+  one-fact corruption AUROC 0.53.
+- Source-edit side (C2/C3: the passage is edited, so activation and description are both regenerated; the task is
+  matching descriptions to their own activation, not verifying a claim): reconstruction matching is sensitive to
+  both factual and meaning-preserving source edits. Matched entity edits gave a larger mean margin than wording
+  edits (0.0175 vs 0.0097, C3 estimates) but the paired difference is inconclusive (0.0078 [−0.0035, 0.0241]).
+  This establishes sensitivity to both edit types, not preferential sensitivity to factual content.
+- Descriptive, post hoc (`notes/diagnostics_round3b.md`): across the 160 C3 margins the matching margin tracks
+  activation distance (Spearman 0.77); in the 16 cells where the phrasing edit moved the activation more than the
+  entity edit, the phrasing margin is larger (0.014 vs 0.005), and the reverse holds in the other 24. Consistent
+  with "margin scales with activation displacement whatever caused it"; not a test of that mechanism.
+- The useful distinction: detecting a changed representation (supported) vs checking whether a particular claim
+  accurately describes it (not supported for the tested corruptions).
 
 **3. Local-snippet dominance persists across positions.** Last claim alone recovers 88% of the lift;
 deletion cost 0.125 vs 0.010 (first claim). Moved to the front it keeps 79% of its cost (0.099 vs 0.125);

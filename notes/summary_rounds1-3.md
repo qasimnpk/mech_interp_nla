@@ -28,7 +28,7 @@ Every number below is copied from a bench file: `overnight/*_summary.md`, `DISCO
 | adjacent layers 19 / 21 | 0.835 / 0.836 |
 Kill tests K1a, K1b, K4 NOT MET.
 
-## Finding 2 — the score reads wording and relevance, not facts (rounds 1–2, S2/S3/R1/R2)
+## Finding 2 — reconstruction is more sensitive to the tested paraphrases and off-topic substitutions than to factual corruptions (rounds 1–2, S2/S3/R1/R2; heading corrected 2026-09-07, see state_of_knowledge_2026-09-07.md §2)
 Setup: for each of 538 eval claims, an LLM (the target itself) wrote a one-fact contradiction c* and a
 meaning-preserving paraphrase c~; 490 accepted after checks. Cost = cos(z) − cos(z with claim replaced).
 | edit | cost |
