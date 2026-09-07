@@ -40,3 +40,6 @@
 2026-09-06T20:27:13  T2  start  forced-prefix readout, AV forward only (200 stimuli x yes/no + candidate continuation incl. swap and no-injection; single-word claim pairs)
 2026-09-06T21:01:47  T2  done  200 stimuli + 691 single-word claim pairs, 5164 AV forwards, 0 errors; T2 NOT MET (candidate-continuation AUROC 0.7516 CI [0.7017,0.7983]; no-injection 0.4880; prior-corrected 0.9347; swap prefers foreign 0.7749); T2-yesno MET (0.5502 CI [0.5227,0.5777]); claims: injected lp_orig−lp_corrupt 9.78 vs no-inj 1.39, frac 0.973
 2026-09-06T21:01:47  T4  start  injected-vector perturbation, pilot 0-39: TARGET directions (sports, french) then AV+AR co-resident, 9 cells x 40 = 360 generations (budget ~70 min, cap 85 min)
+2026-09-06T22:03:04  T4  done  360 items (40 pilot x 9 cells), 0 errors, 10.0 s/item; T4 NOT MET (sports mention 1.000 at β=+0.25 and +0.5, baseline 0.125, random 0.175; french pass 0.725/0.950 at +0.25/+0.5); collateral: seq-sim to V0 0.44/0.31, cos(AR,h) −0.019/−0.144 vs V0
+2026-09-06T22:03:04  T5  skipped  STATE.md carries 'T5: SKIP' (desk recommendation: superseded by the round-4 steering design), not 'T5: HUMAN-CONFIRMED'; no gate G5 run
+2026-09-06T22:03:04  T3  start  AV residual steering, pilot 0-39: french/terse directions at blocks 8,14 x α 1,2,4 = 12 cells x 40 = 480 generations (budget 111 min > 85-min cap; stimulus-outer, cut at cap)

@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: T4 running (round 3 started 2026-09-06T19:47:49; hard stop 2026-09-07T00:47:49)
-LAST UPDATED: 2026-09-06T21:01:47
+CURRENT STAGE: T3 running (round 3 started 2026-09-06T19:47:49; hard stop 2026-09-07T00:47:49)
+LAST UPDATED: 2026-09-06T22:03:04
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 T5: SKIP (desk recommendation: superseded by the round-4 steering design; change to `T5: HUMAN-CONFIRMED` to run it)
 
@@ -13,9 +13,9 @@ C1  position vs content (AR only) ....... DONE (NOT MET; c1_summary.md)
 C2  matched one-fact activation pairs ... DONE (NOT MET; c2_summary.md)
 T1  AR as zero-shot probe ............... DONE (INCONCLUSIVE; t1_summary.md)
 T2  forced-prefix yes/no on AV .......... DONE (NOT MET; yes/no MET; t2_summary.md)
-T4  injected-vector perturbation ........ RUNNING
-T5  steering specificity (OPTIONAL) ..... TODO
-T3  AV residual steering (last) ......... TODO
+T4  injected-vector perturbation ........ DONE (NOT MET; t4_summary.md)
+T5  steering specificity (OPTIONAL) ..... SKIPPED (STATE says T5: SKIP, not HUMAN-CONFIRMED)
+T3  AV residual steering (last) ......... RUNNING
 T6  MORNING3.md ......................... TODO
 
 ## Blockers
