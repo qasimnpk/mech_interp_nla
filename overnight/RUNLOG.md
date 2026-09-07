@@ -49,3 +49,5 @@
 2026-09-06T23:49:14  U0  start  round 3b begins; artifact check + T3 closeout; hard stop = 2026-09-06T23:49:14 + 2.5 h = 2026-09-07T02:19:14
 2026-09-06T23:50:35  U0  done  18/18 artifact checks OK (c2_pairs 40, t2_scores 200, t2_claims 691 single-word non-error = 298 LLM + 393 det, t0_topics 200, acts_L20 [200,3584] x2, c2_acts [40,2,3584]); T3 closeout: 420 items = 35 pilot stimuli x 12 cells, cut at the 5100 s cap, kill line MET as written; re-budget 44 min compute
 2026-09-06T23:50:35  T2c  start  forced-prefix entity readout on the 40 C2 pairs, AV forward only; p1 kill, p2 confirmation
+2026-09-06T23:55:31  T2c  done  40 pairs, 480 AV forwards (0.38 s), 0 errors; T2c NOT MET (mean D(h_a)−D(h_b) under p1 = 1.7379 CI [0.6272,3.2762], frac>0 0.775; both-correct raw 0.225, prior-centred 0.150; choice accuracy raw 0.600 [0.525,0.688]; AUROC 0.6516; p2 donor 1.8342 [0.7561,3.0039])
+2026-09-06T23:55:31  T2a  start  audit of round-3 topic readout (no model) + held-out prefix p3 on 200 stimuli (own / foreign / no-injection), AV forward only
