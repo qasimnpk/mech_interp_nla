@@ -52,3 +52,22 @@ Every number here is a re-derivation from `overnight/t2c_pairs.csv`, `c3_cells.c
 | T2b rows | 691 (same rows; LLM 298, det 393); in_ctx True 192 | t2b_claims.csv |
 - The round-3 headline '9.78 nats, 97.3%' is the 298 LLM single-word rows; T2b's 691-row table pools LLM and deterministic edits (deterministic rows are number/name swaps of the same claims). Report the two separately, as T2b does.
 - `in_ctx` = the original word string occurs in the 64-token left context + current token. It is a string check, not factual support; a name present in the context does not validate the relation the claim asserts.
+
+## Correction (2026-09-07 03:00): the activation saw the FULL prefix, not the 64-token window
+`s0_smoke.py` runs the target on the document truncated to 512 tokens; the activation at `pos` has seen
+tokens 0..pos (median 276 tokens on the labelling sheet, max 510). `context_left_64` is a display window only.
+Re-running the bench's exact `in_ctx` rule (word stripped of edge punctuation, whole-word, case-insensitive)
+over the full prefix + current token (`notes/t2b_in_full_prefix.csv`; bench in_ctx reproduced exactly):
+
+| word_orig present in … | n | d_own | d_pos2 | d_foreign | d_noinj | d_own − d_pos2 | frac d_own > 0 |
+|---|---|---|---|---|---|---|---|
+| 64-token window (bench in_ctx) | 192 | 18.23 | 6.63 | 4.08 | 3.14 | 11.60 | 0.990 |
+| full prefix, present | 257 | 16.69 | 6.74 | 3.56 | 3.01 | 9.95 | 0.988 |
+| full prefix, absent | 434 | 10.80 | 4.99 | 2.48 | 2.56 | 5.81 | 0.963 |
+| LLM edits only, full prefix present / absent | 83 / 215 | 10.32 / 9.57 | | | | 6.82 / 5.91 | |
+
+Reading: the correct lexical statement is "434 of 691 original words do not occur anywhere in the prefix the
+activation saw; the AV still prefers them over the corruption by 10.8 nats under its own activation, of which
+5.8 nats are specific to the exact position". Absence of the word is not absence of support (a paraphrase or
+inference may be supported); presence does not validate the relation the claim asserts. Only the human labels
+settle that, and they must be made against the full prefix (the blinded sheet now carries `full_prefix_to_pos`).
