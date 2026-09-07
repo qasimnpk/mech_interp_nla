@@ -58,3 +58,4 @@
 2026-09-07T00:25:41  C3  crashfix  iteration 1 crashed before any model output (KeyError 'cos_ha_hb': build_pairs does not carry it; C2's main adds it later); now read from c2_pairs.csv; no statistic changed; rerun (out/c3_iter1_crash.log)
 2026-09-07T00:42:46  C3  done  40 cells / 10 templates (all primary wording pairs), 160 TARGET fwd, 80 AV gens (parse_ok 80/80, 9.8 s), 160 AR scores, 320 AV readout fwd, 0 errors; C3-score INCONCLUSIVE (fact−wording 0.00782 CI [-0.00348,0.02407]; M_fact 0.0188/0.0163, M_wording 0.0097/0.0098; activation distance fact 0.0324 vs wording 0.0235); C3-readout NOT MET (D(h_C)−D(h_D) 1.7723 CI [0.7183,3.2194]; wording main effect −0.016 [−0.192,0.153]); one pre-model crash fix logged above
 2026-09-07T00:42:46  T7  start  MORNING3b.md
+2026-09-07T00:42:46  T7  done  MORNING3b.md written; round 3b ended (started 23:49:14, hard stop 02:19:14 not reached); loop stops
