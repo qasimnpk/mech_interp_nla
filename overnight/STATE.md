@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: N3 (round 3c running; started 2026-09-08T00:38:40 local; hard stop 2026-09-08T09:38:40)
-LAST UPDATED: 2026-09-08T01:48:35
+CURRENT STAGE: N4 (round 3c running; started 2026-09-08T00:38:40 local; hard stop 2026-09-08T09:38:40)
+LAST UPDATED: 2026-09-08T01:54:34
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
@@ -11,8 +11,8 @@ U0c  artifact check + micro-benchmark + re-budget ..... DONE (27/27 checks; all 
 U1   base-model control for the likelihood readout .... DONE — NOT MET (AV−base raw p3 acc +0.312 [0.244,0.388]; u1_summary.md)
 X3   snippet vs factual discrimination (AR only) ...... DONE — gate FAIL (74 < 100 cond-3 rows); INCONCLUSIVE (I=-0.00057 [-0.00401,0.00206] n=74)
 X1   cross-layer verified readout ..................... DONE — NOT MET (donor CI > 0 at L16/L24/L27; L24 highest; x1_summary.md)
-N3   correct / wrong / generic / omitted (AR only) .... RUNNING
-N4   fact-vs-phrasing displacement across layers ...... TODO
+N3   correct / wrong / generic / omitted (AR only) .... DONE — INCONCLUSIVE (generic−wrong -0.00029 [-0.00087,0.00025]; omitted−wrong +0.048)
+N4   fact-vs-phrasing displacement across layers ...... RUNNING
 X1b  cross-layer full generations (OPTIONAL) .......... TODO
 RT   round-trip relational pilot (GATED G0/G1/G2) ..... TODO
 M    error-monitoring pilot (GATED GM) ................ TODO
