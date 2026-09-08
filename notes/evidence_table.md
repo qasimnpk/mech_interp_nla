@@ -83,3 +83,24 @@ introduced after seeing data; DESK = desk re-derivation from committed CSVs). Bo
 - Human re-derivations logged: `notes/human_log.md` (agent-side entries so far; human entries owed).
 - Settings files: `overnight/<stage>_settings.json` (commit hash, model snapshots, prompts, seeds); round-1 S2/S5
   settings were restored from commits after being clobbered (RUNLOG line 20 area).
+
+## Round 3c (2026-09-08; MORNING3c.md; merge 7592565) — all agent-side until the human re-derives §2(b) of human-plan.md
+| claim | value | file | filter | columns / aggregation | n | CI | status |
+|---|---|---|---|---|---|---|---|
+| readout is learned: AV − un-finetuned baseline, raw p3 paired accuracy | +0.312 [0.244, 0.388]; AV 0.781, baseline 0.469 | u1_topic.csv | eval | `av_p3_true > av_p3_foreign` minus `base_p3_true > base_p3_foreign`, mean of the per-document difference | 160 documents | bootstrap of the paired difference by document | PRE U1, NOT MET |
+| same, prior-corrected (each interpreter's own no-injection) | +0.450 [0.362, 0.537]; AV 0.944, baseline 0.494 | u1_topic.csv | eval | `*_p3_*_corr` columns | 160 | as above | REP |
+| baseline swap-following / entity donor sensitivity | 0.494 / −0.011 [−0.117, 0.061] | u1_topic.csv, u1_entity.csv | | | 160 / 40 pairs | by document / by template | REP |
+| text-only reference (un-finetuned model reads the prefix as text) | raw accuracy 0.988 [0.969, 1.000] | u1_text.csv | eval | | 160 | by document | REP; bounds "recovered from the activation" |
+| snippet interaction I = (G_2 − G_1) − (G_3 − G_1) | −0.00057 [−0.00401, 0.00206] | x3_scores.csv | `span_ok == True` | mean `I` | 74 rows / 53 explanations | cluster by explanation | PRE X3, INCONCLUSIVE (gate: 74 < 100) |
+| factual margins by background | G_1 0.00115, G_2 0.00217, G_3 0.00275 | x3_scores.csv | `span_ok` | `G_1..G_3` | 74 | | REP |
+| X3 eligibility | 211 eligible of 490; 147 last-claim and 132 repeated-word excluded; 74 valid matched deletions; judge-valid subset n=1 | x3_summary.md | | | | | gate |
+| cross-layer entity donor sensitivity | blocks 16/20/24/27: 1.64 [0.48, 2.89] / 1.74 / 2.94 [1.13, 4.97] / 1.83 [0.44, 3.81] | x1_entity.csv | | `donor` by `layer` | 40 pairs per layer | cluster by template | PRE X1, NOT MET; exploratory (reused pairs) |
+| cross-layer entity accuracy / both-correct | 0.64/0.28, 0.60/0.23, 0.70/0.40, 0.60/0.23 | x1_entity.csv | | `D_a > 0 & D_b < 0` | 40 | by template | REP |
+| cross-layer topic raw / corrected accuracy | 0.74/0.92, 0.78/0.94, 0.76/0.94, 0.59/0.76 | x1_topic.csv | eval | `true > foreign`, `true_corr > foreign_corr` by `layer` | 160 | by document | REP |
+| frozen AR: generic − wrong specific | −0.00029 [−0.00087, 0.00025]; wrong 0.00249, generic 0.00220, omitted 0.05012 | n3_scores.csv | deterministic single-token swaps, eval | `generic_minus_wrong`, `cost_*` | 393 rows / 158 explanations | cluster by explanation | PRE N3, INCONCLUSIVE |
+| target entity/phrasing displacement ratio by layer | 1.20 (b0) → 2.34 (b20) → 5.30 (b24, max) → 3.41 (b27) | n4_curve.csv | C3 cells | mean (1 − cos) entity edit / phrasing edit | 40 cells | by template (wide) | DESK-style descriptive, no kill |
+| cross-layer generations | block 16: parse 1.00, quoted token 0.725, expecting-hit 0.275; block 27: parse 0.95, CJK 0.075, quoted token 0.000, expecting-hit 0.175; block 20: 0.65 / 0.45; shuffled floor 0.025 | x1b_outputs.jsonl, x1b_summary.md | pilot 0–39 | | 40 per layer | — | descriptive |
+| round-trip pilot gates | G0 16/16, G1 16/16 (max |Δlogit| 0), G2 11/16 (need 12; mean Δm −1.24; cos(h, h_twin) 0.990) | rt_gates.csv | 16 contexts | `m_native > 0`, `self_patch_max_abs_dlogit`, `dm_twin < 0` | 16 | — | gate FAIL; routes not run |
+| monitoring pilot | 49 correct / 151 incorrect of 200; 147 incorrect never wrote "Answer:" within 200 tokens; AUROC(−cos) 0.29 [0.00, 0.57] on 4 vs 40 | m_problems.csv, m_scores.csv | | | 44 usable | by problem | PRE M, INCONCLUSIVE (truncation artefact) |
+- Provenance additions: round 3c ran as a single background sub-agent, not a `/loop` (RUNLOG first line); one pre-output
+  crash fix in U0c (RUNLOG 2026-09-08T00:42:22); FOLLOWUPS: X3 judge-valid subset n=1; M truncation.
