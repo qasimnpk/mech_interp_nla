@@ -1,0 +1,173 @@
+
+
+################ TRANSFORM: shuffle
+EXAMPLE MULTIPLIER (x MSE): 0.983
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please reorganize the text below by randomly shuffling the order of elements (bullet points, sentences, paragraphs, dashes) while keeping all original wording exactly the same.
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Randomly shuffle the order of:
+  * Bullet points or dashed items within their lists
+  * Numbered items (keep the numbers but shuffle what content goes with each number)
+  * Sentences within paragraphs
+  * Paragraphs themselves (move entire paragraphs to different positions)
+  * Any other list items or independent elements
+- Maintain the same formatting structure (if there are 5 bullet points, keep 5 bullet points; if there are 3 paragraphs, keep 3 paragraphs)
+- The text should read in a completely different sequence but contain precisely the same words and sentences
+
+The goal is pure reorganization - same exact content, different order.
+
+Place your shuffled version in <transformed_text> tags.
+
+
+################ TRANSFORM: paraphrase_light
+EXAMPLE MULTIPLIER (x MSE): 1.007
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please paraphrase the text provided below. Create a paraphrased version while preserving the exact same formatting and structure as the original.
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Maintain identical formatting (paragraphs, bullet points, numbering, indentation, line breaks, etc.)
+- Paraphrase the content without altering the original meaning. Mirror the original's writing style, including its point of view (I/we vs. he/she/they) and tone
+- Preserve the original structure and organization
+
+You may think for as long as you would like, but include your final paraphrased text in <transformed_text> tags.
+
+
+################ TRANSFORM: paraphrase_aggressive
+EXAMPLE MULTIPLIER (x MSE): 1.072
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please transform the text below through comprehensive synonym replacement and condensation, while carefully preserving the exact formatting structure.
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Maintain identical formatting (every paragraph break, bullet point, number, indent, line break, header, etc. must stay in the exact same position)
+- Replace virtually every word with a synonym or alternative phrasing where possible (aim for 90%+ replacement)
+- Reduce the overall word count - generally make it shorter and more concise
+- Preserve the same language as the original text, but make alterations to the general tone and register
+- Keep the meaning accurate while expressing it through completely different word choices
+- Avoid using consecutive words from the original text
+- Transform sentence structures while keeping the content's essence
+
+The goal is to create a version that conveys the same information in the same tone and language, but uses entirely different words and is slightly more concise, while the formatting remains perfectly intact.
+
+Place your transformed version in <transformed_text> tags.
+
+
+################ TRANSFORM: french
+EXAMPLE MULTIPLIER (x MSE): 1.021
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please translate the text below from English to French while preserving the exact formatting structure.
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Maintain identical formatting (every paragraph break, bullet point, number, indent, line break, header, etc. must stay in the exact same position)
+- Translate all English text to French
+- Keep the same tone and register (formal stays formal, casual stays casual)
+- Preserve any non-English text as is (if there are words/phrases in other languages, leave them unchanged)
+- Maintain the same meaning and nuance in the translation
+- Keep any special formatting like bold, italics, or capitals in the same places
+
+The goal is a natural French translation that mirrors the exact formatting of the original.
+
+Place your translated version in <transformed_text> tags.
+
+
+################ TRANSFORM: coherence
+EXAMPLE MULTIPLIER (x MSE): 1.107
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please review and clean the text below by identifying and removing contradictory or inconsistent information while preserving the core themes and shared points.
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Maintain the formatting structure (paragraphs, bullet points, numbering, indentation, line breaks, etc.)
+- Read through the entire text to understand its primary themes, purpose, and main points
+- When you find contradictory information within the same topic:
+  * Identify the shared core point (e.g., if multiple bullets discuss Cyrillic letters but contradict each other, keep a bullet point for "Cyrillic letters" with the contradictory information stripped)
+  * Remove the contradictory details while preserving the common theme
+  * Consolidate related points that share the same underlying topic
+- Remove content that appears discordant or out of place:
+  * Unrelated tangents that don't align with the central topic
+  * Nonsensical text that disrupts logical flow
+  * Details that appear to belong to an entirely different document
+- Preserve the document's overall message and main arguments
+- Keep information that supports the document's central purpose, even if specific details conflict
+- If removing content leaves a formatting element empty, remove that formatting element
+
+The goal is to produce a coherent version that maintains the document's core points and overall message while eliminating contradictory details and irrelevant content. Be thorough about removing information you deem contradictory. Please think for as long as you need, and think carefully about what is coherent and incoherent. Place your cleaned version in <transformed_text> tags.
+
+
+################ TRANSFORM: paragraph_summary
+EXAMPLE MULTIPLIER (x MSE): 1.141
+---- PROMPT (verbatim, with the example explanation inlined) ----
+Please summarize the entire text below into a concise set of 2-3 sentences (or 1 sentence if the text is already that short) that captures the essential information. Your transformed text must be considerably shorter than the original text!
+
+<original_text>**Wikipedia article structure with Korean historical terminology patterns**: The text follows Wikipedia conventions for Korean historical figures, with consistent references to "Joseon dynasty," "Veritable Records," "Annals of the Joseon Dynasty" establishing expectation that the truncated "Annals of the Jos" will complete as "Joseon Dynasty" or similar.
+
+**Recurring transliteration and source citation patterns**: Consistent use of Korean romanization (Jungjong, Gwanghaegun, Munjeong), bracketed references, and formal historical encyclopedia register ("He was the second minister of the dynasty to be so in the reign of Jungjong") establishing a translated Korean Wikipedia entry.
+
+**Mid-article context of Korean dynasty reference**: The phrase "being recorded in the "Annals of the Jos" directly references the earlier title mention "Joseon wangjo sillok" and Korean dynastic records, likely completing with "Joseon" period/dynasty.
+
+**Text ending with fragmented proper noun "Jos"**: The wikify link "Annals of the Jos" is clearly mid-compound, following the earlier "Joseon dynasty" references—likely "Annals of the Joseon Dynasty" or "Joseon" with standard Wikipedia formatting.
+
+**Final token "Jos" as truncated proper noun**: "Annals of the Jos" follows the earlier Korean historical context with 1530s Korean bureaucracy; the pattern "Annals of the Jos" strongly predicts completion as "Joseon" matching the article's subject and the standard English title format for dynasty records.</original_text>
+
+Requirements:
+- Create a single paragraph summary of 2-3 sentences maximum (if the original text is already 2-3 sentences or shorter, reduce it by at least half)
+- Do not use bullet points, lists, or any special formatting - write as continuous prose
+- Maintain the same tone and register as the original (formal stays formal, casual stays casual)
+- Preserve the original writing style - mirror the author's voice, vocabulary choices, and sentence patterns
+- Capture the most important points and central message
+- Keep the same language as the original text
+- Write complete, flowing sentences that work together as a cohesive paragraph
+- The summary should feel like it was written by the same author, just more concisely and in paragraph form.
+- NOTE: Your transformed text must be considerably shorter than the original text! It MUST use fewer words.
+- Maintain crucial information and examples provided in original text whenever necessary
+
+Place your summary in <transformed_text> tags.
