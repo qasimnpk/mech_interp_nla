@@ -6,6 +6,8 @@ Rule for the large ones: **navigate by index, read by line range, never bulk-loa
 ## Project documents (ours)
 | File | What it is | Use |
 |---|---|---|
+| `NLA_paper_experiment_setup.md` | Agent-written (2026-09-08) protocol-level reconstruction of every evaluation experiment in the NLA paper: inventory with stable IDs (E0–E7, C1–C7, M1–M4, R1), shared procedures (extraction, AV, AR/FVE, judges, steering), per-experiment A–J protocols with provenance tags, adaptation table for the released Qwen2.5-7B pair, Qwen3.6-27B availability check, coverage checklist, ranked shortlist, author questions | Design a replication or a controlled extension; look up an exact prompt, N, or figure value before citing it. ~100 KB; read by section |
+| `nla_paper_artifacts/` | Recovered from the paper's interactive figures (2026-09-08): figure data JSON (five eval cards with grader prompts, six transform prompts, behavioral-eval graders, per-claim table, eval-awareness excerpts, AO cards, auditing run), 25 static plots renamed by content, verbatim prompt dumps, and today's online text for diffing | Verbatim prompts and plotted numbers the text dump lost |
 | `nla_seed.md` | Everything the previous (tool-conflict) project had already gathered about natural language autoencoders: the Transformer Circuits "misreported tool calls" audit card, the "NLA information gain" fallback design with its blind-describer baseline, the Qwen2.5-7B layer-20 checkpoint pointer, and the CHIVE/RECAP scoop note | Starting point for the NLA brief and lit survey |
 | `environment.md` | The local MPS environment as built | Setup questions |
 | `smoke_test_output.txt` | Correctness-gate output | Sanity reference |
