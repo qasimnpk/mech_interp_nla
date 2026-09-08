@@ -1,7 +1,34 @@
-# Nightshift — Round 3 / 3b plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
+# Nightshift — Round 3 / 3b / 3c plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
 
-**ROUND 3b (planned 2026-09-06 23:15, runs after round 3 has written MORNING3.md) — THIS IS THE ROUND TO
-EXECUTE. Stages are in "Round 3b stages" at the end of this file; execution order is in STATE.md.
+**ROUND 3c (planned 2026-09-08 morning; runs after round 3b, merged) — THIS IS THE ROUND TO EXECUTE.
+Stages are in "Round 3c stages" at the end of this file; execution order is in STATE.md. Rounds 1–3b are
+complete and reused read-only. This round is a long queue: the orchestrator may run for many hours. Every
+stage is pre-registered; a stage that fails its gate is reported and skipped, never rescued.**
+
+**Human review of round 3b and the literature (2026-09-07, three advisors; verbatim in
+`notes/advisor_round3_feedback.md`, `notes/response_to_reframing_2026-09-07.md`, `notes/round3c_plan_draft.md`).**
+- Dingeto (arXiv 2607.20379, Jul/Aug 2026) already audits this exact released pair with claim flips (≈2% of specific
+  claims grounded; paraphrase keeps 0.89 of the score). Our finding 2 is therefore a replication with a paired design.
+  The NLA paper already applied a late-layer NLA to earlier activations ("more striking content, less coherent").
+  A public model card (Solshine gemma-4-e2b NLA) reports teacher-forced discrimination "reproducible with an
+  untrained model". Consequences: the likelihood readout needs a base-model control before it can be attributed to
+  NLA training (U1); cross-layer work is only worth doing with an independently verified readout (X1); the pieces
+  that are ours are the per-position decomposition (finding 3), the source-edit pairs (C2/C3), the AV's own
+  likelihood as a readout with donor controls, promptability/steering (S5/T3) and injected-direction sensitivity (T4).
+- Lead question for the write-up: *what task-relevant information survives a released NLA's
+  verbalization–reconstruction pipeline, and can targeted access recover what its standard interface misses?*
+- Two corrections carried into every stage below: (a) if the un-finetuned interpreter matches the AV, the signal is
+  not an artifact; activation-dependent recovery may be real while NLA training adds little to this readout — report
+  as such, never "artifact"; (b) compute estimates are not budgets: U0c benchmarks a small batch of every model call
+  type and re-budgets before anything is scheduled.
+- Progression the round tests: does the trained interpreter add value (U1) → what limits its score (X3) → does
+  that limit matter for behaviour (RT, gated) → does the readout transfer across layers (X1) → what does the frozen
+  AR reward (N3) → where in the target does the fact/phrasing displacement live (N4) → does reconstruction error
+  warn of errors beyond uncertainty (M, gated pilot).
+- The application does NOT depend on any stage here. The human's review budget for the round is ≤ 60 min.
+
+
+**ROUND 3b (planned 2026-09-06 23:15; COMPLETE, merged 2d2d91e) — superseded by ROUND 3c below. Stages are in "Round 3b stages" at the end of this file; execution order is in STATE.md.
 Round-3 stages above are complete (T3 cut at its cap) and are reused read-only.**
 
 **Human review of round 3 with the third advisor (2026-09-06 ~23:00; verbatim in
@@ -544,3 +571,199 @@ listed in the round-3b review block at the top of this file. Commit. Stop the lo
 check; C3 is last and is dropped first under the hard stop. **Hard stop: 2.5 h after the first round-3b
 RUNLOG line.** Stage cap 45 min. Timing estimates are hypotheses; U0 may re-budget from round-3 measured
 costs (AV forward 0.3–0.4 s, AV generation 10 s, AR score 0.36 s, TARGET short forward 0.11 s).
+
+---
+
+## Round 3c stages (2026-09-08; long queue; hard stop 9 h after the first round-3c RUNLOG line)
+
+**Execution order: U0c → U1 → X3 → X1 → N3 → N4 → X1b → RT → M → T8.** Stage caps: 60 min (RT and M: 90 min).
+A stage whose gate fails is reported in one line and skipped. Numbers only; all round-1–3b rules apply (pilot/eval
+split, cluster bootstrap 1000 draws seed 0, three-way outcomes, settings files created in `main()`, raw outputs kept,
+FOLLOWUPS not pivots, never overwrite an earlier round's files, never write outside `overnight/`).
+
+**Reuse (read-only):** `stimuli.csv`, `explanations.jsonl`, `out/acts_L20.npz`, `t0_topics.csv`, `t0_entropy.csv`,
+`s2_claims.csv`, `s3_scores.csv`, `s3_edits.jsonl`, `c1_expl.csv`, `c2_pairs.csv`, `out/c2_acts.npz`, `c3_cells.csv`,
+`t2_scores.csv`, `t2a_scores.csv`, `t2c_pairs.csv`, scorers in `t2_prefix.py`, `t2a_audit.py`, `t2c_entity.py`,
+`nla_lib.py`. `src/patching.py` may be read and copied, not edited.
+
+**Shared readout definition (all likelihood stages):** default AV prompt with the activation injected exactly as
+`nla_lib` (marker id 149705, rescale to norm 150, marker row replaced and asserted), assistant turn prefilled with a
+prefix `p`; score of candidate `c` = summed log-prob of every token of `" " + c` (per-token mean also reported).
+`h_0` = no injection (raw marker embedding). Prior-corrected score = `lp(c | h) − lp(c | h_0)` **computed with the
+same interpreter's own no-injection run**. Prefixes: `p3 = "<explanation>\nThe document is about"` (topic, held-out in
+T2a), `PREFILL_CC = "<explanation>\nThe passage concerns"` (topic, round 3), `p1 = "<explanation>\nThe {noun} mentioned
+in the passage is"`, `p2 = "<explanation>\nThe passage mentions the {noun}"` (entity; nouns per template as in T2c).
+
+### U0c — artifact check + micro-benchmark + re-budget (~15 min)
+- Assert the reuse files exist with expected row counts (stimuli 200; t2a_scores 200; t2c_pairs 40; c2_pairs 40;
+  s3_scores rows with `edit_ok`; acts_L20 h20 [200, 3584]; c2_acts 80 rows).
+- **Benchmark before scheduling:** time 5 calls of each type actually used below — TARGET short forward, TARGET
+  forward on a 512-token document with all hidden states, AV forward with prefill, AV generation (200 tokens), AR
+  score, and a TARGET forward with a residual hook at block 20 — and write the measured s/item to `u0c_check.md`.
+  Re-budget every stage from these numbers; if a stage's projected time exceeds its cap, cut its item count by the
+  pre-declared rule in that stage (never change what is measured).
+- No kill test.
+
+### U1 — does NLA training improve targeted activation readout? (TARGET weights in the AV interface; ~30 min) — REQUIRED
+Question: does the trained AV recover more source information than the original `Qwen/Qwen2.5-7B-Instruct` given the
+same injected activation? "Baseline" = the un-finetuned instruct model, not random weights.
+- **Matched interface (assert every item):** identical prompt token ids, marker position, injection rescale to 150,
+  attention mask and position handling, candidate strings, likelihood aggregation, dtype (bf16) and scoring code. The
+  only difference is the weights. Implement by constructing the `nla_lib.AV` object from the TARGET snapshot with the
+  AV's `nla_meta` injection parameters; log that the role assert was bypassed. Never TARGET-as-AV and the real AV
+  co-resident with the AR.
+- **Conditions:** own activation, matched swapped activation (topic: the `(i+100) mod 200` foreign document; entity:
+  the twin), no injection. Each model's prior correction uses its own no-injection scores.
+- **Datasets:** (1) the 160 evaluation documents with `p3` (primary) and `PREFILL_CC` (secondary); (2) the 40 entity
+  pairs with `p1` (primary) and `p2` (secondary). The AV-generated claim-prefix rows (T2b) are NOT used here.
+- **Primary measurements:** paired topic-choice accuracy AV − baseline, raw and prior-corrected, bootstrap of the
+  paired difference by document; entity-choice accuracy, both-correct rate and donor sensitivity per interpreter,
+  paired differences by template. AUROC secondary. Also each interpreter's swap-following rate.
+- **Text-only reference (reported, no kill):** the un-finetuned model reads the full prefix (tokens 0..pos) as plain
+  text followed by `\nThe document is about`, scoring the same two titles; prior = the same prompt with the prefix
+  removed. A match with the AV shows the task is solvable from text; it does not prove inversion.
+- **Kill U1:** CI (by document) of the paired difference [AV − baseline] in **raw** `p3` choice accuracy **≤ 0 → MET**
+  (NLA training does not improve this readout under the tested interface; not equivalence). Reported alongside: the
+  same for prior-corrected accuracy, and for entity donor sensitivity.
+- **Interpretation, pre-committed:** AV > baseline with donor sensitivity → training improves the readout; similar
+  and both follow the donor → useful readout exists, training advantage not established; baseline > AV → training
+  may impair this readout; neither follows the donor → priors/confounds may explain apparent performance.
+- **Stop rule:** no prompt or injection-scale search for either model.
+- Build `u1_base.py`. Outputs `u1_topic.csv`, `u1_entity.csv`, `u1_text.csv`, `u1_summary.md` (side-by-side table on
+  identical items; 10 fixed rows). ≈2,500 TARGET-weight forwards.
+
+### X3 — does the dominant local snippet suppress factual discrimination? (AR only; ~30 min) — MAIN EXPLANATORY EXTENSION
+For activation h and condition c: `G_c = cos(AR(T_c), h) − cos(AR(F_c), h)`, T = explanation with the original claim,
+F = the same with the corrupted claim (the accepted S3 corruption), differing only in the substitution.
+- **Rows:** accepted S3 triples (corrupt and paraphrase both `edit_ok`, eval) whose claim is not the last claim
+  (`claim_idx < n_claims − 1`) and whose changed word does not occur in any other claim of the explanation (string
+  check; exclude repeats). Also run the paraphrase (P) in every condition so `A − P` is available.
+- **Validity subset (reported, not a filter for the primary):** label each original claim supported / not supported
+  against the full prefix (tokens 0..pos) and each corruption contradicting / not, with the TARGET as judge (fixed
+  prompt, greedy; store raw judge outputs); report the primary statistic on all rows and on the judge-valid subset.
+- **Conditions:** (1) full explanation; (2) local snippet removed (the last claim deleted, remaining claims joined by
+  one space); (3) equal-length non-local removal: delete a random contiguous span of words equal to the snippet's
+  word count from the other non-tested claims, never touching the tested claim (seed 1000 + row).
+- **Feasibility gate (before scoring):** count rows with enough non-tested, non-snippet text for condition (3)
+  (available words ≥ snippet words). Report the count. If < 100 rows, condition (3) is run on what is eligible and
+  the interaction statistic is reported as INCONCLUSIVE with n; never substitute a shorter deletion.
+- **Primary statistic:** `I = (G_2 − G_1) − (G_3 − G_1)`, mean with CI cluster by explanation.
+- **Kill X3:** CI of mean I **≤ 0 → MET** (removing the snippet does not improve factual discrimination more than
+  removing comparable other text). Report G_1, G_2, G_3, the three A − P margins, the three AUROC(Δ corrupt vs Δ
+  paraphrase), and the mean absolute cos per condition (a large collapse limits interpretation).
+- **Interpretation, pre-committed:** I > 0 with G_2 > G_1 → consistent with the snippet suppressing discrimination;
+  G_2 ≈ G_3 > G_1 → general context/length effect; no change → snippet dominance does not explain the insensitivity;
+  cos collapse under (2) → out-of-distribution caveat. This is a property of the frozen scorer, not of training.
+- Build `x3_snippet.py`. Outputs `x3_scores.csv`, `x3_judge.jsonl`, `x3_summary.md`, 5 verbatim rows. ≈3,000 AR forwards.
+
+### X1 — cross-layer readout with the fixed layer-20 AV (TARGET then AV forwards; ~30 min)
+Question: how does independently verified recovery change when the layer-20 AV reads other layers? Exploratory
+(same examples as T2c/T2a). The NLA paper reports cross-layer application is feasible but less coherent; this
+measures verified readout, not fluency.
+- **Layers (frozen):** blocks 16, 20, 24, 27 = `hidden_states[17, 21, 25, 28]`. Injection unchanged (norm 150; a scalar
+  before rescaling changes nothing). No whitening, no learned map.
+- TARGET forward on the 80 C2 contexts and the 200 stimuli, save the four layers to `out/x1_acts.npz`; assert the
+  block-20 rows match `c2_acts.npz` / `acts_L20.npz` to 1e-3.
+- Entity (`p1`, `h_a`, `h_b`, `h_0`) and topic (`p3`, own / foreign / none, eval 160) at each layer. Report **per layer,
+  separately**: donor sensitivity (CI by template), both-correct, choice accuracy raw and prior-centred; topic raw and
+  prior-corrected AUROC and accuracy, swap-following.
+- **Kill X1:** entity donor-sensitivity CI **≤ 0 at every non-training layer (16, 24, 27) → MET** (no readable transfer).
+  Reported: which layer maximises accuracy; whether donor sensitivity and accuracy move together. Pre-committed
+  readings: accuracy better elsewhere → training layer is not the best extraction layer for this task; donor
+  sensitivity up without accuracy → distribution shift changes the readout without making it useful; both down →
+  a measurable transfer limit.
+- Build `x1_layers.py`. Outputs `x1_entity.csv`, `x1_topic.csv`, `x1_summary.md`. ≈500 TARGET + ≈1,500 AV forwards.
+
+### N3 — what does the frozen AR reward: correct specific / wrong specific / generic / omitted (AR only; ~15 min)
+Tests the NLA paper's stated hypothesis that a thematically matched wrong specific reconstructs better than omitting
+the specific. Rows: the accepted deterministic-swap triples (`corrupt_det`, n≈402, eval), where the swapped token
+is a number or a capitalised name.
+- Four versions of the claim inside the full explanation: original; wrong specific (the det swap); **generic**
+  (number → `a number`, name → `a person` if the swap list marks it as a person name else `a place`; rule logged, no LLM);
+  **omitted** (the claim deleted; from S2).
+- Report cost of each relative to the original (cos drop), CIs by explanation, and the pairwise differences
+  wrong − generic and wrong − omitted.
+- **Kill N3:** CI of [cost(generic) − cost(wrong specific)] **≤ 0 → MET** (no evidence the frozen AR prefers a wrong
+  specific over a generic). Reported: cost(omitted) − cost(wrong). This says what the frozen scorer rewards, not what
+  training caused.
+- Build `n3_generic.py`. Outputs `n3_scores.csv`, `n3_summary.md`, 5 verbatim rows. ≈1,200 AR forwards.
+
+### N4 — fact-vs-phrasing displacement across all layers in the TARGET (TARGET only; ~10 min)
+Descriptive. For the 40 C3 cells (contexts A, B, C, D) record `hidden_states[l]` at the final token for every l in
+1..28; report per layer mean (1 − cos) for the entity edit (A vs B, C vs D) and the phrasing edit (A vs C, B vs D),
+their ratio, and CI by template. Also for the 490 S3 claim texts (c, c*, c~ as raw text, last token) the R1 distances
+per layer. No kill; a flat or rising curve is reported without a mechanism claim. Build `n4_layers.py`. Outputs
+`n4_curve.csv`, `n4_summary.md`. ≈160 + ≈1,500 TARGET forwards.
+
+### X1b — OPTIONAL: cross-layer full generations (AV; ~20 min) — dropped first among the optionals
+40 pilot stimuli, greedy explanations from block-16 and block-27 activations (80 generations). Report parse_ok, CJK
+rate, quoted-final-token accuracy, "expecting"-candidate hit rate on the target's top-1 next token (shuffled-pairing
+floor at block 20: 0.029 [0.012, 0.056]; own 0.444), word overlap with the block-20 explanation, `cos(AR(desc), h_l)`
+and `cos(AR(desc), h_20)`. No kill. Build `x1b_gen.py`. Outputs `x1b_outputs.jsonl`, `x1b_summary.md`, 4 fixed
+examples (stimuli 0, 7, 19, 33).
+
+### RT — does task-relevant information survive the NLA round trip? (GATED 8-pair pilot; TARGET + AV + AR; cap 90 min)
+Question: can an activation reconstruct well while losing information the target needs for its answer?
+- **Contexts (frozen; raw text, no chat template):** template
+  `{N1} received the {O1}. {N2} received the {O2}.\nQuestion: Who received the {O1}?\nAnswer:` with twin
+  `{N2} received the {O1}. {N1} received the {O2}.` (same question). Name pairs `(Anna, Tom)`, `(Sara, Ben)`; object
+  pairs `(key, book)`, `(coin, letter)`, `(cup, hat)`, `(map, pen)` → 8 pairs = 16 contexts. All candidates are single
+  tokens with a leading space (checked 2026-09-08). Correct answer for A is N1, for the twin N2.
+- **Position:** the final prompt token (`:` after `Answer`); activation = `hidden_states[21]` there.
+- **Behavioural measure:** `m = lp(" " + correct) − lp(" " + other)` at the next token.
+- **Gates (frozen; pilot counts, not statistics):** G0 native competence: `m > 0` in ≥ 14/16 contexts. G1 self-patch:
+  replacing the block-20 activation at that position with itself reproduces every next-token logit within 1e-2 (bf16)
+  in 16/16. G2 natural donor patch: replacing it with the twin's activation moves `m` toward the twin's answer
+  (Δm sign) in ≥ 12/16. **If any gate fails: write the numbers, stop RT, do not search layers or positions.**
+- **Routes (only after the gates):** (1) native `m`; (2) default AV description of `h` (greedy, 200 tokens) → text-only
+  QA: the TARGET reads `Description of the model's state:\n<desc>\n` + the question + `Answer:` with no injection →
+  `m_text`; (3) forced-prefix AV scoring: prefill `<explanation>\nThe person who received the {O1} is` under `h`, `h_twin`,
+  `h_0` → D as in T2c; (4) round trip: `ĥ = AR(desc) · ‖h‖ / ‖AR(desc)‖` patched at the position → `m_rt`.
+  Controls for (4): matched perturbation `h + ε`, `‖ε‖ = ‖ĥ − h‖`, random direction, 3 seeds → `m_pert`; report
+  `cos(ĥ, h)`. Preserve the recipient's other positions and cache; assert the patch touches one row.
+- **Kill RT (only if the gates pass):** CI (paired over the 16 contexts) of [m_rt − m_pert] **≤ 0 → MET**
+  (reconstruction preserves the answer no better than a displacement-matched perturbation). Reported: native vs
+  round-trip preservation rate (sign of m), text-only QA accuracy, forced-prefix donor sensitivity and accuracy.
+- **Interpretation, pre-committed:** high cos(ĥ,h), gates pass, m_rt impaired vs m_pert → concrete loss of
+  task-relevant information in reconstruction; m_rt preserved → a boundary on "the AR discards specifics"; all NLA
+  routes fail while native succeeds → interface limitation, not proof the activation lacks it; m_rt ≈ m_pert both
+  failing → insufficient evidence of specifically semantic damage.
+- Build `rt_roundtrip.py` (hook: copy the residual-patch pattern from `src/patching.py`; the TARGET must be loaded
+  alone for patching, then AV, then AR; never all three). Outputs `rt_gates.csv`, `rt_routes.csv`, `rt_outputs.jsonl`,
+  `rt_summary.md` with all 16 contexts verbatim.
+
+### M — does reconstruction error warn of an incorrect answer beyond the target's own uncertainty? (GATED pilot; cap 90 min)
+Exploratory; builds on the public "NLA Thought Anchors" post (same checkpoint, GSM8K-style) by testing incremental,
+prospective value. Synthetic problems only (no downloads).
+- **Problems (frozen generator, seed 0):** 200 items of the form `Compute {a} × {b}. Work step by step, then write
+  "Answer:" followed by the number.` with a ∈ [100, 999], b ∈ [11, 99]. Greedy TARGET generation, ≤ 200 tokens, raw text.
+  Correct iff the integer after the first `Answer:` equals a·b. **Gate GM: ≥ 20 incorrect and ≥ 20 correct; else stop.**
+- **Position (predefined):** the `:` of the model's own first `Answer:` (the answer delimiter), extracted by re-running
+  the prefix up to and including that token. Secondary, if time: the first newline of the generation (earlier boundary).
+- **Sample:** all incorrect items (cap 40) and 40 correct items (seed 0). AV explanation from the prefix activation,
+  AR cosine (primary NLA signal, frozen). Comparators at the same position: next-token entropy and top-1 margin of the
+  TARGET; text-only: the TARGET reads the visible prefix and answers `Will the final answer be correct? Yes/No`
+  (yes−no logit). Bootstrap by problem.
+- **Kill M:** AUROC(−cos, incorrect vs correct) CI **≤ 0.60 → MET**. Reported: AUROC of entropy and margin; the
+  incremental value of cos in a logistic model with entropy and margin (in-sample, labelled exploratory).
+- Build `m_monitor.py`. Outputs `m_problems.csv`, `m_scores.csv`, `m_summary.md`, 5 verbatim cases.
+
+### T8 — morning report
+`overnight/MORNING3c.md`: kill lines; the U1 side-by-side table (AV vs baseline vs text on identical items); X3
+condition table with n and the eligibility count; X1 per-layer table; N3 four-way table; N4 curve table; X1b, RT, M
+if run (gates and numbers either way); verbatim examples; FOLLOWUPS; provenance (agent-built vs pre-registered);
+wall-clock and measured per-item costs. Commit. Stop.
+
+## Pre-registered thresholds (round 3c)
+| K | stage | statistic | MET if |
+|---|---|---|---|
+| U1 | U1 | CI (by document) of paired [AV − baseline] raw p3 choice accuracy | ≤ 0 |
+| X3 | X3 | CI (by explanation) of mean I = (G_2 − G_1) − (G_3 − G_1) | ≤ 0 |
+| X1 | X1 | entity donor-sensitivity CI at blocks 16, 24, 27 | ≤ 0 at all three |
+| N3 | N3 | CI (by explanation) of [cost(generic) − cost(wrong specific)] | ≤ 0 |
+| RT | RT (after gates) | CI (paired, 16 contexts) of [m_rt − m_pert] | ≤ 0 |
+| M | M (after gate) | AUROC(−cos) incorrect vs correct, CI by problem | ≤ 0.60 |
+N4 and X1b are descriptive (no kill). Gates: X3 eligibility (≥ 100 rows), RT G0/G1/G2, M GM.
+
+**Execution order (round 3c):** U0c → U1 → X3 → X1 → N3 → N4 → X1b → RT → M → T8. **Hard stop: 9 h after the first
+round-3c RUNLOG line;** at the stop, the running stage is marked blocked (time) and T8 runs with what exists.
