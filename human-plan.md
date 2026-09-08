@@ -193,7 +193,7 @@ allowance recorded, submission could happen now. Protect sleep and the buffer ev
 ## 7. OPTIONAL after the §5 gate: bounded 27B replication on RunPod
 Unchanged from the 2026-09-07 plan: only after submission-ready, ≥ 18 h to planned submission, ≥ 90 min of unused
 allowance; one on-demand H200, one 12 h session with a provider-side stop, ≈$60; Celeste's Qwen3.6-27B NLA only;
-agent brief and gates as written in `notes/round3c_plan_draft.md` §"27B" and the earlier plan; your attention ≤ 90 min;
+agent brief, gates, measurement table and pre-committed interpretations in `notes/27b_extension_brief.md`; your attention ≤ 90 min;
 add at most one paragraph and one panel. Default with the current clock: skip; name it as future work.
 
 ## 8. The advisor's six checkboxes, with state as of now
