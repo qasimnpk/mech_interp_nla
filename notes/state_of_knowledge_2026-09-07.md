@@ -111,3 +111,25 @@ Not now: round-4 distributed steering; 27B replication; more prompt sweeps. Both
 - Merge `nightshift/round3b` after review (`git merge --no-commit --no-ff nightshift/round3b && git
   checkout HEAD -- CLAUDE.md`, then commit); copy `overnight/out/c3_acts.npz` first.
 - Human log: re-derive one round-3b number by hand (e.g. mean D(h_a) − D(h_b) from `t2c_pairs.csv`).
+
+## Addendum 2026-09-08 — round 3c (see overnight/MORNING3c.md; numbers unverified by the human)
+- **The likelihood readout is learned, not an injection artefact (U1).** Same interface, same items, weights the only
+  difference: AV raw topic accuracy 0.781 vs un-finetuned Qwen 0.469 (paired +0.312 [0.244, 0.388]); prior-corrected
+  0.944 vs 0.494; the baseline does not follow a swapped donor (0.494) and has no entity donor sensitivity (−0.01).
+  Caveat: the un-finetuned model reading the prefix as text gets the title in 98.8%; the topic task is solvable from
+  text, so "recovered from the activation" means recovered by an activation-only reader, not information a text
+  reader lacks.
+- **Snippet dominance does not explain the factual insensitivity (X3, INCONCLUSIVE at n=74).** Factual margins stay
+  ~0.001–0.003 whether the snippet is present, removed, or matched text is removed; interaction −0.0006 [−0.0040, 0.0021].
+- **The frozen scorer does not reward a wrong specific over a generic (N3).** Wrong 0.0025, generic 0.0022, omitted
+  0.050; generic − wrong −0.0003 [−0.0009, 0.0003]. Bounded answer to the NLA paper's hypothesis 2 for this scorer.
+- **The layer-20 AV reads other layers, and reads entities best at block 24 (X1).** Donor sensitivity 1.64 / 1.74 /
+  2.94 / 1.83 at blocks 16 / 20 / 24 / 27; both-correct 0.28 / 0.23 / 0.40 / 0.23; topic best at 20 (0.78) and worst
+  at 27 (0.59). Exploratory, same 40 pairs. Converges with N4: the target's own entity-vs-phrasing displacement ratio
+  peaks at blocks 24–25 (5.3; wide CI). Full generations (X1b): block 16 fluent, weaker next-token content; block 27
+  breaks the format (quoted final token 0/40). Fluent output and verified readout come apart in both directions.
+- **Round-trip pilot stopped at its gate (RT).** Twin-donor patch at the pre-answer block-20 position shifts the
+  answer in 11/16 (need 12; cos(h, h_twin) 0.990). A single-position patch does not carry the relation; consistent
+  with Dingeto's "patching the tap barely moves behavior". Routes not run; no search.
+- **Monitoring pilot uninformative (M).** 147/200 raw-text generations hit the 200-token cap before "Answer:";
+  4 usable errors. A rerun needs a longer budget or a chat template; not done.
