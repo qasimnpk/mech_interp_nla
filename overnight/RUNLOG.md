@@ -77,3 +77,5 @@
 2026-09-08T02:13:34  RT  start  gated round-trip pilot: 16 contexts; TARGET (native, G0/G1/G2) → AV+AR → TARGET (text QA, round-trip and perturbation patches)
 2026-09-08T02:14:11  RT  blocked  gate G2 FAIL: twin donor patch moved m toward the twin's answer in 11/16 (need ≥12; mean Δm -1.24, cos(h,h_twin) 0.990); G0 16/16 (mean m_native 12.9), G1 16/16 (self-patch max|Δlogit| 0); routes not run, no layer/position search (pre-declared); rt_gates.csv, rt_summary.md; wall 02:13→02:14
 2026-09-08T02:14:11  M  start  gated error-monitoring pilot: 200 synthetic multiplications (TARGET greedy ≤200 tok, raw text) → gate GM → 80-item sample: activation/entropy/margin/text-only at the model's own 'Answer:' → AV+AR
+2026-09-08T03:06:01  M  done  200 TARGET generations (12.8 s, mean 194 tokens), M-gate PASS by count (49 correct / 151 incorrect) but 147 incorrect items never wrote 'Answer:' within 200 tokens → 4 incorrect with a position; sample 4 incorrect + 40 correct, 44 AV+AR items (10.4 s), 0 errors; M INCONCLUSIVE (AUROC(−cos) 0.294 CI [0.000,0.571], n_pos 4 < 20; entropy 0.794, −margin 0.797); wall 02:14→03:05
+2026-09-08T03:06:01  T8  start  MORNING3c.md
