@@ -79,3 +79,4 @@
 2026-09-08T02:14:11  M  start  gated error-monitoring pilot: 200 synthetic multiplications (TARGET greedy ≤200 tok, raw text) → gate GM → 80-item sample: activation/entropy/margin/text-only at the model's own 'Answer:' → AV+AR
 2026-09-08T03:06:01  M  done  200 TARGET generations (12.8 s, mean 194 tokens), M-gate PASS by count (49 correct / 151 incorrect) but 147 incorrect items never wrote 'Answer:' within 200 tokens → 4 incorrect with a position; sample 4 incorrect + 40 correct, 44 AV+AR items (10.4 s), 0 errors; M INCONCLUSIVE (AUROC(−cos) 0.294 CI [0.000,0.571], n_pos 4 < 20; entropy 0.794, −margin 0.797); wall 02:14→03:05
 2026-09-08T03:06:01  T8  start  MORNING3c.md
+2026-09-08T03:06:33  T8  done  MORNING3c.md written (8 kill/gate lines, all stages: U0c, U1, X3, X1, N3, N4, X1b, M done; RT blocked at gate G2); round 3c ended (started 00:38:40, hard stop 09:38:40 not reached); session stops

@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: T8 (round 3c running; started 2026-09-08T00:38:40 local; hard stop 2026-09-08T09:38:40)
-LAST UPDATED: 2026-09-08T03:06:01
+CURRENT STAGE: ROUND 3c COMPLETE (T8 written MORNING3c.md; started 2026-09-08T00:38:40 local; hard stop 2026-09-08T09:38:40)
+LAST UPDATED: 2026-09-08T03:06:33
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
@@ -16,7 +16,7 @@ N4   fact-vs-phrasing displacement across layers ...... DONE — descriptive (n4
 X1b  cross-layer full generations (OPTIONAL) .......... DONE — descriptive (x1b_summary.md)
 RT   round-trip relational pilot (GATED G0/G1/G2) ..... BLOCKED — gate G2 FAIL (11/16 < 12); G0 16/16, G1 16/16; routes not run
 M    error-monitoring pilot (GATED GM) ................ DONE — gate PASS by count; INCONCLUSIVE (AUROC(−cos) 0.294 [0.000,0.571], only 4 incorrect items had an 'Answer:' position)
-T8   MORNING3c.md ..................................... RUNNING
+T8   MORNING3c.md ..................................... DONE
 
 ## Blockers
 (none)

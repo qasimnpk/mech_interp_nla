@@ -61,11 +61,12 @@ def main():
         else:
             wall_rows.append(f"| {stg} | — | — | — | not started |")
     u0c = read("u0c_check.md"); u1 = read("u1_summary.md"); x3 = read("x3_summary.md"); x1 = read("x1_summary.md"); n3 = read("n3_summary.md"); n4 = read("n4_summary.md"); x1b = read("x1b_summary.md"); rt = read("rt_summary.md"); m = read("m_summary.md")
-    kill_table = ["| K | stage | statistic | MET if | observed (from DISCONFIRMATION.md) | outcome |", "|---|---|---|---|---|---|"]
+    kill_table = ["| K | stage | MET if (pre-registered threshold) | observed (from DISCONFIRMATION.md) | outcome |", "|---|---|---|---|---|"]
     for ln in disc:
         parts = ln.split("  "); stg, kid = parts[1], parts[2]
         thr = re.search(r"threshold=(.*?)  observed=", ln); obs = re.search(r"observed=(.*?)  (MET|NOT MET|INCONCLUSIVE|PASS|FAIL)  ", ln); oc = re.search(r"  (MET|NOT MET|INCONCLUSIVE|PASS|FAIL)  ", ln)
-        kill_table.append(f"| {kid} | {stg} | | {thr.group(1) if thr else ''} | {obs.group(1) if obs else ''} | **{oc.group(1) if oc else ''}** |")
+        esc = lambda x: x.replace("|", "\\|")  # noqa: E731
+        kill_table.append(f"| {kid} | {stg} | {esc(thr.group(1)) if thr else ''} | {esc(obs.group(1)) if obs else ''} | **{oc.group(1) if oc else ''}** |")
     lines = ["# MORNING3c — round 3c (2026-09-08): base-model control, snippet interaction, cross-layer readout, frozen-AR rewards, layer curve, gated pilots", "",
              f"Written by T8 at {time.strftime('%Y-%m-%d %H:%M:%S')} local; git {L.git_hash()[:8]}. Numbers only; no verdicts. Every number below is copied from a stage artifact (`<stage>_summary.md`, `<stage>_settings.json`, `DISCONFIRMATION.md`, `RUNLOG.md`).",
              f"Round started {first.strftime('%Y-%m-%d %H:%M:%S')} (first round-3c RUNLOG line); hard stop was {first.strftime('%H:%M:%S')} + 9 h.", "",
