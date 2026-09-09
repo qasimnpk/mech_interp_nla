@@ -1241,3 +1241,36 @@ scripts; agent-labelled claims, provisional). Commit. Stop.
 Descriptive only. No new positions, no sampling variants, no additional texts. Any idea goes to FOLLOWUPS.md.
 
 **Execution order (round 5):** P0 → P1 → P2 → T10. **Hard stop: 3 h after the first round-5 RUNLOG line; T10 owns the last 20 min.**
+
+## Round 5b stage D2 (planned 2026-09-09 evening; runs in the round-5 worktree after T10; cap 60 min; numbers only)
+
+**Purpose (human, 2026-09-09).** Repeat the D1 design (claim-direction subtraction with the AR as encoder) on the 8 round-5 examples,
+whose atomic claims now carry truth labels (`p2_claims_annotated.csv`), so that persistence under ablation can be broken down by
+**true vs false** claim for the first time. Descriptive; n is 8 explanations × ~3 sentences, so the kill line is INCONCLUSIVE by n by design.
+
+### D2 — claim-direction ablation on the annotated 7B explanations (AR → AV(+AR); greedy; one strength γ = 0.3)
+- **Inputs (read-only):** `out/p0_acts.npz` (`h20` [8, 3584]), `p1_av.jsonl` (`explanation_7b`), `p2_claims_annotated.csv`, `nla_lib.py`, `r4_lib.py`
+  (`split_claims_quote_aware`, `ar_score`), `d1_ablate.py` (copy the direction / ablation / persistence code; do not edit it).
+- **Sentences (claims in the D1 sense):** `split_claims_quote_aware(explanation_7b)` → sentences s_1..s_k per explanation (expect k = 3: theme
+  sentence, quoted-reconstruction sentence, final-token sentence). The final-token sentence is the **positive-control stratum** (as D1 `last`);
+  the others are `non-last`.
+- **Atomic-claim → sentence map:** assign each P2 claim row to the sentence with the largest token overlap between `claim_text` (plus any quoted
+  phrase in it) and the sentence; write `d2_claim_map.csv` (idx, claim_no, sentence_no, overlap, type, truth). Rows with overlap 0 are `unmapped`
+  and excluded from the by-truth tables (count reported).
+- **Direction:** z = the explanation; z∖s = z with sentence s removed (same span logic as D1); `d_s = AR(z) − AR(z∖s)` in fp32; d̂ = d_s/‖d_s‖.
+  Own ablation `h' = h − 0.3 ‖h‖ d̂`. **Random control:** d̂ of a sentence from a *different* explanation in the same stratum (fixed derangement,
+  seed 8101). **Same-explanation control (new, cheap):** d̂ of a *different sentence of the same explanation* (the other non-last sentence for
+  non-last rows; for k = 2 explanations this arm is skipped and counted).
+- **Re-verbalization:** greedy, 200 tokens, for h'_own, h'_rand, h'_same (≤ 3 × 24 = 72 generations, ~12 min), each parsed, CJK-flagged,
+  re-scored with the AR against the original h (`cos_new`). Reference = the P1 explanation of the unablated h.
+- **Measures (per sentence row):** `persist_claim` = max token-Jaccard between the sentence and any sentence of the new explanation (D1
+  definition); `persist_atomic` = for each mapped P2 claim, 1 if every content word of `claim_text` (lower-cased, non-stopword, ≥ 4 chars;
+  words in quotes included) occurs in the new explanation, else 0; format break (parse fail or CJK); `cos_new`; whole-explanation Jaccard.
+- **Kill statistic (pre-registered, three-way rule, cluster by explanation):** mean[persist_claim(random) − persist_claim(own)] on non-last rows;
+  MET if CI ≤ 0, NOT MET if CI > 0, INCONCLUSIVE if it straddles 0 or rows < 60 (**expected: INCONCLUSIVE by n**). Log to DISCONFIRMATION.md first.
+- **Descriptive tables (all with cluster-bootstrap CIs, n stated):** (1) persist_claim by arm (own / random / same-explanation) × stratum;
+  (2) **persist_atomic by arm × truth (true / false / unsupported) × type (entity / detail / theme / forecast)**, pooled over non-last rows;
+  (3) format-break rate and cos_new by arm; (4) positive-control stratum; (5) per-row listing (idx, sentence_no, arm, persist_claim,
+  n_atomic_true/false persisted, cos_new). Also copy every re-verbalization verbatim to `d2_av.jsonl`.
+- **Outputs:** `d2_rows.csv`, `d2_av.jsonl`, `d2_claim_map.csv`, `d2_summary.md`, `d2_settings.json`, `out/d2_vectors.npz`; append to STATE.md,
+  RUNLOG.md, DISCONFIRMATION.md; commit; no push. Reading the by-truth table is the desk's job: report numbers only.
