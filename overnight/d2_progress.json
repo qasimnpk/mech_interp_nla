@@ -1,0 +1,26 @@
+{
+  "stage": "d2",
+  "cap_min": null,
+  "cumulative_minutes": 13.615834089120236,
+  "script_minutes": 13.615834089120236,
+  "judgement_minutes": 0.0,
+  "phase": "done",
+  "completed": {
+    "directions": 25,
+    "rows": 25
+  },
+  "incomplete": {},
+  "failures": 0,
+  "cut_rules_applied": [],
+  "blocked": null,
+  "awaiting": null,
+  "invocations": [
+    {
+      "start": "2026-09-09T15:50:36",
+      "argv": [],
+      "end": "2026-09-09T16:04:13"
+    }
+  ],
+  "judgement_log": [],
+  "last_saved": "2026-09-09T16:04:13"
+}

@@ -1,0 +1,55 @@
+[15:50:36 rss=0.4G] D2: 25 sentence rows (17 non-last, 8 last); claims mapped 124/124 (ties 8); same-arm skipped rows 0
+Loading weights:   0%|          | 0/253 [00:00<?, ?it/s]Loading weights:   4%|▎         | 9/253 [00:00<00:02, 81.98it/s]Loading weights:   7%|▋         | 18/253 [00:00<00:03, 68.08it/s]Loading weights:  10%|▉         | 25/253 [00:00<00:03, 66.16it/s]Loading weights:  13%|█▎        | 32/253 [00:00<00:03, 64.46it/s]Loading weights:  15%|█▌        | 39/253 [00:00<00:04, 48.11it/s]Loading weights:  18%|█▊        | 45/253 [00:00<00:04, 46.61it/s]Loading weights:  20%|█▉        | 50/253 [00:01<00:15, 13.41it/s]Loading weights:  21%|██▏       | 54/253 [00:02<00:14, 14.04it/s]Loading weights: 100%|██████████| 253/253 [00:02<00:00, 113.21it/s]
+[transformers] [1mQwen2ForCausalLM LOAD REPORT[0m from: /Users/mbp_qasim/.cache/huggingface/hub/models--kitft--nla-qwen2.5-7b-L20-ar/snapshots/e2c9e57eac213d37a31612087f645ab6332c1bb6
+Key               | Status  | 
+------------------+---------+-
+model.norm.weight | MISSING | 
+lm_head.weight    | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[15:50:40 rss=1.1G] AR loaded: 21 layers, mse_scale=59.867
+[free] RSS 1233 MiB -> 582 MiB (released 650 MiB)
+[15:50:49 rss=0.6G] D2 directions: 25 rows
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   3%|▎         | 10/339 [00:00<00:07, 42.40it/s]Loading weights:   5%|▌         | 18/339 [00:00<00:06, 50.50it/s]Loading weights:   9%|▊         | 29/339 [00:00<00:06, 47.28it/s]Loading weights:  14%|█▎        | 46/339 [00:01<00:07, 41.21it/s]Loading weights:  15%|█▌        | 51/339 [00:01<00:07, 36.94it/s]Loading weights:  27%|██▋       | 92/339 [00:01<00:02, 95.00it/s]Loading weights:  39%|███▉      | 133/339 [00:01<00:01, 139.64it/s]Loading weights:  47%|████▋     | 158/339 [00:01<00:01, 142.31it/s]Loading weights:  52%|█████▏    | 176/339 [00:01<00:01, 144.61it/s]Loading weights:  60%|█████▉    | 203/339 [00:01<00:00, 165.07it/s]Loading weights:  65%|██████▌   | 222/339 [00:03<00:02, 39.23it/s] Loading weights:  70%|██████▉   | 236/339 [00:03<00:02, 40.98it/s]Loading weights:  73%|███████▎  | 247/339 [00:04<00:02, 40.11it/s]Loading weights:  76%|███████▌  | 256/339 [00:04<00:02, 40.83it/s]Loading weights: 100%|██████████| 339/339 [00:04<00:00, 78.72it/s]
+[15:50:54 rss=3.5G] AV loaded; prompt 125 tok, marker at 111, injection_scale=150.0
+Loading weights:   0%|          | 0/253 [00:00<?, ?it/s]Loading weights:   6%|▌         | 15/253 [00:00<00:05, 45.54it/s]Loading weights:   8%|▊         | 21/253 [00:00<00:05, 42.30it/s]Loading weights:  13%|█▎        | 32/253 [00:00<00:05, 40.45it/s]Loading weights:  14%|█▍        | 36/253 [00:00<00:05, 39.13it/s]Loading weights:  16%|█▌        | 40/253 [00:01<00:08, 25.55it/s]Loading weights:  19%|█▉        | 48/253 [00:01<00:06, 31.06it/s]Loading weights:  32%|███▏      | 80/253 [00:01<00:02, 72.52it/s]Loading weights:  35%|███▌      | 89/253 [00:01<00:03, 52.20it/s]Loading weights:  38%|███▊      | 96/253 [00:02<00:02, 52.55it/s]Loading weights:  43%|████▎     | 110/253 [00:02<00:02, 55.85it/s]Loading weights:  48%|████▊     | 121/253 [00:02<00:02, 56.05it/s]Loading weights:  70%|███████   | 178/253 [00:02<00:00, 125.63it/s]Loading weights:  76%|███████▌  | 192/253 [00:02<00:00, 112.72it/s]Loading weights:  81%|████████  | 204/253 [00:02<00:00, 105.07it/s]Loading weights:  85%|████████▍ | 215/253 [00:03<00:00, 66.31it/s] Loading weights: 100%|██████████| 253/253 [00:03<00:00, 74.26it/s]
+[transformers] [1mQwen2ForCausalLM LOAD REPORT[0m from: /Users/mbp_qasim/.cache/huggingface/hub/models--kitft--nla-qwen2.5-7b-L20-ar/snapshots/e2c9e57eac213d37a31612087f645ab6332c1bb6
+Key               | Status  | 
+------------------+---------+-
+model.norm.weight | MISSING | 
+lm_head.weight    | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[15:50:58 rss=0.4G] AR loaded: 21 layers, mse_scale=59.867
+[15:51:33 rss=0.4G] D2: 1/25 rows complete, 14.8 s/generation, 1.0 min
+[15:52:04 rss=0.4G] D2: 2/25 rows complete, 12.6 s/generation, 1.5 min
+[15:52:34 rss=0.4G] D2: 3/25 rows complete, 11.8 s/generation, 2.0 min
+[15:53:05 rss=0.4G] D2: 4/25 rows complete, 11.4 s/generation, 2.5 min
+[15:53:35 rss=0.4G] D2: 5/25 rows complete, 11.1 s/generation, 3.0 min
+[15:54:06 rss=0.4G] D2: 6/25 rows complete, 11.0 s/generation, 3.5 min
+[15:54:37 rss=0.4G] D2: 7/25 rows complete, 10.9 s/generation, 4.0 min
+[15:55:08 rss=0.4G] D2: 8/25 rows complete, 10.8 s/generation, 4.5 min
+[15:55:42 rss=0.4G] D2: 9/25 rows complete, 10.9 s/generation, 5.1 min
+[15:56:17 rss=0.4G] D2: 10/25 rows complete, 11.0 s/generation, 5.7 min
+[15:56:50 rss=0.4G] D2: 11/25 rows complete, 11.0 s/generation, 6.2 min
+[15:57:22 rss=0.4G] D2: 12/25 rows complete, 10.9 s/generation, 6.8 min
+[15:57:51 rss=0.4G] D2: 13/25 rows complete, 10.8 s/generation, 7.3 min
+[15:58:22 rss=0.4G] D2: 14/25 rows complete, 10.8 s/generation, 7.8 min
+[15:58:52 rss=0.4G] D2: 15/25 rows complete, 10.7 s/generation, 8.3 min
+[15:59:23 rss=0.4G] D2: 16/25 rows complete, 10.7 s/generation, 8.8 min
+[15:59:57 rss=0.4G] D2: 17/25 rows complete, 10.7 s/generation, 9.4 min
+[16:00:30 rss=0.4G] D2: 18/25 rows complete, 10.8 s/generation, 9.9 min
+[16:01:01 rss=0.4G] D2: 19/25 rows complete, 10.7 s/generation, 10.4 min
+[16:01:31 rss=0.4G] D2: 20/25 rows complete, 10.7 s/generation, 10.9 min
+[16:02:05 rss=0.4G] D2: 21/25 rows complete, 10.7 s/generation, 11.5 min
+[16:02:40 rss=0.4G] D2: 22/25 rows complete, 10.8 s/generation, 12.1 min
+[16:03:11 rss=0.4G] D2: 23/25 rows complete, 10.8 s/generation, 12.6 min
+[16:03:41 rss=0.4G] D2: 24/25 rows complete, 10.7 s/generation, 13.1 min
+[16:04:12 rss=0.4G] D2: 25/25 rows complete, 10.7 s/generation, 13.6 min
+[free] RSS 430 MiB -> 668 MiB (released -238 MiB)
+[free] WARNING: RSS did not drop meaningfully; restart the kernel before loading anything else.
+[free] RSS 668 MiB -> 517 MiB (released 151 MiB)
+[16:04:13 rss=0.5G] DISCONFIRMATION: 2026-09-09T16:04:13  D2  D2  threshold=CI95 (cluster by explanation) of [persist_claim(random) − persist_claim(own)] on non-last rows ≤ 0 → MET; > 0 → NOT MET; straddles or < 60 rows → INCONCLUSIVE (n ≈ 17 by design → INCONCLUSIVE by n expected)  observed=non-last pooled: n=17 persist_claim own 0.210 random 0.328 same 0.337 (same n=17); random − own 0.1178 [0.0873,0.1531] n=17 k=8; same − own 0.1272 [0.0745,0.1981] n=17 k=8; format-break own 0.000 random 0.000 same 0.000; cos_new own 0.8918 random 0.9149 same 0.8918; positive_control_last: n=8 persist_claim own 0.449 random 0.500 same 0.466 (same n=8); random − own 0.0514 [-0.0498,0.1593] n=8 k=8; same − own 0.0166 [-0.0406,0.0661] n=8 k=8; format-break own 0.000 random 0.000 same 0.000; cos_new own 0.9122 random 0.9257 same 0.9007; positive control quoted_token_ok own 0.750 random 0.750 same 0.750 reference 0.750; persist_atomic own true 0.082 (n=49) false 0.043 (n=23) unsupported 0.062 (n=16); persist_atomic random true 0.388 (n=49) false 0.261 (n=23) unsupported 0.250 (n=16); persist_atomic same true 0.367 (n=49) false 0.261 (n=23) unsupported 0.250 (n=16); claims mapped 124/124; rows completed 25/25 (own+random 25); same-arm skipped rows 0  INCONCLUSIVE  descriptive; concerns the AV's output under a vector edit only; n = 8 explanations by design
+[16:04:13 rss=0.5G] D2 done: INCONCLUSIVE; 25/25 rows; 13.6 min

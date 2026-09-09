@@ -1,0 +1,125 @@
+idx,claim_no,sentence_no,row,overlap,tie,mapped,type,truth,claim_text,content_words,n_content_words
+0,1,1,1,3,False,True,entity,true,Indian seller / website,indian seller website,3
+0,2,1,1,3,False,True,theme,true,machinery product seller website,machinery product seller website,4
+0,3,1,1,2,True,True,detail,unsupported,steel product seller,steel product seller,3
+0,4,1,1,4,False,True,detail,unsupported,multiple product listing images,multiple product listing images,4
+0,5,1,1,3,False,True,theme,true,text blocks of product listings,text blocks product listings,4
+0,6,1,1,6,False,True,theme,true,mixing product details and contact info,mixing product details contact info,5
+0,7,2,2,8,False,True,detail,false,contains the phrase 'price list for cement block machine',contains phrase price list cement block machine,7
+0,8,2,2,2,False,True,entity,false,'in bangalore',bangalore,1
+0,9,2,2,7,False,True,theme,true,query / listing format with 'price list' entries,query listing format price list entries,6
+0,10,2,2,3,False,True,detail,true,'product parts' entries,product parts entries,3
+0,11,2,2,4,False,True,detail,false,'steel mill machinery' entries,steel mill machinery entries,4
+0,12,2,2,7,False,True,theme,true,likely a query or contact listing format,likely query contact listing format,5
+0,13,3,3,3,False,True,forecast,true,final token is 'for',final token,2
+0,14,3,3,4,False,True,forecast,true,ends an incomplete phrase,ends incomplete phrase,3
+0,15,2,2,3,True,True,detail,false,preceding text reads 'price list price list price for',preceding text reads price list,5
+0,16,3,3,6,False,True,detail,unsupported,part of a third listing item,part third listing item,4
+0,17,3,3,10,False,True,forecast,unsupported,expects a noun phrase like 'cement block plant' / 'old machinery parts',expects noun phrase cement block plant machinery parts,8
+1,1,1,11,4,False,True,theme,true,British military history account,british military history account,4
+1,2,3,13,2,False,True,entity,false,the subject is Captain Agnew,subject captain agnew,3
+1,3,1,11,3,True,True,detail,true,account of a captain's career,account captain's career,3
+1,4,1,11,2,False,True,theme,true,biographical narrative,biographical narrative,2
+1,5,1,11,2,False,True,theme,true,detailing postings,detailing postings,2
+1,6,1,11,3,False,True,detail,true,service during WWI,service,1
+1,7,2,12,4,False,True,detail,true,career continued with a captaincy,career continued captaincy,3
+1,8,2,12,7,False,True,entity,false,he was posted to the Royal Marines,posted royal marines,3
+1,9,2,12,3,False,True,detail,unsupported,promoted to Major,promoted major,2
+1,10,2,12,7,False,True,theme,true,lists career promotions with dates and details,lists career promotions dates details,5
+1,11,2,12,8,False,True,theme,true,sequence of military rank progression and service history,sequence military rank progression service history,6
+1,12,3,13,4,False,True,forecast,true,final token is 'Promoted',final token promoted,3
+1,13,3,13,4,False,True,forecast,true,final token is mid-sentence,final token mid-sentence,3
+1,14,3,13,2,False,True,detail,false,'Promoted' immediately follows another 'Promoted' (mid-list 'Promoted... Promoted'),promoted immediately follows another mid-list,5
+1,15,3,13,6,False,True,theme,true,part of a sequence of career promotions,part sequence career promotions,4
+1,16,3,13,8,False,True,forecast,unsupported,expects 'Lieutenant Colonel in 1915' / 'Major General in April 1916',expects lieutenant colonel 1915 major general april 1916,8
+2,1,1,21,1,False,True,entity,unsupported,British,british,1
+2,2,1,21,3,False,True,detail,false,adventure sports photographer,adventure sports photographer,3
+2,3,1,21,2,False,True,theme,true,eco-conservation focus,eco-conservation focus,2
+2,4,1,21,4,False,True,theme,true,listing her outdoor experiences,listing outdoor experiences,3
+2,5,1,21,2,False,True,theme,true,listing qualifications,listing qualifications,2
+2,6,1,21,6,False,True,entity,false,for the UK Wildlife Conservation event,wildlife conservation event,3
+2,7,2,22,3,False,True,entity,false,the subject is Sara,subject sara,2
+2,8,2,22,6,False,True,detail,true,passion for adventure and conservation work,passion adventure conservation work,4
+2,9,2,22,7,False,True,theme,true,concluding section listing additional attributes / career highlights,concluding section listing additional attributes career highlights,7
+2,10,2,22,2,False,True,theme,true,bio format,format,1
+2,11,2,22,5,False,True,detail,true,content: her recent projects and goals,content recent projects goals,4
+2,12,3,23,4,False,True,forecast,true,final token is 'has',final token,2
+2,13,3,23,4,False,True,forecast,true,final token is mid-sentence,final token mid-sentence,3
+2,14,2,22,2,True,True,entity,false,the subject is Hannah,subject hannah,2
+2,15,3,23,6,False,True,detail,false,part of a second attribute listing,part second attribute listing,4
+2,16,3,23,7,False,True,forecast,unsupported,expects 'a strong connection to' / 'multiple passions including',expects strong connection multiple passions including,6
+3,1,1,31,4,False,True,theme,true,scientific journal article format,scientific journal article format,4
+3,2,1,31,2,False,True,detail,false,with abstracts,abstracts,1
+3,3,1,31,2,True,True,theme,true,academic metadata,academic metadata,2
+3,4,1,31,4,False,True,theme,true,scholarly content about ecology,scholarly content ecology,3
+3,5,1,31,2,False,True,theme,true,citation metrics,citation metrics,2
+3,6,1,31,5,True,True,detail,true,an item about publication / citation bias,item publication citation bias,4
+3,7,1,31,2,True,True,detail,false,that item is the second item,item second,2
+3,8,2,32,8,False,True,detail,false,the phrase is 'Gender bias in citation counts of',phrase gender bias citation counts,5
+3,9,2,32,3,False,True,detail,true,'citation counts of',citation counts,2
+3,10,2,32,7,False,True,theme,true,suggests a citation analysis / academic metadata study,suggests citation analysis academic metadata study,6
+3,11,2,32,5,False,True,detail,unsupported,journal or country ranking study,journal country ranking study,4
+3,12,2,32,10,False,True,detail,unsupported,implies a third item or data visualization about international research output,implies third item data visualization international research output,8
+3,13,3,33,3,False,True,forecast,true,final token is 'of',final token,2
+3,14,3,33,7,False,True,forecast,true,ends the incomplete noun phrase 'citation rates of',ends incomplete noun phrase citation rates,6
+3,15,3,33,6,False,True,theme,true,part of a citation study title,part citation study title,4
+3,16,3,33,5,False,True,forecast,unsupported,expects 'scientific papers' / 'developing country journals',expects scientific papers developing country journals,6
+4,1,1,41,2,False,True,theme,true,blog post / bylined article,blog post bylined article,4
+4,2,1,41,3,False,True,detail,unsupported,written by a student,written student,2
+4,3,1,41,2,False,True,theme,true,informal tone,informal tone,2
+4,4,1,41,2,False,True,theme,unsupported,personal perspective,personal perspective,2
+4,5,1,41,3,False,True,theme,true,on Indian culture,indian culture,2
+4,6,1,41,2,False,True,theme,true,and service / volunteering,service volunteering,2
+4,7,1,41,5,False,True,detail,unsupported,a high school student's involvement,high school student's involvement,4
+4,8,1,41,5,False,True,entity,false,the Jewish community's charity event,jewish community's charity event,4
+4,9,1,41,3,True,True,detail,true,a charity event,charity event,2
+4,10,2,42,9,False,True,detail,false,'Her passion for the event has grown over the years',passion event grown years,4
+4,11,2,42,7,False,True,theme,unsupported,signals information about the fundraising event's purpose,signals information fundraising event's purpose,5
+4,12,3,43,2,False,True,detail,false,'charity fair',charity fair,2
+4,13,3,43,4,False,True,forecast,true,final token is 'annual',final token annual,3
+4,14,3,43,3,False,True,forecast,true,mid-phrase 'the annual',mid-phrase annual,2
+4,15,3,43,8,False,True,detail,false,directly continuing the sentence about the student's fundraising event,directly continuing sentence student's fundraising event,6
+4,16,3,43,5,False,True,forecast,unsupported,expects 'Charity Fair' / 'India Day competition',expects charity fair india competition,5
+5,1,1,51,1,False,True,entity,unsupported,Australian,australian,1
+5,2,1,51,2,False,True,theme,true,environmental / technical report format,environmental technical report format,4
+5,3,1,51,7,False,True,theme,true,scientific data in a structured abstract format,scientific data structured abstract format,5
+5,4,1,51,4,False,True,theme,true,water quality monitoring results,water quality monitoring results,4
+5,5,1,51,4,False,True,entity,false,for a dairy farm,dairy farm,2
+5,6,2,52,3,False,True,detail,false,E. coli levels,coli levels,2
+5,7,2,52,3,False,True,detail,false,'the BMP program',program,1
+5,8,2,52,5,False,True,detail,true,levels reduced following the implementation,levels reduced following implementation,4
+5,9,2,52,2,False,True,detail,false,'mean' levels,mean levels,2
+5,10,2,52,3,False,True,theme,true,numerical pre/post comparison,numerical post comparison,3
+5,11,2,52,4,False,True,forecast,unsupported,a specific range is expected next,specific range expected next,4
+5,12,3,53,3,False,True,forecast,true,final token is 'to',final token,2
+5,13,3,53,6,False,True,forecast,true,ends an incomplete numerical comparison clause,ends incomplete numerical comparison clause,5
+5,14,3,53,8,False,True,detail,false,"'from an average count of 1,450 per litre'",average count litre,3
+5,15,3,53,7,False,True,forecast,unsupported,requires a numeric value next ('a mean of 150' / 'zero'),requires numeric value next mean zero,6
+6,1,1,61,4,False,True,theme,true,scientific paper abstract format,scientific paper abstract format,4
+6,2,1,61,2,False,True,detail,unsupported,LaTeX formatting,latex formatting,2
+6,3,1,61,4,False,True,theme,true,discussing GRB jet models,discussing models,2
+6,4,1,61,3,False,True,detail,false,using numerical simulations,using numerical simulations,3
+6,5,1,61,2,False,True,detail,true,observational constraints,observational constraints,2
+6,6,1,61,4,False,True,theme,true,on GRB afterglow emission,afterglow emission,2
+6,7,2,62,5,False,True,detail,false,the model predicts time-dependent polarization,model predicts time-dependent polarization,4
+6,8,2,62,5,False,True,detail,false,of the progenitor's cold dust,progenitor's cold dust,3
+6,9,2,62,6,False,True,theme,true,concluding statement about the afterglow light curve,concluding statement afterglow light curve,5
+6,10,2,62,4,False,True,forecast,unsupported,suggests the term 'afterglow flux',suggests term afterglow flux,4
+6,11,3,63,4,False,True,forecast,true,final token is 'after',final token,2
+6,12,3,63,4,False,True,forecast,unsupported,final token is mid-word (after|glow),final token mid-word glow,4
+6,13,3,63,4,False,True,detail,false,preceding text reads 'the cold afterglow after',preceding text reads cold afterglow,5
+6,14,3,63,8,False,True,detail,false,contains the phrase 'the observed GRB optical afterglow's delayed decay',contains phrase observed optical afterglow's delayed decay,7
+6,15,3,63,8,False,True,forecast,unsupported,expects 'glow flux' / 'afterglow light curve' / 'glow decay is detected',expects glow flux afterglow light curve decay detected,8
+7,1,1,71,3,False,True,theme,true,news release format,news release format,3
+7,2,1,71,1,False,True,detail,unsupported,corporate,corporate,1
+7,3,2,72,3,False,True,theme,true,U.S. government safety announcement,government safety announcement,3
+7,4,2,72,5,False,True,entity,true,describing a Boeing aircraft event,describing boeing aircraft event,4
+7,5,2,72,6,False,True,detail,false,factual details about autonomous vehicle testing,factual details autonomous vehicle testing,5
+7,6,3,73,8,False,True,detail,true,the incidents resulted in the release of electrolytic fluids,incidents resulted release electrolytic fluids,5
+7,7,3,73,4,False,True,detail,false,the fluids were 'heated' / 'corrosive',fluids heated corrosive,3
+7,8,3,73,5,False,True,detail,true,chemical hazards from the battery,chemical hazards battery,3
+7,9,3,73,3,False,True,detail,unsupported,battery cell rupture,battery cell rupture,3
+7,10,4,74,3,False,True,forecast,true,final token is 'electrolytes',final token electrolytes,3
+7,11,4,74,2,False,True,forecast,true,ends mid-clause,ends mid-clause,2
+7,12,4,74,6,False,True,detail,false,part of a parenthetical example listing,part parenthetical example listing,4
+7,13,4,74,6,False,True,forecast,unsupported,expects 'and smoke' / 'into the vehicle' / 'and fire',expects smoke vehicle fire,4

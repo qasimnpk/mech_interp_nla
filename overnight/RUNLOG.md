@@ -117,3 +117,5 @@
 2026-09-09T15:30:11  P2  done  124 claims annotated (7B): entity 2/8/2, detail 13/24/11, theme 36/0/2, forecast 15/0/11 (true/false/unsupported); p2_claims_annotated.csv, p2_summary.md, p2_judgement_notes.md, review pack
 2026-09-09T15:30:11  T10  start  MORNING5.md
 2026-09-09T15:30:19  T10  done  MORNING5.md written; round 5 complete
+2026-09-09T15:48:14  D2  start  round 5b: claim-direction ablation on the 8 annotated 7B explanations (AR → AV+AR; greedy; γ = 0.3; arms own / random / same-explanation); cap 60 min
+2026-09-09T16:04:41  D2  done  25/25 sentence rows (17 non-last, 8 last), 75 greedy generations, 0 failures, 0 format breaks; kill line INCONCLUSIVE by n (random − own persist_claim 0.1178 [0.0873,0.1531] n=17 k=8); 124/124 claims mapped; 13.6 min; d2_summary.md, d2_rows.csv, d2_atomic.csv, d2_claim_map.csv, d2_av.jsonl, d2_settings.json, out/d2_vectors.npz
