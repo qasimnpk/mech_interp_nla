@@ -28,6 +28,8 @@ MIN_ROWS = 80
 NUM_RE = re.compile(r"^\d[\d.,]*$")
 PUNCT = ".,;:!?\"'()[]"
 F = {k: L.OVERNIGHT / f"{PFX}_{k}" for k in ["rows.csv", "texts.jsonl", "summary.md", "review_blind.csv", "review_key.csv"]}
+COLS = ["row", "stim_idx", "claim_idx", "n_claims", "is_last", "in_full_prefix", "stratum", "slot_type", "word_orig", "core_orig", "word_corrupt", "claim", "error", "pool_short",
+        "span_a", "span_b", "dup_sentence", "pool_size", "n_alts", "alts", "cos_orig", "cos_alts_mean", "cos_alts_max", "cos_alts_min", "rank", "top1", "rr", "gap", "gap_max", "spread"]
 
 
 def load_rows() -> pd.DataFrame:
@@ -89,6 +91,33 @@ def main():
         cache_ok = bool(max(devs) < 1e-6); prog.d["original_cache_ok"] = cache_ok; prog.d["original_cache_max_dev"] = float(max(devs)); prog.tick()
         L.log(f"K1 original cache check: max |dev| {max(devs):.2e} -> reuse s2 cos_z = {cache_ok}")
     orig_cache = {}
+    # ---- rebuild rows.csv deterministically from the saved per-row scores (k1_texts.jsonl): fixed column order, no model call
+    texts_saved = {int(t["row"]): t for t in R.read_jsonl(F["texts.jsonl"])}
+    if texts_saved:
+        old_rows = {int(x["row"]): x for x in done.values()}
+        F["rows.csv"].unlink(missing_ok=True); done = {}
+        for r in det.itertuples():
+            row = int(r.row)
+            if row in texts_saved:
+                t = texts_saved[row]; i = int(r.stim_idx); E = expl[i]["explanation"]; claim = str(r.claim); core = r.core_orig
+                a, b, dup = R.sentence_span(E, claim)
+                rec = {"row": row, "stim_idx": i, "claim_idx": int(r.claim_idx), "n_claims": int(r.n_claims), "is_last": bool(r.is_last), "in_full_prefix": bool(r.in_full_prefix),
+                       "stratum": r.stratum, "slot_type": r.slot_type, "word_orig": r.word_orig, "core_orig": core, "word_corrupt": r.word_corrupt, "claim": claim, "error": "",
+                       "span_a": a, "span_b": b, "dup_sentence": dup, "pool_size": np.nan, "pool_short": len(t["alts"]) < K_ALT}
+                if r.slot_type == "entity":
+                    excl = set(w.strip(PUNCT) for w in prefixes[i].split()) | set(w.strip(PUNCT) for w in E.split()) | {str(r.word_corrupt).strip(PUNCT), core}
+                    rec["pool_size"] = len(sorted({w for w in name_rows[name_rows.stim_idx != i].core_orig if w and w not in excl}))
+                cos = t["cos"]; alts = t["alts"]; altc = [cos[f"alt{j}"] for j in range(len(alts))]
+                rank = 1 + sum(c > cos["orig"] for c in altc)
+                rec.update({"n_alts": len(alts), "alts": "|".join(alts), "cos_orig": cos["orig"], "cos_alts_mean": float(np.mean(altc)), "cos_alts_max": float(max(altc)), "cos_alts_min": float(min(altc)),
+                            "rank": rank, "top1": float(rank == 1), "rr": 1.0 / rank, "gap": cos["orig"] - float(np.mean(altc)), "gap_max": cos["orig"] - float(max(altc)), "spread": float(max(altc + [cos["orig"]]) - min(altc + [cos["orig"]]))})
+            elif row in old_rows and str(old_rows[row].get("error", "")):
+                rec = {k: old_rows[row].get(k, np.nan) for k in COLS}
+            else:
+                continue
+            pd.DataFrame([rec]).reindex(columns=COLS).to_csv(F["rows.csv"], mode="a", header=not F["rows.csv"].exists(), index=False)
+            done[row] = rec
+        L.log(f"K1 rows.csv rebuilt from saved scores: {len(done)} rows")
     t0 = time.time(); n0 = ar.n_forward
     for r in det.itertuples():
         row = int(r.row)
@@ -143,7 +172,7 @@ def main():
                         "rank": rank, "top1": float(rank == 1), "rr": 1.0 / rank, "gap": cos["orig"] - float(np.mean(altc)), "gap_max": cos["orig"] - float(max(altc)), "spread": float(max(altc + [cos["orig"]]) - min(altc + [cos["orig"]]))})
         except Exception:
             rec["error"] = traceback.format_exc()[-400:]; prog.fail(f"row {row}: {rec['error'][-200:]}")
-        pd.DataFrame([rec]).to_csv(F["rows.csv"], mode="a", header=not F["rows.csv"].exists(), index=False)
+        pd.DataFrame([rec]).reindex(columns=COLS).to_csv(F["rows.csv"], mode="a", header=not F["rows.csv"].exists(), index=False)
         done[row] = rec
         if len(done) % 50 == 0:
             prog.completed("rows", len(done)); L.log(f"K1: {len(done)}/{len(det)} rows, {(time.time()-t0)/max(1, ar.n_forward-n0):.2f} s/forward")
