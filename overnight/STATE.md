@@ -22,4 +22,5 @@ T9   MORNING4.md (reserved: last 30 min) ................................ TODO
 
 ## Notes
 Rounds 1–3c complete and merged into main; artifacts in this directory and out/ (acts_L20.npz is required by K1 and D1; present).
+Round 4 helpers go in overnight/r4_lib.py; nla_lib.py is read-only. Each stage persists <stage>_progress.json (cumulative minutes, phase, failure count); AWAITING_AGENT_TASKS / MISSING exits are normal transitions; saved generations are never regenerated; every unit is checkpointed as it completes.
 Round 4: all editor / judge tasks are done by the orchestrator (Claude) via the agent-judgement protocol in PLAN.md; the TARGET is never used as an LLM. Labels are PROVISIONAL; every analysis script must accept --labels for the human's relabelling. Review sheets: open <stage>_review_blind.csv first, <stage>_review_key.csv after.

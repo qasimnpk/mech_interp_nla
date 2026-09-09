@@ -65,3 +65,4 @@ Not archived (fetch on demand with `curl -sL "https://drive.google.com/uc?export
 `scripts/af_post_to_md.py <graphql.json> <url> <out.md>` — fetch `htmlBody` via the AF GraphQL API
 (`post(input:{selector:{_id:"<id from the URL>"}})`), convert with the stdlib parser, then add a
 contents block. See the two `neel_*.md` files for the output format.
+- `desk_session_2026-09-09_summary.md` — desk discussion 2026-09-08→09: settled answers on the paper's evals, the score ledger, claim prevalence, Dingeto overlap and the "2%" correction, round-4 rationale, write-up structure (agent draft)

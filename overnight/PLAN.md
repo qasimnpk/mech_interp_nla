@@ -808,12 +808,21 @@ corrupt_det`, `word_orig`, `word_corrupt`, `is_last`), `notes/t2b_in_full_prefix
 (`split_claims`, span logic), `s3_corrupt.py` (`corrupt_det`, name pool construction), `c2_matched.py` (short-context activation
 extraction). Copy code into new stage scripts; do not edit old ones.
 
-**Library additions allowed in `nla_lib.py` (append only, keep every existing assert and default):** (i) `AV.verbalize_sampled(vec,
-seed, temperature=1.0, max_new_tokens=200)` — identical to `verbalize` except `torch.manual_seed(seed)` immediately before
-`generate(..., do_sample=True, temperature=1.0, top_p=1.0, top_k=0)`; returns the same dict plus `seed`, `temperature`; (ii) `AR.score(explanation,
-h) -> dict(cos, mse, pred_norm, pred)` calling `predict` once and returning the raw prediction for reuse against a second activation;
-(iii) `Target.chat_generate` is not called in round 4; (iv) `split_claims_quote_aware(text)` — `s2_deletion.split_claims` with one extra
-rule: never split at a sentence end inside an open double quote (odd count of `"` before the split point within the line).
+**Round-4 helpers live in a new module `overnight/r4_lib.py`; `nla_lib.py` is imported unchanged (read-only, like every earlier-round
+file).** The module provides: (i) `verbalize_sampled(av, vec, seed, temperature=1.0, max_new_tokens=200)` — the body of `AV.verbalize`
+with `torch.manual_seed(seed)` immediately before `generate(..., do_sample=True, temperature=1.0, top_p=1.0, top_k=0)`; returns the same
+dict plus `seed`, `temperature`; (ii) `ar_score(ar, explanation, h) -> dict(cos, mse, pred_norm, pred)` calling `AR.predict` once and
+returning the raw prediction for reuse against a second activation; (iii) `split_claims_quote_aware(text)` — `s2_deletion.split_claims`
+with one extra rule: never split at a sentence end inside an open double quote (odd count of `"` before the split point within the
+line); (iv) `dist_block`, the cluster-bootstrap wrappers and the progress-file helpers below. `Target.chat_generate` is not called in
+round 4.
+
+**Precedence and wording (binding):** where this round-4 section and the older general rules at the top of this file differ (7 h stop,
+90-min cap, "numbers only"), the round-4 section wins; a genuine remaining conflict between PLAN.md and STATE.md is logged in STATE.md
+and blocks only the affected stage. "Kill tests first" means: run pipeline and validity gates before scoring; after data collection and
+eligibility filtering, compute the stage's pre-registered kill statistic first and append it to DISCONFIRMATION.md before producing any
+other table. "Numbers only" means: report numbers and brief factual explanations of exclusions, blockers, deviations and limitations;
+no speculative interpretation and no verdicts beyond the three-way outcome.
 
 ### Shared definitions (all round-4 stages)
 
@@ -892,6 +901,18 @@ rule: never split at a sentence end inside an open double quote (odd count of `"
    verbatim into the review-pack files.
 4. The orchestrator records throughput per task type in RUNLOG (`<stage> agent-tasks <type> <n> <minutes>`); V0 measures it on a
    20-task sample before re-budgeting. Judgement time counts against the stage cap.
+6. **Resume behaviour (binding for every stage script):** `AWAITING_AGENT_TASKS` and `MISSING` exits are normal transitions, not
+   failures, and never count toward the five failed iterations. Each script persists `overnight/<stage>_progress.json` — cumulative
+   stage minutes (script wall-clock plus orchestrator judgement minutes as logged in RUNLOG), current phase, completed unit counts and
+   failure count — and reads it on every invocation; the stage cap is applied to the cumulative figure. Completed task ids and every
+   saved model output are reused, never recomputed: a saved AV generation (`<stage>_av.jsonl`, D1's `d1_av.jsonl`) is never regenerated
+   (sampled decoding on MPS is not bit-reproducible, so a regenerated explanation would be a different data point); saved activations
+   (`out/*.npz`) and AR predictions are reloaded.
+7. **Checkpointing and partial results:** every completed experimental unit (context, generation, task output, edited text, score) is
+   appended to its output file as it completes, never held until the end of a phase. At a stage cap, a failure-count stop or the hard
+   stop, the script records the incomplete units in `<stage>_progress.json` and `<stage>_summary.md`, keeps all completed data, and
+   the analysis script (`*_analyze.py`) runs on the partial files under the existing eligibility and sample-size rules (INCONCLUSIVE by
+   n where the minimum is not met). Nothing completed is discarded or recomputed.
 5. Blindness: the orchestrator reads only what the task carries (rewrite tasks never carry the passage), does not reorder or filter
    tasks, and never leaves a task blank (`undetermined` / `No` / `NONE` where allowed). Doubts go as one line to FOLLOWUPS.md.
 
@@ -911,6 +932,7 @@ rule: never split at a sentence end inside an open double quote (odd count of `"
 | `<stage>_review_key.csv` | same rows | the provisional labels, `equiv`, `edit_ok` and every cos for the blind rows — opened only after the first pass |
 | `<stage>_settings.json` | — | as always, plus every task instruction verbatim, `agent_model`, seeds, pools, cut rules applied |
 | `<stage>_agent_tasks_<phase>.jsonl`, `<stage>_agent_outputs_<phase>.jsonl` | task | the orchestrator's inputs and outputs, verbatim, never edited after the fact |
+| `<stage>_progress.json` | stage | cumulative minutes (script + judgement), phase, completed / incomplete unit counts, failure count, cut rules applied |
 
 ### V0 — artifact check, benchmark, pipeline verification, orchestrator throughput, re-budget (~30 min)
 
