@@ -1,0 +1,134 @@
+{
+  "stage": "p0",
+  "git_hash": "661741e0d98aa02b428ac3c292833bee6d52f1a1",
+  "argv": [
+    "overnight/p0_extract.py"
+  ],
+  "models": {
+    "TARGET": {
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "snapshot": "a09a35458c702b33eeacc393d103063234e8bc28"
+    },
+    "AV": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-av",
+      "snapshot": "b88469162777ae6553bc14208eb0cb579336f8f4"
+    },
+    "AR": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-ar",
+      "snapshot": "e2c9e57eac213d37a31612087f645ab6332c1bb6"
+    }
+  },
+  "layer": 20,
+  "hidden_states_index": 21,
+  "dtype": "bfloat16",
+  "device": "mps",
+  "torch": "2.13.0",
+  "transformers": "5.16.1",
+  "wall_start": "2026-09-09T15:21:33",
+  "wall_end": "2026-09-09T15:21:49",
+  "inputs": "/Users/mbp_qasim/repos/mech_interp_nla-nightshift/notes/nla_setup/nla27b_smoke_examples_full.json",
+  "n_texts": 8,
+  "position": "last token of source_text_full",
+  "tokenization": "raw text, no chat template, add_special_tokens=False",
+  "tokens": [
+    {
+      "idx": 0,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:4600",
+      "n_tokens_7b": 1889,
+      "n_raw_tokens_27b": 1886,
+      "last_token_str": " for",
+      "norm": 123.41950988769531,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 4.85
+    },
+    {
+      "idx": 1,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:10530",
+      "n_tokens_7b": 721,
+      "n_raw_tokens_27b": 722,
+      "last_token_str": "oted",
+      "norm": 126.71566009521484,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 1.65
+    },
+    {
+      "idx": 2,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:75222",
+      "n_tokens_7b": 195,
+      "n_raw_tokens_27b": 198,
+      "last_token_str": " has",
+      "norm": 132.635009765625,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.52
+    },
+    {
+      "idx": 3,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:90595",
+      "n_tokens_7b": 93,
+      "n_raw_tokens_27b": 93,
+      "last_token_str": " of",
+      "norm": 136.15928649902344,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.27
+    },
+    {
+      "idx": 4,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:71467",
+      "n_tokens_7b": 123,
+      "n_raw_tokens_27b": 123,
+      "last_token_str": " annual",
+      "norm": 119.1329574584961,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.32
+    },
+    {
+      "idx": 5,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:69023",
+      "n_tokens_7b": 214,
+      "n_raw_tokens_27b": 214,
+      "last_token_str": " to",
+      "norm": 128.32632446289062,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.53
+    },
+    {
+      "idx": 6,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:85863",
+      "n_tokens_7b": 176,
+      "n_raw_tokens_27b": 172,
+      "last_token_str": " after",
+      "norm": 116.21918487548828,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.46
+    },
+    {
+      "idx": 7,
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:73452",
+      "n_tokens_7b": 179,
+      "n_raw_tokens_27b": 181,
+      "last_token_str": "tes",
+      "norm": 122.1026840209961,
+      "ge_50": true,
+      "gt_2048": false,
+      "fwd_s": 0.46
+    }
+  ],
+  "gate": "8 activations, finite norms: PASS",
+  "norms": [
+    123.41960144042969,
+    126.71574401855469,
+    132.63510131835938,
+    136.1593780517578,
+    119.13300323486328,
+    128.32643127441406,
+    116.21923828125,
+    122.10276794433594
+  ]
+}

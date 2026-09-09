@@ -1,0 +1,90 @@
+[
+  {
+    "idx": 0,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:4600",
+    "n_tokens_7b": 1889,
+    "n_raw_tokens_27b": 1886,
+    "last_token_str": " for",
+    "norm": 123.41950988769531,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 4.85
+  },
+  {
+    "idx": 1,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:10530",
+    "n_tokens_7b": 721,
+    "n_raw_tokens_27b": 722,
+    "last_token_str": "oted",
+    "norm": 126.71566009521484,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 1.65
+  },
+  {
+    "idx": 2,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:75222",
+    "n_tokens_7b": 195,
+    "n_raw_tokens_27b": 198,
+    "last_token_str": " has",
+    "norm": 132.635009765625,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.52
+  },
+  {
+    "idx": 3,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:90595",
+    "n_tokens_7b": 93,
+    "n_raw_tokens_27b": 93,
+    "last_token_str": " of",
+    "norm": 136.15928649902344,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.27
+  },
+  {
+    "idx": 4,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:71467",
+    "n_tokens_7b": 123,
+    "n_raw_tokens_27b": 123,
+    "last_token_str": " annual",
+    "norm": 119.1329574584961,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.32
+  },
+  {
+    "idx": 5,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:69023",
+    "n_tokens_7b": 214,
+    "n_raw_tokens_27b": 214,
+    "last_token_str": " to",
+    "norm": 128.32632446289062,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.53
+  },
+  {
+    "idx": 6,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:85863",
+    "n_tokens_7b": 176,
+    "n_raw_tokens_27b": 172,
+    "last_token_str": " after",
+    "norm": 116.21918487548828,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.46
+  },
+  {
+    "idx": 7,
+    "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:73452",
+    "n_tokens_7b": 179,
+    "n_raw_tokens_27b": 181,
+    "last_token_str": "tes",
+    "norm": 122.1026840209961,
+    "ge_50": true,
+    "gt_2048": false,
+    "fwd_s": 0.46
+  }
+]
