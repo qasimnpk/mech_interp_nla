@@ -1,7 +1,7 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: ROUND 5 — P1 (7B verbalization + AR scoring).
+CURRENT STAGE: ROUND 5 — P2 (claim annotation of the 7B explanations).
 LAST UPDATED: 2026-09-09T15:20:59 (bench, round 5 start)
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
@@ -9,8 +9,8 @@ MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwe
 
 # Round 5 — see PLAN.md "Round 5 stages" (binding). EXECUTION ORDER: P0 → P1 → P2 → T10. First RUNLOG line 2026-09-09T15:20:59; hard stop 2026-09-09T+3h; T10 reserve = last 20 min.
 P0   artifact check + last-token activations of the 8 texts (TARGET) ..... DONE (8/8; tokens 93–1889)
-P1   7B greedy verbalization + AR scoring (own / shuffled / 27B text) ..... RUNNING
-P2   claim annotation of the 8 7B explanations (protocol verbatim) ....... PENDING
+P1   7B greedy verbalization + AR scoring (own / shuffled / 27B text) ..... DONE (8/8; cos_own 0.929 / shuffled 0.342; INCONCLUSIVE by n)
+P2   claim annotation of the 8 7B explanations (protocol verbatim) ....... RUNNING
 T10  MORNING5.md (reserved: last 20 min) ................................ PENDING
 Round-5 open decisions: (none; descriptive round, n = 8 by design → P1 kill line INCONCLUSIVE by n is the expected outcome)
 # Round 4 — see PLAN.md "Round 4 stages". EXECUTION ORDER: V0 → B1 → A1 → K1 → D1 → T9. Stage caps: V0 30, B1 150, A1 210, K1 45, D1 60 min (orchestrator judgement time counts). T9 owns the last 30 min before the hard stop.

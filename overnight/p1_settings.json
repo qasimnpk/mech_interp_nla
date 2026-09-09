@@ -1,0 +1,49 @@
+{
+  "stage": "p1",
+  "git_hash": "5a60998412567697760d99b4991d2947de206440",
+  "argv": [
+    "overnight/p1_run.py"
+  ],
+  "models": {
+    "TARGET": {
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "snapshot": "a09a35458c702b33eeacc393d103063234e8bc28"
+    },
+    "AV": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-av",
+      "snapshot": "b88469162777ae6553bc14208eb0cb579336f8f4"
+    },
+    "AR": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-ar",
+      "snapshot": "e2c9e57eac213d37a31612087f645ab6332c1bb6"
+    }
+  },
+  "layer": 20,
+  "hidden_states_index": 21,
+  "dtype": "bfloat16",
+  "device": "mps",
+  "torch": "2.13.0",
+  "transformers": "5.16.1",
+  "wall_start": "2026-09-09T15:22:05",
+  "wall_end": "2026-09-09T15:23:47",
+  "inputs": "/Users/mbp_qasim/repos/mech_interp_nla-nightshift/notes/nla_setup/nla27b_smoke_examples_full.json",
+  "n": 8,
+  "decoding": "greedy",
+  "max_new_tokens": 200,
+  "prompt": "released AV template (nla_meta.yaml)",
+  "injection": "marker embedding replaced by vec rescaled to injection_scale",
+  "shuffled_control": "(i+1) mod n",
+  "injection_scale": 150.0,
+  "prompt_tokens": 125,
+  "marker_pos": 111,
+  "kill": "2026-09-09T15:23:47  P1  P1  threshold=CI95 (by example) of mean(cos_own − cos_shuffled) ≤ 0 → MET; > 0 → NOT MET; straddles or n < 30 → INCONCLUSIVE (n = 8 by design)  observed=mean(cos_own − cos_shuffled)=0.5871 [0.5599,0.6081] n=8 k=8; cos_own mean 0.9294; cos_shuffled mean 0.3422; cos_own_27b_text mean 0.8423; parse_ok 8/8; cjk 0/8  INCONCLUSIVE  descriptive; n = 8 by design so INCONCLUSIVE by n is expected; never 'information absent'",
+  "ci": {
+    "mean": 0.5871489218447611,
+    "lo": 0.5598608183466874,
+    "hi": 0.6080946708634501,
+    "n": 8,
+    "n_clusters": 8
+  },
+  "outcome": "INCONCLUSIVE",
+  "ar_forwards": 16
+}

@@ -112,3 +112,5 @@
 2026-09-09T15:20:59  P0  start  round 5 first line; PLAN.md 'Round 5 stages'; inputs notes/nla_setup/nla27b_smoke_examples_full.json (8 texts)
 2026-09-09T15:22:03  P0  done  8/8 activations (norms 116–136; tokens 93–1889, all ≥ 50, none > 2048); out/p0_acts.npz, p0_tokens.json, p0_settings.json
 2026-09-09T15:22:03  P1  start  AV greedy 200 tokens × 8, then AR (own, shuffled, 27B text)
+2026-09-09T15:24:02  P1  done  8/8 parsed, 0 CJK; cos_own 0.9294, cos_shuffled 0.3422, cos_own_27b_text 0.8423; kill line INCONCLUSIVE by n (expected); p1_av.jsonl, p1_scores.csv, p1_settings.json
+2026-09-09T15:24:02  P2  start  orchestrator annotation of 8 7B explanations, protocol notes/nla_setup/claim_annotation_protocol.md
