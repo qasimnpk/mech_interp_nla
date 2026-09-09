@@ -142,7 +142,11 @@ def run(labels: str | None):
             f"G orig-only {R.fmt_ci(R.ci(ev.G_orig, ev.context_id), 5) if len(ev) else 'n/a'}; by category (μ_correct − μ_false): {cat_txt}")
     obsN = (f"mean [μ_correction − μ_original]={R.fmt_ci(ciN, 5)} (natural-error eval slots {len(nat)}; contradicted eval originals {int(((SL.split == 'eval') & (SL.label_orig == 'contradicted')).sum()) if len(SL) else 0}; "
             f"valid corrections {int(sum(1 for m in cands if m['category'] == 'correction' and m['role'] == 'correct'))} of {int(sum(1 for m in cands if m['category'] == 'correction'))}); orig-only {R.fmt_ci(R.ci(nat.nat_diff_orig, nat.context_id), 5) if len(nat) else 'n/a'}")
-    if labels is None:
+    already = [ln for ln in (O / "DISCONFIRMATION.md").read_text().splitlines() if "  A1  A1  threshold=" in ln or "  A1  A1-nat  threshold=" in ln]
+    if labels is None and already:
+        kG = [ln for ln in already if "  A1  A1  " in ln][-1] + "  (already appended by the first analysis run; not duplicated)"
+        kN = [ln for ln in already if "  A1  A1-nat  " in ln][-1] + "  (already appended by the first analysis run; not duplicated)"
+    elif labels is None:
         kG = L.append_disconfirmation("A1", "A1", "CI95 (cluster by context, eval) of mean G = μ_correct − mean_false μ_m over valid paraphrases (orig excluded) ≤ 0 → MET; > 0 → NOT MET; straddles or eligible eval slots < 30 → INCONCLUSIVE", obsG, outG,
                                       "MET/INCONCLUSIVE = no detectable preference for the correct meaning under this scorer with this n (never 'the information is absent')")
         kN = L.append_disconfirmation("A1", "A1-nat", "CI95 (by context, eval) of mean [μ_correction − μ_original] on natural-error slots ≤ 0 → MET; > 0 → NOT MET; straddles or natural-error eval slots < 15 → INCONCLUSIVE (count reported; injected errors never substituted)", obsN, outN,
@@ -218,7 +222,7 @@ def run(labels: str | None):
     lines += ["", "## (D) Deletion and movement", ""] + H + [cirow("deletion Δ = cos(deletion) − cos(carrier), eligible eval slots", SL[(SL.split == 'eval') & SL.eligible].deletion_delta, SL[(SL.split == 'eval') & SL.eligible].context_id) if len(SL) else "| deletion Δ | n/a | | | 0 | 0 |"]
     if len(P):
         for tr in TRANSFORMS:
-            g = Pe[Pe.transform == tr]; lines.append(cirow(f"V, {tr} (eval, valid)", g.V, g.context_id))
+            g = Pe[Pe["transform"] == tr]; lines.append(cirow(f"V, {tr} (eval, valid)", g.V, g.context_id))
     lines += ["", f"- s(h, own explanation): mean {SL.drop_duplicates('context_id').s_carrier.mean() if len(SL) else float('nan'):.5f} over {SL.context_id.nunique() if len(SL) else 0} contexts with slots"]
     par = [x for x in reals if x["transform"] in TRANSFORMS]
     if par:
@@ -237,7 +241,7 @@ def run(labels: str | None):
             lines.append(R.dist_row(f"μ_correct − μ_false / {c} (eval)", g["diff"]))
     if len(P):
         for tr in TRANSFORMS:
-            lines.append(R.dist_row(f"|Δ| vs orig, {tr} (eval, valid)", Pe[Pe.transform == tr].abs_delta)); lines.append(R.dist_row(f"V, {tr} (eval, valid)", Pe[Pe.transform == tr].V))
+            lines.append(R.dist_row(f"|Δ| vs orig, {tr} (eval, valid)", Pe[Pe["transform"] == tr].abs_delta)); lines.append(R.dist_row(f"V, {tr} (eval, valid)", Pe[Pe["transform"] == tr].V))
     if len(SL):
         lines.append(R.dist_row("deletion Δ (eligible eval slots)", SL[(SL.split == 'eval') & SL.eligible].deletion_delta))
     lines += ["", "## 5 fixed verbatim examples (seed 0; eval in-primary slots)", ""]

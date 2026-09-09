@@ -273,9 +273,9 @@ def run(labels: str | None):
     if len(P):
         Pe2 = P[(P.split == "eval") & P.valid]
         for tr in TRANSFORMS:
-            lines.append(R.dist_row(f"|Δ| vs orig, {tr} (eval, valid)", Pe2[Pe2.transform == tr].abs_delta))
+            lines.append(R.dist_row(f"|Δ| vs orig, {tr} (eval, valid)", Pe2[Pe2["transform"] == tr].abs_delta))
         for tr in TRANSFORMS:
-            lines.append(R.dist_row(f"V, {tr} (eval, valid)", Pe2[Pe2.transform == tr].V))
+            lines.append(R.dist_row(f"V, {tr} (eval, valid)", Pe2[Pe2["transform"] == tr].V))
     # fixed examples
     lines += ["", "## 5 fixed verbatim examples (seed 0; eval in-primary carriers)", ""]
     if n_elig_eval:

@@ -105,7 +105,11 @@ def main():
             m = re.search(r"(?<![\w])" + re.escape(core) + r"(?![\w])", claim); assert m, "word_orig not found in claim"
             rng = np.random.default_rng(6000 + row)
             if r.slot_type == "detail":
-                alts = number_alts(core)
+                alts, seen = [], {core}
+                for a_ in number_alts(core):  # duplicates (e.g. 2n = 3n = 0 when n = 0) and the original are dropped; flagged as pool_short
+                    if a_ not in seen:
+                        alts.append(a_); seen.add(a_)
+                rec["pool_short"] = len(alts) < K_ALT
             else:
                 excl = set(w.strip(PUNCT) for w in prefixes[i].split()) | set(w.strip(PUNCT) for w in E.split()) | {str(r.word_corrupt).strip(PUNCT), core}
                 pool = sorted({w for w in name_rows[name_rows.stim_idx != i].core_orig if w and w not in excl})

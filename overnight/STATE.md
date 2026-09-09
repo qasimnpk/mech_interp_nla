@@ -1,16 +1,16 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: ROUND 4 — A1 (running). Round-4 first RUNLOG line 2026-09-09T01:57:48; HARD STOP 2026-09-09T11:57:48; T9 reserve begins 2026-09-09T11:27:48 (no stage may start or continue past it).
-LAST UPDATED: 2026-09-09T02:26:32 (bench, B1 done → A1 start)
+CURRENT STAGE: ROUND 4 — K1 (running). Round-4 first RUNLOG line 2026-09-09T01:57:48; HARD STOP 2026-09-09T11:57:48; T9 reserve begins 2026-09-09T11:27:48 (no stage may start or continue past it).
+LAST UPDATED: 2026-09-09T02:54:55 (bench, A1 done → K1 start)
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
 # Round 4 — see PLAN.md "Round 4 stages". EXECUTION ORDER: V0 → B1 → A1 → K1 → D1 → T9. Stage caps: V0 30, B1 150, A1 210, K1 45, D1 60 min (orchestrator judgement time counts). T9 owns the last 30 min before the hard stop.
 V0   artifact check + benchmark + pipeline verification + re-budget ..... DONE (v0_check.md; all checks OK; 5.0 min)
 B1   controlled paired contexts, meanings A/B (human; PRIMARY CONTROLLED)  DONE — INCONCLUSIVE by n (eligible eval carriers 0/48: omission 64/64); 12.4 min
-A1   natural AV claims, paraphrase-averaged preference (human; PRIMARY) .. RUNNING
-K1   K-way alternative ranking on deterministic-swap claims (AR only) .... TODO
+A1   natural AV claims, paraphrase-averaged preference (human; PRIMARY) .. DONE — A1 INCONCLUSIVE by n (in-primary eval slots 4/30), A1-nat INCONCLUSIVE by n (4/15); 27.0 min
+K1   K-way alternative ranking on deterministic-swap claims (AR only) .... RUNNING
 D1   claim-direction ablation via the AR as encoder (greedy AV; one γ) ... TODO
 T9   MORNING4.md (reserved: last 30 min) ................................ TODO
 
