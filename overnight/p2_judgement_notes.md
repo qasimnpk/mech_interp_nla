@@ -1,0 +1,11 @@
+# P2 judgement calls (orchestrator; one line each)
+- Unnamed countries ('British' idx 2, 'Australian' idx 5): unsupported, not false, matching the 27B annotation's choice; both are wrong by world knowledge, which the protocol excludes.
+- 'Final token is mid-word' (idx 6 after|glow): unsupported (past truncation), matching the 27B row; 'ends an incomplete phrase/clause' claims judged on the visible text.
+- Repeated substitutions inside one explanation counted once with occurrence noted: Sara ×2 (idx 2), photographer ×2 (idx 2), Gender bias ×2 (idx 3), heated/corrosive ×3 (idx 7).
+- Invented quotations split into their propositions; a proposition supported by the text is true even though the quotation is invented (idx 1 'career continued with a captaincy'; idx 2 'passion for adventure and conservation').
+- idx 1 'service during WWI': true (Morris, Barker) though the token's own paragraph (Sinclair-Maclagan to 1904) is pre-WWI.
+- idx 3 'scientific journal article format': true for a list of scholarly titles; 'with abstracts' false.
+- idx 4 'a charity event': true on 'support Vbha' + volunteers; 'personal perspective' unsupported (third-person report).
+- idx 5 'mean' vs 'median': counted as a false detail.
+- idx 7 'corporate' unsupported rather than false (the claim itself says 'U.S. government'); 'chemical hazards from the battery' true, 'cell rupture' split off as unsupported.
+- Forecasts naming the final token correctly are true; any prediction past the truncation is unsupported, including grammatically forced ones.

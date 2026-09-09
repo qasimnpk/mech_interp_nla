@@ -114,3 +114,5 @@
 2026-09-09T15:22:03  P1  start  AV greedy 200 tokens × 8, then AR (own, shuffled, 27B text)
 2026-09-09T15:24:02  P1  done  8/8 parsed, 0 CJK; cos_own 0.9294, cos_shuffled 0.3422, cos_own_27b_text 0.8423; kill line INCONCLUSIVE by n (expected); p1_av.jsonl, p1_scores.csv, p1_settings.json
 2026-09-09T15:24:02  P2  start  orchestrator annotation of 8 7B explanations, protocol notes/nla_setup/claim_annotation_protocol.md
+2026-09-09T15:30:11  P2  done  124 claims annotated (7B): entity 2/8/2, detail 13/24/11, theme 36/0/2, forecast 15/0/11 (true/false/unsupported); p2_claims_annotated.csv, p2_summary.md, p2_judgement_notes.md, review pack
+2026-09-09T15:30:11  T10  start  MORNING5.md

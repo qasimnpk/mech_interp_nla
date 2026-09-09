@@ -1,0 +1,200 @@
+{
+  "stage": "p2",
+  "git_hash": "534c7737efe5a01f3dd4706b7e828187a6d2eb38",
+  "argv": [
+    "overnight/p2_annotate.py"
+  ],
+  "models": {
+    "TARGET": {
+      "repo": "Qwen/Qwen2.5-7B-Instruct",
+      "snapshot": "a09a35458c702b33eeacc393d103063234e8bc28"
+    },
+    "AV": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-av",
+      "snapshot": "b88469162777ae6553bc14208eb0cb579336f8f4"
+    },
+    "AR": {
+      "repo": "kitft/nla-qwen2.5-7b-L20-ar",
+      "snapshot": "e2c9e57eac213d37a31612087f645ab6332c1bb6"
+    }
+  },
+  "layer": 20,
+  "hidden_states_index": 21,
+  "dtype": "bfloat16",
+  "device": "mps",
+  "torch": "2.13.0",
+  "transformers": "5.16.1",
+  "wall_start": "2026-09-09T15:29:26",
+  "wall_end": "2026-09-09T15:29:26",
+  "protocol": "notes/nla_setup/claim_annotation_protocol.md",
+  "annotator": "orchestrator (Claude Fable 5.1)",
+  "inputs": [
+    "p1_av.jsonl",
+    "/Users/mbp_qasim/repos/mech_interp_nla-nightshift/notes/nla_setup/nla27b_smoke_examples_full.json"
+  ],
+  "comparison_csv": "/Users/mbp_qasim/repos/mech_interp_nla-nightshift/notes/nla_setup/nla27b_smoke_claims_annotated.csv",
+  "label_source": "claude",
+  "provisional": true,
+  "n_claims_7b": 124,
+  "crosstab_7b": {
+    "entity": {
+      "true": 2,
+      "false": 8,
+      "unsupported": 2
+    },
+    "theme": {
+      "true": 36,
+      "unsupported": 2
+    },
+    "detail": {
+      "unsupported": 11,
+      "false": 24,
+      "true": 13
+    },
+    "forecast": {
+      "true": 15,
+      "unsupported": 11
+    }
+  },
+  "n_claims_27b": 163,
+  "crosstab_27b": {
+    "theme": {
+      "true": 49,
+      "unsupported": 1
+    },
+    "detail": {
+      "true": 23,
+      "false": 18,
+      "unsupported": 11
+    },
+    "entity": {
+      "false": 16,
+      "true": 1,
+      "unsupported": 3
+    },
+    "forecast": {
+      "true": 12,
+      "unsupported": 26,
+      "false": 1
+    },
+    "other": {
+      "unsupported": 2
+    }
+  },
+  "per_example_7b": {
+    "0": {
+      "n": 17,
+      "true": 9,
+      "unsupported": 4,
+      "false": 4
+    },
+    "1": {
+      "n": 16,
+      "true": 11,
+      "false": 3,
+      "unsupported": 2
+    },
+    "2": {
+      "n": 16,
+      "unsupported": 2,
+      "false": 5,
+      "true": 9
+    },
+    "3": {
+      "n": 16,
+      "true": 10,
+      "false": 3,
+      "unsupported": 3
+    },
+    "4": {
+      "n": 16,
+      "true": 7,
+      "unsupported": 5,
+      "false": 4
+    },
+    "5": {
+      "n": 15,
+      "unsupported": 3,
+      "true": 7,
+      "false": 5
+    },
+    "6": {
+      "n": 15,
+      "true": 6,
+      "unsupported": 4,
+      "false": 5
+    },
+    "7": {
+      "n": 13,
+      "true": 7,
+      "unsupported": 3,
+      "false": 3
+    }
+  },
+  "verbatim_entities": {
+    "0": {
+      "7b": [],
+      "27b": [
+        "India",
+        "Price"
+      ]
+    },
+    "1": {
+      "7b": [
+        "Captain",
+        "General",
+        "Lieutenant",
+        "Major",
+        "Promoted"
+      ],
+      "27b": [
+        "Army",
+        "Captain",
+        "India",
+        "John",
+        "Lieutenant",
+        "Major",
+        "Promoted",
+        "South"
+      ]
+    },
+    "2": {
+      "7b": [
+        "Conservation"
+      ],
+      "27b": []
+    },
+    "3": {
+      "7b": [],
+      "27b": [
+        "Geographic"
+      ]
+    },
+    "4": {
+      "7b": [],
+      "27b": [
+        "Holi"
+      ]
+    },
+    "5": {
+      "7b": [],
+      "27b": []
+    },
+    "6": {
+      "7b": [
+        "GRB"
+      ],
+      "27b": [
+        "GRB"
+      ]
+    },
+    "7": {
+      "7b": [
+        "Boeing"
+      ],
+      "27b": [
+        "Boeing"
+      ]
+    }
+  }
+}
