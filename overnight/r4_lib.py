@@ -401,6 +401,8 @@ def validate_output(task: dict, out: dict) -> str | None:
     if not isinstance(out, dict):
         return "output not an object"
     schema = OUTPUT_SCHEMA[task["type"]]
+    if task["type"] == "rewrite" and task["inputs"].get("fields"):
+        schema = {k: None for k in task["inputs"]["fields"]}  # V0 cut rule A1(a): only the requested realizations
     for k, allowed in schema.items():
         if k not in out:
             return f"missing field {k}"
@@ -414,7 +416,7 @@ def validate_output(task: dict, out: dict) -> str | None:
         if out["asserts"] not in allowed:
             return f"asserts={out['asserts']!r} not in {sorted(allowed)}"
     if task["type"] == "rewrite":
-        for k in ("light1", "light2", "aggr1", "aggr2"):
+        for k in (task["inputs"].get("fields") or ("light1", "light2", "aggr1", "aggr2")):
             if not out[k].strip():
                 return f"empty {k}"
     if task["type"] in ("detail_sub", "relation_rev", "negation", "correction", "fact_swap") and not out["text"].strip():
