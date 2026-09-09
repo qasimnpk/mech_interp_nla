@@ -1,6 +1,14 @@
-# Nightshift — Round 3 / 3b / 3c plan for the NLA project (round 1–2 artifacts are in this directory; never overwrite them)
+# Nightshift — Round 3 / 3b / 3c / 4 plan for the NLA project (earlier-round artifacts are in this directory; never overwrite them)
 
-**ROUND 3c (planned 2026-09-08 morning; runs after round 3b, merged) — THIS IS THE ROUND TO EXECUTE.
+**ROUND 4 (planned 2026-09-09 by the human and the desk; round 3c is COMPLETE and merged) — THIS IS THE ROUND TO EXECUTE.
+Stages are in "Round 4 stages" at the end of this file; execution order is in STATE.md (V0 → B1 → K1 → A1 → D1 → T9).
+Rounds 1–3c are complete and reused read-only. Hard stop 10 h after the first round-4 RUNLOG line. All editor / judge /
+translator work is done by the orchestrator agent itself (agent-judgement protocol); the TARGET is never used as an LLM. Every stage is
+pre-registered; a stage that fails its gate is reported and skipped, never rescued. Round 4 adds a mandatory
+HUMAN REVIEW PACK per stage (schema in the round-4 section): every AV input, output, extraction position, edit and score is
+stored in the files named there, so the human can spot-check any number in MORNING4.md against raw rows.**
+
+**ROUND 3c (planned 2026-09-08 morning; COMPLETE, merged 7592565) — superseded by ROUND 4 below.
 Stages are in "Round 3c stages" at the end of this file; execution order is in STATE.md. Rounds 1–3b are
 complete and reused read-only. This round is a long queue: the orchestrator may run for many hours. Every
 stage is pre-registered; a stage that fails its gate is reported and skipped, never rescued.**
@@ -767,3 +775,430 @@ N4 and X1b are descriptive (no kill). Gates: X3 eligibility (≥ 100 rows), RT G
 
 **Execution order (round 3c):** U0c → U1 → X3 → X1 → N3 → N4 → X1b → RT → M → T8. **Hard stop: 9 h after the first
 round-3c RUNLOG line;** at the stop, the running stage is marked blocked (time) and T8 runs with what exists.
+
+---
+
+## Round 4 stages (planned 2026-09-09; long queue; hard stop 10 h after the first round-4 RUNLOG line)
+
+**Execution order: V0 → B1 → K1 → A1 → D1 → T9.** Stage caps: V0 30 min, B1 150 min, K1 45 min, A1 210 min, D1 75 min
+(orchestrator judgement time counts against the cap).
+A stage whose gate fails is reported in one line and skipped. Numbers only; every round-1–3c rule applies (cluster bootstrap
+1000 draws seed 0, three-way outcomes MET / NOT MET / INCONCLUSIVE, `Settings` created inside `main()`, raw outputs kept
+including failures, FOLLOWUPS not pivots, never overwrite an earlier round's files, never write outside `overnight/`,
+commit after every stage, never push). Each stage script is its own process. Co-residency as before: TARGET+AR and AV+AR
+allowed, never TARGET+AV.
+
+**Who decided what.** Experiments A1 and B1 (design, hypotheses, edit suite, statistics, seed pairs, success criterion) are
+the human's, written 2026-09-09 and copied here with the bench-executable details filled in by the desk agent. K1 and D1
+were proposed by the desk agent on 2026-09-08 and accepted by the human on 2026-09-09. The human's decision on judgement (2026-09-09): every editor, judge and translator task is performed by the orchestrator
+agent (Claude) through the agent-judgement protocol in this section; the TARGET is never used as an LLM in round 4. The
+human's decision on decoding:
+A1 and B1 verbalize with **temperature 1.0 and a recorded seed** (one explanation per activation); D1 uses **greedy** because
+it compares two verbalizations of nearly identical vectors and sampling noise would swamp the comparison. K1 uses no new
+verbalizations. **Truth is defined narrowly for the whole round: entailed vs contradicted by the visible prefix (tokens
+0..t).** Labels are never read as claims about the model's beliefs.
+
+**Reuse (read-only):** `nla_lib.py`, `stimuli.csv`, `explanations.jsonl`, `out/acts_L20.npz` (`h20` [200, 3584]),
+`s2_claims.csv` (claim rows and word spans), `s3_edits.jsonl` / `s3_scores.csv` / `t2b_claims.csv` (deterministic-swap rows:
+`edit_type == corrupt_det`, `word_orig`, `word_corrupt`, `is_last`), `notes/t2b_in_full_prefix.csv` (`in_full_prefix` per
+`row`; may be read from `../notes` — it is a desk file), `s2_deletion.py` (`split_claims`, span logic), `s3_corrupt.py`
+(`corrupt_det`, name pool construction, `parse_out`), `x3_snippet.py` (judge prompts, prefix reconstruction rule),
+`c2_matched.py` (short-context activation extraction). Copy code into new stage scripts; do not edit old ones.
+
+**Library additions allowed in `nla_lib.py` (append only, keep every existing assert and default):** (i) `AV.verbalize_sampled(vec,
+seed, temperature=1.0, max_new_tokens=200)` — identical to `verbalize` except `torch.manual_seed(seed)` immediately before
+`generate(..., do_sample=True, temperature=1.0, top_p=1.0, top_k=0)`; returns the same dict plus `seed`, `temperature`;
+(ii) `AR.predict` unchanged; add `AR.score(explanation, h) -> dict(cos, mse, pred_norm, pred)` that calls `predict` once and
+returns the raw prediction for reuse against a second activation; (iii) `Target.chat_generate` is not called in round 4 (the orchestrator does all judgement); (iv)
+`split_claims_quote_aware(text)` — `s2_deletion.split_claims` with one extra rule: never split at a sentence end that falls
+inside an open double quote (odd count of `"` before the split point within the line). Round-1–3 files are not re-split.
+
+### Shared definitions (all round-4 stages)
+
+- **Score:** `s(h, z) = cos(h, AR(z))` with `nla_lib.cos` (fp64), `AR(z)` the raw value-head output. `mse = 2(1 − cos)` is
+  recorded, never analysed separately. **Reconstruction movement** `V(z, z0) = 1 − cos(AR(z), AR(z0))` between two
+  reconstructions. `pred_norm = ‖AR(z)‖` recorded.
+- **Distribution block:** whenever a table reports a mean of a Δ, the summary also reports `n, mean, sd, var, min, p5, p10,
+  p25, p50, p75, p90, p95, max` for the same column (function `dist_block(values)` in the stage script, output as one
+  markdown row per column in a "Distributions" section of `<stage>_summary.md`).
+- **2×2 blocks:** every stage that has both a truth label and a slot type reports each headline statistic in a 2×2 table
+  **truth (entailed / contradicted) × slot type (entity / detail)**, each cell with `n`, mean, CI (cluster by the stage's
+  cluster unit) and the distribution block. Slot type: `entity` = the varied fact is a proper name (capitalised token); `detail`
+  = a number, quantity, order/relation, event, attribute or outcome/polarity. B1 additionally reports by its four families.
+- **Editor, judge and translator = the orchestrator agent itself (Claude, the session running this loop), never the TARGET.**
+  The human's rule for the round: every task that needs language judgement — paraphrase, aggressive paraphrase, French
+  translation and back-translation, detail substitution, relation reversal, negation, minimal correction, entailment labels,
+  equivalence labels — is performed by the orchestrator through the **agent-judgement protocol** below. The TARGET
+  (`Qwen/Qwen2.5-7B-Instruct`) is used only to produce activations; the AV and AR only as the phenomena under study.
+  `Target.chat_generate` is not called in round 4. Every label carries `label_source=claude`; labels are PROVISIONAL until the
+  human has checked the review sheets, and every analysis script accepts `--labels <csv>` (`label_source=human`) and recomputes
+  its summary from human labels without touching raw scores.
+- **Entailment label (orchestrator task type `label`):** input = the full visible prefix text (tokens 0..t decoded) and one
+  sentence. Output = one of `entailed` / `contradicted` / `undetermined` plus `evidence`: a verbatim substring of the prefix
+  that supports the label (empty for `undetermined`) and a ≤ 20-word `reason`. Instruction text the orchestrator follows,
+  verbatim: *"Judge the sentence against the passage alone, not against world knowledge. `entailed` = every checkable
+  proposition in the sentence is stated by or follows necessarily from the passage. `contradicted` = at least one checkable
+  proposition is denied by the passage. `undetermined` = the passage neither establishes nor denies it (including claims about
+  format, genre, what comes next, or the model's cognition). Quote the decisive passage span verbatim as evidence."* The
+  script checks that `evidence` is a substring of the prefix (`evidence_found`); a missing quote does not change the label but
+  is flagged and counted.
+- **Equivalence label (task type `equiv`):** input = candidate sentence and one realization (for French: candidate and the
+  orchestrator's own back-translation, produced in an earlier task). Output `Yes`/`No` and a ≤ 15-word reason. Instruction,
+  verbatim: *"Do the two sentences state exactly the same proposition — the same entities, quantities, polarity, modality,
+  time and attribution — with no fact added, removed or weakened? Answer Yes or No."* Equivalence tasks are issued in a
+  separate batch from the rewrite tasks, in shuffled order (seed 9000), so each pair is judged cold.
+- **Rewrite tasks (the orchestrator sees the candidate sentence only — the task file never contains the passage):**
+  - `rewrite` task, one per candidate meaning, output six fields: `light1`, `light2` — *"small changes in wording or word order
+    only; keep every name, number, date, place, polarity (affirmative/negative), modality, tense and attribution exactly the
+    same; length within about 25% of the original"*; `aggr1`, `aggr2` — *"substantially different syntax and vocabulary, exactly
+    the same proposition at the same level of specificity; every name, number, date, place, polarity, modality, tense and
+    attribution unchanged"*; `fr1`, `fr2` — *"two independently phrased natural French renderings preserving every name, number,
+    date, place, polarity, modality, tense and attribution"*. The two members of each pair must differ after whitespace/case
+    normalisation; if the orchestrator cannot produce a second distinct faithful rendering it repeats the first and sets
+    `dup_realization=True` for that pair (the script also detects duplicates).
+  - `back` task, one per French realization: *"Translate into English, literally, preserving everything."* Output one sentence.
+  - `detail_sub` task: *"Change exactly ONE detail that is not a person's or place's name — a number, a quantity, an event, an
+    attribute, a date or an outcome — to a clearly different, same-topic value; keep every other word identical."*
+  - `relation_rev` task: *"If the sentence asserts an ordered relation between two parties or events (who did what to whom,
+    which came first, which contains which), exchange the roles or the order keeping every other word identical; otherwise
+    output NONE."*
+  - `negation` task: *"Negate the same proposition without changing any of its arguments (add or remove a single negation
+    such as 'not' or 'no')."*
+  - `correction` task (the only rewrite task that includes the passage): *"The sentence makes a claim the passage
+    contradicts. Change only the incorrect fact to the value the passage supports; keep every other word identical."*
+  - `entity_sub` is **not** an orchestrator task: it is the deterministic pool swap (K1 rule, seed 7000 + slot_id).
+- **Mechanical validity checks (every realization, stored as columns; computed by the script, never by the orchestrator):**
+  `names_kept` (every capitalised non-initial token of the candidate appears in the realization; for French, names only);
+  `numbers_kept` (every digit string and number word of the candidate appears; number words matched against a fixed English
+  list one–twenty, thirty…ninety, hundred; French realizations checked against digits only, number words exempt and flagged
+  `fr_numword=True`); `polarity_kept` (count of {not, n't, no, never, none, neither, nor} unchanged; French: {ne, pas, jamais,
+  aucun, ni}); `len_ratio` = TARGET-tokenizer tokens of realization / candidate, `len_ok` = 0.75 ≤ ratio ≤ 1.25 for English
+  (recorded only for French); `equiv` (orchestrator equivalence label; for French, on the back-translation). `valid =
+  names_kept ∧ numbers_kept ∧ polarity_kept ∧ equiv == Yes` (English also records `len_ok` but does NOT require it — the human's
+  rule: never sacrifice equivalence for length). Invalid realizations are scored anyway and excluded from the primary
+  statistics; counts reported by transform.
+- **Prefix / suffix editing:** the carrier explanation is a string `E`; a slot is a character span `[a, b)` in `E` returned by
+  exact match of the claim sentence (first occurrence; if the sentence occurs twice, the slot is ineligible, reason
+  `dup_sentence`). Edited text `E' = E[:a] + realization + E[b:]`. **Assert** `E'[:a] == E[:a]` and `E'[len(E') − (len(E) − b):]
+  == E[b:]` for every realization, and that no other character changed. Deletion baseline: `E[:a] + E[b:]` with the single
+  rule "collapse any resulting double space or space-before-punctuation" (record the exact bytes).
+- **Cluster unit** for CIs: A1 = context; B1 = pair; K1 = explanation; D1 = explanation.
+
+### Agent-judgement protocol (how the orchestrator performs editor / judge / translator tasks)
+
+1. A stage script that needs judgement writes `overnight/<stage>_agent_tasks_<phase>.jsonl` — one JSON object per task:
+   `{"task_id", "type" (label | equiv | rewrite | back | detail_sub | relation_rev | negation | correction), "inputs" {...}}` —
+   prints `AWAITING_AGENT_TASKS <file> <n_tasks>` and **exits 0**. Task files never contain a cosine, a rank or any AR output.
+2. The orchestrator reads the task file in chunks (`Read` with `offset`/`limit`, ≤ 40 tasks per chunk), performs each task
+   exactly as instructed above, and appends results to `overnight/<stage>_agent_outputs_<phase>.jsonl` — one object per task:
+   `{"task_id", "output" {...fields named above...}, "agent_model": "<the model name of this session>", "ts": ISO}`. Write with
+   a heredoc or the Write tool; never edit the task file; never skip a task_id; never look at any `*_scores.csv` of the same
+   stage while a task file is open (there is none yet by construction — phases are ordered so all judgement precedes scoring).
+3. Re-run the same stage script. It validates the outputs (every task_id present exactly once, required fields present,
+   labels in the allowed set, NONE handled), prints `MISSING <k> task_ids: …` and exits 0 if incomplete (the orchestrator
+   completes them and re-runs), otherwise continues to the next phase. Raw orchestrator outputs are copied verbatim into the
+   review-pack files (`editor_raw` = the JSON object as written).
+4. The orchestrator records its own throughput per task type in RUNLOG (`<stage> agent-tasks <type> <n> <minutes>`), and V0
+   measures it on a 20-task sample before re-budgeting. Judgement time counts against the stage cap.
+5. Blindness: the orchestrator does not read `explanations` beyond the sentence given in the task, does not read the passage
+   for rewrite tasks (it is not in the file), and does not reorder or filter tasks. Any judgement it is unsure of is still
+   labelled (with `undetermined` where allowed) — never left blank — and may be noted in one line in FOLLOWUPS.md.
+
+### HUMAN REVIEW PACK (every stage writes all of these; T9 lists them)
+
+| file | one row per | mandatory columns |
+|---|---|---|
+| `<stage>_contexts.csv` | context (activation) | `context_id, split(dev/eval), source (doc_idx or family/template/filling/version), text_full, n_tokens, t (extraction token index), token_id, token_str, act_norm, layer_index=20, hidden_states_index=21, weights=TARGET` |
+| `<stage>_av.jsonl` | AV generation | `context_id, prompt_ids_len, marker_pos, injection_norm=150, decoding (greedy or sampled), temperature, seed, raw_generation, explanation, parse_ok, cjk, n_tokens, gen_s, ended_with_close_tag` |
+| `<stage>_slots.csv` | editable slot | `slot_id, context_id, carrier_id, claim_idx, n_claims, sentence, span_a, span_b, focus_word, slot_type, label_orig (entailed/contradicted/undetermined), label_source (claude/human), evidence, evidence_found, reason, eligible, ineligible_reason` |
+| `<stage>_candidates.jsonl` | candidate meaning | `meaning_id, slot_id, category (correct_original / correction / entity_sub / detail_sub / relation_rev / negation / deletion / family-specific meaning name), sentence, label (entailed/contradicted/undetermined), label_source, evidence, reason, task_id, editor_raw (the orchestrator's JSON object verbatim)` |
+| `<stage>_realizations.jsonl` | realization | `realization_id, meaning_id, transform (orig / light1 / light2 / aggr1 / aggr2 / fr1 / fr2 / deletion), text, task_id, back_translation (French), names_kept, numbers_kept, polarity_kept, len_ratio, len_ok, equiv, equiv_reason, valid, dup_realization` |
+| `<stage>_texts.jsonl` | edited explanation fed to the AR | `text_id, realization_id, carrier_id, full_text, ar_input_tokens, ar_input_truncated (must be False)` |
+| `<stage>_scores.csv` | (edited text × activation) | `text_id, activation_id, cos, mse, pred_norm, V_vs_orig_wording` |
+| `<stage>_summary.md` | — | kill lines; every headline table; 2×2 blocks; Distributions section; eligibility / omission / redundancy / undetermined / invalid-realization counts; 5 fixed verbatim examples (seed 0) showing prefix tail (last 400 chars), explanation, slot, every candidate and realization with its cos |
+| `<stage>_review_sheet.csv` | 20 realizations (seed 0) + 20 slots (seed 0) | prefix text, sentence, candidate, realization, transform, provisional label, **empty** `human_label`, `human_note`; **no scores in this file** (blind) |
+| `<stage>_settings.json` | — | as always, plus every task instruction verbatim, `agent_model`, seeds, pools, cut rules applied |
+| `<stage>_agent_tasks_<phase>.jsonl`, `<stage>_agent_outputs_<phase>.jsonl` | task | the orchestrator's inputs and outputs, verbatim, never edited after the fact |
+
+### V0 — artifact check, benchmark, pipeline verification, orchestrator throughput, re-budget (~30 min; TARGET → AV → AR sequentially, then a 20-task agent sample)
+
+- **Artifacts:** assert the reuse files exist with the counts recorded in `u0c_check.md` (stimuli 200, explanations 200,
+  s2_claims 671, s3_edits 538, t2b_claims 691, acts_L20 h20 [200, 3584]); assert `notes/t2b_in_full_prefix.csv` has 691 rows
+  and `in_full_prefix` True for 257; assert 393 `corrupt_det` rows in t2b_claims, of which 266 `is_last == False`
+  (107 `in_full_prefix`) and 127 `is_last == True`. Write mismatches to `v0_check.md`; a mismatch blocks only the stage that
+  needs the file.
+- **Benchmark (5 calls each, MPS synchronised):** TARGET 60-token forward with hidden states; TARGET 256-token forward;
+  AV sampled generation (200 tokens); AV greedy generation; AR score. **Orchestrator throughput:** V0 writes a 20-task
+  sample file (`v0_agent_tasks_bench.jsonl`: 10 `rewrite` tasks on round-1 claims from pilot stimuli 0–9, 5 `label` tasks with
+  their prefixes, 5 `equiv` tasks) and the orchestrator completes it and records minutes per task type in RUNLOG; these
+  outputs are kept as `v0_agent_outputs_bench.jsonl` and used for nothing else. Write s/item to `v0_check.md`.
+- **Pipeline verification (the human's checklist; dev items only):** (1) two different round-1 activations (stimuli 0 and 1)
+  give different greedy explanations — assert not identical; (2) for stimuli 0–9, `s(h_i, z_i) > s(h_i, z_{(i+5) mod 10})` in
+  ≥ 9/10; (3) score `z_0` five times: max |Δcos| < 1e-4; (4) build one edited text with a dummy realization and run the
+  prefix/suffix asserts; (5) tokenise the longest round-1 explanation inside the AR template: `ar_input_tokens` well below the
+  AR context (report the number; assert < 1024) and every round-1 generation used here ended with `</explanation>` or EOS
+  (report the count that did not); (6) assert the activation extractor is `nla_lib.Target` (repo id `Qwen/Qwen2.5-7B-Instruct`)
+  and record the snapshot hash; assert the AV object is never used for extraction (code-level: no call to `AV.model(` outside
+  `verbalize*`). Any failed check is written to STATE.md as a blocker for the dependent stage; nothing is "fixed" silently.
+- **Re-budget** every stage from the measured costs. Pre-declared cut rules, applied in order until the projection fits the
+  cap, and recorded in `v0_check.md` and STATE.md: **A1:** (a) English realizations 2+2 → 1+1 and French 2 → 1 (transforms `light1, aggr1, fr1`); (b) drop the `negation`
+  candidate; (c) contexts 60 → 40 (dev 10 stays; eval 50 → 30, taking the first 30 by selection order). **B1:** (a) fillings per template 5 → 4 (drop filling index 4); (b) realizations as A1(b); (c) drop the
+  third/fourth candidate meaning (keep A and B only). **D1:** (a) strata 60+60 → 40+40; (b) drop the γ = 0.6 secondary.
+  **K1:** no cut (if projected > 45 min, run eval rows in `row` order until the cap and report n). Never change what is
+  measured; never change thresholds.
+- No kill test.
+
+### B1 — controlled paired contexts: does the reconstructor's preference reverse with the source fact? (TARGET → agent tasks → AV → AR; ~150 min) — PRIMARY CONTROLLED RESULT
+
+**Question (human):** does the AR's preference between two meanings reverse when the corresponding fact in the input changes?
+
+- **Contexts (frozen; 4 families × 2 templates × 5 fillings = 40 pairs = 80 contexts).** Format of every context, raw text,
+  no chat template: `"{background} {fact_sentence_A_or_B} The record ends here."` Filling index 0 of each template is the
+  human's seed pair verbatim (below). Fillings 1–4 substitute the bracketed slots from the pools listed; nothing else changes.
+  **dev = filling 0 of every template (the human's seeds; 16 contexts, 8 pairs, 2 per family); eval = fillings 1–4 (64 contexts,
+  32 pairs, 8 per family)**. Filling 1 of F1 and F2 templates reuses the sister template's seed names (flag `name_overlap=True`
+  and report eval with and without those pairs); fillings 2–4 use names and objects that appear in no dev context. Pair ids `F{family}T{template}f{filling}`, versions `A`/`B`.
+  - **Family 1 (entity / recipient; slot type entity).**
+    T1: `"The dispatch log lists {N1} and {N2} as the two possible recipients. Exactly one person received the {obj}. The {obj}
+    was delivered to {N1}, not {N2}."` / B swaps the last sentence's names. Fillings: f0 (Mira, Jonas, parcel) [seed], f1 (Lena,
+    Omar, envelope), f2 (Priya, Tomas, crate), f3 (Farah, Niko, ledger), f4 (Ines, Ravi, sample). Candidate meanings:
+    `"The {obj} was delivered to {N1}."`, `"The {obj} was delivered to {N2}."`, `"The {obj} was delivered to neither person."`,
+    `"The {obj} was delivered to both people."`
+    T2: `"The laboratory log lists {N1} and {N2} as the two technicians on duty. Exactly one technician {verb} the {dev}. {N1}
+    {verb} the {dev}; {N2} did not."` / B swaps names. Fillings: f0 (Lena, Omar, calibrated, sensor) [seed], f1 (Mira, Jonas,
+    calibrated, scale), f2 (Sela, Dario, serviced, pump), f3 (Priya, Tomas, inspected, valve), f4 (Farah, Niko, calibrated,
+    meter). Candidates: `"{N1} {verb} the {dev}."`, `"{N2} {verb} the {dev}."`, `"Neither technician {verb} the {dev}."`,
+    `"Both technicians {verb} the {dev}."`
+  - **Family 2 (relation / order; slot type detail).**
+    T1: `"The access log records one arrival by {N1} and one by {N2}. Their arrival times were different. {N1} arrived before
+    {N2}."` / B: `"{N2} arrived before {N1}."` Fillings: f0 (Mira, Jonas) [seed], f1 (Lena, Omar), f2 (Priya, Tomas), f3 (Farah,
+    Niko), f4 (Ines, Ravi). Candidates: `"{N1} arrived before {N2}."`, `"{N2} arrived before {N1}."`, `"{N1} and {N2} arrived
+    simultaneously."`
+    T2 (event pairs; written out to keep grammar fixed): f0 [seed] warehouse log / `"The shipment arrived before the inspection
+    began."` vs `"The inspection began before the shipment arrived."`; f1 clinic log, `"one sample delivery and one analysis"`,
+    `"The sample was delivered before the analysis began."` vs `"The analysis began before the sample was delivered."`; f2 garage
+    log, `"one repair and one road test"`, `"The repair was completed before the road test began."` vs `"The road test began
+    before the repair was completed."`; f3 office log, `"one payment and one invoice"`, `"The payment was received before the
+    invoice was issued."` vs `"The invoice was issued before the payment was received."`; f4 station log, `"one train arrival
+    and one platform inspection"`, `"The train arrived before the platform inspection began."` vs `"The platform inspection began
+    before the train arrived."` Background for f1–f4: `"The {log} records {two events}. These events occurred at different
+    times."` Candidates: A sentence, B sentence, and `"The two events happened at the same time."`
+  - **Family 3 (numerical detail; slot type detail).**
+    T1: `"The inventory entry describes one sealed box. Its contents were counted twice and the counts agreed. The box
+    contained exactly {nA} {items}."` / B uses `{nB}`. Fillings: f0 (six, nine, glass vials) [seed], f1 (four, seven, copper
+    coins), f2 (five, eight, sealed envelopes), f3 (three, ten, steel bolts), f4 (two, eleven, glass slides). Candidates: A, B,
+    a third count `{nC}` = (twelve, twelve, twelve, twelve, twelve) respectively, and `"The box contained no {items}."`
+    T2: `"The {log} records one session. Its duration was measured from the opening statement to the final adjournment. The
+    session lasted exactly {nA} minutes."` / B `{nB}`. Fillings: f0 (meeting log, twenty, forty) [seed], f1 (training log,
+    fifteen, thirty), f2 (rehearsal log, ten, fifty), f3 (briefing log, twenty-five, fifty-five), f4 (hearing log, thirty-five,
+    seventy). Candidates: A, B, `"The session lasted exactly five minutes."`, `"The session lasted more than an hour."`
+  - **Family 4 (outcome / polarity; slot type detail).**
+    T1: `"The tool log records one {op} attempt, with no retries. The result was checked after the attempt ended. The {op}
+    {posA}."` / B `{negB}`. Fillings: f0 (upload, succeeded, failed) [seed], f1 (backup, completed, failed), f2 (transfer,
+    succeeded, failed), f3 (login, succeeded, failed), f4 (build, passed, failed). Candidates: A, B, `"The {op} remained in
+    progress."`
+    T2: `"The {log} concerns one {item} and one final decision. The decision was issued yesterday. The {item} was {posA}."` / B
+    `{negB}`. Fillings: f0 (review log, application, approved, rejected) [seed], f1 (permit log, permit, granted, denied), f2
+    (claims log, claim, accepted, rejected), f3 (committee log, proposal, approved, rejected), f4 (records log, request, granted,
+    denied). Candidates: A, B, `"The {item} was still awaiting a decision."`
+- **Positions.** Primary `t` = index of the final `.` token of `" The record ends here."` (the last token of the context).
+  Secondary (dev pairs only, reported separately, no kill): the sentence-final `.` token right after the fact sentence.
+  Record token ids at both positions for A and B and **assert the primary token ids match within a pair**; record the two
+  contexts' token counts and flag `len_mismatch` when they differ (do not drop). Activations `h_A`, `h_B` = `hidden_states[21]`
+  at `t`, TARGET weights, batch 1. Save `out/b1_acts.npz`. Note for the record: these contexts are 40–60 tokens long, below
+  the pair's training minimum position of 50 for many `t`; report `t` per context and the absolute `s(h, carrier)` so the
+  out-of-distribution level is visible. No change to the human's format.
+- **AV:** `verbalize_sampled(h, seed = 5000 + 2·pair_index + (0 if A else 1))` once per context; 80 generations.
+- **Carrier and slot (string rules, fixed):** carrier = each context's own explanation, split with `split_claims_quote_aware`.
+  Family keyword sets for locating the fact: F1 {N1, N2}; F2 {"before", "after", "earlier", "later", "first", "simultaneous",
+  "same time"} ∪ the two event nouns; F3 {digits, English number words, `items` head noun}; F4 the two polarity words and
+  their stems ∪ {"success", "failure", "approval", "rejection", "granted", "denied", "progress", "pending"}. A sentence
+  "mentions the fact" if it contains ≥ 1 keyword (case-insensitive, whole word). Eligible slot = exactly one mentioning
+  sentence that is **not** the final-token snippet (regex `final token|last token|expecting|continu`); ≥ 2 mentioning sentences →
+  `redundant` (ineligible for primary, counted); 0 → `omission`; only the snippet → `snippet_only`. For `omission` and
+  `snippet_only` carriers run the **exploratory insertion** arm: insert `" " + realization` immediately before the final-token
+  snippet sentence (or at the end if there is none), flag `inserted=True`, report separately and never in the primary.
+- **Realizations:** for every candidate meaning, 7 realizations (orig, light1, light2, aggr1, aggr2, fr1, fr2) via the shared
+  rewrite tasks and validity checks. Candidates are fixed text; their realizations are orchestrator tasks issued **before** the
+  AV phase (they do not depend on AV output): phase order TARGET activations → agent tasks (`rewrite`, `back`) → agent tasks
+  (`equiv`) → AV generations → AR scoring.
+- **Scoring:** for every carrier (A's and B's explanation), every candidate realization substituted into the carrier's slot,
+  one AR forward per edited text, cosine against **both** `h_A` and `h_B` from the same prediction (never a second forward).
+  Also score the unedited carriers and the deletion baseline. ≈ 40 pairs × 2 carriers × ≤ 4 meanings × 7 = ≤ 2,240 forwards.
+- **Statistics (μ = mean cos over the four valid English paraphrases, excluding orig; reported also with orig only and with
+  French only):** per pair and carrier
+  `D = [μ_A(h_A) − μ_B(h_A)] − [μ_A(h_B) − μ_B(h_B)]`; both-sides-correct = `μ_A(h_A) > μ_B(h_A)` and `μ_B(h_B) > μ_A(h_B)`;
+  correct-ranks-first rate among all candidates on each activation; paraphrase sensitivity `P_m` (mean |Δ| and signed Δ vs orig)
+  per meaning, by truth label of the meaning on that activation and by transform family; `V` per realization; per-family tables
+  and the 2×2 (entity = F1; detail = F2–F4). Mean D with CI **cluster by pair**, eval pairs; dev reported separately.
+- **Kill B1:** CI (by pair, eval) of mean **D ≤ 0 → MET** (the reconstructor's preference between the two meanings does not
+  reverse with the source fact). INCONCLUSIVE if eligible eval carriers < 32 (i.e. fewer than half of the 64 eval carriers have a
+  primary slot). Reported next to it: both-sides-correct rate with CI; D with orig-only and with French-only μ; D by family;
+  `cos(h_A, h_B)` per pair; omission / redundant / snippet_only / inserted counts; invalid-realization counts by transform.
+- **Interpretation, pre-committed:** D > 0 with both-sides-correct well above 0.5 → activation-dependent preference for the
+  matching meaning in this controlled setting; D > 0 but both-sides-correct ≈ 0.5 → asymmetric wording preference, not fact
+  tracking; D ≈ 0 → the score does not carry the fact at this position; large `V` with D ≈ 0 → the reconstruction moves without
+  moving toward the matching activation. Families may differ; report, do not rank.
+- **Build:** `b1_pairs.py` (phases: TARGET activations → agent rewrite/back tasks → agent equiv tasks → AV → AR; the script is
+  re-entrant and resumes from the last completed phase), `b1_analyze.py --labels` (recompute from the files). Outputs: the review pack with prefix `b1_`, plus `out/b1_acts.npz`.
+  Memory: TARGET alone → free → AV alone → free → AR alone.
+
+### K1 — K-way alternative ranking on the existing deterministic-swap claims (AR only; ~45 min)
+
+**Question (desk):** with paraphrase noise held at zero by construction, does the reconstructor rank the specific the AV
+wrote above matched alternatives that differ in that one word only, and does this depend on whether the word is present in
+the prefix the activation saw?
+
+- **Rows:** every `t2b_claims.csv` row with `edit_type == corrupt_det` (393; all eval). Strata: `is_last == False` (266; the
+  claim is not the final-token snippet) split by `in_full_prefix` from `notes/t2b_in_full_prefix.csv` (107 True / 159 False),
+  and `is_last == True` (127; the snippet's quoted token — **positive-control stratum**, the AR is expected to rank the true
+  final token first if the snippet is read). Slot type: `word_orig` matches `^\d[\d.,]*$` → detail (31 non-last), else entity
+  (235 non-last).
+- **Alternatives (7 per row, fixed rules, seed 6000 + row):** names — 7 distinct draws from the S3 name pool (`word_orig` of
+  `corrupt_det` name rows from **other** explanations, 200 distinct), excluding any token that occurs (case-insensitive) in this
+  row's full prefix or explanation and excluding `word_corrupt` (if fewer than 7 remain, take what remains and flag
+  `pool_short=True`); numbers — for integer n the set
+  {n+1, n+7, n+13, 2n, 3n, n+100, n−1 (or n+2 if n = 0)} in the same digit format (keep thousands separators if present);
+  decimals: perturb the integer part the same way. Each alternative replaces `word_orig` at its first whole-word occurrence in
+  the claim, and the claim is substituted into the explanation at its span (S2 span logic). Assert exactly one word differs
+  between any two of the 8 texts of a row.
+- **Scoring:** 8 texts per row (original + 7) against the row's own `h` (`acts_L20.npz["h20"][stim_idx]`), ≈ 3,144 forwards
+  (originals may be cached from `s2_claims.cos_z` only if the recomputed value agrees to 1e-6 on 20 rows; otherwise recompute).
+- **Statistics:** per row: rank of the original among 8 (1 = best), `top1`, reciprocal rank, `gap = cos(orig) − mean(cos(alts))`,
+  `gap_max = cos(orig) − max(cos(alts))`, `spread = sd(cos over the 8)`; per stratum: top-1 rate with CI (cluster by
+  explanation), mean reciprocal rank, mean gap with CI, fraction gap > 0, the distribution block for gap and spread; 2×2 by
+  (in_full_prefix as the grounded/ungrounded proxy) × (entity / detail) for the non-last rows; the positive-control stratum
+  separately.
+- **Kill K1:** non-last, `in_full_prefix == True` rows (n = 107): CI of **(top-1 rate − 0.125) ≤ 0 → MET** (the reconstructor
+  does not rank a prefix-grounded specific above matched alternatives beyond chance). INCONCLUSIVE if fewer than 80 of the 107
+  rows completed. Reported: the same for the ungrounded stratum and for the positive-control stratum; mean gap with CI in all three.
+- **Interpretation, pre-committed:** grounded ≫ chance and ungrounded ≈ chance → the score carries grounded specifics weakly
+  but detectably at zero wording noise, and the AV's ungrounded specifics are not in the score; both ≈ chance while the
+  positive control is ≫ chance → the score encodes the local token, not upstream specifics; positive control ≈ chance →
+  the K-way instrument itself is not sensitive at this scale (limits every other reading).
+- **Build:** `k1_kway.py`. Outputs `k1_rows.csv` (one row per (row, candidate): word, text_id, cos, rank), `k1_texts.jsonl`,
+  `k1_summary.md`, `k1_review_sheet.csv` (20 rows: prefix tail, claim, the 8 words, blind), `k1_settings.json` (pools, seeds).
+
+### A1 — natural AV claims: paraphrase-averaged semantic preference (TARGET → AV → agent tasks → AR; ~210 min) — PRIMARY NATURAL RESULT
+
+**Question (human):** can transformation-averaged reconstruction scores identify factual errors the AV actually makes?
+
+- **Contexts (fresh; selected before any AV output is seen):** wikitext-2 train documents (`EleutherAI/wikitext_document_level`,
+  `wikitext-2-raw-v1`) whose `doc_idx` is **not** in `stimuli.csv` and whose TARGET token count is ≥ 256 (410 such documents);
+  `rng = np.random.default_rng(4)`, permute, take the first 60 that pass the sentence rule; **dev = the first 10, eval = the
+  next 50** (`context_id` 0–59). Sentence rule: tokenise the page (`add_special_tokens=False`); find the largest index `t` in
+  `[127, 255]` such that `decode(ids[t]).strip() in {".", "!", "?"}` and the decoded text of `ids[t+1]` starts with a space,
+  newline or capital letter; if none, skip the document. Context text = `decode(ids[:t+1])`; extraction at `t` (the punctuation
+  token). Raw text, no chat template, no EOS. Record `t`, `token_id`, `token_str`, `act_norm`, the full text. Skip documents
+  whose context has fewer than 3 capitalised non-initial tokens (no checkable specifics) — log the skip.
+- **AV:** `verbalize_sampled(h, seed = 4000 + context_id)`, once per context (60 generations).
+- **Slots (fixed rule, no scores consulted):** split the explanation with `split_claims_quote_aware`; discard sentences matching
+  the snippet regex (`final token|last token|current token|expecting|continu|followed by|next (word|token)`) and sentences with
+  < 6 words. **Entity slot** = the first remaining sentence containing a capitalised token that is not sentence-initial and not
+  in the stoplist {Wikipedia, Wiki, English, The, This, A, An, In, It, Its, I, Final} and not a month or weekday; `focus_word` =
+  that token. **Detail slot** = the first remaining sentence *other than the entity slot* that contains a digit or an English
+  number word, or, if none, the first remaining sentence containing one of {before, after, first, last, earlier, later,
+  during, until, since, succeeded, failed, won, lost, born, died, founded, released, defeated, elected, became, moved,
+  married}; `focus_word` = the number or that word. ≤ 2 slots per context. Slot ineligible (`ineligible_reason`) if the
+  sentence occurs twice in the explanation (`dup_sentence`) or if its `focus_word` occurs in another sentence of the
+  explanation (`fact_repeated`) — logged, never edited around.
+- **Labels (orchestrator `label` tasks, provisional):** entailment label of the original sentence against the full context
+  text → `label_orig`, with evidence quote and reason stored.
+- **Candidates per slot (each labelled by an orchestrator `label` task, outputs stored verbatim):** `correct_original` (the AV sentence; used as
+  the correct meaning only if `label_orig == entailed`); if `label_orig == contradicted`: `correction` via a `correction`
+  task, accepted as the correct meaning only if a subsequent `label` task returns `entailed` (else `no_valid_correction`, slot stays in the
+  descriptive set); false meanings: `entity_sub` (entity slots: `focus_word` → a name from the S3 pool by the K1 rule, seed
+  7000 + slot_id; deterministic, no LLM), `detail_sub`, `relation_rev` (dropped if NONE) and `negation` (orchestrator tasks of those
+  types). A false candidate enters the primary only if its label is `contradicted`;
+  `undetermined` and (accidentally) `entailed` candidates go to the descriptive set with their labels. Duplicate candidates
+  (identical after normalisation) are merged and flagged. The **natural-error set** = slots with `label_orig == contradicted`
+  and a valid `correction`.
+- **Realizations:** 7 per candidate (orig, light1, light2, aggr1, aggr2, fr1, fr2) via `rewrite` + `back` + `equiv` tasks and
+  the mechanical checks; plus the deletion baseline per slot. Orchestrator load ≈ ≤ 120 `label` (originals) + ≤ 100
+  `correction` + ≤ 100 `label` (corrections) + ≤ 300 corruption tasks + ≤ 500 `label` (candidates) + ≤ 500 `rewrite` (6 fields
+  each) + ≤ 2,000 `back` + ≤ 3,000 `equiv` (V0's measured throughput and the cut rules decide).
+- **Scoring:** every realization substituted into its slot (prefix/suffix asserts), one AR forward each, cosine against the
+  context's own `h`; also the unedited explanation and the deletion text. ≤ ~3,600 forwards.
+- **Statistics:** (A) paraphrase sensitivity `P_m` (mean |Δ| vs orig, and signed Δ) per meaning, by transform family (light /
+  aggressive / French) and by meaning label (entailed / contradicted), with the distribution block; compare `P_correct` vs
+  `P_false` within slot (paired, cluster by context). (B) **primary:** `μ_m` = mean cos over the valid English paraphrases (orig
+  excluded); `G = μ_correct − mean_{false m} μ_m` per eligible slot; correct-ranks-first rate; fraction of correct-vs-false
+  comparisons won; by corruption category; French-only `G_fr` separately; the 2×2 (entailed/contradicted × entity/detail) for
+  the per-meaning μ and for `P`. (C) natural errors: `μ_correction − μ_original` per natural-error slot, with the same
+  breakdowns. (D) `V` per realization; deletion Δ per slot. All CIs cluster by context, eval contexts; dev reported separately.
+- **Kill A1:** CI (by context, eval) of mean **G ≤ 0 → MET** (after averaging over paraphrases, the reconstructor does not prefer
+  the entailed meaning over same-topic contradicted meanings). INCONCLUSIVE if eligible eval slots with a valid correct meaning
+  and ≥ 1 valid false meaning < 30. **Kill A1-nat:** CI of mean `[μ_correction − μ_original]` on the natural-error set **≤ 0 →
+  MET** (the score does not prefer the corrected claim over the AV's own contradicted claim). INCONCLUSIVE if natural-error
+  eval slots < 15 — **report the count; never substitute injected errors for natural ones.**
+- **Interpretation, pre-committed (human's):** correct meanings win across English paraphrases *and* B1's preference reverses →
+  activation-dependent discrimination; wins here but no reversal in B1 → wording preference, not fact tracking; B1 reverses but
+  A1-nat fails → the reconstructor can discriminate explicitly controlled facts, but that signal does not yet provide a
+  reliable verifier for the AV's own claims; lower `P` for entailed than contradicted meanings is an additional finding, not a
+  prerequisite.
+- **Build:** `a1_natural.py` (phases: TARGET contexts + activations → AV generations → slot extraction by rule → agent `label`
+  tasks (originals) → agent `correction` tasks → agent `label` tasks (corrections) → deterministic `entity_sub` + agent
+  `detail_sub` / `relation_rev` / `negation` tasks → agent `label` tasks (all candidates) → agent `rewrite` + `back` tasks →
+  agent `equiv` tasks → AR scores; re-entrant), `a1_analyze.py --labels`. Outputs: review pack with prefix `a1_`,
+  `out/a1_acts.npz`. The 20-slot review sheet must contain every natural-error slot (up to 20) before random fill.
+
+### D1 — claim-direction ablation with the reconstructor as encoder: does removing a claim's direction remove the claim? (AR → AV(+AR); ~75 min; greedy)
+
+**Question (desk):** if a claim lives in a direction of the activation that the reconstructor recovers, subtracting that
+direction from the activation should make the verbalizer stop asserting it; a claim regenerated from the remaining gist
+should persist. Random-direction ablation is the control; the final-token snippet is the positive control.
+
+- **Rows (from K1's strata; eval; seed 8000):** 60 non-last `corrupt_det` rows with `in_full_prefix == True`, 60 with `False`
+  (or all if fewer), and 20 `is_last == True` rows (positive control). Same `stim_idx`, `claim_idx`, `word_orig` as K1.
+- **Directions:** `z` = the explanation; `z\c` = the explanation with the claim removed (S2 rule, single-space join);
+  `d_c = AR(z) − AR(z\c)` (raw fp32 predictions); `d̂ = d_c / ‖d_c‖`. Record `‖d_c‖`, `cos(d̂, ĥ)`, and `proj = (h·d̂)/‖h‖`.
+  **Own ablation:** `h' = h − γ ‖h‖ d̂`, γ = 0.3 (primary). **Random-direction control:** `d̂_rand` = the `d̂` of a different
+  row from a different explanation in the same stratum (fixed derangement, seed 8001); `h'_rand = h − γ ‖h‖ d̂_rand`.
+  **Secondary (first 20 rows of each stratum only):** γ = 0.6, own direction. Record `cos(h', h)` (expected ≈ 0.96 at γ = 0.3
+  when `d̂ ⟂ h`) and the injection norm is 150 regardless (as always).
+- **Re-verbalize** `h'` and `h'_rand` (and the γ = 0.6 vectors) with the AV, **greedy**, 200 tokens. Also re-score each new
+  explanation against the original `h` with the AR (does it still describe `h`?).
+- **Measures per row:** `persist_word` = `word_orig` present (whole word, case-insensitive) in the new explanation; `persist_claim`
+  = max token-Jaccard between the original claim and any sentence of the new explanation; `jaccard_expl` = token-Jaccard of the
+  two explanations; `parse_ok`, `cjk`; `cos(h, AR(new))`; for the positive-control stratum additionally: the quoted final token in
+  the new snippet equals `token_str` (X1b rule). Reference values from the unablated greedy explanation (`explanations.jsonl`).
+- **Statistics:** per stratum, `persist_word` rate under own vs random ablation, paired difference with CI (cluster by
+  explanation); the same for `persist_claim` and `jaccard_expl`; 2×2 (in_full_prefix × entity/detail) for the paired difference;
+  distribution blocks for `‖d_c‖`, `proj`, `cos(h', h)`, `cos(h, AR(new))`; γ = 0.6 table.
+- **Kill D1:** non-last rows (both in-prefix strata pooled, n ≤ 120): CI of **[persist_word(random) − persist_word(own)] ≤ 0 →
+  MET** (subtracting the claim's own reconstructor direction does not remove the claim more than a random claim direction
+  does). Reported alongside: the same statistic per in-prefix stratum and for the positive control; `persist_claim` version.
+  INCONCLUSIVE if < 60 non-last rows completed.
+- **Interpretation, pre-committed:** own ≪ random → the claim is tied to a direction of the activation the reconstructor
+  recovers; own ≈ random with the positive control removed → claims are regenerated from remaining content (consistent with
+  invention from gist) or the reconstructor's direction is not what the verbalizer reads; positive control not removed → the
+  manipulation is too weak at γ = 0.3 (the γ = 0.6 table then matters); in-prefix vs not difference → grounded and ungrounded
+  specifics differ in how they are held. Report the format-break rate before anything else (X1b showed the format is fragile).
+- **Build:** `d1_ablate.py` (AR phase for all directions and baselines → AV+AR co-resident for re-verbalization and re-scoring;
+  never TARGET here). Outputs `d1_rows.csv`, `d1_av.jsonl` (every new generation with its vector recipe), `d1_summary.md`,
+  `d1_review_sheet.csv` (20 rows: original claim, original explanation, own-ablated and random-ablated explanations, blind to
+  which is which — the key in `d1_review_key.csv`), `out/d1_vectors.npz`.
+
+### T9 — morning report
+`overnight/MORNING4.md`: kill lines (B1, K1, A1, A1-nat, D1); the B1 pair table (D, both-sides-correct, by family; orig-only and
+French-only variants); the K1 stratum table with the positive control; the A1 tables (paraphrase sensitivity by truth × transform;
+correct-meaning ranking by corruption category; natural errors); the D1 stratum table; **every 2×2 block and every Distributions
+section copied, not summarised**; eligibility, omission, redundancy, undetermined, invalid-realization, dup and cut-rule counts;
+the list of review-pack files with row counts; 5 verbatim examples per stage; FOLLOWUPS; provenance (human-designed vs
+desk-designed vs agent-built; every agent choice inside the pre-registration logged); wall-clock and measured per-item costs.
+Commit. Stop.
+
+## Pre-registered thresholds (round 4)
+| K | stage | statistic | MET if | INCONCLUSIVE if |
+|---|---|---|---|---|
+| B1 | B1 | CI (by pair, eval) of mean D = [μ_A(h_A) − μ_B(h_A)] − [μ_A(h_B) − μ_B(h_B)], English paraphrases | ≤ 0 | eligible eval carriers < 32 |
+| K1 | K1 | CI (by explanation) of [top-1 rate − 0.125], non-last in-prefix rows | ≤ 0 | rows completed < 80 |
+| A1 | A1 | CI (by context, eval) of mean G = μ_correct − mean_false μ_m | ≤ 0 | eligible eval slots < 30 |
+| A1-nat | A1 | CI (by context, eval) of mean [μ_correction − μ_original], natural-error slots | ≤ 0 | natural-error eval slots < 15 |
+| D1 | D1 | CI (by explanation) of [persist_word(random) − persist_word(own)], non-last rows | ≤ 0 | non-last rows completed < 60 |
+Gates: V0 pipeline checks (a failed check blocks the dependent stage). Secondary positions (B1), exploratory insertion (B1),
+positive-control strata (K1, D1), γ = 0.6 (D1) and French-only variants are descriptive.
+
+**Execution order (round 4):** V0 → B1 → K1 → A1 → D1 → T9. **Hard stop: 10 h after the first round-4 RUNLOG line;** at the stop,
+the running stage is marked blocked (time) and T9 runs with what exists. Orchestrator labels are marked provisional everywhere;
+the human relabels from the review sheets and reruns `b1_analyze.py` / `a1_analyze.py --labels` before any number is quoted.

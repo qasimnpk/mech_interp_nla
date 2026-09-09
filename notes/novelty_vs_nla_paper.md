@@ -104,3 +104,74 @@ quoted spans almost never occur in the text. The paper proposes asking the verba
 we find that on this checkpoint prompts change nothing but prefilled likelihoods read the topic out reliably and an
 upstream entity only weakly. None of this bears on the paper's audit findings, which concern much larger models;
 it bears on what the reconstruction score can and cannot be used for.
+
+## E. Framing decision, 2026-09-08 ~15:00 EDT (desk, answering the human's question)
+
+**Question asked:** "Should our experiment design look at the experiments designed and run in the NLA paper, reference them
+and build upon them, or is our current approach to be preferred? Which is the stronger contribution / MATS application?"
+
+**Answer: false choice.** The current design already is the paper's confabulation-section experiment, run with controls on
+the checkpoint the paper released, plus direct tests of things the paper hypothesised or listed as future work. The stronger
+application is the existing one, written so the lineage is visible in the first paragraph. Do not pivot.
+
+**Why this is the stronger application (each point traceable):**
+1. Neel's FAQ names this exact experiment. `notes/neel_drive/mats12_admissions_procedure_faq.md` L719–721, verbatim:
+   "[Natural language autoencoders] try to autoencode activations as natural language and back … What can you do with them?
+   Do they actually work for tasks of interest? · Key resource: This Qwen 3.6 27B NLA from my scholar Celeste … · I'm
+   particularly interested in using the activation reconstructor to measure the quality of a description, e.g. figuring out
+   which claims can be removed and improve reconstruction accuracy to help reduce hallucinations, as briefly explored
+   [NLA paper, characterizing-nla-confabulations]." That is S2, S3, R2, R3, C1 and X3.
+2. It is a well-analysed negative on a named positive idea. FAQ L431–436: "Negative or inconclusive results that are
+   well-analysed are much better than a poorly supported positive result"; L491: "Building on a phenomenon without first
+   checking it replicates in your setting … If the effect isn't there for your setup, everything downstream is noise."
+   Past-example verdicts praise "built well on existing work" (L524).
+3. Every finding maps onto a paper item (inventory in §A above). Compact map for the write-up:
+
+| paper item | our test | what we add |
+|---|---|---|
+| claim deletion → "weak per-claim verifier" (observational: natural claims, Haiku judge, truth confounded with specificity/relevance/recurrence) | S2 deletion vs length-matched span; S3 paired same-claim corruption vs paraphrase; R2 every-claim; off-topic swap | interventional and paired; the relevance gradient reproduces, the tested one-fact edits do not register; both penalties small |
+| steganography transforms (shuffle, paraphrase, French → small FVE drop; coherence rewrite, summary → large) | one-claim paraphrase cost, reorder (C1), truncation curve (R3) | reproduced in miniature; the final-token bullet carries 88% of the lift and keeps 79% when moved |
+| confabulation hypothesis 2 (objective rewards a wrong specific over omission) | N3 wrong / generic / omitted on the frozen AR | wrong ≈ generic, omission costs far more; a property of the frozen scorer, INCONCLUSIVE on the kill |
+| "ask the AV" via trained activation oracles | inference-only prefilled likelihood (T2/T2a/T2c) with un-finetuned-model control (U1), donor swaps, held-out prefix | learned, activation-dependent readout: topic reliably, entities weakly; text-only 0.988 bounds the claim |
+| late-layer NLA applied to earlier layers "less coherent" | X1 / X1b across blocks 16/20/24/27 | readout transfers (entities best at 24); fluency and verified readout come apart in both directions |
+| future work: per-claim ablation, best-of-N | ablation = S2/R3/C1; best-of-N not run (N6) | name best-of-N and recurrence as future work, not as tested |
+
+**What not to do:** reproduce the paper's five prediction tasks or the full steganography suite. They are informativeness-
+over-training results on Claude models with ground truth by construction; impossible with final checkpoints only, and a
+budget sink the FAQ flags ("spreading yourself too thin").
+
+**Two weaknesses to state plainly, one sentence each, in the main text:** finding 2 overlaps Dingeto 2026 on the same
+released pair (cite first; ours is a different instrument); Celeste's Qwen3.6-27B is Neel's named key resource and does not
+fit this machine (48 GB; `notes/nla_setup/README.md`), so the study is on the paper's own released 7B pair — the 27B
+replication is the named next step (`notes/27b_extension_brief.md`).
+
+**Write-up consequences (now in `human-plan.md` §1 opening, §3 rows/checkboxes, §6 lineage line, §9):** open with the paper's
+weak-verifier sentence → Neel's question → the answer; cite the paper and Dingeto before our numbers on finding 2; use their
+theme/entity/detail taxonomy as a descriptive appendix recut; say once that their metric is FVE/MSE and ours cosine on the
+direction-only scorer (MSE = 2(1 − cos) for unit vectors).
+
+## F. Pending: setup-comparability audit against the paper (spec for the human's paper-setups agent)
+
+The human has a separate agent extracting the exact experimental setups from the NLA paper so we can check whether ours are
+comparable. Useful, with these rules so the output is directly usable and does not cost review time:
+
+- **Scope:** the confabulations section (claim extraction, truth judging, claim deletion, related/unrelated split, recurrence
+  across positions), the steganography/transform section (each transform, how FVE change was computed), the AO/QA section
+  (how questions were posed, prompt sensitivity), the open-model appendix (Qwen2.5-7B: layer, SFT data source and format,
+  "2–3 bullets", ordering rule, GRPO group size, token cap, injection scalar α, KL coefficient), and the AV/AR prompts. Also
+  **Dingeto 2026 §3.1 + App. E** (`notes/dingeto_2026_train_the_model_text.txt`) — that is the *number*-comparable setup,
+  since it uses the same released pair; the NLA paper's confabulation numbers are on Claude NLAs and are only
+  *design*-comparable.
+- **Format:** one row per experiment with columns: paper item · location (section/appendix anchor and, if possible, a line
+  number in `notes/nla_paper_2026_text.txt`) · target model and layer · stimuli/data and n · intervention or edit · metric
+  (FVE / MSE / judge accuracy) · judge or labeler · verbatim quote supporting each cell. Cells the paper does not state are
+  marked "not stated", never filled in from memory. The interactive figures were lost in the text dump; anything that lived
+  only in a figure is "figure-only, unrecoverable".
+- **Known non-equivalences to expect** (state, do not paper over): FVE vs cosine (MSE = 2(1 − cos) only for unit vectors;
+  the released scorer is direction-only); natural true/false claims judged post hoc vs our paired same-claim edits; deletion
+  of a claim vs substitution within a claim; Haiku 4.5 judge vs our LLM editor + deterministic swaps; Claude Opus NLA
+  (4–5 snippets) vs the released 7B (2–3 bullets); their per-token FVE on Claude vs our 200 wikitext-2 positions.
+- **What the desk does with it:** joins each row to our `overnight/PLAN.md` stage and `overnight/<stage>_settings.json`
+  (prompt ids, injection norm 150, marker position, scorer) into `notes/setup_comparability.md` with a final column
+  same / differs how; every "differs" that could change a conclusion becomes one stated sentence in the methods paragraph.
+  Human review of the joined table ≤ 20 min (counted time).

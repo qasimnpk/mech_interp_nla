@@ -29,6 +29,12 @@ if asked, pre-register in PLAN.md, run in a fresh worktree from main, merge with
 `git merge --no-commit --no-ff <branch> && git checkout HEAD -- CLAUDE.md`, and copy `overnight/out/*.npz` before
 removing a worktree.
 
+Framing decided 2026-09-08 ~15:00 EDT (notes/novelty_vs_nla_paper.md §E; human-plan.md §3 first block): the project is the NLA
+paper's own weak-per-claim-verifier experiment (the one Neel's FAQ L721 names) run controlled on the released checkpoint; keep the
+approach, make the lineage explicit in the first paragraph, do not pivot to reproducing the paper's evaluation suite. Pending:
+the paper-setups reconstruction arrived as notes/NLA_paper_experiment_setup.md; the desk's comparability audit is
+notes/setup_comparability.md (2026-09-08 17:00; §5 has the methods sentences, §6 two decisions for the human).
+
 Next task: help the human execute human-plan.md, in order. Likely first asks: figure drafts from §4 pointers; a
 number-by-number check of a draft paragraph against evidence_table.md; section extracts from the papers in §3; a bounded
 skeptical review of the draft (§5). Start by reading human-plan.md and telling the human, briefly, what is unchecked.
