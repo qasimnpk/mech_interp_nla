@@ -43,3 +43,13 @@ In-domain mean-direction baseline; human labelling of natural claims blind to Δ
 
 ## Desk check 2026-09-06 ~10:30 — does corruption cost depend on where the fact sits? (crude, word-overlap)
 Split the 402 accepted corruptions by whether the swapped-out word appears within ~80 chars before the target token ("near", n=62), elsewhere in the 64-token left context ("ctx", n=27), or not in the context at all ("absent", n=313). Corruption cost: near 0.0036, ctx 0.0032, absent 0.0022 (medians ≈0.001 in all three). Weak gradient in the expected direction, all far below the paraphrase cost of ~0.005. Word-overlap heuristic only; not a substitute for a real locality experiment.
+
+## 9. The 27B NLA surfaces specific claims on both sides of truth; its entities are almost all wrong (pod, 2026-09-09; agent-labelled, provisional)
+`ceselder/qwen3.6-27b-nla-rl` on its 8 shipped example activations (training rows, last token of each text): 163 atomic claims, judged against the source text only (`notes/nla_setup/nla27b_smoke_claims_annotated.csv`).
+| type | true | false | unsupported |
+|---|---|---|---|
+| entity | 1 | 16 | 3 |
+| detail | 23 | 18 | 11 |
+| theme | 49 | 0 | 1 |
+| forecast | 12 | 1 | 26 |
+Theme claims are essentially always right; details are half right with real specifics on both sides; named entities are replaced by same-domain neighbours (Sinclair-Maclagan→"Captain John", enterococci→E. coli, 787→737, FAA→NTSB) in 16 of 20 cases. Reconstruction cosine on these same explanations is 0.97, so the AR rewards them despite the swaps. Under the 7B pair on wikitext (A1) only 2 of 54 selected specific claims were entailed, so the 27B is the first checkpoint here that yields a usable true/false split of specific claims. Caveats: 8 examples from the training corpus; one annotator (agent); protocol choices (unsupported vs false for unnamed countries; deduplicated repeats) listed in the CSV notes. Round 5 runs the 7B on the same 8 texts for a like-for-like table.

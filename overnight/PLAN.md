@@ -1180,3 +1180,64 @@ descriptive. No secondary positions, no second intervention strength, no French,
 **Execution order (round 4):** V0 → B1 → A1 → K1 → D1 → T9. **Hard stop: 10 h after the first round-4 RUNLOG line; T9 owns the last
 30 min.** Orchestrator labels are provisional everywhere; the human reviews `_review_blind.csv` first, then the key, then reruns
 `b1_analyze.py` / `a1_analyze.py --labels` before any number is quoted.
+
+## Round 5 stages (planned 2026-09-09 evening; short queue; hard stop 3 h after the first round-5 RUNLOG line, of which the last 20 min are reserved for T10)
+
+**Purpose (human, 2026-09-09).** The 27B NLA (`ceselder/qwen3.6-27b-nla-rl`, run on the RunPod bench) produced explanations whose
+specific claims fall on both sides of truth (details 23 true / 18 false / 11 unsupported) while its named entities were almost all
+same-domain substitutions (1 / 16 / 3); theme claims were 49 / 0 / 1. The 7B rounds never produced that split (A1: 2 entailed of 54).
+Round 5 asks one descriptive question: **on the same 8 input texts, what does the released 7B pair produce, claim type by truth?**
+No kill test carries a verdict; the deliverable is a like-for-like table.
+
+**Execution order: P0 → P1 → P2 → T10.** Caps: P0 15 min, P1 30 min, P2 60 min (orchestrator annotation time counts). Numbers only;
+every round-4 rule applies (settings file, raw outputs kept including failures, FOLLOWUPS not pivots, never overwrite earlier rounds'
+files, never write outside `overnight/`, commit after every stage, never push). Where this block and the general rules differ, this
+block wins. Device: MPS on the laptop, `nla_lib.py` unchanged (read-only), helpers copied into `overnight/p1_run.py`.
+
+**Inputs (read-only).** `notes/nla_setup/nla27b_smoke_examples_full.json`: 8 objects with `idx`, `doc_id`, `source_text_full`,
+`explanation` (the 27B explanation), `cos_own`, `cos_shuffled`. `notes/nla_setup/nla27b_smoke_claims_annotated.csv`: the 27B
+annotation (163 rows). `notes/nla_setup/claim_annotation_protocol.md`: the annotation protocol, to be applied verbatim.
+`notes/nla_setup/ceselder_27b_model_card.md` §"How to use" for what the 27B run did (greedy, 200 new tokens, last token).
+
+### P0 — artifact check (~15 min)
+Load the 8 texts; tokenize each with the TARGET tokenizer exactly as round-1 stimuli were (raw text, no chat template, the
+`nla_lib` convention); record token counts; assert every text has ≥ 50 tokens (the released pair's training minimum) and note any
+text longer than 2048 tokens (none expected; the longest is ~2000). Load TARGET, extract `hidden_states[21]` at the **last token**
+of each text (batch 1, bf16), save `overnight/out/p1_acts.npz` (`h20` [8, 3584]) and norms. Free TARGET. Write `p0_settings.json`
+(git hash, repo ids and snapshot hashes, tokenizer convention, token counts, positions). Gate: 8 activations with finite norms.
+
+### P1 — 7B verbalization + reconstruction on the 8 texts (AV then AR; ~30 min)
+For each of the 8 activations: **greedy** AV explanation, `max_new_tokens=200`, the released prompt (`nla_lib.av_prompt_ids`,
+injection replaces the marker embedding at norm 150 — the released convention, not the 27B's additive one); parse, flag CJK and
+parse failures, keep raw text. Then AR: `cos_own` = cos(h_i, AR(z_i)); `cos_shuffled` = cos(h_{(i+1) mod 8}, AR(z_i)) (the same
+derangement the 27B run used); `pred_norm`. Also score the **27B explanations** through the 7B AR against the 7B activations
+(`cos_own_27b_text`) as a descriptive cross-check that the AR reads text, not provenance. Write `p1_av.jsonl` (8 rows: idx, doc_id,
+explanation_7b, raw, parsed_ok, cjk, gen_tokens, gen_s), `p1_scores.csv` (idx, cos_own, cos_shuffled, cos_own_27b_text, pred_norm),
+`p1_settings.json`. Kill line (descriptive, three-way by the round-4 rule, cluster = example, n = 8 so **INCONCLUSIVE by n is the
+expected outcome and is fine**): mean(cos_own − cos_shuffled) with a bootstrap CI over the 8 examples. Log it to DISCONFIRMATION.md.
+Gate: 8/8 explanations generated (parse failures are kept and annotated as zero claims).
+
+### P2 — claim annotation of the 7B explanations (orchestrator judgement; ~60 min)
+Apply `notes/nla_setup/claim_annotation_protocol.md` **verbatim** to the 8 P1 explanations, working only from `source_text_full`.
+Write `p2_claims_annotated.csv` (same columns as the 27B CSV) and `p2_judgement_notes.md` (every split/label judgement call, one
+line each). Then compute, for both models from the two CSVs: per-example n_claims / n_true / n_false / n_unsupported; the
+**type × truth cross-tab** (entity, detail, theme, forecast, other × true, false, unsupported); the list of false entity and false
+detail claims with substitution notes; the count of explanations that mention any named entity from the source text verbatim.
+Write `p2_summary.md` with the two cross-tabs side by side (27B copied from its CSV, 7B new) and the per-example table. Blind
+review pack: `p2_review_blind.csv` (idx, claim_text, source_text_full excerpt window, no labels) and `p2_review_key.csv`.
+Rule: annotate the 7B explanations **before** reading the 27B CSV rows for the same example (the 27B totals above are known;
+the row-level labels must not be consulted while labelling).
+
+### T10 — morning report (reserved: the final 20 min)
+`overnight/MORNING5.md`: the P1 kill line with the three-way rule; the two type × truth cross-tabs side by side; the per-example
+table; `cos_own` / `cos_shuffled` / `cos_own_27b_text` per example; all 8 explanations verbatim next to the last 200 characters of
+their source text; token counts; every judgement call; the review-pack list; provenance (human-chosen texts and question; agent-built
+scripts; agent-labelled claims, provisional). Commit. Stop.
+
+## Pre-registered thresholds (round 5)
+| K | stage | statistic (95% CI, cluster unit) | MET | NOT MET | INCONCLUSIVE |
+|---|---|---|---|---|---|
+| P1 | P1 | mean(cos_own − cos_shuffled), by example (n = 8) | CI ≤ 0 | CI > 0 | straddles 0, or n < 30 (always, by design) |
+Descriptive only. No new positions, no sampling variants, no additional texts. Any idea goes to FOLLOWUPS.md.
+
+**Execution order (round 5):** P0 → P1 → P2 → T10. **Hard stop: 3 h after the first round-5 RUNLOG line; T10 owns the last 20 min.**
