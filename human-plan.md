@@ -8,8 +8,8 @@ which includes reviewing agent output and deciding what it means — so the roun
 night's desk discussion all count. Re-estimate the hours used in §0 before anything else.
 
 **Decision:** finish the 7B application. **Experiments are frozen again**; round 4 ran 2026-09-09 02:00–10:35 EDT and is
-complete on `nightshift/round4` (commit `b9874f8`, 5 commits ahead of main, touches only `overnight/`). It is **not yet
-merged**; merge it in §0 so every number you quote lives in main's history. Rounds 1–3c are merged (last merge `7592565`).
+**merged into main** (2026-09-09; worktree removed, branch kept). Rounds 1–4 are all on main; `overnight/` on main is the
+record.
 Tags: **[YOU]** your judgment or writing · **[AI]** delegated execution · **[AI → YOU]** agent output you must inspect.
 Checkboxes are tasks, not claims that work happened. Work top to bottom; each block moves the application closer.
 
@@ -26,7 +26,7 @@ its "≈2%" is a **reconstruction-sensitivity lower bound, not a truth rate** �
 
 | item | state |
 |---|---|
-| results and reports | `overnight/MORNING1.md … MORNING3c.md` on main; **`MORNING4.md` (834 lines) on `nightshift/round4` until merged**; kill lines in `overnight/DISCONFIRMATION.md`; every number's source through round 3c in `notes/evidence_table.md` (**round-4 rows not yet added** → §2(f)) |
+| results and reports | `overnight/MORNING1.md … MORNING4.md` on main (round 4 merged 2026-09-09); kill lines in `overnight/DISCONFIRMATION.md`; every number's source through round 3c in `notes/evidence_table.md` (**round-4 rows not yet added** → §2(f)) |
 | one-page synthesis | `notes/desk_session_2026-09-09_summary.md` (agent draft: ledger, settled answers, Dingeto correction, round-4 rationale, write-up structure) supersedes `notes/state_of_knowledge_2026-09-07.md` as the starting point; both are agent drafts to rewrite in your voice |
 | positioning | `notes/response_to_reframing_2026-09-07.md`, `notes/novelty_vs_nla_paper.md` §E; `notes/setup_comparability.md` (desk, 2026-09-08 — **still untracked in git**, add it in §0); Dingeto text in `notes/dingeto_2026_train_the_model_text.txt` |
 | human-verified numbers | **none yet.** All re-derivations in `notes/human_log.md` are agent-side. The hours table still says `_fill_` |
@@ -64,13 +64,10 @@ its "≈2%" is a **reconstruction-sensitivity lower bound, not a truth rate** �
   checks and submit (40 min). Drop T2b, C3/N3/N4 diagnostics, bespoke graphics, extra reading. Work in 45–60-min blocks.
 - [ ] **Milestones:** rough application complete by **today +3 h**; submission-ready by **Thu Sept 10 evening EDT**; final
   read after sleep; submit by **Fri Sept 11 ~20:00 EDT** (≥ 6 h buffer). Do not treat the 63 hours as working hours.
-- [ ] **Merge round 4 into main** (the branch changes only `overnight/`; no conflict expected):
-  ```
-  git merge nightshift/round4
-  git add notes/setup_comparability.md && git commit -m "Setup comparability note (desk, 2026-09-08)"
-  ```
-  The `.npz` caches (`out/b1_acts.npz`, `a1_acts.npz`, `a1_preds.npz`, `b1_preds.npz`, `d1_vectors.npz`) stay in the
-  worktree's `out/`; nothing in §1–5 needs them. Defer worktree removal and `out/` pruning until after submission. No push.
+- [x] **Round 4 merged into main** (2026-09-09 ~13:00 EDT): fast-forward onto `nightshift/round4`, then your commit `1334d8a`
+  (this plan + `notes/setup_comparability.md`); the round-4 `.npz` caches and logs are in `overnight/out/` on main; the
+  nightshift worktree is removed (branch `nightshift/round4` kept as a pointer). One checkout, one branch: everything is here.
+  No push (a GitHub remote exists; leave it alone until after submission).
 
 ## 1. Produce a complete rough application — 90 min [YOU]
 
@@ -127,8 +124,7 @@ Done when every required answer has a rough draft and unresolved evidence is vis
      correction entailed? Then the key. This validates the "51/54 contradicted, multi-fact inventions" sentence.
   Record counts in `notes/human_log.md`. Provisional labels stay marked as Claude's in the write-up.
 - [ ] **(b) Re-derive the central results from raw data — 30 min [YOU].** Paste each line and result into `notes/human_log.md`.
-  Select evaluation rows by `split` / `stim_idx`, never by row order. Run after the §0 merge (round-4 files then sit in
-  `overnight/` on main).
+  Select evaluation rows by `split` / `stim_idx`, never by row order. All files are in `overnight/` on main.
   ```
   # reconstruction and controls (expect own 0.8820, same-doc 0.3664, cross-doc 0.3198, empty 0.3471)
   uv run python -c "import pandas as pd;s=pd.read_csv('overnight/s1_recon.csv');e=s[s.split=='eval'];print(e[['cos_own','cos_shuffled_samedoc','cos_shuffled_doc','cos_empty']].mean().round(4).to_dict(),len(e))"
