@@ -1,8 +1,8 @@
 # STATE — nightshift, NLA project
 # Read this first every turn. Update after every stage transition.
 
-CURRENT STAGE: ROUND 4 — D1 (running). Round-4 first RUNLOG line 2026-09-09T01:57:48; HARD STOP 2026-09-09T11:57:48; T9 reserve begins 2026-09-09T11:27:48 (no stage may start or continue past it).
-LAST UPDATED: 2026-09-09T09:32:00 (bench, K1 done → D1 start; loop wakeup was delayed 03:26→09:31)
+CURRENT STAGE: ROUND 4 COMPLETE (T9 done; MORNING4.md written). Review from the desk: DISCONFIRMATION.md first, then MORNING4.md, then the _review_blind.csv sheets. Round-4 first RUNLOG line 2026-09-09T01:57:48; HARD STOP 2026-09-09T11:57:48; T9 reserve begins 2026-09-09T11:27:48 (no stage may start or continue past it).
+LAST UPDATED: 2026-09-09T10:33:44 (bench, round 4 complete)
 MODEL=Qwen/Qwen2.5-7B-Instruct  AV=kitft/nla-qwen2.5-7b-L20-av  AR=kitft/nla-qwen2.5-7b-L20-ar  LAYER=block 20
 
 ## Stage status
@@ -11,11 +11,12 @@ V0   artifact check + benchmark + pipeline verification + re-budget ..... DONE (
 B1   controlled paired contexts, meanings A/B (human; PRIMARY CONTROLLED)  DONE — INCONCLUSIVE by n (eligible eval carriers 0/48: omission 64/64); 12.4 min
 A1   natural AV claims, paraphrase-averaged preference (human; PRIMARY) .. DONE — A1 INCONCLUSIVE by n (in-primary eval slots 4/30), A1-nat INCONCLUSIVE by n (4/15); 27.0 min
 K1   K-way alternative ranking on deterministic-swap claims (AR only) .... DONE — NOT MET (in-prefix top-1 0.308, top1−0.125 CI [0.096,0.265]; positive control 0.449); 12.8 min
-D1   claim-direction ablation via the AR as encoder (greedy AV; one γ) ... RUNNING
-T9   MORNING4.md (reserved: last 30 min) ................................ TODO
+D1   claim-direction ablation via the AR as encoder (greedy AV; one γ) ... DONE at cap — NOT MET (random − own persist_word 0.209 [0.111,0.311], n=91 non-last; 111/140 rows, 29 incomplete); 60.2 min
+T9   MORNING4.md (reserved: last 30 min) ................................ DONE (834 lines, 5 kill lines)
 
 ## Blockers
-(none; note: the loop slept from 03:09 to 09:31 — fallback wakeup fired late — leaving 116 min for D1 + T9)
+D1: stage cap (60 min) reached at 111/140 rows; 29 rows (round-robin tail of each stratum) not generated — partial results reported under the pre-registered rules (n=91 non-last ≥ 60).
+(note: the loop slept from 03:09 to 09:31 — fallback wakeup fired late — leaving 116 min for D1 + T9)
 
 ## Open decisions (research calls left for the human)
 (none — the round-4 cut rules are pre-declared in PLAN.md V0; apply them in order and record which applied)

@@ -31,7 +31,7 @@ def nrows(p: Path) -> str:
     return f"{p.stat().st_size} bytes"
 
 
-def main():
+def main(out_path: Path | None = None):
     S = L.Settings("t9")
     first = [ln for ln in (O / "RUNLOG.md").read_text().splitlines() if "  V0  start  round 4 begins" in ln]
     t_first = first[0].split("  ")[0] if first else "?"
@@ -84,10 +84,11 @@ def main():
               "- Agent-built overnight (this session, Claude Fable 5.1): r4_lib.py, v0_check.py, b1_pairs.py / b1_analyze.py, a1_natural.py / a1_analyze.py, k1_kway.py, d1_ablate.py, t9_morning.py; every editor / judge label (label_source=claude, provisional) in the *_agent_outputs_*.jsonl files.",
               "- Agent choices inside the pre-registration (logged in RUNLOG / settings): V0 re-budget used the uniform measured 0.14 min/task rate for every task type (per-type blocks not separable in the 20-task sample); B1 keyword sets and F2/F4 stem lists as in r4_lib.b1_pairs; B1 'same' meaning is stored under category correct_original with its truth label; A1 entity_sub pool = t2b corrupt_det name cores; A1 repeated-fact check via a second slot_verify task; K1/D1 as in their settings files; crash fixes listed in RUNLOG (none changed a measurement).",
               "- Not done, by design: no insertion arm, no second position, no second intervention strength, no French, no threshold or item-count change beyond the pre-declared V0 cut rules.", ""]
-    (O / "MORNING4.md").write_text("\n".join(lines))
-    S.finish(n_kill_lines=len(kills), stages=list(prog))
-    L.log(f"MORNING4.md written: {len(lines)} lines, {len(kills)} kill lines")
+    target = out_path or (O / "MORNING4.md")
+    target.write_text("\n".join(lines))
+    S.finish(n_kill_lines=len(kills), stages=list(prog), out=str(target))
+    L.log(f"{target.name} written: {len(lines)} lines, {len(kills)} kill lines")
 
 
 if __name__ == "__main__":
-    main()
+    main(Path(sys.argv[1]) if len(sys.argv) > 1 else None)  # optional out path (dry run only)
