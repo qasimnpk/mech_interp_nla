@@ -1,0 +1,104 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:  11%|█         | 36/339 [00:00<00:00, 336.63it/s]Loading weights:  21%|██        | 70/339 [00:01<00:08, 33.54it/s] Loading weights:  25%|██▌       | 86/339 [00:02<00:07, 35.02it/s]Loading weights:  28%|██▊       | 96/339 [00:02<00:06, 34.72it/s]Loading weights: 100%|██████████| 339/339 [00:02<00:00, 135.32it/s]
+[19:21:45 rss=3.5G] AV loaded; prompt 125 tok, marker at 111, injection_scale=150.0
+[19:21:55 rss=3.6G] pilot 0: 144 tok 11s parse_ok=True cjk=False
+[19:22:05 rss=3.6G] pilot 1: 143 tok 10s parse_ok=True cjk=False
+[19:22:15 rss=3.6G] pilot 2: 140 tok 10s parse_ok=True cjk=False
+[19:22:24 rss=3.6G] pilot 3: 143 tok 10s parse_ok=True cjk=False
+[19:22:34 rss=3.6G] pilot 4: 144 tok 10s parse_ok=True cjk=False
+[19:22:44 rss=3.6G] pilot 5: 147 tok 10s parse_ok=True cjk=False
+[19:22:54 rss=3.6G] pilot 6: 142 tok 10s parse_ok=True cjk=False
+[19:23:03 rss=3.6G] pilot 7: 142 tok 10s parse_ok=True cjk=False
+[19:23:13 rss=3.6G] pilot 8: 147 tok 10s parse_ok=True cjk=False
+[19:23:23 rss=3.6G] pilot 9: 142 tok 10s parse_ok=True cjk=False
+[19:23:33 rss=3.6G] pilot 10: 142 tok 10s parse_ok=True cjk=False
+[19:23:43 rss=3.6G] pilot 11: 148 tok 10s parse_ok=True cjk=False
+[19:23:52 rss=3.6G] pilot 12: 141 tok 10s parse_ok=True cjk=False
+[19:24:02 rss=3.6G] pilot 13: 146 tok 10s parse_ok=True cjk=False
+[19:24:12 rss=3.6G] pilot 14: 143 tok 10s parse_ok=True cjk=False
+[19:24:21 rss=3.6G] pilot 15: 141 tok 9s parse_ok=True cjk=False
+[19:24:31 rss=3.6G] pilot 16: 146 tok 10s parse_ok=True cjk=False
+[19:24:41 rss=3.6G] pilot 17: 148 tok 10s parse_ok=True cjk=False
+[19:24:51 rss=3.6G] pilot 18: 145 tok 10s parse_ok=True cjk=False
+[19:25:01 rss=3.6G] pilot 19: 143 tok 10s parse_ok=True cjk=False
+[19:25:10 rss=3.6G] pilot 20: 140 tok 9s parse_ok=True cjk=False
+[19:25:20 rss=3.6G] pilot 21: 144 tok 10s parse_ok=True cjk=False
+[19:25:30 rss=3.6G] pilot 22: 147 tok 10s parse_ok=True cjk=False
+[19:25:39 rss=3.6G] pilot 23: 146 tok 10s parse_ok=True cjk=False
+[19:25:49 rss=3.6G] pilot 24: 146 tok 10s parse_ok=True cjk=False
+[19:25:59 rss=3.6G] pilot 25: 143 tok 10s parse_ok=True cjk=False
+[19:26:09 rss=3.6G] pilot 26: 148 tok 10s parse_ok=True cjk=False
+[19:26:18 rss=3.6G] pilot 27: 145 tok 10s parse_ok=True cjk=False
+[19:26:28 rss=3.6G] pilot 28: 141 tok 9s parse_ok=True cjk=False
+[19:26:38 rss=3.6G] pilot 29: 149 tok 10s parse_ok=True cjk=False
+[19:26:48 rss=3.6G] pilot 30: 147 tok 10s parse_ok=True cjk=False
+[19:26:57 rss=3.6G] pilot 31: 144 tok 10s parse_ok=True cjk=False
+[19:27:07 rss=3.6G] pilot 32: 145 tok 10s parse_ok=True cjk=False
+[19:27:17 rss=3.6G] pilot 33: 144 tok 10s parse_ok=True cjk=False
+[19:27:27 rss=3.6G] pilot 34: 145 tok 10s parse_ok=True cjk=False
+[19:27:36 rss=3.6G] pilot 35: 145 tok 10s parse_ok=True cjk=False
+[19:27:46 rss=3.6G] pilot 36: 143 tok 10s parse_ok=True cjk=False
+[19:27:56 rss=3.6G] pilot 37: 146 tok 10s parse_ok=True cjk=False
+[19:28:06 rss=3.6G] pilot 38: 149 tok 10s parse_ok=True cjk=False
+[19:28:16 rss=3.6G] pilot 39: 146 tok 10s parse_ok=True cjk=False
+[19:28:25 rss=3.6G] pilot 40: 141 tok 10s parse_ok=True cjk=False
+[19:28:35 rss=3.6G] pilot 41: 143 tok 10s parse_ok=True cjk=False
+[19:28:44 rss=3.6G] pilot 42: 142 tok 10s parse_ok=True cjk=False
+[19:28:54 rss=3.6G] pilot 43: 145 tok 10s parse_ok=True cjk=False
+[19:29:04 rss=3.6G] pilot 44: 146 tok 10s parse_ok=True cjk=False
+[19:29:14 rss=3.6G] pilot 45: 145 tok 10s parse_ok=True cjk=False
+[19:29:23 rss=3.6G] pilot 46: 144 tok 10s parse_ok=True cjk=False
+[19:29:33 rss=3.6G] pilot 47: 142 tok 10s parse_ok=True cjk=False
+[19:29:43 rss=3.6G] pilot 48: 146 tok 10s parse_ok=True cjk=False
+[19:29:52 rss=3.6G] pilot 49: 145 tok 10s parse_ok=True cjk=False
+[19:30:02 rss=3.6G] pilot 50: 144 tok 10s parse_ok=True cjk=False
+[19:30:12 rss=3.6G] pilot 51: 143 tok 10s parse_ok=True cjk=False
+[19:30:21 rss=3.6G] pilot 52: 141 tok 9s parse_ok=True cjk=False
+[19:30:31 rss=3.6G] pilot 53: 141 tok 9s parse_ok=True cjk=False
+[19:30:40 rss=3.6G] pilot 54: 145 tok 10s parse_ok=True cjk=False
+[19:30:50 rss=3.6G] pilot 55: 145 tok 10s parse_ok=True cjk=False
+[19:31:00 rss=3.6G] pilot 56: 147 tok 10s parse_ok=True cjk=False
+[19:31:10 rss=3.6G] pilot 57: 143 tok 10s parse_ok=True cjk=False
+[19:31:19 rss=3.6G] pilot 58: 146 tok 10s parse_ok=True cjk=False
+[19:31:29 rss=3.6G] pilot 59: 146 tok 10s parse_ok=True cjk=False
+[19:31:39 rss=3.6G] pilot 60: 144 tok 10s parse_ok=True cjk=False
+[19:31:49 rss=3.6G] pilot 61: 147 tok 10s parse_ok=True cjk=False
+[19:31:58 rss=3.6G] pilot 62: 144 tok 10s parse_ok=True cjk=False
+[19:32:08 rss=3.6G] pilot 63: 146 tok 10s parse_ok=True cjk=False
+[19:32:18 rss=3.6G] pilot 64: 146 tok 10s parse_ok=True cjk=False
+[19:32:28 rss=3.6G] pilot 65: 146 tok 10s parse_ok=True cjk=False
+[19:32:37 rss=3.6G] pilot 66: 142 tok 10s parse_ok=True cjk=False
+[19:32:47 rss=3.6G] pilot 67: 142 tok 10s parse_ok=True cjk=False
+[19:32:57 rss=3.6G] pilot 68: 146 tok 10s parse_ok=True cjk=False
+[19:33:06 rss=3.6G] pilot 69: 144 tok 10s parse_ok=True cjk=False
+[19:33:16 rss=3.6G] pilot 70: 143 tok 10s parse_ok=True cjk=False
+[19:33:26 rss=3.6G] pilot 71: 143 tok 10s parse_ok=True cjk=False
+[19:33:35 rss=3.6G] pilot 72: 143 tok 10s parse_ok=True cjk=False
+[19:33:45 rss=3.6G] pilot 73: 144 tok 10s parse_ok=True cjk=False
+[19:33:54 rss=3.6G] pilot 74: 141 tok 9s parse_ok=True cjk=False
+[19:34:04 rss=3.6G] pilot 75: 144 tok 10s parse_ok=True cjk=False
+[19:34:14 rss=3.6G] pilot 76: 141 tok 9s parse_ok=True cjk=False
+[19:34:23 rss=3.6G] pilot 77: 144 tok 10s parse_ok=True cjk=False
+[19:34:33 rss=3.6G] pilot 78: 143 tok 10s parse_ok=True cjk=False
+[19:34:43 rss=3.6G] pilot 79: 148 tok 10s parse_ok=True cjk=False
+[19:34:52 rss=3.6G] pilot 80: 134 tok 9s parse_ok=True cjk=False
+[19:35:02 rss=3.6G] pilot 81: 147 tok 10s parse_ok=True cjk=False
+[19:35:11 rss=3.6G] pilot 82: 140 tok 9s parse_ok=True cjk=False
+[19:35:21 rss=3.6G] pilot 83: 143 tok 10s parse_ok=True cjk=False
+[19:35:30 rss=3.6G] pilot 84: 146 tok 10s parse_ok=True cjk=False
+[19:35:40 rss=3.6G] pilot 85: 146 tok 10s parse_ok=True cjk=False
+[19:35:50 rss=3.6G] pilot 86: 144 tok 10s parse_ok=True cjk=False
+[19:36:00 rss=3.6G] pilot 87: 148 tok 10s parse_ok=True cjk=False
+[19:36:10 rss=3.6G] pilot 88: 144 tok 10s parse_ok=True cjk=False
+[19:36:19 rss=3.6G] pilot 89: 145 tok 10s parse_ok=True cjk=False
+[19:36:29 rss=3.6G] pilot 90: 147 tok 10s parse_ok=True cjk=False
+[19:36:39 rss=3.6G] pilot 91: 143 tok 10s parse_ok=True cjk=False
+[19:36:49 rss=3.6G] pilot 92: 148 tok 10s parse_ok=True cjk=False
+[19:36:58 rss=3.6G] pilot 93: 135 tok 9s parse_ok=True cjk=False
+[19:37:08 rss=3.6G] pilot 94: 146 tok 10s parse_ok=True cjk=False
+[19:37:17 rss=3.6G] pilot 95: 142 tok 10s parse_ok=True cjk=False
+[19:37:27 rss=3.6G] pilot 96: 140 tok 9s parse_ok=True cjk=False
+[19:37:36 rss=3.6G] pilot 97: 141 tok 9s parse_ok=True cjk=False
+[19:37:46 rss=3.6G] pilot 98: 141 tok 9s parse_ok=True cjk=False
+[19:37:55 rss=3.6G] pilot 99: 144 tok 10s parse_ok=True cjk=False
+[free] RSS 3683 MiB -> 547 MiB (released 3136 MiB)
+01 DONE 100

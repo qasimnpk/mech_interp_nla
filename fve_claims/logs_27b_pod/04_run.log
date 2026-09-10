@@ -1,0 +1,146 @@
+Loading weights:   0%|          | 0/253 [00:00<?, ?it/s]Loading weights: 100%|██████████| 253/253 [00:00<00:00, 76046.93it/s]
+[transformers] [1mQwen2ForCausalLM LOAD REPORT[0m from: /Users/mbp_qasim/.cache/huggingface/hub/models--kitft--nla-qwen2.5-7b-L20-ar/snapshots/e2c9e57eac213d37a31612087f645ab6332c1bb6
+Key               | Status  | 
+------------------+---------+-
+model.norm.weight | MISSING | 
+lm_head.weight    | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[21:12:09 rss=11.0G] AR loaded: 21 layers, mse_scale=59.867
+[21:12:37 rss=11.0G] pilot 0 claim 0: cos 0.9216 -> 0.9150  drop_rel 1.81pp
+[21:12:37 rss=11.0G] pilot 0 claim 1: cos 0.9216 -> 0.9197  drop_rel 0.52pp
+[21:12:37 rss=11.0G] pilot 0 claim 2: cos 0.9216 -> 0.9223  drop_rel -0.19pp
+[21:12:38 rss=11.0G] pilot 0 claim 3: cos 0.9216 -> 0.9210  drop_rel 0.17pp
+[21:12:38 rss=11.0G] pilot 0 claim 6: cos 0.9216 -> 0.9203  drop_rel 0.36pp
+[21:12:38 rss=11.0G] pilot 0 claim 11: cos 0.9216 -> 0.9118  drop_rel 2.67pp
+[21:12:39 rss=11.0G] pilot 0 claim 12: cos 0.9216 -> 0.9210  drop_rel 0.17pp
+[21:12:39 rss=11.0G] pilot 0 claim 13: cos 0.9216 -> 0.9208  drop_rel 0.23pp
+[21:12:39 rss=11.0G] pilot 0 claim 15: cos 0.9216 -> 0.9189  drop_rel 0.74pp
+[21:12:39 rss=11.0G] pilot 0 claim 16: cos 0.9216 -> 0.9204  drop_rel 0.34pp
+[21:12:40 rss=11.0G] pilot 1 claim 0: cos 0.8997 -> 0.8994  drop_rel 0.07pp
+[21:12:40 rss=11.0G] pilot 1 claim 2: cos 0.8997 -> 0.9006  drop_rel -0.25pp
+[21:12:40 rss=11.0G] pilot 1 claim 4: cos 0.8997 -> 0.9004  drop_rel -0.21pp
+[21:12:41 rss=11.0G] pilot 1 claim 6: cos 0.8997 -> 0.8990  drop_rel 0.18pp
+[21:12:41 rss=11.0G] pilot 1 claim 7: cos 0.8997 -> 0.8980  drop_rel 0.45pp
+[21:12:41 rss=11.0G] pilot 1 claim 8: cos 0.8997 -> 0.9005  drop_rel -0.23pp
+[21:12:41 rss=11.0G] pilot 1 claim 12: cos 0.8997 -> 0.8981  drop_rel 0.43pp
+[21:12:42 rss=11.0G] pilot 1 claim 13: cos 0.8997 -> 0.9004  drop_rel -0.18pp
+[21:12:42 rss=11.0G] pilot 1 claim 17: cos 0.8997 -> 0.8822  drop_rel 4.78pp
+[21:12:42 rss=11.0G] pilot 2 claim 3: cos 0.8630 -> 0.8641  drop_rel -0.30pp
+[21:12:42 rss=11.0G] pilot 2 claim 4: cos 0.8630 -> 0.8637  drop_rel -0.19pp
+[21:12:43 rss=11.0G] pilot 2 claim 5: cos 0.8630 -> 0.8637  drop_rel -0.19pp
+[21:12:43 rss=11.0G] pilot 2 claim 6: cos 0.8630 -> 0.8554  drop_rel 2.08pp
+[21:12:43 rss=11.0G] pilot 2 claim 7: cos 0.8630 -> 0.8569  drop_rel 1.67pp
+[21:12:44 rss=11.0G] pilot 2 claim 8: cos 0.8630 -> 0.8463  drop_rel 4.55pp
+[21:12:44 rss=11.0G] pilot 2 claim 9: cos 0.8630 -> 0.8511  drop_rel 3.24pp
+[21:12:44 rss=11.0G] pilot 2 claim 11: cos 0.8630 -> 0.8425  drop_rel 5.58pp
+[21:12:44 rss=11.0G] pilot 2 claim 12: cos 0.8630 -> 0.8624  drop_rel 0.16pp
+[21:12:45 rss=11.0G] pilot 2 claim 13: cos 0.8630 -> 0.8610  drop_rel 0.55pp
+[21:12:45 rss=11.0G] pilot 2 claim 14: cos 0.8630 -> 0.8579  drop_rel 1.38pp
+[21:12:45 rss=11.0G] pilot 3 claim 8: cos 0.8860 -> 0.8843  drop_rel 0.48pp
+[21:12:45 rss=11.0G] pilot 3 claim 12: cos 0.8860 -> 0.8635  drop_rel 6.15pp
+[21:12:46 rss=11.0G] pilot 3 claim 13: cos 0.8860 -> 0.8858  drop_rel 0.08pp
+[21:12:46 rss=11.0G] pilot 3 claim 15: cos 0.8860 -> 0.8794  drop_rel 1.82pp
+[21:12:46 rss=11.0G] pilot 4 claim 1: cos 0.9036 -> 0.9014  drop_rel 0.59pp
+[21:12:47 rss=11.0G] pilot 4 claim 2: cos 0.9036 -> 0.9019  drop_rel 0.45pp
+[21:12:47 rss=11.0G] pilot 4 claim 4: cos 0.9036 -> 0.9020  drop_rel 0.44pp
+[21:12:47 rss=11.0G] pilot 4 claim 7: cos 0.9036 -> 0.9013  drop_rel 0.61pp
+[21:12:47 rss=11.0G] pilot 4 claim 8: cos 0.9036 -> 0.9017  drop_rel 0.50pp
+[21:12:48 rss=11.0G] pilot 4 claim 9: cos 0.9036 -> 0.8992  drop_rel 1.19pp
+[21:12:48 rss=11.0G] pilot 4 claim 12: cos 0.9036 -> 0.9015  drop_rel 0.56pp
+[21:12:48 rss=11.0G] pilot 4 claim 13: cos 0.9036 -> 0.9030  drop_rel 0.17pp
+[21:12:48 rss=11.0G] pilot 4 claim 14: cos 0.9036 -> 0.8939  drop_rel 2.65pp
+[21:12:49 rss=11.0G] pilot 5 claim 0: cos 0.8451 -> 0.8468  drop_rel -0.49pp
+[21:12:49 rss=11.0G] pilot 5 claim 6: cos 0.8451 -> 0.8420  drop_rel 0.83pp
+[21:12:49 rss=11.0G] pilot 5 claim 7: cos 0.8451 -> 0.8433  drop_rel 0.47pp
+[21:12:50 rss=11.0G] pilot 5 claim 8: cos 0.8451 -> 0.8431  drop_rel 0.53pp
+[21:12:50 rss=11.0G] pilot 5 claim 9: cos 0.8451 -> 0.8432  drop_rel 0.50pp
+[21:12:50 rss=11.0G] pilot 5 claim 10: cos 0.8451 -> 0.8379  drop_rel 1.95pp
+[21:12:50 rss=11.0G] pilot 5 claim 12: cos 0.8451 -> 0.8390  drop_rel 1.66pp
+[21:12:51 rss=11.0G] pilot 5 claim 13: cos 0.8451 -> 0.8446  drop_rel 0.12pp
+[21:12:51 rss=11.0G] pilot 5 claim 15: cos 0.8451 -> 0.8436  drop_rel 0.41pp
+[21:12:51 rss=11.0G] pilot 5 claim 16: cos 0.8451 -> 0.8462  drop_rel -0.30pp
+[21:12:52 rss=11.0G] pilot 5 claim 17: cos 0.8451 -> 0.8471  drop_rel -0.57pp
+[21:12:52 rss=11.0G] pilot 6 claim 3: cos 0.9022 -> 0.9026  drop_rel -0.11pp
+[21:12:52 rss=11.0G] pilot 6 claim 5: cos 0.9022 -> 0.9023  drop_rel -0.04pp
+[21:12:52 rss=11.0G] pilot 6 claim 6: cos 0.9022 -> 0.8990  drop_rel 0.85pp
+[21:12:53 rss=11.0G] pilot 6 claim 11: cos 0.9022 -> 0.9008  drop_rel 0.38pp
+[21:12:53 rss=11.0G] pilot 6 claim 12: cos 0.9022 -> 0.9017  drop_rel 0.13pp
+[21:12:53 rss=11.0G] pilot 6 claim 13: cos 0.9022 -> 0.8998  drop_rel 0.65pp
+[21:12:53 rss=11.0G] pilot 7 claim 3: cos 0.8890 -> 0.8890  drop_rel -0.00pp
+[21:12:54 rss=11.0G] pilot 7 claim 4: cos 0.8890 -> 0.8864  drop_rel 0.72pp
+[21:12:54 rss=11.0G] pilot 7 claim 8: cos 0.8890 -> 0.8864  drop_rel 0.71pp
+[21:12:54 rss=11.0G] pilot 7 claim 9: cos 0.8890 -> 0.8883  drop_rel 0.18pp
+[21:12:54 rss=11.0G] pilot 7 claim 11: cos 0.8890 -> 0.8780  drop_rel 3.00pp
+[21:12:55 rss=11.0G] pilot 7 claim 13: cos 0.8890 -> 0.8903  drop_rel -0.35pp
+[21:12:55 rss=11.0G] pilot 7 claim 14: cos 0.8890 -> 0.8887  drop_rel 0.09pp
+[21:12:55 rss=11.0G] pilot 7 claim 15: cos 0.8890 -> 0.8886  drop_rel 0.12pp
+[21:12:56 rss=11.0G] pilot 7 claim 16: cos 0.8890 -> 0.8887  drop_rel 0.10pp
+[21:12:56 rss=11.0G] pilot 8 claim 2: cos 0.8957 -> 0.8953  drop_rel 0.11pp
+[21:12:56 rss=11.0G] pilot 8 claim 6: cos 0.8957 -> 0.8940  drop_rel 0.45pp
+[21:12:56 rss=11.0G] pilot 8 claim 7: cos 0.8957 -> 0.8972  drop_rel -0.42pp
+[21:12:57 rss=11.0G] pilot 8 claim 8: cos 0.8957 -> 0.8961  drop_rel -0.12pp
+[21:12:57 rss=11.0G] pilot 8 claim 9: cos 0.8957 -> 0.8966  drop_rel -0.25pp
+[21:12:57 rss=11.0G] pilot 8 claim 12: cos 0.8957 -> 0.8925  drop_rel 0.85pp
+[21:12:58 rss=11.0G] pilot 8 claim 14: cos 0.8957 -> 0.8945  drop_rel 0.33pp
+[21:12:58 rss=11.0G] pilot 8 claim 16: cos 0.8957 -> 0.8875  drop_rel 2.22pp
+[21:12:58 rss=11.0G] pilot 8 claim 18: cos 0.8957 -> 0.8793  drop_rel 4.46pp
+[21:12:58 rss=11.0G] pilot 8 claim 19: cos 0.8957 -> 0.8959  drop_rel -0.07pp
+[21:12:59 rss=11.0G] pilot 8 claim 20: cos 0.8957 -> 0.8960  drop_rel -0.10pp
+[21:12:59 rss=11.0G] pilot 8 claim 21: cos 0.8957 -> 0.8962  drop_rel -0.15pp
+[21:12:59 rss=11.0G] pilot 8 claim 22: cos 0.8957 -> 0.8900  drop_rel 1.54pp
+[21:13:00 rss=11.0G] pilot 9 claim 0: cos 0.8796 -> 0.8824  drop_rel -0.77pp
+[21:13:00 rss=11.0G] pilot 9 claim 4: cos 0.8796 -> 0.8773  drop_rel 0.63pp
+[21:13:00 rss=11.0G] pilot 9 claim 12: cos 0.8796 -> 0.8793  drop_rel 0.10pp
+[21:13:00 rss=11.0G] pilot 9 claim 15: cos 0.8796 -> 0.8621  drop_rel 4.79pp
+[21:13:01 rss=11.0G] pilot 9 claim 16: cos 0.8796 -> 0.8783  drop_rel 0.35pp
+[21:13:01 rss=11.0G] pilot 9 claim 17: cos 0.8796 -> 0.8709  drop_rel 2.37pp
+[21:13:01 rss=11.0G] pilot 9 claim 18: cos 0.8796 -> 0.8831  drop_rel -0.95pp
+[21:13:01 rss=11.0G] pilot 9 claim 21: cos 0.8796 -> 0.8699  drop_rel 2.66pp
+[21:13:02 rss=11.0G] pilot 10 claim 10: cos 0.8765 -> 0.8326  drop_rel 11.96pp
+[21:13:02 rss=11.0G] pilot 10 claim 11: cos 0.8765 -> 0.8765  drop_rel 0.00pp
+[21:13:02 rss=11.0G] pilot 10 claim 14: cos 0.8765 -> 0.8585  drop_rel 4.90pp
+[21:13:03 rss=11.0G] pilot 11 claim 11: cos 0.8995 -> 0.9033  drop_rel -1.05pp
+[21:13:03 rss=11.0G] pilot 11 claim 12: cos 0.8995 -> 0.8982  drop_rel 0.34pp
+[21:13:03 rss=11.0G] pilot 11 claim 15: cos 0.8995 -> 0.8989  drop_rel 0.16pp
+[21:13:03 rss=11.0G] pilot 11 claim 16: cos 0.8995 -> 0.8870  drop_rel 3.39pp
+[21:13:04 rss=11.0G] pilot 12 claim 9: cos 0.9334 -> 0.9267  drop_rel 1.82pp
+[21:13:04 rss=11.0G] pilot 12 claim 10: cos 0.9334 -> 0.9331  drop_rel 0.07pp
+[21:13:04 rss=11.0G] pilot 12 claim 13: cos 0.9334 -> 0.9221  drop_rel 3.07pp
+[21:13:04 rss=11.0G] pilot 13 claim 11: cos 0.8869 -> 0.8572  drop_rel 8.10pp
+[21:13:05 rss=11.0G] pilot 13 claim 12: cos 0.8869 -> 0.8866  drop_rel 0.08pp
+[21:13:05 rss=11.0G] pilot 13 claim 14: cos 0.8869 -> 0.8875  drop_rel -0.16pp
+[21:13:05 rss=11.0G] pilot 13 claim 16: cos 0.8869 -> 0.8905  drop_rel -0.98pp
+[21:13:06 rss=11.0G] pilot 14 claim 12: cos 0.7410 -> 0.7428  drop_rel -0.50pp
+[21:13:06 rss=11.0G] pilot 14 claim 13: cos 0.7410 -> 0.7393  drop_rel 0.48pp
+[21:13:06 rss=11.0G] pilot 15 claim 13: cos 0.8702 -> 0.8639  drop_rel 1.72pp
+[21:13:06 rss=11.0G] pilot 15 claim 14: cos 0.8702 -> 0.8713  drop_rel -0.30pp
+[21:13:07 rss=11.0G] pilot 15 claim 15: cos 0.8702 -> 0.8673  drop_rel 0.79pp
+[21:13:07 rss=11.0G] pilot 16 claim 14: cos 0.8688 -> 0.8497  drop_rel 5.23pp
+[21:13:07 rss=11.0G] pilot 16 claim 15: cos 0.8688 -> 0.8678  drop_rel 0.29pp
+[21:13:08 rss=11.0G] pilot 16 claim 16: cos 0.8688 -> 0.8642  drop_rel 1.26pp
+[21:13:08 rss=11.0G] pilot 17 claim 17: cos 0.9317 -> 0.9260  drop_rel 1.55pp
+[21:13:08 rss=11.0G] pilot 17 claim 18: cos 0.9317 -> 0.9279  drop_rel 1.03pp
+[21:13:08 rss=11.0G] pilot 18 claim 9: cos 0.8869 -> 0.8751  drop_rel 3.21pp
+[21:13:09 rss=11.0G] pilot 18 claim 10: cos 0.8869 -> 0.8862  drop_rel 0.19pp
+[21:13:09 rss=11.0G] pilot 18 claim 11: cos 0.8869 -> 0.8806  drop_rel 1.72pp
+[21:13:09 rss=11.0G] pilot 19 claim 14: cos 0.8496 -> 0.8513  drop_rel -0.45pp
+[21:13:10 rss=11.0G] pilot 19 claim 15: cos 0.8496 -> 0.8498  drop_rel -0.06pp
+[21:13:10 rss=11.0G] pilot 19 claim 16: cos 0.8496 -> 0.8028  drop_rel 12.76pp
+[21:13:10 rss=11.0G] pilot 20 claim 9: cos 0.9080 -> 0.8836  drop_rel 6.63pp
+[21:13:10 rss=11.0G] pilot 20 claim 10: cos 0.9080 -> 0.9076  drop_rel 0.10pp
+[21:13:11 rss=11.0G] pilot 20 claim 11: cos 0.9080 -> 0.9076  drop_rel 0.10pp
+[21:13:11 rss=11.0G] pilot 21 claim 12: cos 0.9052 -> 0.8795  drop_rel 7.01pp
+[21:13:11 rss=11.0G] pilot 21 claim 13: cos 0.9052 -> 0.9053  drop_rel -0.03pp
+[21:13:11 rss=11.0G] pilot 21 claim 14: cos 0.9052 -> 0.9061  drop_rel -0.26pp
+[21:13:12 rss=11.0G] pilot 22 claim 10: cos 0.7622 -> 0.7261  drop_rel 9.86pp
+[21:13:12 rss=11.0G] pilot 22 claim 11: cos 0.7622 -> 0.7627  drop_rel -0.12pp
+[21:13:12 rss=11.0G] pilot 22 claim 12: cos 0.7622 -> 0.7561  drop_rel 1.69pp
+[21:13:12 rss=11.0G] pilot 23 claim 10: cos 0.9107 -> 0.9059  drop_rel 1.29pp
+[21:13:13 rss=11.0G] pilot 23 claim 11: cos 0.9107 -> 0.9103  drop_rel 0.11pp
+[21:13:13 rss=11.0G] pilot 23 claim 12: cos 0.9107 -> 0.9079  drop_rel 0.75pp
+[21:13:13 rss=11.0G] pilot 24 claim 12: cos 0.9050 -> 0.9097  drop_rel -1.28pp
+[21:13:13 rss=11.0G] pilot 24 claim 13: cos 0.9050 -> 0.8785  drop_rel 7.23pp
+[free] RSS 11306 MiB -> 932 MiB (released 10374 MiB)
+04 DONE 134 claims; D_local 0.6208

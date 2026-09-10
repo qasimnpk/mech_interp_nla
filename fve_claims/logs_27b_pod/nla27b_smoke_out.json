@@ -1,0 +1,118 @@
+{
+  "repo": "/workspace/hf/hub/models--ceselder--qwen3.6-27b-nla-rl/snapshots/5a13b7ec21a69fcdd0fb24d5edbe96a92aef4b9f",
+  "adapter": "iter_000600",
+  "n": 8,
+  "mse_scale": 71.55417527999327,
+  "rows": [
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:4600",
+      "n_raw_tokens": 1886,
+      "source_tail": "ed to.\nSayaji Crusher Catalogue Au coeur du jardin. Sayaji jaw crushers size and rates indonesia, indonesia is one important market of ogg, what is the cost of sayaji jaw crusher 20 210 sayaji jaw crushers size and contact supplier what is the cost of sayaji jaw crusher 20 10 see more.Price list for",
+      "response": "<explanation>\nWeb-scraped SEO content about stone crushers, consistently listing product names, specs, and manufacturer details in fragmented, repetitive patterns throughout.\n\nThe text repeatedly cycles through crusher types, brands (Singhania, India), and equipment categories, with each entry following a similar pattern of product name + brief description or price/spec reference.\n\nFinal token \"Price list for\" is the beginning of a search query or product listing phrase, part of a fragmented list of Singhania crusher-related search terms; next tokens should complete the phrase, likely naming a specific crusher model, part, or equipment type (e.g., \"stone crusher,\" \"jaw crusher parts,\" \"singhania\").\n\"Price list for\" is an incomplete noun phrase mid-list, demanding a specific product or equipment name to follow.\n\n\"Singhania crusher price. Price list for\" — incomplete phrase, likely a price inquiry</explanation>",
+      "explanation": "Web-scraped SEO content about stone crushers, consistently listing product names, specs, and manufacturer details in fragmented, repetitive patterns throughout.\n\nThe text repeatedly cycles through crusher types, brands (Singhania, India), and equipment categories, with each entry following a similar pattern of product name + brief description or price/spec reference.\n\nFinal token \"Price list for\" is the beginning of a search query or product listing phrase, part of a fragmented list of Singhania crusher-related search terms; next tokens should complete the phrase, likely naming a specific crusher model, part, or equipment type (e.g., \"stone crusher,\" \"jaw crusher parts,\" \"singhania\").\n\"Price list for\" is an incomplete noun phrase mid-list, demanding a specific product or equipment name to follow.\n\n\"Singhania crusher price. Price list for\" — incomplete phrase, likely a price inquiry",
+      "gen_tokens": 190,
+      "gen_s": 20.0,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9716,
+      "cos_shuffled": 0.5791,
+      "mse_norm": 0.0569
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:10530",
+      "n_raw_tokens": 722,
+      "source_tail": " being appointed Adjutant to the New South Wales Scottish Rifles. On the 29th January 1902 he married Edith Kathleen, daughter of Major General Sir George French, at St’ Andrew’s Anglican Cathedral in Sydney. They would have one daughter. In 1904 Maclagan resumed regimental duty in Britain. Promoted",
+      "response": "<explanation>\nBiographical narrative momentum: detailed chronological life history of two British military figures, now mid-way through Captain John's career progression.\n\nMilitary career progression pattern: each promotion/transfer follows a consistent structure — rank, posting, date, and role — established throughout the section on John's Royal Engineers service.\n\n\"Promoted\" is the final word, beginning a new sentence continuing John's career timeline after his India service and Royal Engineers commission; the immediate next token must be a rank (e.g., \"to Major\") or date, consistent with the pattern of promotions noted earlier.\n\"Captain John was commissioned in the Royal Engineers in 1885. He served in South Africa and was awarded the DSO. Transferred to the Regular Army in 1900. Promoted\" — expects a rank like \"Major\" or \"Lieutenant Colonel\" followed by date and posting</explanation>",
+      "explanation": "Biographical narrative momentum: detailed chronological life history of two British military figures, now mid-way through Captain John's career progression.\n\nMilitary career progression pattern: each promotion/transfer follows a consistent structure — rank, posting, date, and role — established throughout the section on John's Royal Engineers service.\n\n\"Promoted\" is the final word, beginning a new sentence continuing John's career timeline after his India service and Royal Engineers commission; the immediate next token must be a rank (e.g., \"to Major\") or date, consistent with the pattern of promotions noted earlier.\n\"Captain John was commissioned in the Royal Engineers in 1885. He served in South Africa and was awarded the DSO. Transferred to the Regular Army in 1900. Promoted\" — expects a rank like \"Major\" or \"Lieutenant Colonel\" followed by date and posting",
+      "gen_tokens": 190,
+      "gen_s": 18.6,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.971,
+      "cos_shuffled": 0.6194,
+      "mse_norm": 0.058
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:75222",
+      "n_raw_tokens": 198,
+      "source_tail": "with crewing vessels, conducting marine based surveys and gaining PADI diving certifications – all to better understand the ocean enviroment. She has also been busy setting up a marine plastics awareness campaign online and working on a local fundraising project that tackle ocean debris.\nEloisia has",
+      "response": "<explanation>\nBiographical profile format for a young conservation activist, consistently listing achievements, skills, and roles in UK wildlife conservation.\n\nThe text follows a structured CV/profile pattern, cycling through travel, conservation work, education, and volunteering — each paragraph adding a new dimension of Hannah's background.\n\n\"Hannah has\" opens a new sentence mirroring earlier paragraph starters (\"Hannah has also worked,\" \"Hannah is currently\"), strongly predicting a final category of accomplishments, likely media, speaking, or outreach experience not yet covered.\n\"Hannah is a freelance conservationist and adventurer who is passionate about inspiring others to explore the world and protect wildlife. She is currently working on a documentary and is a qualified yoga teacher.\n\n\"Hannah has completed her Masters and is currently volunteering in Kenya.\n\n\"Hannah has\" — final sentence likely introduces media, speaking engagements, or travel credentials.\n\nThe profile concludes with</explanation>",
+      "explanation": "Biographical profile format for a young conservation activist, consistently listing achievements, skills, and roles in UK wildlife conservation.\n\nThe text follows a structured CV/profile pattern, cycling through travel, conservation work, education, and volunteering — each paragraph adding a new dimension of Hannah's background.\n\n\"Hannah has\" opens a new sentence mirroring earlier paragraph starters (\"Hannah has also worked,\" \"Hannah is currently\"), strongly predicting a final category of accomplishments, likely media, speaking, or outreach experience not yet covered.\n\"Hannah is a freelance conservationist and adventurer who is passionate about inspiring others to explore the world and protect wildlife. She is currently working on a documentary and is a qualified yoga teacher.\n\n\"Hannah has completed her Masters and is currently volunteering in Kenya.\n\n\"Hannah has\" — final sentence likely introduces media, speaking engagements, or travel credentials.\n\nThe profile concludes with",
+      "gen_tokens": 190,
+      "gen_s": 18.8,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9763,
+      "cos_shuffled": 0.6141,
+      "mse_norm": 0.0474
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:90595",
+      "n_raw_tokens": 93,
+      "source_tail": "rine Pleuropneumonia: a research community's recommendations for the development of better vaccines.\n- Farmer adoption of plot- and farm-level natural resource management practices: Between rhetoric and reality\n- Forest-linked livelihoods in a globalized world.\n- Geographic bias in citation rates of",
+      "response": "<explanation>\nList continuation pattern: each line is a distinct academic paper title, suggesting another title or continuation of the current one.\n\nDomain signals: ecology/environmental science journal titles, implying technical, formal academic register throughout.\n\nFinal fragment \"Geographic bias in citations of\" is mid-title, requiring a noun phrase completing the object — likely a specific publication type, region, or research category (e.g., \"tropical ecology papers,\" \"Latin American journals,\" or \"local knowledge studies\").\n\"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"Geographic effects on citation rates of\" is an incomplete academic paper title, requiring a noun phrase completing the object — likely referencing regional scientific literature or biodiversity research citations.\n\nFinal token \"citations of\"</explanation>",
+      "explanation": "List continuation pattern: each line is a distinct academic paper title, suggesting another title or continuation of the current one.\n\nDomain signals: ecology/environmental science journal titles, implying technical, formal academic register throughout.\n\nFinal fragment \"Geographic bias in citations of\" is mid-title, requiring a noun phrase completing the object — likely a specific publication type, region, or research category (e.g., \"tropical ecology papers,\" \"Latin American journals,\" or \"local knowledge studies\").\n\"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"\n</ex>: \"Geographic effects on citation rates of\" is an incomplete academic paper title, requiring a noun phrase completing the object — likely referencing regional scientific literature or biodiversity research citations.\n\nFinal token \"citations of\"",
+      "gen_tokens": 190,
+      "gen_s": 19.2,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9676,
+      "cos_shuffled": 0.5671,
+      "mse_norm": 0.0648
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:71467",
+      "n_raw_tokens": 123,
+      "source_tail": "s and backgrounds came out to support Vbha and partake in the vibrant activity accompanied with traditional food and music.\nWhile the Vibha Seattle action center is rather young, only launching in October of 2012, it has accumulated more than 150 volunteers spreading the word about Vibha. The annual",
+      "response": "<explanation>\nJournalistic event coverage style, describing a local Holi festival organized by a nonprofit, establishing context and impact.\n\nNarrative momentum building toward describing the organization's history and mission — the paragraph introduces \"The Indian Student Association\" and its founding, setting up elaboration on their community work and the festival's significance.\n\n\"The annual\" is the final token, beginning a noun phrase that will name a recurring event or activity (likely \"annual Holi festival\" or \"annual fundraiser\"), continuing the sentence about the organization's ongoing efforts.\n\"\n</ex>: \"The Indian Student Association has been working in the DC area for the past two years, helping to educate the community about Indian culture. The annual\" — this phrase introduces a recurring event or milestone, likely referencing the Holi festival or the upcoming year's fundraiser.\n\n\"The annual\" ends mid-sentence, implying a contrast or</explanation>",
+      "explanation": "Journalistic event coverage style, describing a local Holi festival organized by a nonprofit, establishing context and impact.\n\nNarrative momentum building toward describing the organization's history and mission — the paragraph introduces \"The Indian Student Association\" and its founding, setting up elaboration on their community work and the festival's significance.\n\n\"The annual\" is the final token, beginning a noun phrase that will name a recurring event or activity (likely \"annual Holi festival\" or \"annual fundraiser\"), continuing the sentence about the organization's ongoing efforts.\n\"\n</ex>: \"The Indian Student Association has been working in the DC area for the past two years, helping to educate the community about Indian culture. The annual\" — this phrase introduces a recurring event or milestone, likely referencing the Holi festival or the upcoming year's fundraiser.\n\n\"The annual\" ends mid-sentence, implying a contrast or",
+      "gen_tokens": 189,
+      "gen_s": 18.7,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9577,
+      "cos_shuffled": 0.6272,
+      "mse_norm": 0.0845
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:69023",
+      "n_raw_tokens": 214,
+      "source_tail": "er overflows contribute to the contamination of the stormwater discharge. Following the installation of an enclosure around the Jump Platform area, the surface water quality results show that the enterococci concentration fell from a median value of 865 CFU/100mL prior to the baffle installation, to",
+      "response": "<explanation>\nAustralian environmental engineering case study reporting measurable outcomes of a stormwater treatment intervention, with formal technical register throughout.\n\nThe narrative has built to a quantitative conclusion: the study measured E. coli reduction before/after the screen installation, with the \"before\" figure (median 1,000 cfu/100L) now requiring the corresponding \"after\" figure to complete the comparison.\n\nFinal token \"to\" closes a comparative construction (\"reduced from a median of 1,000 cfu/100L prior to installation of the screen, to\"), immediately requiring a specific lower numerical value (e.g., \"a median of X cfu/100L\").\n\"Results showed significant reductions in the median TSS counts. The median TSS counts were reduced from 1,000 cfu prior to installation, to\" — significant</explanation>",
+      "explanation": "Australian environmental engineering case study reporting measurable outcomes of a stormwater treatment intervention, with formal technical register throughout.\n\nThe narrative has built to a quantitative conclusion: the study measured E. coli reduction before/after the screen installation, with the \"before\" figure (median 1,000 cfu/100L) now requiring the corresponding \"after\" figure to complete the comparison.\n\nFinal token \"to\" closes a comparative construction (\"reduced from a median of 1,000 cfu/100L prior to installation of the screen, to\"), immediately requiring a specific lower numerical value (e.g., \"a median of X cfu/100L\").\n\"Results showed significant reductions in the median TSS counts. The median TSS counts were reduced from 1,000 cfu prior to installation, to\" — significant",
+      "gen_tokens": 190,
+      "gen_s": 18.9,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9727,
+      "cos_shuffled": 0.6322,
+      "mse_norm": 0.0545
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:85863",
+      "n_raw_tokens": 172,
+      "source_tail": "d afterglow light curves expected in this scenario and derive algebraic expressions for the flux ratios of the emission from the two jet components at the main transition times in the light curve. For viewing angles θobs < θj,n we find that the contribution of the wide component to the optical after",
+      "response": "<explanation>\nScientific paper presenting theoretical findings on GRB afterglow physics, establishing contrast between jet and cocoon emission contributions.\n\nThe abstract structure follows a pattern: motivation → method → results → implications, with the final sentence beginning a conclusion about observational consequences of cocoon emission.\n\nFinal token \"after\" is the start of \"afterglow,\" completing the phrase \"the cocoon contribution to the optical after[glow],\" directly continuing the established terminology used throughout (\"optical afterglow\").\n\"We find that, for typical parameters, the cocoon emission can contribute significantly to the optical after\" — the word \"afterglow\" is the immediate next token, followed by a quantitative or conditional claim about the contribution magnitude.\n\n\"our calculations show that the cocoon contribution to the optical after\" — the sentence is mid-clause, requiring completion with \"glow observations\" or similar</explanation>",
+      "explanation": "Scientific paper presenting theoretical findings on GRB afterglow physics, establishing contrast between jet and cocoon emission contributions.\n\nThe abstract structure follows a pattern: motivation → method → results → implications, with the final sentence beginning a conclusion about observational consequences of cocoon emission.\n\nFinal token \"after\" is the start of \"afterglow,\" completing the phrase \"the cocoon contribution to the optical after[glow],\" directly continuing the established terminology used throughout (\"optical afterglow\").\n\"We find that, for typical parameters, the cocoon emission can contribute significantly to the optical after\" — the word \"afterglow\" is the immediate next token, followed by a quantitative or conditional claim about the contribution magnitude.\n\n\"our calculations show that the cocoon contribution to the optical after\" — the sentence is mid-clause, requiring completion with \"glow observations\" or similar",
+      "gen_tokens": 191,
+      "gen_s": 19.1,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9614,
+      "cos_shuffled": 0.6086,
+      "mse_norm": 0.0772
+    },
+    {
+      "doc_id": "/workspace-vast/celeste/nla-data/finefineweb_100k.parquet:train:73452",
+      "n_raw_tokens": 181,
+      "source_tail": "afely as possible.\nThe in-flight Japanese battery incident followed an earlier 787 battery incident that occurred on the ground in Boston on January 7, 2013. The AD is prompted by this second incident involving a lithium ion battery. The battery failures resulted in release of flammable electrolytes",
+      "response": "<explanation>\nAviation safety news report following a structured incident-summary format, detailing Boeing 737 lithium-ion battery fires and NTSB investigation findings.\n\nNarrative momentum: the text has been building toward explaining the technical cause of the battery fires, with the final sentence beginning a causal explanation of what the battery failures produced.\n\nFinal token \"electrolytes\" ends a clause describing the fire mechanism (\"The fires resulted in the release of flammable electrolytes\"), immediately expecting continuation describing consequences or additional hazardous effects, such as \"and gases\" or \"which ignited.\"\n\"NTSB determined the battery failures were caused by internal short circuits. The battery failures on both aircraft were similar in nature. The incidents involved Boeing 737 lithium-ion batteries. The fires resulted in the release of flammable electrolytes\" — expects continuation describing thermal runaway, smoke, or hazardous byproducts released.</explanation>",
+      "explanation": "Aviation safety news report following a structured incident-summary format, detailing Boeing 737 lithium-ion battery fires and NTSB investigation findings.\n\nNarrative momentum: the text has been building toward explaining the technical cause of the battery fires, with the final sentence beginning a causal explanation of what the battery failures produced.\n\nFinal token \"electrolytes\" ends a clause describing the fire mechanism (\"The fires resulted in the release of flammable electrolytes\"), immediately expecting continuation describing consequences or additional hazardous effects, such as \"and gases\" or \"which ignited.\"\n\"NTSB determined the battery failures were caused by internal short circuits. The battery failures on both aircraft were similar in nature. The incidents involved Boeing 737 lithium-ion batteries. The fires resulted in the release of flammable electrolytes\" — expects continuation describing thermal runaway, smoke, or hazardous byproducts released.",
+      "gen_tokens": 188,
+      "gen_s": 18.6,
+      "inject_hits_first_forward": 1,
+      "cos_own": 0.9477,
+      "cos_shuffled": 0.5833,
+      "mse_norm": 0.1046
+    }
+  ],
+  "summary": {
+    "n_scored": 8,
+    "cos_own_mean": 0.9657,
+    "cos_shuffled_mean": 0.6039,
+    "n_no_explanation": 0
+  }
+}

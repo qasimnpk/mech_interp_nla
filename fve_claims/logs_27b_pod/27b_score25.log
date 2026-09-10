@@ -1,0 +1,22 @@
+[19:43:19 gpu=0.0G] D_local (27B, 25 docs) = 0.3434
+Loading weights:   0%|          | 0/573 [00:00<?, ?it/s]Loading weights:   0%|          | 1/573 [00:00<03:55,  2.43it/s]Loading weights:   2%|▏         | 13/573 [00:00<00:17, 31.93it/s]Loading weights:   4%|▍         | 25/573 [00:00<00:11, 49.63it/s]Loading weights:   7%|▋         | 40/573 [00:00<00:07, 74.00it/s]Loading weights:   9%|▉         | 51/573 [00:00<00:07, 71.59it/s]Loading weights:  12%|█▏        | 66/573 [00:01<00:05, 85.94it/s]Loading weights:  14%|█▍        | 80/573 [00:01<00:05, 92.60it/s]Loading weights:  16%|█▋        | 94/573 [00:01<00:04, 97.59it/s]Loading weights:  18%|█▊        | 105/573 [00:01<00:05, 89.81it/s]Loading weights:  21%|██        | 120/573 [00:01<00:04, 99.23it/s]Loading weights:  23%|██▎       | 134/573 [00:01<00:04, 103.10it/s]Loading weights:  26%|██▌       | 148/573 [00:01<00:03, 107.50it/s]Loading weights:  28%|██▊       | 160/573 [00:01<00:03, 106.77it/s]Loading weights:  30%|███       | 173/573 [00:02<00:03, 107.99it/s]Loading weights:  33%|███▎      | 187/573 [00:02<00:03, 110.23it/s]Loading weights:  35%|███▌      | 201/573 [00:02<00:03, 112.94it/s]Loading weights:  37%|███▋      | 213/573 [00:02<00:03, 111.38it/s]Loading weights:  39%|███▉      | 225/573 [00:02<00:03, 108.94it/s]Loading weights:  42%|████▏     | 240/573 [00:02<00:02, 115.06it/s]Loading weights:  44%|████▍     | 254/573 [00:02<00:02, 117.19it/s]Loading weights:  46%|████▋     | 266/573 [00:02<00:02, 107.29it/s]Loading weights:  48%|████▊     | 277/573 [00:02<00:02, 106.28it/s]Loading weights:  51%|█████     | 291/573 [00:03<00:02, 108.90it/s]Loading weights:  53%|█████▎    | 304/573 [00:03<00:02, 101.03it/s]Loading weights:  55%|█████▍    | 315/573 [00:03<00:02, 101.34it/s]Loading weights:  58%|█████▊    | 331/573 [00:03<00:02, 106.55it/s]Loading weights:  60%|██████    | 344/573 [00:03<00:02, 111.68it/s]Loading weights:  62%|██████▏   | 358/573 [00:03<00:01, 113.65it/s]Loading weights:  65%|██████▍   | 370/573 [00:03<00:02, 100.02it/s]Loading weights:  67%|██████▋   | 382/573 [00:03<00:01, 102.93it/s]Loading weights:  69%|██████▉   | 397/573 [00:04<00:01, 114.72it/s]Loading weights:  71%|███████▏  | 409/573 [00:04<00:01, 108.25it/s]Loading weights:  73%|███████▎  | 421/573 [00:04<00:01, 103.17it/s]Loading weights:  76%|███████▋  | 437/573 [00:04<00:01, 113.51it/s]Loading weights:  79%|███████▊  | 451/573 [00:04<00:01, 117.17it/s]Loading weights:  81%|████████  | 465/573 [00:04<00:01, 105.56it/s]Loading weights:  85%|████████▍ | 486/573 [00:04<00:00, 129.14it/s]Loading weights:  87%|████████▋ | 500/573 [00:04<00:00, 128.53it/s]Loading weights:  90%|████████▉ | 514/573 [00:05<00:00, 128.75it/s]Loading weights:  92%|█████████▏| 528/573 [00:05<00:00, 109.95it/s]Loading weights:  95%|█████████▍| 543/573 [00:05<00:00, 118.68it/s]Loading weights:  97%|█████████▋| 557/573 [00:05<00:00, 120.94it/s]Loading weights:  99%|█████████▉| 570/573 [00:05<00:00, 120.68it/s]Loading weights: 100%|██████████| 573/573 [00:05<00:00, 102.48it/s]
+[transformers] [1mQwen3_5ForCausalLM LOAD REPORT[0m from: /workspace/hf/hub/models--ceselder--qwen3.6-27b-nla-rl/snapshots/5a13b7ec21a69fcdd0fb24d5edbe96a92aef4b9f/ar_reconstructor
+Key               | Status  | 
+------------------+---------+-
+lm_head.weight    | MISSING | 
+model.norm.weight | MISSING | 
+
+Notes:
+- MISSING:	those params were newly initialized because missing from the checkpoint. Consider training on your downstream task.
+[19:43:29 gpu=35.3G] AR(ar_reconstructor) loaded, 43 blocks, final norm -> Identity
+[transformers] `causal_conv1d_fn` is falling back to its reference PyTorch implementation because `causal_conv1d` is not installed. This is correct but much slower; install `causal_conv1d` for the optimized kernel.
+[transformers] `chunk_gated_delta_rule` is falling back to its reference PyTorch implementation because `flash-linear-attention` is not installed. This is correct but much slower; install `flash-linear-attention` for the optimized kernel.
+[19:43:35 gpu=35.4G] 50/416 scored
+[19:43:38 gpu=35.4G] 100/416 scored
+[19:43:42 gpu=35.4G] 150/416 scored
+[19:43:45 gpu=35.4G] 200/416 scored
+[19:43:48 gpu=35.4G] 250/416 scored
+[19:43:52 gpu=35.4G] 300/416 scored
+[19:43:55 gpu=35.4G] 350/416 scored
+[19:43:59 gpu=35.4G] 400/416 scored
+DONE 416 claims scored across 25 docs; D_local 0.3434

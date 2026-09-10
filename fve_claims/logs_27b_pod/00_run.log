@@ -1,0 +1,104 @@
+Loading weights:   0%|          | 0/339 [00:00<?, ?it/s]Loading weights:   4%|▍         | 15/339 [00:00<00:04, 77.34it/s]Loading weights:   9%|▉         | 31/339 [00:00<00:03, 82.33it/s]Loading weights:  12%|█▏        | 40/339 [00:00<00:03, 83.84it/s]Loading weights:  14%|█▍        | 49/339 [00:01<00:08, 35.31it/s]Loading weights:  16%|█▌        | 55/339 [00:01<00:14, 19.59it/s]Loading weights:  24%|██▍       | 81/339 [00:01<00:06, 42.80it/s]Loading weights:  55%|█████▍    | 185/339 [00:02<00:00, 161.11it/s]Loading weights:  65%|██████▌   | 222/339 [00:02<00:01, 105.22it/s]Loading weights:  73%|███████▎  | 249/339 [00:02<00:00, 107.48it/s]Loading weights:  84%|████████▍ | 286/339 [00:03<00:00, 105.55it/s]Loading weights: 100%|██████████| 339/339 [00:03<00:00, 102.86it/s]
+[19:20:30 rss=5.7G] TARGET loaded
+[19:20:31 rss=5.8G] pilot 0: 216 tok, last ' loss', norm 125.2
+[19:20:32 rss=5.8G] pilot 1: 208 tok, last ' species', norm 121.1
+[19:20:32 rss=5.8G] pilot 2: 216 tok, last ' facility', norm 109.99
+[19:20:33 rss=5.8G] pilot 3: 174 tok, last ' club', norm 115.71
+[19:20:33 rss=5.8G] pilot 4: 226 tok, last ' hit', norm 120.11
+[19:20:34 rss=5.8G] pilot 5: 210 tok, last ' Drive', norm 103.47
+[19:20:34 rss=5.8G] pilot 6: 164 tok, last ' created', norm 128.57
+[19:20:35 rss=5.8G] pilot 7: 305 tok, last '1', norm 111.06
+[19:20:35 rss=5.8G] pilot 8: 190 tok, last ' Orchestra', norm 122.81
+[19:20:36 rss=5.8G] pilot 9: 235 tok, last ' Park', norm 111.99
+[19:20:37 rss=5.8G] pilot 10: 402 tok, last ' Rebellion', norm 121.64
+[19:20:37 rss=5.8G] pilot 11: 156 tok, last 'ley', norm 117.76
+[19:20:38 rss=5.8G] pilot 12: 214 tok, last ' organized', norm 129.32
+[19:20:39 rss=5.8G] pilot 13: 269 tok, last ' Shrine', norm 119.26
+[19:20:39 rss=5.8G] pilot 14: 220 tok, last ' with', norm 94.04
+[19:20:40 rss=5.8G] pilot 15: 236 tok, last '9', norm 111.4
+[19:20:40 rss=5.8G] pilot 16: 262 tok, last 'aram', norm 104.77
+[19:20:41 rss=5.8G] pilot 17: 180 tok, last ' and', norm 135.83
+[19:20:41 rss=5.8G] pilot 18: 292 tok, last ' role', norm 117.63
+[19:20:42 rss=5.8G] pilot 19: 179 tok, last ' singing', norm 100.66
+[19:20:42 rss=5.8G] pilot 20: 194 tok, last ' List', norm 122.83
+[19:20:43 rss=5.8G] pilot 21: 150 tok, last ' ceremony', norm 124.59
+[19:20:43 rss=5.8G] pilot 22: 204 tok, last ' station', norm 105.93
+[19:20:44 rss=5.8G] pilot 23: 229 tok, last ' assembly', norm 124.94
+[19:20:45 rss=5.8G] pilot 24: 358 tok, last '5', norm 116.33
+[19:20:46 rss=5.8G] pilot 25: 453 tok, last ' rumors', norm 122.88
+[19:20:46 rss=5.8G] pilot 26: 223 tok, last ' field', norm 112.65
+[19:20:48 rss=5.8G] pilot 27: 502 tok, last ' abroad', norm 116.25
+[19:20:48 rss=5.8G] pilot 28: 247 tok, last 'ém', norm 111.57
+[19:20:49 rss=5.8G] pilot 29: 172 tok, last 'IN', norm 108.77
+[19:20:49 rss=5.8G] pilot 30: 248 tok, last '4', norm 108.29
+[19:20:50 rss=5.8G] pilot 31: 267 tok, last 'man', norm 119.71
+[19:20:50 rss=5.8G] pilot 32: 235 tok, last '4', norm 107.76
+[19:20:51 rss=5.8G] pilot 33: 190 tok, last ' defamation', norm 127.7
+[19:20:51 rss=5.8G] pilot 34: 221 tok, last '1', norm 117.37
+[19:20:52 rss=5.8G] pilot 35: 248 tok, last ' tuberculosis', norm 130.74
+[19:20:53 rss=5.8G] pilot 36: 265 tok, last '3', norm 126.47
+[19:20:53 rss=5.8G] pilot 37: 235 tok, last ' mean', norm 121.13
+[19:20:54 rss=5.8G] pilot 38: 215 tok, last '3', norm 112.65
+[19:20:54 rss=5.8G] pilot 39: 127 tok, last ' how', norm 127.15
+[19:20:55 rss=5.8G] pilot 40: 230 tok, last '0', norm 112.0
+[19:20:55 rss=5.8G] pilot 41: 253 tok, last 'ours', norm 113.63
+[19:20:56 rss=5.8G] pilot 42: 270 tok, last ' died', norm 128.38
+[19:20:57 rss=5.8G] pilot 43: 187 tok, last 'on', norm 125.24
+[19:20:57 rss=5.8G] pilot 44: 176 tok, last ' million', norm 105.3
+[19:20:57 rss=5.8G] pilot 45: 158 tok, last ' century', norm 117.55
+[19:20:58 rss=5.8G] pilot 46: 354 tok, last ' laws', norm 123.3
+[19:20:59 rss=5.8G] pilot 47: 293 tok, last ' decades', norm 106.24
+[19:20:59 rss=5.8G] pilot 48: 200 tok, last 'erra', norm 112.97
+[19:21:00 rss=5.8G] pilot 49: 296 tok, last ' time', norm 113.57
+[19:21:01 rss=5.8G] pilot 50: 350 tok, last ' Justice', norm 112.59
+[19:21:02 rss=5.8G] pilot 51: 236 tok, last 'ife', norm 115.7
+[19:21:02 rss=5.9G] pilot 52: 182 tok, last ' platform', norm 110.39
+[19:21:03 rss=5.9G] pilot 53: 281 tok, last ' monkey', norm 109.93
+[19:21:03 rss=5.9G] pilot 54: 314 tok, last ' called', norm 112.08
+[19:21:04 rss=5.9G] pilot 55: 143 tok, last '.', norm 104.45
+[19:21:04 rss=5.9G] pilot 56: 231 tok, last ' Charter', norm 120.43
+[19:21:05 rss=5.9G] pilot 57: 247 tok, last ' creek', norm 118.53
+[19:21:06 rss=5.9G] pilot 58: 177 tok, last ' categories', norm 112.91
+[19:21:06 rss=5.9G] pilot 59: 266 tok, last ' Augusta', norm 119.89
+[19:21:07 rss=5.9G] pilot 60: 197 tok, last '1', norm 114.15
+[19:21:08 rss=5.9G] pilot 61: 237 tok, last ' damage', norm 132.2
+[19:21:09 rss=5.9G] pilot 62: 453 tok, last ' collision', norm 108.41
+[19:21:10 rss=5.9G] pilot 63: 300 tok, last ' music', norm 111.45
+[19:21:10 rss=5.9G] pilot 64: 243 tok, last ' label', norm 109.35
+[19:21:11 rss=5.9G] pilot 65: 205 tok, last 'PM', norm 127.28
+[19:21:11 rss=5.9G] pilot 66: 189 tok, last '7', norm 116.39
+[19:21:12 rss=5.9G] pilot 67: 214 tok, last ' it', norm 103.65
+[19:21:12 rss=5.9G] pilot 68: 252 tok, last ' explained', norm 125.09
+[19:21:13 rss=5.9G] pilot 69: 241 tok, last ' significance', norm 122.35
+[19:21:14 rss=5.9G] pilot 70: 301 tok, last ' Parliament', norm 115.47
+[19:21:14 rss=5.9G] pilot 71: 283 tok, last ' fields', norm 113.89
+[19:21:15 rss=5.9G] pilot 72: 211 tok, last 'avor', norm 122.24
+[19:21:16 rss=5.9G] pilot 73: 269 tok, last ' States', norm 115.82
+[19:21:16 rss=5.9G] pilot 74: 185 tok, last ' county', norm 112.14
+[19:21:17 rss=5.9G] pilot 75: 220 tok, last ' Advertising', norm 117.65
+[19:21:17 rss=5.9G] pilot 76: 188 tok, last 'atur', norm 138.64
+[19:21:18 rss=5.9G] pilot 77: 197 tok, last ' up', norm 105.77
+[19:21:18 rss=5.9G] pilot 78: 254 tok, last ' year', norm 114.31
+[19:21:19 rss=5.9G] pilot 79: 169 tok, last ' life', norm 119.25
+[19:21:19 rss=5.9G] pilot 80: 201 tok, last '7', norm 106.32
+[19:21:20 rss=5.9G] pilot 81: 199 tok, last ' as', norm 102.67
+[19:21:21 rss=5.9G] pilot 82: 352 tok, last ' said', norm 121.51
+[19:21:21 rss=5.9G] pilot 83: 204 tok, last ' honor', norm 117.9
+[19:21:22 rss=5.9G] pilot 84: 171 tok, last ' career', norm 114.09
+[19:21:22 rss=5.9G] pilot 85: 205 tok, last ' Australia', norm 113.15
+[19:21:23 rss=5.9G] pilot 86: 244 tok, last ' replaced', norm 119.01
+[19:21:24 rss=5.9G] pilot 87: 494 tok, last '4', norm 109.26
+[19:21:24 rss=5.9G] pilot 88: 310 tok, last 'a', norm 118.76
+[19:21:25 rss=5.9G] pilot 89: 211 tok, last ' centuries', norm 128.93
+[19:21:26 rss=5.9G] pilot 90: 368 tok, last ' America', norm 107.52
+[19:21:27 rss=5.9G] pilot 91: 310 tok, last ' appearance', norm 129.58
+[19:21:27 rss=5.9G] pilot 92: 214 tok, last ' resort', norm 122.96
+[19:21:28 rss=5.9G] pilot 93: 214 tok, last ' Council', norm 115.68
+[19:21:28 rss=5.9G] pilot 94: 250 tok, last ' empowerment', norm 129.67
+[19:21:29 rss=5.9G] pilot 95: 289 tok, last ' the', norm 107.04
+[19:21:30 rss=5.9G] pilot 96: 180 tok, last ' grandchildren', norm 117.86
+[19:21:30 rss=5.9G] pilot 97: 199 tok, last ' player', norm 125.41
+[19:21:31 rss=5.9G] pilot 98: 208 tok, last ' years', norm 120.11
+[19:21:31 rss=5.9G] pilot 99: 229 tok, last ' departure', norm 112.05
+[free] RSS 6037 MiB -> 626 MiB (released 5411 MiB)
+00 DONE 100
