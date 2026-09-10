@@ -1,0 +1,22 @@
+{
+  "step": "04_06_27b_full",
+  "git": "fd86270cc45a77a4de758ed9891deeb1458c497c",
+  "argv": [
+    "04_06_score_27b_full.py"
+  ],
+  "repo": "/workspace/hf/hub/models--ceselder--qwen3.6-27b-nla-rl/snapshots/5a13b7ec21a69fcdd0fb24d5edbe96a92aef4b9f",
+  "device": "cuda",
+  "target_note": "TARGET=av_base, has warmstart LoRA merged in -- see module docstring",
+  "wall_start": "2026-09-10T22:05:58",
+  "n_docs": 100,
+  "D_local": 0.3708867995284306,
+  "n_rewrites_total": 1589,
+  "n_rewrites_scored": 1511,
+  "n_excluded_overlap": 78,
+  "n_heavy_scored": 1511,
+  "fve": "1 - 2(1-cos)/D_local; D_local from all 100 docs",
+  "n_claims_scored": 1511,
+  "n_with_heavy": 1511,
+  "ar_forwards": 2228,
+  "wall_end": "2026-09-10T22:08:52"
+}

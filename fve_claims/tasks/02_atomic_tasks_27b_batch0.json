@@ -1,0 +1,1739 @@
+[
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 0,
+    "split": "dev",
+    "prefix_text": "The vesper sparrow (Pooecetes gramineus) is a medium-sized American sparrow. It is the only member of the genus Pooecetes. Adults have light brown upperparts and light underparts, both with darker streaking. They have a white eye ring and a long dark brown tail which shows white outer feathers in flight. Their breeding habitat is open grassy areas across most of North America. The nest is an open cup on the ground under a clump of grass. These birds migrate to the southern and central United States and Mexico. These birds forage on the ground, mainly eating insects and seeds. Outside the nesting season they often feed in small flocks. The male sings from a higher perch, such as a shrub or fencepost, which indicates his ownership of the nesting territory. The musical song begins with two pairs of repeated whistled notes and ends in a series of trills, somewhat similar to that of the song sparrow. This bird's numbers are declining in the eastern parts of its range due to habitat loss",
+    "explanation": "Encyclopedia/Wikipedia-style bird species article, following a consistent pattern of factual declarative sentences covering taxonomy, appearance, behavior, and range.\n\nThe article has systematically covered size, appearance, habitat, diet, breeding, and range — the final sentence introduces conservation status, a standard concluding element for such entries.\n\nFinal token \"loss\" ends a clause about population decline in the eastern US: \"The species is declining in the eastern US due to habitat loss\" — expects continuation with additional causes, elaboration, or a period closing the sentence, possibly mentioning specific threats like agriculture or urbanization.\n\"This is a medium-sized, ground-dwelling sandpiper found in North America. It nests on the ground in grasslands. It breeds in spring and summer. The species is declining in the eastern US due to habitat loss\" — final phrase \"declining in the US due to habitat loss\"",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 166,
+        "text": "Encyclopedia/Wikipedia-style bird species article, following a consistent pattern of factual declarative sentences covering taxonomy, appearance, behavior, and range."
+      },
+      {
+        "sentence_id": 1,
+        "start": 168,
+        "end": 360,
+        "text": "The article has systematically covered size, appearance, habitat, diet, breeding, and range — the final sentence introduces conservation status, a standard concluding element for such entries."
+      },
+      {
+        "sentence_id": 2,
+        "start": 362,
+        "end": 668,
+        "text": "Final token \"loss\" ends a clause about population decline in the eastern US: \"The species is declining in the eastern US due to habitat loss\" — expects continuation with additional causes, elaboration, or a period closing the sentence, possibly mentioning specific threats like agriculture or urbanization."
+      },
+      {
+        "sentence_id": 3,
+        "start": 669,
+        "end": 934,
+        "text": "\"This is a medium-sized, ground-dwelling sandpiper found in North America. It nests on the ground in grasslands. It breeds in spring and summer. The species is declining in the eastern US due to habitat loss\" — final phrase \"declining in the US due to habitat loss\""
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 1,
+    "split": "dev",
+    "prefix_text": "Clark Lake is a lake located in Gogebic County in the U.S. state of Michigan. Clark Lake is one of about two dozen clear, clean lakes located in the Sylvania Wilderness of Ottawa National Forest a few miles (6 to 8 km) to the west of the town of Watersmeet. The shoreline is undeveloped except for a picnic area and boat launch at the northern end. The lake possesses several islands and numerous bays and coves. Large boulders strewn about the shoreline and lake bed add to the scenic beauty of this lake. It is not uncommon to see nesting loons and eagles around the lake's islands, and black bear and wolves inhabit the old-growth forest around the lake. The total surface area of the lake is, with maximum depths of. Like all lakes in Sylvania, Clark Lake has numerous special regulations designed to protect and ensure its wilderness quality for future generations. No motorized watercraft are allowed, and a catch and release policy is in place for bass species",
+    "explanation": "Encyclopedic travel-guide register maintained throughout, describing a Florida state park with consistent factual, descriptive sentences.\n\nThe passage systematically covers the lake's features: geography, wildlife, history, and recreational rules — the final sentence is completing a list of conservation regulations, with fishing restrictions being the last item.\n\nFinal token \"species\" ends a clause listing conservation rules (\"catch-and-release is required for bass species\"), immediately expecting either a period, additional species, or a closing phrase like \"found in the lake.\"\n\"The lake is protected by a state park designation, and is maintained by volunteer groups who have installed a boat launch and fishing pier. Fishing is permitted, though the lake is a no-kill zone, and catch-and-release is enforced for bass species\" — the final word \"species\" ends mid-list, expecting a period or continuation specifying which bass species or additional regulations.",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 137,
+        "text": "Encyclopedic travel-guide register maintained throughout, describing a Florida state park with consistent factual, descriptive sentences."
+      },
+      {
+        "sentence_id": 1,
+        "start": 139,
+        "end": 364,
+        "text": "The passage systematically covers the lake's features: geography, wildlife, history, and recreational rules — the final sentence is completing a list of conservation regulations, with fishing restrictions being the last item."
+      },
+      {
+        "sentence_id": 2,
+        "start": 366,
+        "end": 585,
+        "text": "Final token \"species\" ends a clause listing conservation rules (\"catch-and-release is required for bass species\"), immediately expecting either a period, additional species, or a closing phrase like \"found in the lake.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 586,
+        "end": 969,
+        "text": "\"The lake is protected by a state park designation, and is maintained by volunteer groups who have installed a boat launch and fishing pier. Fishing is permitted, though the lake is a no-kill zone, and catch-and-release is enforced for bass species\" — the final word \"species\" ends mid-list, expecting a period or continuation specifying which bass species or additional regulations."
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 2,
+    "split": "dev",
+    "prefix_text": "Kahului Airport is a regional airport in the state of Hawai'i, United States, located east of the Kahului CDP in Maui County on the island of Maui near Haleakala. It has offered full airport operations since 1952. Most flights into Kahului Airport originate from Daniel K. Inouye International Airport in Honolulu; the Honolulu – Kahului corridor is one of the busiest air routes in the US, ranking 13th in 2004 with 1,632,000 passengers. The airport code pays homage to aviation pioneer Bertram J. Hogg who worked for what is now Hawaiian Airlines flying aircraft ranging from eight-passenger Sikorsky S-38 amphibians to Douglas DC-3s and DC-9s into the late 1960s. It is included in the Federal Aviation Administration (FAA) National Plan of Integrated Airport Systems for 2017 – 2021, in which it is categorized as a medium-hub primary commercial service facility",
+    "explanation": "Wikipedia-style factual article about a specific airport, establishing a pattern of dense geographic, historical, and operational statistics.\n\nThe sentence structure follows a consistent pattern of factual claims about the airport's status, ownership, and regulatory classifications, building toward a concluding official designation.\n\nFinal token \"facility\" ends a long subordinate clause listing FAA classifications; \"the Transportation Statistics Administration classifies it as a medium primary commercial service facility\" is the final predicate, likely followed by a period or additional qualifying detail (e.g., \"with a passenger enplanement ranking of...\").\n\"According to the FAA's National Plan of Integrated Airports, the airport is included in the 2021–2025 plan, where the agency classifies it as a medium hub primary commercial service facility\" — the sentence ends mid-classification, \"primary commercial service facility\" is the final descriptor, requiring a period",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 141,
+        "text": "Wikipedia-style factual article about a specific airport, establishing a pattern of dense geographic, historical, and operational statistics."
+      },
+      {
+        "sentence_id": 1,
+        "start": 143,
+        "end": 334,
+        "text": "The sentence structure follows a consistent pattern of factual claims about the airport's status, ownership, and regulatory classifications, building toward a concluding official designation."
+      },
+      {
+        "sentence_id": 2,
+        "start": 336,
+        "end": 665,
+        "text": "Final token \"facility\" ends a long subordinate clause listing FAA classifications; \"the Transportation Statistics Administration classifies it as a medium primary commercial service facility\" is the final predicate, likely followed by a period or additional qualifying detail (e.g., \"with a passenger enplanement ranking of...\")."
+      },
+      {
+        "sentence_id": 3,
+        "start": 666,
+        "end": 980,
+        "text": "\"According to the FAA's National Plan of Integrated Airports, the airport is included in the 2021–2025 plan, where the agency classifies it as a medium hub primary commercial service facility\" — the sentence ends mid-classification, \"primary commercial service facility\" is the final descriptor, requiring a period"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 3,
+    "split": "dev",
+    "prefix_text": "Wolfgang Thüne (born 8 October 1949) is a German former gymnast. He competed at the 1972 Summer Olympics in all artistic gymnastics events and won a bronze medal with the East German team. Individually his best achievement was seventh place in the horizontal bar. He won two more bronze team medals at the world championships in 1970 and 1974 as well as individual silver in the horizontal bar in 1974. At the 1975 European championships in Bern, he fled to West Germany with the help of his rival Eberhard Gienger. In 1977 he won the national all-round title in West Germany competing for TuS 04 Leverkusen. After retirement he worked as a gymnastics coach at the same club",
+    "explanation": "Biographical Wikipedia article following a consistent chronological life narrative structure, covering career milestones and achievements of German swimmer Klaus Zehnder.\n\nThe article has traced Zehnder's swimming career, Olympic medals, and post-retirement life, now concluding with his later coaching role at SV Lippstadt — the same club mentioned earlier.\n\nFinal token \"club\" ends a sentence fragment (\"He later worked as a coach at the same club\"), requiring a period or continuation with additional details about his coaching tenure or life at SV Lippstadt.\n\"After retiring, he worked as a coach at the SV Lippstadt sports club in Cologne. He later worked as a coach at the same club\" — the sentence is incomplete, expecting a period or further detail about the club/location.\n\n\"He later worked as a coach at the same club\" — final clause, likely closing with period or date",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 170,
+        "text": "Biographical Wikipedia article following a consistent chronological life narrative structure, covering career milestones and achievements of German swimmer Klaus Zehnder."
+      },
+      {
+        "sentence_id": 1,
+        "start": 172,
+        "end": 358,
+        "text": "The article has traced Zehnder's swimming career, Olympic medals, and post-retirement life, now concluding with his later coaching role at SV Lippstadt — the same club mentioned earlier."
+      },
+      {
+        "sentence_id": 2,
+        "start": 360,
+        "end": 562,
+        "text": "Final token \"club\" ends a sentence fragment (\"He later worked as a coach at the same club\"), requiring a period or continuation with additional details about his coaching tenure or life at SV Lippstadt."
+      },
+      {
+        "sentence_id": 3,
+        "start": 563,
+        "end": 781,
+        "text": "\"After retiring, he worked as a coach at the SV Lippstadt sports club in Cologne. He later worked as a coach at the same club\" — the sentence is incomplete, expecting a period or further detail about the club/location."
+      },
+      {
+        "sentence_id": 4,
+        "start": 783,
+        "end": 879,
+        "text": "\"He later worked as a coach at the same club\" — final clause, likely closing with period or date"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 4,
+    "split": "dev",
+    "prefix_text": "The Horn Blows at Midnight (1945) is a comedy fantasy film directed by Raoul Walsh, and starring Jack Benny. Its biggest claim to fame, apart from its star, is its failure at the box office. In the two decades following its release, Benny often exploited the film's failure for laughs in his popular radio and television comedy series The Jack Benny Program, making the film a well-known entity to his wide audience, even if they had never seen it. The Horn Blows At Midnight would prove to be Benny's final starring feature, although he would continue as a radio and TV star (as well as making cameo appearances in films) for years afterwards. The Horn Blows At Midnight had the misfortune to be released only eight days after the death of U.S. President Franklin Delano Roosevelt. This may have contributed to its poor reception, although the film's negative reviews (often alluded in jokes mentioning the production) might have also impacted it, as the classic Rodgers and Hammerstein musical Carousel, also dealing with the afterlife, opened on Broadway at roughly the same time and became a hit",
+    "explanation": "Film review genre with historical context, detailing production background and reception of the 1916 silent film \"The Hunchback of Notre Dame.\"\n\nNarrative momentum building toward conclusion: the review has traced the film's troubled reception and is now explaining the broader cultural context of why it failed, contrasting it with competing works.\n\nFinal token \"hit\" ends a clause explaining the Broadway musical \"Show Boat\" opened around the same time \"and proved damaging to the film's reputation, as Show Boat opened on Broadway around the same time and became a hit\" — the sentence is grammatically complete but may continue with a period or brief elaborating phrase.\n\"the musical's themes of racial prejudice were seen as more topical, and Show Boat opened on Broadway around the same time and proved damaging, as Show Boat opened around the same time and became a hit\" — contrasting success reinforces the failure",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 143,
+        "text": "Film review genre with historical context, detailing production background and reception of the 1916 silent film \"The Hunchback of Notre Dame.\""
+      },
+      {
+        "sentence_id": 1,
+        "start": 145,
+        "end": 349,
+        "text": "Narrative momentum building toward conclusion: the review has traced the film's troubled reception and is now explaining the broader cultural context of why it failed, contrasting it with competing works."
+      },
+      {
+        "sentence_id": 2,
+        "start": 351,
+        "end": 673,
+        "text": "Final token \"hit\" ends a clause explaining the Broadway musical \"Show Boat\" opened around the same time \"and proved damaging to the film's reputation, as Show Boat opened on Broadway around the same time and became a hit\" — the sentence is grammatically complete but may continue with a period or brief elaborating phrase."
+      },
+      {
+        "sentence_id": 3,
+        "start": 674,
+        "end": 921,
+        "text": "\"the musical's themes of racial prejudice were seen as more topical, and Show Boat opened on Broadway around the same time and proved damaging, as Show Boat opened around the same time and became a hit\" — contrasting success reinforces the failure"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 5,
+    "split": "dev",
+    "prefix_text": "Wayne Gretzky Drive is a freeway in Edmonton, Alberta, Canada. Originally Capilano Drive, it was officially renamed October 1, 1999 after NHL hockey player Wayne Gretzky, as a tribute to his years with the Edmonton Oilers. The same day, Wayne Gretzky's number 99 jersey was retired at the Skyreach Centre, which lies just west of Wayne Gretzky Drive, at 118 Avenue. 66/75 Street is a major arterial road in east Edmonton which serves residential and industrial areas. Wayne Gretzky Drive and 75 Street, both located between Whitemud Drive and Yellowhead Trail, is part of Edmonton's eastern leg of its Inner Ring Road. Wayne Gretzky Drive and 75 Street are part of a continuous roadway that runs from 41 Avenue SW to 33 Street NE (Edmonton's northeastern city limit) and includes portions of 66 Street and Fort Road, as well as all of Manning Drive",
+    "explanation": "Wikipedia article about a Winnipeg road, following encyclopedic structure with consistent factual detail about street segments, intersections, and connections.\n\nThe article has been systematically listing connected roads and route details for Manitoba Provincial Road 100, building toward a complete description of the full continuous route.\n\nFinal token \"Murray Drive\" ends a list of roads comprising the continuous route (\"includes all of Pembina Highway, the eastern portion of Portage Avenue, and all of Murray Drive\"), likely requiring continuation with additional road names or a closing punctuation/period.\n\"The continuous route is 22.5 kilometres long, and includes all of Pembina Highway, the eastern portion of Portage Avenue, and all of Murray Drive\" — a list of constituent roads still being enumerated, expecting another road name or concluding phrase.\n\n\"Murray Drive\" is a named road, likely another segment",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 159,
+        "text": "Wikipedia article about a Winnipeg road, following encyclopedic structure with consistent factual detail about street segments, intersections, and connections."
+      },
+      {
+        "sentence_id": 1,
+        "start": 161,
+        "end": 341,
+        "text": "The article has been systematically listing connected roads and route details for Manitoba Provincial Road 100, building toward a complete description of the full continuous route."
+      },
+      {
+        "sentence_id": 2,
+        "start": 343,
+        "end": 613,
+        "text": "Final token \"Murray Drive\" ends a list of roads comprising the continuous route (\"includes all of Pembina Highway, the eastern portion of Portage Avenue, and all of Murray Drive\"), likely requiring continuation with additional road names or a closing punctuation/period."
+      },
+      {
+        "sentence_id": 3,
+        "start": 614,
+        "end": 865,
+        "text": "\"The continuous route is 22.5 kilometres long, and includes all of Pembina Highway, the eastern portion of Portage Avenue, and all of Murray Drive\" — a list of constituent roads still being enumerated, expecting another road name or concluding phrase."
+      },
+      {
+        "sentence_id": 4,
+        "start": 867,
+        "end": 921,
+        "text": "\"Murray Drive\" is a named road, likely another segment"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 6,
+    "split": "dev",
+    "prefix_text": "The Sound Barrier (known in the United States, as Breaking Through the Sound Barrier and Breaking the Sound Barrier) is a 1952 British film directed by David Lean. It is a fictional story about attempts by aircraft designers and test pilots to break the sound barrier. It was David Lean's third and final film with his wife Ann Todd, but it was his first for Alexander Korda's London Films following the break-up of Cineguild. The Sound Barrier stars Ralph Richardson, Ann Todd, and Nigel Patrick. The Sound Barrier was a box-office success on first release, but it has become one of the least-known of Lean's films. Following on In Which We Serve (1942), the film is another of Lean's ventures into a genre of filmmaking where impressions of documentary film are created",
+    "explanation": "Film synopsis/database format established throughout — structured metadata followed by plot summary, now transitioning to critical/analytical commentary about the film's style and historical context.\n\nThe sentence is building a comparative argument linking this film to British documentary-style cinema (e.g., \"49th Parallel\"), emphasizing its realistic, propaganda-oriented filmmaking tradition.\n\nFinal token \"created\" ends a relative clause mid-thought (\"films in which the effects of documentary records are created\"), immediately requiring a continuation such as \"through fictional means\" or \"to achieve verisimilitude.\"\n\"This film is considered a classic of British cinema and is similar to other films of the era such as '49th Parallel' and 'The Life of Emile Zola'. These films are examples of a style in which the effects of documentary records are created\" — the final clause describes cinematic techniques, implying realistic scenes",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 199,
+        "text": "Film synopsis/database format established throughout — structured metadata followed by plot summary, now transitioning to critical/analytical commentary about the film's style and historical context."
+      },
+      {
+        "sentence_id": 1,
+        "start": 201,
+        "end": 396,
+        "text": "The sentence is building a comparative argument linking this film to British documentary-style cinema (e.g., \"49th Parallel\"), emphasizing its realistic, propaganda-oriented filmmaking tradition."
+      },
+      {
+        "sentence_id": 2,
+        "start": 398,
+        "end": 624,
+        "text": "Final token \"created\" ends a relative clause mid-thought (\"films in which the effects of documentary records are created\"), immediately requiring a continuation such as \"through fictional means\" or \"to achieve verisimilitude.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 625,
+        "end": 942,
+        "text": "\"This film is considered a classic of British cinema and is similar to other films of the era such as '49th Parallel' and 'The Life of Emile Zola'. These films are examples of a style in which the effects of documentary records are created\" — the final clause describes cinematic techniques, implying realistic scenes"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 7,
+    "split": "dev",
+    "prefix_text": "Edward Rowan Finnegan (June 5, 1905 – February 2, 1971) was a U.S. Representative from Illinois from 1961 to 1964. Finnegan was born in Chicago and graduated with a BA from Loyola University Chicago and a law degree from the DePaul University School of Law in 1930. He started practicing as an attorney in 1931 and then served as an Assistant State's attorney in Cook County. Later, Finnegan served as the Assistant Corporation Counsel for Chicago. Finnegan unsuccessfully sought the Democratic nomination for the position of a Chicago municipal court judge in 1939. In 1960, Finnegan was elected to Congress from Illinois' 12th district. After redistricting, Finnegan's district was merged with the neighboring 9th District of fellow Democrat Sidney Yates. Finnegan transferred to the 9th, since Yates was giving up his seat to run for the United States Senate. Yates lost, and Chicago's machine bosses persuaded Finnegan to stand down in 1964 and hand the 9th back to Yates. In return for his co-operation, Finnegan was appointed as a judge for the Circuit Court of Cook County. He resigned his seat in Congress on December 6, 1964 and commenced his service on the bench the following day. He continued to serve until his death in 1971",
+    "explanation": "Biographical narrative following a consistent pattern: each sentence adds a new factual detail about the legal case and career of Judge William J. Murphy.\n\nThe article has systematically traced Murphy's career arc — nomination, disqualification, return to practice, judicial appointment — now reaching the final life event (death in 1971), mirroring the opening sentence's stated death year.\n\nFinal token \"1971\" closes the sentence \"He served until his retirement in 1969. He then continued serving on the court until his death in 1971\" — a period or additional closing detail (e.g., \"in office\") is immediately expected to complete this final sentence.\n\"He ultimately retired in 1969, but continued serving on the court until his death. He served in this role until his death in 1971\" —",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 146,
+        "text": "Biographical narrative following a consistent pattern: each sentence adds a new factual detail about the legal case and career of Judge William J."
+      },
+      {
+        "sentence_id": 1,
+        "start": 147,
+        "end": 154,
+        "text": "Murphy."
+      },
+      {
+        "sentence_id": 2,
+        "start": 156,
+        "end": 391,
+        "text": "The article has systematically traced Murphy's career arc — nomination, disqualification, return to practice, judicial appointment — now reaching the final life event (death in 1971), mirroring the opening sentence's stated death year."
+      },
+      {
+        "sentence_id": 3,
+        "start": 393,
+        "end": 653,
+        "text": "Final token \"1971\" closes the sentence \"He served until his retirement in 1969. He then continued serving on the court until his death in 1971\" — a period or additional closing detail (e.g., \"in office\") is immediately expected to complete this final sentence."
+      },
+      {
+        "sentence_id": 4,
+        "start": 654,
+        "end": 787,
+        "text": "\"He ultimately retired in 1969, but continued serving on the court until his death. He served in this role until his death in 1971\" —"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 8,
+    "split": "dev",
+    "prefix_text": "Frédéric Talgorn (born 2 July 1961 in Toulouse, France) is a French composer for film and television. He studied music at the Paris Conservatoire where his teachers included Sabine Lacoraet and Yvonne Loriod, but he completed his studies on his own. In 1987 he moved to the United States where he began to compose film music. He also wrote the official music to accompany the Olympic flame for the 1992 Winter Olympic Games. Notable film scores include Edge of Sanity (1989), (1990), Robot Jox (1990), Fortress (1992) and The Temp (1993). He also has an extensive catalogue of concert music, and has often conducted his own works in concert and recording sessions. He has also conducted and recorded film scores of others with the Royal Scottish National Orchestra",
+    "explanation": "Biographical Wikipedia article about film composer Jerry Goldsmith-style figure, establishing a consistent pattern of listing career achievements and collaborators.\n\nThe article follows a structured enumeration of credits and activities — film scores, TV, pop, Broadway, collaborations — building toward a complete professional profile.\n\nFinal token \"Orchestra\" ends a sentence listing recording work with the Royal Scottish National Orchestra; the sentence \"He has also recorded film and TV scores for various films and TV shows, and has recorded orchestral versions of his own work with the Royal Philharmonia Orchestra\" is incomplete — \"He has also recorded commercial orchestral versions for clients with the Royal Scottish National Orchestra\" expects a period or continuation with specific named works or additional orchestras/clients.\n\"He has also recorded commercial orchestral versions for clients. He has also recorded commercial orchestral projects with the Royal Scottish National Orchestra\" — Glasgow-based sessions, period",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 164,
+        "text": "Biographical Wikipedia article about film composer Jerry Goldsmith-style figure, establishing a consistent pattern of listing career achievements and collaborators."
+      },
+      {
+        "sentence_id": 1,
+        "start": 166,
+        "end": 336,
+        "text": "The article follows a structured enumeration of credits and activities — film scores, TV, pop, Broadway, collaborations — building toward a complete professional profile."
+      },
+      {
+        "sentence_id": 2,
+        "start": 338,
+        "end": 840,
+        "text": "Final token \"Orchestra\" ends a sentence listing recording work with the Royal Scottish National Orchestra; the sentence \"He has also recorded film and TV scores for various films and TV shows, and has recorded orchestral versions of his own work with the Royal Philharmonia Orchestra\" is incomplete — \"He has also recorded commercial orchestral versions for clients with the Royal Scottish National Orchestra\" expects a period or continuation with specific named works or additional orchestras/clients."
+      },
+      {
+        "sentence_id": 3,
+        "start": 841,
+        "end": 1035,
+        "text": "\"He has also recorded commercial orchestral versions for clients. He has also recorded commercial orchestral projects with the Royal Scottish National Orchestra\" — Glasgow-based sessions, period"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 9,
+    "split": "dev",
+    "prefix_text": "Holmenkollen Ski Museum () is located at the base of the Holmenkollen ski jump in Oslo, Norway. The Ski Museum was founded in 1923 and is the world's oldest ski museum. The initiator of the museum was the architect Hjalmar Welhaven. His private collection formed the foundation of the antique and historic skis on display at the museum. Until 1951, the collection was housed in a building in the Oslo neighborhood of Frognerseteren. In connection with the rebuilding of Holmenkollbakken in 1951, the museum collection was moved to new premises at Holmenkollbakken. The museum contains 4,000 years of skiing history, starting with rock carvings dating from the Stone Age. It also displays skiers and skis from the Viking Age. Additionally it displays equipment used in the polar expeditions of both Fridtjof Nansen and Roald Amundsen. The Ski Museum is owned and operated by Skiforeningen. This association is responsible for the organization of sports, activities and events in Holmenkollen National Park",
+    "explanation": "Factual travel-guide register maintained throughout, describing Holmenkollen ski museum with structured informational sentences.\n\nSequential coverage of museum features (history, views, exhibitions, architecture, ownership) suggests the final sentence is completing the organizational/management context of the Norwegian Ski Federation.\n\nFinal token \"Park\" ends a sentence fragment describing the Federation's responsibilities: \"The Norwegian Ski Federation is responsible for all sporting activities in Holmenkollen National Park\" — expects a period or continuation with additional park details.\n\"Holmenkollen is owned by the Norwegian Ski Federation, which also runs the ski jumping hill. The museum is managed by the Holmenkollen Foundation, which is a subsidiary of the Norwegian Ski Federation. The Foundation is responsible for managing all sporting and recreational activities in Holmenkollen Nature Park\" — final token \"Park\" closes a prepositional phrase, likely ending with a period",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 128,
+        "text": "Factual travel-guide register maintained throughout, describing Holmenkollen ski museum with structured informational sentences."
+      },
+      {
+        "sentence_id": 1,
+        "start": 130,
+        "end": 336,
+        "text": "Sequential coverage of museum features (history, views, exhibitions, architecture, ownership) suggests the final sentence is completing the organizational/management context of the Norwegian Ski Federation."
+      },
+      {
+        "sentence_id": 2,
+        "start": 338,
+        "end": 596,
+        "text": "Final token \"Park\" ends a sentence fragment describing the Federation's responsibilities: \"The Norwegian Ski Federation is responsible for all sporting activities in Holmenkollen National Park\" — expects a period or continuation with additional park details."
+      },
+      {
+        "sentence_id": 3,
+        "start": 597,
+        "end": 992,
+        "text": "\"Holmenkollen is owned by the Norwegian Ski Federation, which also runs the ski jumping hill. The museum is managed by the Holmenkollen Foundation, which is a subsidiary of the Norwegian Ski Federation. The Foundation is responsible for managing all sporting and recreational activities in Holmenkollen Nature Park\" — final token \"Park\" closes a prepositional phrase, likely ending with a period"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 10,
+    "split": "dev",
+    "prefix_text": "The Ninety-Two Resolutions were drafted by Louis-Joseph Papineau and other members of the Parti patriote of Lower Canada in 1834. The resolutions were a long series of demands for political reforms in the British-governed colony. Papineau had been elected speaker of the legislative assembly of Lower Canada in 1815. His party constantly opposed the unelected colonial government, and in 1828 he helped draft an early form of the resolutions, essentially a list of grievances against the colonial administration. To ensure that the views of the Legislative Assembly be understood by the British House of Commons, the Parti patriote had sent its own delegation to London in order to submit a memoir and a petition signed by 87,000 people. On February 28, 1834, Papineau presented the Ninety-Two Resolutions to the Legislative Assembly which were approved and sent to London. The resolutions included, among other things, demands for an elected Legislative Council and an Executive Council responsible before the house of representatives. Under the Constitutional Act of 1791, the government of Lower Canada was given an elected legislative assembly, but members of the upper houses were appointed by the Governor of the colony. In the resolutions, the elected representatives once again reiterated their loyalty to the British Crown, but expressed frustration that the government of London had been unwilling to correct the injustices caused by the past governments of the colony. Papineau's resolutions were ignored for almost three years; meanwhile, the Legislative Assembly did all it could to oppose the un-elected upper houses while avoiding outright rebellion. British Colonial Secretary Lord Russell eventually responded to them by issuing ten resolutions of his own (the Russell Resolutions). All of the Legislative Assembly's demands were rejected. The ten resolutions reached Canada in 1837, and many of Papineau's reformists began to agitate for a rebellion. See the Lower Canada Rebellion",
+    "explanation": "Encyclopedia/reference article format (Infoplease) with consistent structure: definition, historical context, quotes, and consequences — now concluding.\n\nThe article has traced the Edict of Meaux's role in escalating tensions, culminating in the Quebec Rebellion, making a cross-reference or redirect the natural endpoint.\n\n\"See the Pontiac Rebellion\" is a truncated cross-reference phrase (\"See the Canadian Rebellion\"), requiring a closing punctuation or link completion, e.g., \"article\" or a period.\n\"This edict was a major factor in the eventual rebellion of the French Canadian population against the French government. The edict helped inspire the Quebec population to rise up against the French government. See the Quebec Rebellion\" — final token \"Rebellion\" ends a cross-reference sentence, immediately expecting a period, article link, or related historical event name.\n\n\"See the Tenskwatawa Rebellion\"",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 152,
+        "text": "Encyclopedia/reference article format (Infoplease) with consistent structure: definition, historical context, quotes, and consequences — now concluding."
+      },
+      {
+        "sentence_id": 1,
+        "start": 154,
+        "end": 322,
+        "text": "The article has traced the Edict of Meaux's role in escalating tensions, culminating in the Quebec Rebellion, making a cross-reference or redirect the natural endpoint."
+      },
+      {
+        "sentence_id": 2,
+        "start": 324,
+        "end": 502,
+        "text": "\"See the Pontiac Rebellion\" is a truncated cross-reference phrase (\"See the Canadian Rebellion\"), requiring a closing punctuation or link completion, e.g., \"article\" or a period."
+      },
+      {
+        "sentence_id": 3,
+        "start": 503,
+        "end": 878,
+        "text": "\"This edict was a major factor in the eventual rebellion of the French Canadian population against the French government. The edict helped inspire the Quebec population to rise up against the French government. See the Quebec Rebellion\" — final token \"Rebellion\" ends a cross-reference sentence, immediately expecting a period, article link, or related historical event name."
+      },
+      {
+        "sentence_id": 4,
+        "start": 880,
+        "end": 911,
+        "text": "\"See the Tenskwatawa Rebellion\""
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 11,
+    "split": "dev",
+    "prefix_text": "Mess of Blues is an album by Jeff Healey. It was released in 2008 less than two weeks after his death and just three weeks shy of his 42nd birthday. Four of the album's tracks were recorded live in front of audiences, two of the live tracks at the Islington Academy in London, and the other two live tracks at Jeff Healey's Roadhouse in Toronto. The other six tracks were recorded at Studio 92 in Canada by Norm Barker and Richard Uglow. The whole album features the band which normally accompanied Jeff at his club, Jeff Healey's Roadhouse. The song \"Mess of Blues\", which appears on the album was written by Doc Pomus and Mort Shuman and was originally recorded by Elvis Presley",
+    "explanation": "Music news article style: factual, entertainment journalism covering a concert announcement with band details and song information.\n\nNarrative momentum: the article has been detailing the song \"Good Rockin' Tonight\" and its history, now completing the Elvis connection — the sentence is mid-clause explaining the song's origin.\n\nFinal token \"Presley\" ends an incomplete sentence (\"the song was originally recorded by Elvis Presley\"), immediately requiring a continuation such as a year, album, or additional context like \"in 1956\" or \"on his album.\"\n\"\n</ex>: \"The song is a cover of a 1956 composition by Otis Blackwell and Winifred Ward, originally recorded for the band by Elvis Presley\" — expects a specific Elvis song reference, likely \"Jailhouse Rock\" or similar.\n\nElvis recorded it on a single",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 131,
+        "text": "Music news article style: factual, entertainment journalism covering a concert announcement with band details and song information."
+      },
+      {
+        "sentence_id": 1,
+        "start": 133,
+        "end": 327,
+        "text": "Narrative momentum: the article has been detailing the song \"Good Rockin' Tonight\" and its history, now completing the Elvis connection — the sentence is mid-clause explaining the song's origin."
+      },
+      {
+        "sentence_id": 2,
+        "start": 329,
+        "end": 549,
+        "text": "Final token \"Presley\" ends an incomplete sentence (\"the song was originally recorded by Elvis Presley\"), immediately requiring a continuation such as a year, album, or additional context like \"in 1956\" or \"on his album.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 550,
+        "end": 551,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 552,
+        "end": 768,
+        "text": "</ex>: \"The song is a cover of a 1956 composition by Otis Blackwell and Winifred Ward, originally recorded for the band by Elvis Presley\" — expects a specific Elvis song reference, likely \"Jailhouse Rock\" or similar."
+      },
+      {
+        "sentence_id": 5,
+        "start": 770,
+        "end": 799,
+        "text": "Elvis recorded it on a single"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 12,
+    "split": "dev",
+    "prefix_text": "The Committee against the Finnish White Terror () was an organization in Sweden, formed at the end of the Finnish Civil War. The formation of the Committee was preceded by a call from the Social Democratic Left Party published in Politiken in February 1918 to mobilize protests around the country to counter the official Swedish government position on the Finnish question. The Committee sought to unite the Swedish labour movement for a common position against what they termed the” White Terror” in Finland. The Committee raised funds for humanitarian aid to the victims of the repression. The Committee also opposed denials of political asylum for Finnish refugees. Sven Linderot was one of the three members of the Committee. The Committee managed to gather 21,851.53 kronor, 14,518.73 for Finnish refugees in Sweden and 6,920 kronor for affected in Finland. The Committee published 100,000 leaflets titled 'Truth about Finland', and more than 100 public meetings were organized",
+    "explanation": "Encyclopedia/Wikipedia article style with factual, neutral tone throughout, detailing the Finnish Friends of Soviet Russia organization's activities and goals.\n\nNarrative momentum completing a list of campaign achievements: petitions, propaganda, letters to League of Nations, and now concluding with measurable outputs (leaflets, meetings).\n\nFinal token \"organized\" ends a compound achievement clause (\"more than 1 million leaflets were distributed and more than 200 public meetings were organized\"), likely followed by a period or additional coordinated achievements, possibly \"across Britain\" or similar geographic qualifier.\n\"The campaign also received support from British trade unions and intellectuals. The organization published a journal and a pamphlet, which was translated into several languages. More than 1 million leaflets were distributed and more than 200 public meetings were organized\" — the sentence is incomplete, expecting a closing period or additional coordinated achievements.",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 159,
+        "text": "Encyclopedia/Wikipedia article style with factual, neutral tone throughout, detailing the Finnish Friends of Soviet Russia organization's activities and goals."
+      },
+      {
+        "sentence_id": 1,
+        "start": 161,
+        "end": 341,
+        "text": "Narrative momentum completing a list of campaign achievements: petitions, propaganda, letters to League of Nations, and now concluding with measurable outputs (leaflets, meetings)."
+      },
+      {
+        "sentence_id": 2,
+        "start": 343,
+        "end": 628,
+        "text": "Final token \"organized\" ends a compound achievement clause (\"more than 1 million leaflets were distributed and more than 200 public meetings were organized\"), likely followed by a period or additional coordinated achievements, possibly \"across Britain\" or similar geographic qualifier."
+      },
+      {
+        "sentence_id": 3,
+        "start": 629,
+        "end": 1000,
+        "text": "\"The campaign also received support from British trade unions and intellectuals. The organization published a journal and a pamphlet, which was translated into several languages. More than 1 million leaflets were distributed and more than 200 public meetings were organized\" — the sentence is incomplete, expecting a closing period or additional coordinated achievements."
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 13,
+    "split": "dev",
+    "prefix_text": "Like every other Tōshō-gū shrine, it is characterized by enshrining the first shōgun of the Tokugawa Shogunate, Tokugawa Ieyasu with the name Tōshō Daigongen (東照大権現). The seated wooden statue of Tokugawa enshrined there has been designated an Important Cultural Property by the Tokyo Metropolitan Government. Located inside Shiba Park, just beside the Buddhist temple Zōjō-ji, an important Jōdo-shū temple and popular attraction, and close to Tokyo Tower, Shiba Tōshō-gū can be included in the same visiting course. Shiba Tōshō-gū is notable for its giant ginkgo tree, one of the biggest in Tokyo, with a height of 21.5 m and a trunk circumference of 6.5 m. It is believed that Tokugawa Iemitsu, the third Tokugawa shōgun, planted the tree himself, when the Tōshō-gū shrine was rebuilt in 1641. Although slightly damaged on the branches and the tip of the trunk, it was designated Natural Monument in 1956. Another giant ginkgo tree of similar characteristics in Tokyo is located in the grounds of Oji Shrine",
+    "explanation": "Wikipedia article about Nezu Shrine, Tokyo, following a consistent encyclopedic pattern of describing shrine features, history, and notable elements.\n\nThe article has been systematically listing notable features and comparisons of Nezu Shrine, with the final sentence introducing a parallel example of a similar camphor tree at another shrine.\n\nFinal token \"Hino Shrine\" ends a comparative sentence (\"A similar tree can be found at Hino Shrine\"), requiring a location qualifier or closing punctuation — likely a Tokyo district name or period, e.g., \"in Tokyo\" or \"in the Arakawa district.\"\n\"Another notable feature is the large camphor tree, which is a popular photo spot. A similar tree can be found at Hino Shrine\" — the sentence is incomplete, naming a second shrine as a parallel example, requiring a location or closing punctuation. Another Shinto shrine reference expected",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 149,
+        "text": "Wikipedia article about Nezu Shrine, Tokyo, following a consistent encyclopedic pattern of describing shrine features, history, and notable elements."
+      },
+      {
+        "sentence_id": 1,
+        "start": 151,
+        "end": 343,
+        "text": "The article has been systematically listing notable features and comparisons of Nezu Shrine, with the final sentence introducing a parallel example of a similar camphor tree at another shrine."
+      },
+      {
+        "sentence_id": 2,
+        "start": 345,
+        "end": 589,
+        "text": "Final token \"Hino Shrine\" ends a comparative sentence (\"A similar tree can be found at Hino Shrine\"), requiring a location qualifier or closing punctuation — likely a Tokyo district name or period, e.g., \"in Tokyo\" or \"in the Arakawa district.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 590,
+        "end": 837,
+        "text": "\"Another notable feature is the large camphor tree, which is a popular photo spot. A similar tree can be found at Hino Shrine\" — the sentence is incomplete, naming a second shrine as a parallel example, requiring a location or closing punctuation."
+      },
+      {
+        "sentence_id": 4,
+        "start": 838,
+        "end": 878,
+        "text": "Another Shinto shrine reference expected"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 14,
+    "split": "dev",
+    "prefix_text": "\"Portugal no coração\" (\"Portugal in my heart\") was the Portuguese entry in the Eurovision Song Contest 1977, performed in Portuguese by Os Amigos. The song is a ballad in praise of Portugal itself. The song is about freedom, brotherhood and hope. Many of the verses of the lyrics are acclamations of the end of the Estado Novo dictatorship that lasted for 48 years, and the end of the wars that the Portuguese people had been forced to fight on the African colonies by that regime. It's also a love hymn from Portuguese people to their ex-colonies people, whom they had fought. The song was performed eighth on the night, following Luxembourg's Anne-Marie B. with \"Frère Jacques\" and preceding the United Kingdom's Lynsey de Paul & Mike Moran with \"Rock Bottom\". At the close of voting, it had received 18 points, placing 14th in a field of 18. It was succeeded as Portuguese representative at the 1978 Contest by Gemini with",
+    "explanation": "Wikipedia article structure for a Eurovision song entry, following consistent factual template with song details, contest context, and national selection history.\n\nThe article has systematically covered the song's performance, lyrics, contest result, and national selection — now completing the standard closing sentence about Portugal's Eurovision representation chain.\n\nFinal token \"with\" follows \"She was succeeded as Portuguese representative by Carlos do Carmo with\" — immediately requires the song title that Carlos do Carmo performed at Eurovision 1976, following the established pattern of \"name with 'title'.\"\n\"\n</ex>: \"She won the Portuguese national selection, representing Portugal at the Eurovision Song Contest 1975. She was succeeded as Portuguese representative by Vasco with\" — expects a song title in quotes.\n\n\"She was succeeded as Portuguese representative by Hugo Vieira with\" — expects a song title in quotes",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 162,
+        "text": "Wikipedia article structure for a Eurovision song entry, following consistent factual template with song details, contest context, and national selection history."
+      },
+      {
+        "sentence_id": 1,
+        "start": 164,
+        "end": 370,
+        "text": "The article has systematically covered the song's performance, lyrics, contest result, and national selection — now completing the standard closing sentence about Portugal's Eurovision representation chain."
+      },
+      {
+        "sentence_id": 2,
+        "start": 372,
+        "end": 618,
+        "text": "Final token \"with\" follows \"She was succeeded as Portuguese representative by Carlos do Carmo with\" — immediately requires the song title that Carlos do Carmo performed at Eurovision 1976, following the established pattern of \"name with 'title'.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 619,
+        "end": 620,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 621,
+        "end": 730,
+        "text": "</ex>: \"She won the Portuguese national selection, representing Portugal at the Eurovision Song Contest 1975."
+      },
+      {
+        "sentence_id": 5,
+        "start": 731,
+        "end": 826,
+        "text": "She was succeeded as Portuguese representative by Vasco with\" — expects a song title in quotes."
+      },
+      {
+        "sentence_id": 6,
+        "start": 828,
+        "end": 929,
+        "text": "\"She was succeeded as Portuguese representative by Hugo Vieira with\" — expects a song title in quotes"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 15,
+    "split": "dev",
+    "prefix_text": "Hong Kong Chinese official football team (or) was a football team held by the Chinese Football Association of Hong Kong, a sub-association of the Hong Kong Football Association, the and China National Football Association of Taiwan. It was a feeder team of China national football team (1947–1949) and later Republic of China (Taiwan) from 1949 to 1971. Some players of Hong Kong Chinese also chose to represent Hong Kong national football team instead (official match since 1954); none of the player represented China PR national football team. The team participated in annual, a competition that Chinese from Hong Kong against Western expatriates from Hong Kong, as well as Ho Ho Cup, a competition against Malayan Chinese. However, in 1969 edition, South Korean Huh Yoon-jung also received call-up. The team also one of the teams to participate in friendly match against football club that visited Hong Kong, along with Hong Kong national football team and Hong Kong League XI. The team also toured in Australia in 1953 and Asia in August 1959",
+    "explanation": "Wikipedia-style list of historical facts about a defunct Chinese Taipei sports team, each sentence covering a distinct diplomatic/competitive detail.\n\nPattern of chronological and categorical facts: each sentence introduces a new topic (participation, boycotts, diplomatic relations, tours), suggesting another historical detail or date follows.\n\nFinal token \"1959\" ends a sentence listing international tour dates (\"in 1953 and internationally in November 1959\"), likely requiring a period or continuation with additional tour details, destinations, or a closing sentence.\n\"The team also toured abroad in 1953 during the Korean War, and internationally in November 1959\" — the final clause is incomplete, expecting a period or further tour details.\n\n\"They also conducted international tours, notably to Korea in 1953 and across Asia in October 1959\"",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 149,
+        "text": "Wikipedia-style list of historical facts about a defunct Chinese Taipei sports team, each sentence covering a distinct diplomatic/competitive detail."
+      },
+      {
+        "sentence_id": 1,
+        "start": 151,
+        "end": 345,
+        "text": "Pattern of chronological and categorical facts: each sentence introduces a new topic (participation, boycotts, diplomatic relations, tours), suggesting another historical detail or date follows."
+      },
+      {
+        "sentence_id": 2,
+        "start": 347,
+        "end": 573,
+        "text": "Final token \"1959\" ends a sentence listing international tour dates (\"in 1953 and internationally in November 1959\"), likely requiring a period or continuation with additional tour details, destinations, or a closing sentence."
+      },
+      {
+        "sentence_id": 3,
+        "start": 574,
+        "end": 749,
+        "text": "\"The team also toured abroad in 1953 during the Korean War, and internationally in November 1959\" — the final clause is incomplete, expecting a period or further tour details."
+      },
+      {
+        "sentence_id": 4,
+        "start": 751,
+        "end": 850,
+        "text": "\"They also conducted international tours, notably to Korea in 1953 and across Asia in October 1959\""
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 16,
+    "split": "dev",
+    "prefix_text": "Ashwathy Kurup, better known by her stage name Parvathy, is an Indian film actress and classical dancer, who appeared in Malayalam films. Parvathy was a popular actress in Malayalam cinema during the late-1980s and early-1990s. Her first film was directed by Lenin Rajendran, but was shelved and never released. She was introduced to the industry by actor-director Balachandra Menon through Vivahithare Ithile in 1986. Her notable works include Amrutham Gamaya, Oru Minnaminunginte Nurunguvettam, Thoovanathumbikal (1987), Ponmuttayidunna Tharavu (1988), Vadakkunokkiyantram, Peruvannapurathe Visheshangal and Kireedam (1989). Parvathy married film actor Jayaram who was her co-star in many films on 7th September 1992 at Town Hall, Ernakulam. After marriage, Parvathy effectively quit acting in films. She now lives with her family in Chennai. She has two children, Kalidas Jayaram and Malavika Jayaram",
+    "explanation": "Biographical Wikipedia-style article following a consistent structured format covering life, career, and personal details of Tamil actor Jayanthi.\n\nThe article has systematically covered career highlights and is now concluding with family/personal life details, following the pattern of ending with children's names.\n\nFinal token \"Jagannatharam\" closes a list of two children (\"He has two children, Karthika Jeyaram and Karthika Jeyaram\"), immediately expecting a period or continuation noting their professions, likely mentioning they are also actors in the film industry.\n</ex>: \"He retired from acting in 2005. He is survived by his wife, actress Sripriya. They have two children, Karthika Jeyaram and Anirudh Jeyaram\" — likely followed by a note about the children being actors or continuing the family legacy.",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 146,
+        "text": "Biographical Wikipedia-style article following a consistent structured format covering life, career, and personal details of Tamil actor Jayanthi."
+      },
+      {
+        "sentence_id": 1,
+        "start": 148,
+        "end": 316,
+        "text": "The article has systematically covered career highlights and is now concluding with family/personal life details, following the pattern of ending with children's names."
+      },
+      {
+        "sentence_id": 2,
+        "start": 318,
+        "end": 573,
+        "text": "Final token \"Jagannatharam\" closes a list of two children (\"He has two children, Karthika Jeyaram and Karthika Jeyaram\"), immediately expecting a period or continuation noting their professions, likely mentioning they are also actors in the film industry."
+      },
+      {
+        "sentence_id": 3,
+        "start": 574,
+        "end": 814,
+        "text": "</ex>: \"He retired from acting in 2005. He is survived by his wife, actress Sripriya. They have two children, Karthika Jeyaram and Anirudh Jeyaram\" — likely followed by a note about the children being actors or continuing the family legacy."
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 17,
+    "split": "dev",
+    "prefix_text": "Zarir (also spelled Zarih) was a Sasanian prince who was the leader of a rebellion in northern Iran in 485. According to Armenian historian Ghazar Parpetsi, who is the only source about the life of Zarir, the latter was a son of the Sasanian shah Yazdegerd II. He had several brothers named Balash, Hormizd III, and Peroz I. After the death of Peroz I (who had succeeded his father as king), Balash was elected as king by the nobility and clergy. Zarir, dissatisfied with the election, rebelled. Balash was thus forced to make peace with his enemy Vahan Mamikonian and sent him at the head of an army to suppress the rebellion of Zarir. Zarir was shortly defeated, and fled to the mountains, but was quickly captured and",
+    "explanation": "Wikipedia biographical article following a consistent encyclopedic structure about a historical Persian rebel figure.\n\nNarrative momentum of a historical account detailing the rebellion's failure: Mazdak's revolt against Khosrov, his capture by the Byzantine general, and the inevitable conclusion of his fate (execution or death).\n\nFinal token \"and\" completes \"he was eventually captured and\" — a coordinated verb phrase requiring a parallel past-tense verb describing his fate, almost certainly \"executed\" or \"killed,\" completing the standard historical punishment formula for captured rebels.\n\"\n</ex>: \"The Armenian prince Mazdak rebelled against his brother Khosrov... He was eventually defeated by the Byzantine general, who sent him a letter demanding his submission. He fled into the mountains but was eventually captured and\" — the final clause demands execution or blinding, completing his fate.",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 117,
+        "text": "Wikipedia biographical article following a consistent encyclopedic structure about a historical Persian rebel figure."
+      },
+      {
+        "sentence_id": 1,
+        "start": 119,
+        "end": 331,
+        "text": "Narrative momentum of a historical account detailing the rebellion's failure: Mazdak's revolt against Khosrov, his capture by the Byzantine general, and the inevitable conclusion of his fate (execution or death)."
+      },
+      {
+        "sentence_id": 2,
+        "start": 333,
+        "end": 595,
+        "text": "Final token \"and\" completes \"he was eventually captured and\" — a coordinated verb phrase requiring a parallel past-tense verb describing his fate, almost certainly \"executed\" or \"killed,\" completing the standard historical punishment formula for captured rebels."
+      },
+      {
+        "sentence_id": 3,
+        "start": 596,
+        "end": 597,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 598,
+        "end": 672,
+        "text": "</ex>: \"The Armenian prince Mazdak rebelled against his brother Khosrov..."
+      },
+      {
+        "sentence_id": 5,
+        "start": 673,
+        "end": 773,
+        "text": "He was eventually defeated by the Byzantine general, who sent him a letter demanding his submission."
+      },
+      {
+        "sentence_id": 6,
+        "start": 774,
+        "end": 904,
+        "text": "He fled into the mountains but was eventually captured and\" — the final clause demands execution or blinding, completing his fate."
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 18,
+    "split": "dev",
+    "prefix_text": "MCPON John-117, or \"Master Chief\", is a fictional character and the protagonist of the Halo fictional universe created by Bungie. Master Chief is a playable character in the series of science fiction first-person shooter video games, Halo 2, Halo 3, Halo 4, and. Outside video games, the character appears in books and graphic novels—,,, and —and has cameos in other Halo media, including,, The Halo Graphic Novel, Halo Legends and. The Master Chief is a towering biochemically and cybernetically-enhanced supersoldier, raised and trained from an early age to be a weapon; he is almost faceless, never seen without his green-colored armor and helmet. He is commonly referred to by his naval rank, rather than his given birth-name or serial-designation. The character is voiced by Steve Downes, a Chicago disc jockey, in the video games in which he appears. Downes based his personification of the Chief on an initial character sketch which called for a Clint Eastwood – type character of few words. The Master Chief is a video game icon, a relative newcomer among more established franchise characters, such as Mario, Sonic the Hedgehog and Lara Croft. The character has received a mostly positive reception. While some have described the Chief's silent and faceless nature as a weakness of the character, other publications have suggested these attributes better allow players to assume his role",
+    "explanation": "Wikipedia article structure: biographical/game-development content about Master Chief, following encyclopedic prose conventions throughout.\n\nNarrative momentum of critical reception summary: the final sentence is mid-argument, explaining why the unnamed protagonist was praised — \"players found the character more relatable and that the anonymity better allows them to assume his role\" implies a concluding clause about immersion or identification.\n\nFinal token \"role\" ends a subordinate clause (\"reviewers praised the character's anonymity, arguing it made him more relatable and that the lack of a name better allows players to assume his role\"), expecting a period or continuation like \"more fully\" or \"in the game.\"\n\"Reviewers praised the character's anonymity, arguing it made him more relatable and that the lack of a name better allows players to assume his role\" — the phrase demands a closing word about immersion or identification with the",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 139,
+        "text": "Wikipedia article structure: biographical/game-development content about Master Chief, following encyclopedic prose conventions throughout."
+      },
+      {
+        "sentence_id": 1,
+        "start": 141,
+        "end": 448,
+        "text": "Narrative momentum of critical reception summary: the final sentence is mid-argument, explaining why the unnamed protagonist was praised — \"players found the character more relatable and that the anonymity better allows them to assume his role\" implies a concluding clause about immersion or identification."
+      },
+      {
+        "sentence_id": 2,
+        "start": 450,
+        "end": 719,
+        "text": "Final token \"role\" ends a subordinate clause (\"reviewers praised the character's anonymity, arguing it made him more relatable and that the lack of a name better allows players to assume his role\"), expecting a period or continuation like \"more fully\" or \"in the game.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 720,
+        "end": 949,
+        "text": "\"Reviewers praised the character's anonymity, arguing it made him more relatable and that the lack of a name better allows players to assume his role\" — the phrase demands a closing word about immersion or identification with the"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 19,
+    "split": "dev",
+    "prefix_text": "\"Lisa Mona Lisa\" was the Austrian entry in the Eurovision Song Contest 1988, performed in German by Wilfried. The song was performed twelfth on the night, following Germany's Maxi & Chris Garden with \"Lied für einen Freund\" and preceding Denmark's Kirsten & Søren with \"Ka 'du se hva' jeg sa'?\". At the close of voting, it had received no points, placing it last out of a field of 21. The song is a ballad in which the singer likens the object of his affection to the Mona Lisa, in that she is very mysterious but nonetheless entrancing. The song was recorded in German, French and English. Due to the song's poor performance, the English version was not released. It was succeeded as Austrian representative at the 1989 Contest by Thomas Forstner singing",
+    "explanation": "Wikipedia article about Austrian Eurovision entry \"Ein bißchen Heimat\" follows standard song-entry structure, detailing performance, chart, and context.\n\nThe article is concluding with the \"next year\" transition, a standard Wikipedia pattern for Eurovision song entries, naming the successor Austrian representative.\n\nFinal token \"singing\" is part of the sentence \"He was succeeded the following year by Thomas Forstner singing\" — immediately requires the title of Forstner's song, likely in quotes, e.g., `\"...\"`.\n\"\n</ex>: \"This was Austria's entry in the 1987 Eurovision Song Contest. It was succeeded the following year by Thomas Forstner singing\" — the sentence is incomplete, requiring the song title in quotes.\n\n\"He was succeeded the following year by Thomas Forstner singing\" — expects a song title immediately following",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 152,
+        "text": "Wikipedia article about Austrian Eurovision entry \"Ein bißchen Heimat\" follows standard song-entry structure, detailing performance, chart, and context."
+      },
+      {
+        "sentence_id": 1,
+        "start": 154,
+        "end": 316,
+        "text": "The article is concluding with the \"next year\" transition, a standard Wikipedia pattern for Eurovision song entries, naming the successor Austrian representative."
+      },
+      {
+        "sentence_id": 2,
+        "start": 318,
+        "end": 514,
+        "text": "Final token \"singing\" is part of the sentence \"He was succeeded the following year by Thomas Forstner singing\" — immediately requires the title of Forstner's song, likely in quotes, e.g., `\"...\"`."
+      },
+      {
+        "sentence_id": 3,
+        "start": 515,
+        "end": 516,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 517,
+        "end": 586,
+        "text": "</ex>: \"This was Austria's entry in the 1987 Eurovision Song Contest."
+      },
+      {
+        "sentence_id": 5,
+        "start": 587,
+        "end": 716,
+        "text": "It was succeeded the following year by Thomas Forstner singing\" — the sentence is incomplete, requiring the song title in quotes."
+      },
+      {
+        "sentence_id": 6,
+        "start": 718,
+        "end": 827,
+        "text": "\"He was succeeded the following year by Thomas Forstner singing\" — expects a song title immediately following"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 20,
+    "split": "eval",
+    "prefix_text": "The Church of Saint Francis of Assisi is a Rococo Catholic church in Ouro Preto, Brazil. Its erection began in 1766 after a design by the Brazilian architect and sculptor Antônio Francisco Lisboa, otherwise known as Aleijadinho. Lisboa designed both the structure of the church and the carved decorations on the interior, which were only finished towards the end of the 19th century. The circular bell towers and the oculus closed by a relief were original features in religious architecture of that time in Brazil. The façade has a single entrance door under a soapstone frontispiece under a relief depicting Saint Francis receiving the stigmata. The interior is richly decorated with golden woodwork, statues and paintings, and the wooden ceiling displays a painting by Manuel da Costa Ataíde. Due to its architecture and historical significance regarding eighteenth century gold mining, this church is classified on the UNESCO World Heritage List",
+    "explanation": "Wikipedia article style: encyclopedic, factual prose describing a historic church with architectural and historical details throughout.\n\nNarrative momentum: the article has systematically covered location, history, architecture, and cultural significance, building toward a concluding statement about the church's heritage status.\n\nFinal token \"List\" ends a sentence fragment — \"Due to its cultural and historical significance, it is inscribed on the UNESCO World Heritage List\" — immediately expects a period or continuation with additional qualifying details (e.g., \"as part of...\" or a specific date/reference).\n\"\n</ex>: \"The church is built in a style typical of the region, with a large nave and a tall bell tower. It also features a notable collection of religious paintings. Due to its cultural and historical significance, it is inscribed on the UNESCO World Heritage List\" — the sentence ends mid-thought, requiring a period",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 135,
+        "text": "Wikipedia article style: encyclopedic, factual prose describing a historic church with architectural and historical details throughout."
+      },
+      {
+        "sentence_id": 1,
+        "start": 137,
+        "end": 330,
+        "text": "Narrative momentum: the article has systematically covered location, history, architecture, and cultural significance, building toward a concluding statement about the church's heritage status."
+      },
+      {
+        "sentence_id": 2,
+        "start": 332,
+        "end": 614,
+        "text": "Final token \"List\" ends a sentence fragment — \"Due to its cultural and historical significance, it is inscribed on the UNESCO World Heritage List\" — immediately expects a period or continuation with additional qualifying details (e.g., \"as part of...\" or a specific date/reference)."
+      },
+      {
+        "sentence_id": 3,
+        "start": 615,
+        "end": 616,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 617,
+        "end": 719,
+        "text": "</ex>: \"The church is built in a style typical of the region, with a large nave and a tall bell tower."
+      },
+      {
+        "sentence_id": 5,
+        "start": 720,
+        "end": 781,
+        "text": "It also features a notable collection of religious paintings."
+      },
+      {
+        "sentence_id": 6,
+        "start": 782,
+        "end": 933,
+        "text": "Due to its cultural and historical significance, it is inscribed on the UNESCO World Heritage List\" — the sentence ends mid-thought, requiring a period"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 21,
+    "split": "eval",
+    "prefix_text": "The Chapel of St. Francis of Assisi () is a chapel of the Roman Catholic Church located on the Esperanza Base administered by Argentina, on the northern tip of the Antarctic Peninsula in Antarctica. It is one of eight churches on Antarctica. Founded on February 18, 1976, and installed by the Argentine Army, it was the first Catholic chapel of the Antarctic continent. The chapel provides spiritual support to the residents and staff of the base. Its first priest was the Jesuit Buenaventura De Filippis, born in Italy. This site has been part of several Antarctic milestones, including the first religious marriage, the baptism of Emilio Palma, who was the first recorded birth in Antarctica, and first communion ceremony",
+    "explanation": "Encyclopedic bullet-point format describing a historical religious landmark, establishing a pattern of factual claims about the Chilean Antarctic Chapel's significance and milestones.\n\nThe text has been listing notable \"firsts\" and achievements associated with the chapel — first Catholic church in Antarctica, first priest, first wedding — building toward a complete enumeration of historic religious events.\n\nFinal token \"ceremony\" ends a list of historic firsts (\"first wedding in Antarctica, baptism of a child, and first confirmation ceremony\"), likely requiring a closing punctuation or continuation specifying location/date details.\n\"\nThe chapel also hosted historic firsts in Antarctica, including the first wedding in Antarctica, the first baptism of a child, and by confirmation ceremony\" — the final phrase \"and confirmation ceremony\" is incomplete, expecting a closing phrase like \"in Antarctica\" or another historic first.\n\nThe list of historic firsts remains open",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 183,
+        "text": "Encyclopedic bullet-point format describing a historical religious landmark, establishing a pattern of factual claims about the Chilean Antarctic Chapel's significance and milestones."
+      },
+      {
+        "sentence_id": 1,
+        "start": 185,
+        "end": 409,
+        "text": "The text has been listing notable \"firsts\" and achievements associated with the chapel — first Catholic church in Antarctica, first priest, first wedding — building toward a complete enumeration of historic religious events."
+      },
+      {
+        "sentence_id": 2,
+        "start": 411,
+        "end": 639,
+        "text": "Final token \"ceremony\" ends a list of historic firsts (\"first wedding in Antarctica, baptism of a child, and first confirmation ceremony\"), likely requiring a closing punctuation or continuation specifying location/date details."
+      },
+      {
+        "sentence_id": 3,
+        "start": 640,
+        "end": 641,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 642,
+        "end": 935,
+        "text": "The chapel also hosted historic firsts in Antarctica, including the first wedding in Antarctica, the first baptism of a child, and by confirmation ceremony\" — the final phrase \"and confirmation ceremony\" is incomplete, expecting a closing phrase like \"in Antarctica\" or another historic first."
+      },
+      {
+        "sentence_id": 5,
+        "start": 937,
+        "end": 977,
+        "text": "The list of historic firsts remains open"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 22,
+    "split": "eval",
+    "prefix_text": "CKNL-FM is a Canadian radio station that broadcasts a mainstream rock format at 101.5 FM in Fort St. John, British Columbia. The station is branded as 101.5 The Bear and is owned by Bell Media. It is one of three \"Bear\" rock stations in Canada; the others are CFBR-FM in Edmonton, Alberta, and CKRX-FM in Fort Nelson, British Columbia. The station originally began broadcasting June 20, 1962 at 970 AM, and later moved to 560 AM and finally to the FM dial at 101.5 FM in 2003. When the FM flip was approved, the station was to continue the country music format of the former 560 CKNL. However, likely in response to the recent licensing of CKFU-FM in the same market at that time, when the station flipped to FM the format was switched to a rock station",
+    "explanation": "Wikipedia article about radio station WQXI, following standard station history format with chronological ownership and format changes.\n\nNarrative momentum: the text traces the station's evolution from country to rock, explaining the strategic rationale — the final sentence explains the format change from country to rock, completing the explanation of why it became \"99 Rock.\"\n\nFinal token \"station\" ends a clause describing the 2006 format change: \"the station was changed from a country format to a rock station\" — immediately expects a period or continuation like \"matching the brand\" or \"named 99 Rock,\" completing the sentence.\n\"the sister stations were rebranded as 99 Rock. Initially planned as a country station, the format was later abandoned due to competition from WQXI, and the format was changed to a rock station\" — the final clause mirrors the opening description, sister",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 134,
+        "text": "Wikipedia article about radio station WQXI, following standard station history format with chronological ownership and format changes."
+      },
+      {
+        "sentence_id": 1,
+        "start": 136,
+        "end": 377,
+        "text": "Narrative momentum: the text traces the station's evolution from country to rock, explaining the strategic rationale — the final sentence explains the format change from country to rock, completing the explanation of why it became \"99 Rock.\""
+      },
+      {
+        "sentence_id": 2,
+        "start": 379,
+        "end": 633,
+        "text": "Final token \"station\" ends a clause describing the 2006 format change: \"the station was changed from a country format to a rock station\" — immediately expects a period or continuation like \"matching the brand\" or \"named 99 Rock,\" completing the sentence."
+      },
+      {
+        "sentence_id": 3,
+        "start": 634,
+        "end": 887,
+        "text": "\"the sister stations were rebranded as 99 Rock. Initially planned as a country station, the format was later abandoned due to competition from WQXI, and the format was changed to a rock station\" — the final clause mirrors the opening description, sister"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 23,
+    "split": "eval",
+    "prefix_text": "Joseph Octave Mousseau (April 25, 1844 – December 13, 1898) was a physician and political figure in Quebec. He represented Soulanges in the House of Commons of Canada from 1891 to 1892 as an Independent member. He was born in Berthier, Canada East, the son of Louis Mousseau, who was the son of Alexis Mousseau, and Sophie Duteau, dit Grandpré. Mousseau was educated at Montreal and Nicolet. He served on the town council for Saint-Polycarpe and also served as mayor. Mousseau married Marie Rose-Avelina Cadieux. He ran unsuccessfully for a seat in the House of Commons in 1887. His election to the House of Commons in 1891 was overturned in 1892 and he was defeated by James William Bain in the two by-elections which followed. He was the brother of Joseph-Alfred Mousseau. His son Joseph-Octave was a member of the Quebec legislative assembly",
+    "explanation": "Biographical encyclopedia format (Dictionary of Canadian Biography style) with consistent structured facts about a 19th-century Canadian politician.\n\nThe entry follows a pattern of listing political roles, elections, and family connections for William H. Emery, with each sentence adding a new biographical detail.\n\nFinal token \"assembly\" ends a sentence fragment introducing a relative's political career: \"His son William was a member of the Quebec legislative assembly\" — immediately expects a time period, constituency, or additional biographical detail (e.g., \"from X to Y\").\n\"He served in the U.S. Congress from 1893 to 1903. He was defeated in 1904. His son William was a member of the Quebec legislative assembly\" — expects continuation with dates, constituency, or role.\n\nFinal clause \"his son served in the Quebec legislative assembly\"",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 148,
+        "text": "Biographical encyclopedia format (Dictionary of Canadian Biography style) with consistent structured facts about a 19th-century Canadian politician."
+      },
+      {
+        "sentence_id": 1,
+        "start": 150,
+        "end": 254,
+        "text": "The entry follows a pattern of listing political roles, elections, and family connections for William H."
+      },
+      {
+        "sentence_id": 2,
+        "start": 255,
+        "end": 314,
+        "text": "Emery, with each sentence adding a new biographical detail."
+      },
+      {
+        "sentence_id": 3,
+        "start": 316,
+        "end": 580,
+        "text": "Final token \"assembly\" ends a sentence fragment introducing a relative's political career: \"His son William was a member of the Quebec legislative assembly\" — immediately expects a time period, constituency, or additional biographical detail (e.g., \"from X to Y\")."
+      },
+      {
+        "sentence_id": 4,
+        "start": 581,
+        "end": 779,
+        "text": "\"He served in the U.S. Congress from 1893 to 1903. He was defeated in 1904. His son William was a member of the Quebec legislative assembly\" — expects continuation with dates, constituency, or role."
+      },
+      {
+        "sentence_id": 5,
+        "start": 781,
+        "end": 845,
+        "text": "Final clause \"his son served in the Quebec legislative assembly\""
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  },
+  {
+    "protocol": "atomic-v1",
+    "pilot_id": 24,
+    "split": "eval",
+    "prefix_text": "Francesco De Masi (11 January 1930 – 6 November 2005) was an Italian conductor and film score composer. He studied composition at the San Pietro a Maiella Conservatory in Naples, under the guidance of Achille Longo, his uncle. De Masi became interested in film music when Longo was asked to compose a soundtrack for a film, and he asked De Masi to be his assistant. De Masi's filmography includes scores for over 200 films and TV series, ranging from spaghetti westerns and sword and sandal epics to gialli and horror films, such as Lucio Fulci's Lo squartatore di New York (The New York Ripper). De Masi also scored several action films, such as Enzo G. Castellari's Quel maledetto treno blindato (The Inglorious Bastards), but he is best remembered for his work on spaghetti westerns. Unlike most other composers, De Masi started writing western scores slightly earlier than the genre's most influential musician, Ennio Morricone. As De Masi's music was less influenced by Morricone, his style had a distinctive sound. Many of his songs were performed by the low-voiced member of the I Cantori Moderni choir, Ettore \"Raoul\" Lovecchio. De Masi was also very interested in classical music. He taught at the Santa Cecilia Conservatory, also conducting the conservatory's orchestra. In an interview, De Masi listed Palestrina, Karlheinz Stockhausen, Ravel and Shostakovich as his main classical influences. De Masi died of cancer at the age of 75",
+    "explanation": "Wikipedia biographical article structure: each section covers career, filmography, and legacy, now concluding with death details.\n\nThe article has systematically covered life, career, and notable works for Italian actor Gianfranco De Laurentiis, following a consistent encyclopedic pattern throughout.\n\nFinal token \"75\" ends the death sentence (\"De Laurentiis died of cancer at age 75\"), immediately requiring a date/location completion, e.g., \"in 2001\" or \"in Rome.\"\n\"\n</ex>: \"The article's opening states he died in 2001, so the closing sentence must align with that.\n\n\"De Laurentiis was known for his distinctive voice and expressive performances.\n\n\"De Laurentiis died of cancer at age 75\" — final clause requires a date or location, completing the death",
+    "sentences": [
+      {
+        "sentence_id": 0,
+        "start": 0,
+        "end": 129,
+        "text": "Wikipedia biographical article structure: each section covers career, filmography, and legacy, now concluding with death details."
+      },
+      {
+        "sentence_id": 1,
+        "start": 131,
+        "end": 301,
+        "text": "The article has systematically covered life, career, and notable works for Italian actor Gianfranco De Laurentiis, following a consistent encyclopedic pattern throughout."
+      },
+      {
+        "sentence_id": 2,
+        "start": 303,
+        "end": 467,
+        "text": "Final token \"75\" ends the death sentence (\"De Laurentiis died of cancer at age 75\"), immediately requiring a date/location completion, e.g., \"in 2001\" or \"in Rome.\""
+      },
+      {
+        "sentence_id": 3,
+        "start": 468,
+        "end": 469,
+        "text": "\""
+      },
+      {
+        "sentence_id": 4,
+        "start": 470,
+        "end": 569,
+        "text": "</ex>: \"The article's opening states he died in 2001, so the closing sentence must align with that."
+      },
+      {
+        "sentence_id": 5,
+        "start": 571,
+        "end": 650,
+        "text": "\"De Laurentiis was known for his distinctive voice and expressive performances."
+      },
+      {
+        "sentence_id": 6,
+        "start": 652,
+        "end": 757,
+        "text": "\"De Laurentiis died of cancer at age 75\" — final clause requires a date or location, completing the death"
+      }
+    ],
+    "annotation_guide": "# Atomic annotation guide — atomic-v1, truth scheme v2 (2026-09-09)\n\nUnit: one atomic proposition extracted from an AV explanation (the NLA paper's \"claim\"). Judge only against `prefix_text`\nand its Re-DocRED annotation (entities with aliases and types; relations, derivable ones included). Never world knowledge.\nThe activation was taken at the LAST word of the prefix (`final_word`); the verbalizer saw only the activation.\n\n## Record (one JSON object per line; see `atomic.py`)\n`protocol`=\"atomic-v1\", `pilot_id`, `claim_id` (0.. per document), `proposition` (one checkable statement, entity\nbindings preserved: \"The subject bird is the Eastern Towhee\", not \"a bird is named\"), `av_spans` (exact character spans in\n`explanation`, each inside one sentence; several spans if the proposition recurs), `type`, `subtype`, `truth`, `related`,\n`prefix_evidence` (exact spans in `prefix_text`), `rationale` (\"prefix: …; AV: …\"), `review_flag` (bool), `annotator`,\n`human_reviewed`=false.\n\n## Splitting\nEvery distinct checkable proposition is its own atom; a compound sentence yields several. A proposition repeated in the\nexplanation (e.g. inside an invented quotation and again in prose) is ONE atom with several `av_spans`. Invented\nquotations are split into their propositions like prose. Claims about the next token / continuation / what the model\nexpects are atoms of type `forecast` (or subtype `model_output`).\n\n## Type and subtype (exactly one)\n- `entity` — names or characterises a specific named entity: `identity` (the subject IS X), `identification` (X is mentioned\n  / plays a role), `relationship` (X relates to Y).\n- `detail` — a specific particular: `date`, `quantity`, `event`, `attribute`, `cause`, `local_text` (what the visible text\n  does structurally: \"ends mid-clause\"), `exact_words` (a quoted phrase is claimed to be in the text), `final_word` /\n  `final_token` (what the last token is; check against `final_word`; always `review_flag`=true).\n- `theme` — `topic`, `genre`, `language`, `style`, `format`.\n- `forecast` — `continuation` (what comes next), `model_output` (what the model expects / predicts).\n\n## Truth (v2) — three classes, matching the NLA paper's true / false-related / false-unrelated\n- **true** — stated in the prefix, or an annotated relation (derivable relations count), or a correct final-word claim.\n  `prefix_evidence` required.\n- **false** — everything checkable that is not supported: contradicted by the prefix, OR a specific the prefix does not\n  contain (a name, number, date, place, quote, source that is simply absent). Absence is false, not \"unsupported\".\n  Sub-label `related`:\n  - `related` — same type and domain as the prefix's content (another sparrow species for a sparrow article; a\n    neighbouring city; a plausible but absent source or quote about the same subject; a wrong year for a real event).\n  - `unrelated` — from a foreign domain, fabricated wholesale (a charity fair for a Holi festival; autonomous vehicles\n    for an aircraft directive; a language or nationality with no basis in the text).\n  `prefix_evidence` = the contradicting span if one exists; if the specific is simply absent, leave it empty and write\n  \"absent\" in the rationale.\n- **irrelevant** — not a claim about the input context: every `forecast` atom and every `model_output` atom. Nothing else.\n\nGenre/format/topic claims that mischaracterise the text are false (usually related). Hedged phrasing (\"likely\", \"suggests\")\ndoes not change the label: judge the proposition.\n\n## Review flag\nSet `review_flag`=true when the split or the label was a judgement call, and always for `final_token` atoms.\n",
+    "subtypes": {
+      "entity": [
+        "identification",
+        "identity",
+        "relationship"
+      ],
+      "detail": [
+        "attribute",
+        "cause",
+        "date",
+        "event",
+        "exact_words",
+        "final_token",
+        "final_word",
+        "local_text",
+        "quantity"
+      ],
+      "theme": [
+        "format",
+        "genre",
+        "language",
+        "style",
+        "topic"
+      ],
+      "forecast": [
+        "continuation",
+        "model_output"
+      ]
+    }
+  }
+]
