@@ -51,3 +51,6 @@ Final-token claims were checked literally against the Qwen2.5-7B-Instruct tokeni
 - `audit`='detail-audit-2026-09-10' stamped; 41 atoms had review_flag set for bundled disjunctions ('X or Y') or ambiguous subject bindings ('the AV's male subject'), noted in rationale, propositions not rewritten.
 - Forecast-like detail atoms flagged (type not changed): 37/10, 39/10, 39/12, 54/10.
 - Unresolved: 87/9 ('since 1984' attachment ambiguous; kept true, flagged).
+
+## Reviewer decision (2026-09-10)
+The 22 tokenizer-literal final_token relabels above are reverted: truth false->true, related related->NA, false_basis contradicted->NA. Final-token claims are judged at word level (claimed token == final_word), matching the prior annotator's rule; the actual tokenizer token stays recorded in each rationale. The 5 entailment corrections (47/7, 71/1, 70/13, 76/8, 82/8) stand. Net transitions: true->false 5.
