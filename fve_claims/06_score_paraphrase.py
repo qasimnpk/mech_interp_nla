@@ -22,7 +22,7 @@ def main():
         for r in csv.DictReader(open(f)):
             base[(int(r["pilot_id"]), int(r["claim_id"]))] = r
 
-    rewrites = [json.loads(l) for i in range(0, 50) for l in open(HERE / f"tasks/04_rewrites_7b_doc{i:03d}.jsonl")]
+    rewrites = [json.loads(l) for i in range(0, 100) for l in open(HERE / f"tasks/04_rewrites_7b_doc{i:03d}.jsonl")]
     todo = [r for r in rewrites if r.get("light_text") and r.get("heavy_text")]
     S = settings("06", model="7b", n_candidates=len(rewrites), n_scored=len(todo), D=Ds,
                  formula="P_x = fve(z_x) - fve(z_del); P_avg = mean(P_orig, P_light, P_heavy)")
