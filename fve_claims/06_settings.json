@@ -1,0 +1,19 @@
+{
+  "step": "06",
+  "git": "ad699a9e8635ad6c975587063c77946d8af60043",
+  "argv": [
+    "06_score_paraphrase.py"
+  ],
+  "wall_start": "2026-09-10T12:15:52",
+  "model": "7b",
+  "n_candidates": 786,
+  "n_scored": 786,
+  "D": {
+    "released": 0.7335,
+    "local": 0.6207790640954212
+  },
+  "formula": "P_x = fve(z_x) - fve(z_del); P_avg = mean(P_orig, P_light, P_heavy)",
+  "n_written": 731,
+  "ar_forwards": 350,
+  "wall_end": "2026-09-10T12:17:34"
+}

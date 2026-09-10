@@ -1,0 +1,2040 @@
+{
+ "hashes": {
+  "dev_revised.json": "051ee1d057204a5d08ef5502beacdadf191245b5eaf0e29ec2c607cf002c016f",
+  "test_revised.json": "ea673b7ef91e16510d7eb88863d3903e47318dc5653ef361266f27ae3b84723c",
+  "rel_info.json": "5ecf4e5e55c179fc83a3a3d19baa01efffecb26ba5edc0b4ac5a54ddf61fe3de"
+ },
+ "seed": 20260909,
+ "max_tokens": 512,
+ "min_tokens": 50,
+ "extra_detok_rules": [
+  "curly quotes: “ ‘ behave like an opening \", ” ’ like a closing quote / apostrophe",
+  "standalone '-' (and '.-') token between two word tokens is joined tightly: 'ill - gotten' -> 'ill-gotten'",
+  "currency signs $ £ take no space after them: '$ 7 billion' -> '$7 billion'",
+  "the DocRED contraction token n't attaches to the preceding word: 'Ai n't' -> 'Ain't'",
+  "tokens starting with ' ('s, 'm, 'grom) attach to the preceding word; a standalone ' token is an opening quotation mark when it is paired with a later standalone ' in the same sentence (open/close alternate), otherwise it is a closing quote / plural possessive and attaches to the preceding word: \"known as ' kalamaki '\" -> \"known as 'kalamaki'\", \"Illinois ' 12th\" -> \"Illinois' 12th\"",
+  "tokens that are only whitespace (NBSP '\\xa0', ' ') are dropped; '\\xa0' inside a token becomes a space",
+  "en/em dashes (– —), '/', '&', '…' keep their spaces (left as in DocRED)"
+ ],
+ "funnel": {
+  "pool": 1000,
+  "pool_by_split": {
+   "dev": 500,
+   "test": 500
+  },
+  "after_min_tokens": 996,
+  "after_hole_pattern_exclusion": 987,
+  "after_fragment_exclusion": 955,
+  "after_min_entities": 954,
+  "after_min_relations": 951,
+  "fail_min_tokens_alone": 4,
+  "hole_pattern_alone": 9,
+  "fragment_alone": 32,
+  "hole_or_fragment": 41,
+  "hole_pattern_docs": [
+   [
+    "dev",
+    92,
+    "Regal Mountain",
+    "ell-Saint Elias National Park about east of Mount Bla"
+   ],
+   [
+    "dev",
+    248,
+    "Piton des Neiges",
+    "n Indian Ocean. It is located about east of Madagasca"
+   ],
+   [
+    "dev",
+    290,
+    "Roald",
+    "of the island Vigra. Roald is about north of the city "
+   ],
+   [
+    "test",
+    65,
+    "Cloughton",
+    "hire, England. It is situated approximately north of Scarborou"
+   ],
+   [
+    "test",
+    66,
+    "Beaverton, Oregon",
+    "te of Oregon. The city center is west of downtown "
+   ],
+   [
+    "test",
+    67,
+    "Gambier Island",
+    " about in size and is located about north of the Horse"
+   ],
+   [
+    "test",
+    163,
+    "Malolos",
+    "ovincial government. The city is north of Manila, t"
+   ],
+   [
+    "test",
+    181,
+    "Pettigrew State Park",
+    "e park's developed facilities are south of U.S. Rout"
+   ],
+   [
+    "test",
+    393,
+    "Shire of Murray",
+    "is located in the Peel Region about south of the Perth"
+   ]
+  ],
+  "fragment_docs": [
+   [
+    "dev",
+    53,
+    "Bohumín"
+   ],
+   [
+    "dev",
+    62,
+    "Anatoly Chubais"
+   ],
+   [
+    "dev",
+    84,
+    "Schizoanalysis"
+   ],
+   [
+    "dev",
+    124,
+    "Michael Giacchino"
+   ],
+   [
+    "dev",
+    128,
+    "Kurt Tucholsky"
+   ],
+   [
+    "dev",
+    129,
+    "Urgut"
+   ],
+   [
+    "dev",
+    151,
+    "Hélé Béji"
+   ],
+   [
+    "dev",
+    193,
+    "Goght"
+   ],
+   [
+    "dev",
+    221,
+    "Tomasz Bohdanowicz-Dworzecki"
+   ],
+   [
+    "dev",
+    276,
+    "Abbas Kiarostami"
+   ],
+   [
+    "dev",
+    280,
+    "Joyce Godenzi"
+   ],
+   [
+    "dev",
+    295,
+    "Liang Congjie"
+   ],
+   [
+    "dev",
+    355,
+    "Edmund Burke"
+   ],
+   [
+    "dev",
+    372,
+    "Han Lei"
+   ],
+   [
+    "dev",
+    394,
+    "Stanisław Tymiński"
+   ],
+   [
+    "dev",
+    454,
+    "Nikita Bogoslovsky"
+   ],
+   [
+    "dev",
+    460,
+    "Tyche"
+   ],
+   [
+    "dev",
+    482,
+    "Lampedusa"
+   ],
+   [
+    "test",
+    29,
+    "Boljoon"
+   ],
+   [
+    "test",
+    103,
+    "Mikheil Javakhishvili"
+   ],
+   [
+    "test",
+    136,
+    "Yuriy Lutsenko"
+   ],
+   [
+    "test",
+    184,
+    "Mykhaylo Fomenko"
+   ],
+   [
+    "test",
+    203,
+    "Henri de Boulainvilliers"
+   ],
+   [
+    "test",
+    243,
+    "Ooredoo"
+   ],
+   [
+    "test",
+    263,
+    "Michel Temer"
+   ],
+   [
+    "test",
+    310,
+    "Malo (saint)"
+   ],
+   [
+    "test",
+    369,
+    "Antioch"
+   ],
+   [
+    "test",
+    376,
+    "Queen of Housewives"
+   ],
+   [
+    "test",
+    424,
+    "Éamon Ó Cuív"
+   ],
+   [
+    "test",
+    453,
+    "Oleg Tinkov"
+   ],
+   [
+    "test",
+    461,
+    "Ljiljana Raičević"
+   ],
+   [
+    "test",
+    477,
+    "Mikhail Kogan"
+   ]
+  ],
+  "cut_moved_in_pool": 87,
+  "cut_moved_docs": [
+   [
+    "dev",
+    8,
+    "The Sacramento Bee",
+    "unclosed '(' opened at s4 t22 ('('); cut was after s4 t28 ('Fresno')"
+   ],
+   [
+    "dev",
+    26,
+    "Mark McNamara",
+    "unclosed '\"' opened at s1 t2 ('\"'); cut was after s5 t28 ('Alaska')"
+   ],
+   [
+    "dev",
+    30,
+    "Joseph in Islam",
+    "unclosed '(' opened at s10 t28 ('('); cut was after s10 t38 ('languages')"
+   ],
+   [
+    "dev",
+    43,
+    "Cry for Help",
+    "unclosed '(' opened at s9 t18 ('('); cut was after s9 t22 ('Talking')"
+   ],
+   [
+    "dev",
+    47,
+    "Velocifero",
+    "unclosed '\"' opened at s8 t13 ('\"'); cut was after s8 t14 ('Tomorrow')"
+   ],
+   [
+    "dev",
+    51,
+    "Christian worship",
+    "unclosed '(' opened at s12 t34 ('('); cut was after s12 t36 ('4:23'); unclosed '\"' opened at s12 t27 ('\"'); cut was after s12 t32 ('truth')"
+   ],
+   [
+    "dev",
+    77,
+    "Anthony Steel (actor)",
+    "unclosed '\"' opened at s2 t6 ('\"'); cut was after s2 t42 ('upon')"
+   ],
+   [
+    "dev",
+    84,
+    "Schizoanalysis",
+    "unclosed '\"' opened at s3 t23 ('\"'); cut was after s3 t51 ('heterogeneity')"
+   ],
+   [
+    "dev",
+    89,
+    "This Little Girl of Mine",
+    "unclosed '\"' opened at s5 t12 ('\"'); cut was after s5 t15 ('Girl')"
+   ],
+   [
+    "dev",
+    99,
+    "Young Wild Things Tour",
+    "unclosed '\"' opened at s12 t0 ('\"'); cut was after s12 t22 ('now'); unclosed '\"' opened at s10 t8 ('\"'); cut was after s11 t18 ('all')"
+   ],
+   [
+    "dev",
+    107,
+    "Ali Kuli Khan Khattak",
+    "unclosed '(' opened at s0 t4 ('('); cut was after s4 t39 ('staff')"
+   ],
+   [
+    "dev",
+    109,
+    "Gloria Estefan albums discography",
+    "unclosed '(' opened at s9 t19 ('('); cut was after s9 t27 ('copies')"
+   ],
+   [
+    "dev",
+    120,
+    "Ne crois pas",
+    "unclosed '\"' opened at s7 t31 ('\"'); cut was after s7 t37 ('peine')"
+   ],
+   [
+    "dev",
+    134,
+    "Shihlin Electric",
+    "unclosed '(' opened at s5 t34 ('('); cut was after s5 t38 ('Vietnam')"
+   ],
+   [
+    "dev",
+    136,
+    "Inner Life",
+    "unclosed '\"' opened at s3 t12 ('\"'); cut was after s3 t20 ('Round')"
+   ],
+   [
+    "dev",
+    137,
+    "Ahmet Kaya",
+    "unclosed '\"' opened at s8 t18 ('\"'); cut was after s8 t28 ('Kurdish')"
+   ],
+   [
+    "dev",
+    139,
+    "Susan Pharr",
+    "unclosed '\"' opened at s3 t23 ('\"'); cut was after s3 t44 ('Japanologists')"
+   ],
+   [
+    "dev",
+    143,
+    "Khooni Khanjar",
+    "unclosed '(' opened at s6 t26 ('('); cut was after s6 t27 ('1931')"
+   ],
+   [
+    "dev",
+    175,
+    "Torrejonian",
+    "unclosed '(' opened at s6 t15 ('('); cut was after s6 t16 ('approximate')"
+   ],
+   [
+    "dev",
+    239,
+    "Jerry Steiner",
+    "unclosed '\"' opened at s2 t4 ('\"'); cut was after s7 t12 ('Florida')"
+   ],
+   [
+    "dev",
+    260,
+    "Google Springboard",
+    "unclosed '(' opened at s4 t15 ('to(s'); cut was after s4 t15 ('to(s')"
+   ],
+   [
+    "dev",
+    263,
+    "Achilles Last Stand",
+    "unclosed '\"' opened at s6 t22 ('\"'); cut was after s6 t25 ('Heaven')"
+   ],
+   [
+    "dev",
+    264,
+    "Toyota Avalon",
+    "unclosed '(' opened at s9 t54 ('('); cut was after s9 t55 ('Scepter')"
+   ],
+   [
+    "dev",
+    271,
+    "National Executive Committee of the African National Congress",
+    "unclosed '\"' opened at s4 t6 ('\"'); cut was after s4 t21 ('1994')"
+   ],
+   [
+    "dev",
+    299,
+    "Ronald Leonard",
+    "unclosed '\"' opened at s12 t5 ('\"'); cut was after s12 t14 ('Island')"
+   ],
+   [
+    "dev",
+    305,
+    "Toulouse Business School",
+    "unclosed '\"' opened at s6 t38 ('\"'); cut was after s6 t42 ('Management')"
+   ],
+   [
+    "dev",
+    318,
+    "Christopher Franke",
+    "unclosed '(' opened at s11 t11 ('('); cut was after s11 t14 ('Wecker')"
+   ],
+   [
+    "dev",
+    344,
+    "Sappy Records",
+    "unclosed '\"' opened at s1 t14 ('\"'); cut was after s6 t5 ('summer')"
+   ],
+   [
+    "dev",
+    350,
+    "Memories (Elvis Presley song)",
+    "unclosed '\"' opened at s9 t24 ('\"'); cut was after s9 t36 ('period')"
+   ],
+   [
+    "dev",
+    352,
+    "Rock n Roll (Avril Lavigne song)",
+    "unclosed '\"' opened at s7 t31 ('\"'); cut was after s7 t35 ('roll')"
+   ],
+   [
+    "dev",
+    357,
+    "Aino (mythology)",
+    "unclosed '(' opened at s7 t13 ('('); cut was after s7 t15 ('tytti'); unclosed '\"' opened at s7 t8 ('\"'); cut was after s7 t11 ('daughter')"
+   ],
+   [
+    "dev",
+    358,
+    "Kiss Each Other Clean",
+    "unclosed '“' opened at s6 t17 ('“'); cut was after s8 t19 ('list'); unclosed '\"' opened at s4 t7 ('\"'); cut was after s6 t16 ('said')"
+   ],
+   [
+    "dev",
+    367,
+    "WUIS",
+    "unclosed '\"' opened at s8 t7 ('\"'); cut was after s8 t9 ('Illinois')"
+   ],
+   [
+    "dev",
+    372,
+    "Han Lei",
+    "unclosed '(' opened at s7 t16 ('('); cut was after s7 t18 ('2')"
+   ],
+   [
+    "dev",
+    374,
+    "General Lavalle",
+    "unclosed '(' opened at s2 t6 ('('); cut was after s5 t29 ('sea')"
+   ],
+   [
+    "dev",
+    376,
+    "Eleonora Vallone",
+    "unclosed '\"' opened at s5 t16 ('\"'); cut was after s5 t17 ('GymSwim')"
+   ],
+   [
+    "dev",
+    379,
+    "Lookin Ass",
+    "unclosed '\"' opened at s7 t20 ('\"'); cut was after s7 t21 ('Trophies')"
+   ],
+   [
+    "dev",
+    388,
+    "Fatih Terim",
+    "unclosed '\"' opened at s7 t3 ('\"'); cut was after s7 t4 ('emperor')"
+   ],
+   [
+    "dev",
+    391,
+    "Elwood Buchanan",
+    "unclosed '\"' opened at s15 t7 ('\"'); cut was after s16 t15 ('time')"
+   ],
+   [
+    "dev",
+    393,
+    "Souvlaki",
+    "unclosed \"'\" opened at s6 t32 (\"'\"); cut was after s6 t33 ('reed'); unclosed \"'\" opened at s6 t28 (\"'\"); cut was after s6 t29 ('kalamaki')"
+   ],
+   [
+    "dev",
+    405,
+    "Ispendje",
+    "unclosed '\"' opened at s6 t16 ('\"'); cut was after s6 t17 ('pair')"
+   ],
+   [
+    "dev",
+    412,
+    "Lisa Mona Lisa",
+    "unclosed '\"' opened at s6 t14 ('\"'); cut was after s6 t17 ('Lied')"
+   ],
+   [
+    "dev",
+    416,
+    "Tudor Chirilă",
+    "unclosed '\"' opened at s8 t48 ('\"'); cut was after s8 t51 ('Awards'); unclosed '\"' opened at s8 t43 ('\"'); cut was after s8 t45 ('Culturii')"
+   ],
+   [
+    "dev",
+    419,
+    "Li Jiancheng",
+    "unclosed '(' opened at s0 t2 ('(;'); cut was after s6 t18 ('隐太子')"
+   ],
+   [
+    "dev",
+    454,
+    "Nikita Bogoslovsky",
+    "unclosed '(' opened at s2 t36 ('('); cut was after s2 t37 ('1946')"
+   ],
+   [
+    "dev",
+    455,
+    "Rachel Perry (artist)",
+    "unclosed '\"' opened at s1 t53 ('\"'); cut was after s3 t12 ('York')"
+   ],
+   [
+    "dev",
+    457,
+    "Miguel Hidalgo y Costilla",
+    "unclosed '(' opened at s0 t36 ('('); cut was after s7 t30 ('Bridge')"
+   ],
+   [
+    "dev",
+    458,
+    "Extraordinary Merry Christmas",
+    "unclosed '\"' opened at s9 t11 ('\"'); cut was after s9 t15 ('Sixteen')"
+   ],
+   [
+    "dev",
+    464,
+    "L'Oblat",
+    "unclosed '(' opened at s5 t28 ('('); cut was after s5 t36 ('Gethsemane')"
+   ],
+   [
+    "dev",
+    472,
+    "Ko Joo-yeon",
+    "unclosed '\"' opened at s2 t14 ('\"'); cut was after s2 t44 ('career')"
+   ],
+   [
+    "dev",
+    491,
+    "Baunilha e chocolate",
+    "unclosed '\"' opened at s5 t14 ('\"'); cut was after s5 t20 ('cor')"
+   ],
+   [
+    "test",
+    30,
+    "Amambanda",
+    "unclosed '\"' opened at s11 t14 ('\"'); cut was after s11 t19 ('World')"
+   ],
+   [
+    "test",
+    35,
+    "List of longest rivers of Canada",
+    "unclosed '\"' opened at s12 t8 ('\"'); cut was after s12 t46 ('figures')"
+   ],
+   [
+    "test",
+    44,
+    "Robert Taylor (computer scientist)",
+    "unclosed '\"' opened at s5 t10 ('\"'); cut was after s6 t15 ('geography')"
+   ],
+   [
+    "test",
+    49,
+    "Shneur Zalman of Liadi",
+    "unclosed '\"' opened at s3 t124 ('\"'); cut was after s3 t125 ('Rav')"
+   ],
+   [
+    "test",
+    52,
+    "Tuzantla",
+    "unclosed '\"' opened at s5 t13 ('\"'); cut was after s5 t18 ('abundant')"
+   ],
+   [
+    "test",
+    54,
+    "Conrad O. Johnson",
+    "unclosed '\"' opened at s10 t20 ('\"'); cut was after s10 t31 ('requested')"
+   ],
+   [
+    "test",
+    56,
+    "Operator Toll Dialing",
+    "unclosed '(' opened at s9 t22 ('('); cut was after s9 t23 ('STD')"
+   ],
+   [
+    "test",
+    61,
+    "Uhuru Gardens",
+    "unclosed '\"' opened at s9 t3 ('\"'); cut was after s9 t16 ('monument')"
+   ],
+   [
+    "test",
+    103,
+    "Mikheil Javakhishvili",
+    "unclosed '\"' opened at s3 t17 ('\"'); cut was after s4 t13 ('level')"
+   ],
+   [
+    "test",
+    111,
+    "Microserfs",
+    "unclosed '\"' opened at s5 t18 ('\"'); cut was after s5 t23 ('generation')"
+   ],
+   [
+    "test",
+    113,
+    "Asus VivoTab",
+    "unclosed '(' opened at s6 t16 ('('); cut was after s6 t18 ('GB')"
+   ],
+   [
+    "test",
+    114,
+    "In the Mood",
+    "unclosed '\"' opened at s6 t27 ('\"'); cut was after s6 t34 ('significant')"
+   ],
+   [
+    "test",
+    139,
+    "Walter Krüger (SS general)",
+    "unclosed '(' opened at s6 t7 ('('); cut was after s7 t11 ('Pocket')"
+   ],
+   [
+    "test",
+    145,
+    "The Murders in the Rue Morgue",
+    "unclosed '\"' opened at s7 t12 ('\"'); cut was after s7 t15 ('Letter')"
+   ],
+   [
+    "test",
+    147,
+    "American Theocracy",
+    "unclosed '\"' opened at s11 t14 ('\"'); cut was after s11 t18 ('Majority')"
+   ],
+   [
+    "test",
+    162,
+    "I Think We're Alone Now",
+    "unclosed '(' opened at s4 t22 ('('); cut was after s4 t27 ('2006')"
+   ],
+   [
+    "test",
+    172,
+    "The Fortunate Pilgrim",
+    "unclosed '\"' opened at s4 t19 ('\"'); cut was after s6 t34 ('Godfather')"
+   ],
+   [
+    "test",
+    223,
+    "IBM Research – Brazil",
+    "unclosed '\"' opened at s5 t17 ('\"'); cut was after s9 t6 ('cities')"
+   ],
+   [
+    "test",
+    226,
+    "Milton Friedman Institute for Research in Economics",
+    "unclosed '\"' opened at s10 t78 ('\"'); cut was after s11 t26 ('Economics'); unclosed \"'\" opened at s10 t73 (\"'\"); cut was after s10 t76 ('society')"
+   ],
+   [
+    "test",
+    236,
+    "Ko Chang-seok",
+    "unclosed '(' opened at s4 t19 ('('); cut was after s4 t20 ('2011')"
+   ],
+   [
+    "test",
+    241,
+    "UNESCO Confucius Prize for Literacy",
+    "unclosed '(' opened at s6 t24 ('('); cut was after s6 t26 ('September')"
+   ],
+   [
+    "test",
+    271,
+    "Treaty of Edinburgh–Northampton",
+    "unclosed '(' opened at s7 t15 ('('); cut was after s7 t18 ('1286')"
+   ],
+   [
+    "test",
+    284,
+    "The Archbishop",
+    "unclosed '\"' opened at s7 t20 ('\"'); cut was after s7 t21 ('Money')"
+   ],
+   [
+    "test",
+    291,
+    "Ramblin' on My Mind",
+    "unclosed '(' opened at s8 t13 ('('); cut was after s8 t14 ('1979')"
+   ],
+   [
+    "test",
+    310,
+    "Malo (saint)",
+    "unclosed '\"' opened at s9 t26 ('\"'); cut was after s9 t31 ('beautiful'); unclosed '(' opened at s9 t22 ('('); cut was after s9 t24 ('loh')"
+   ],
+   [
+    "test",
+    319,
+    "Klassics with a &quot;K&quot;",
+    "unclosed '\"' opened at s1 t8 ('\"'); cut was after s5 t27 ('room')"
+   ],
+   [
+    "test",
+    337,
+    "George Nostrand",
+    "unclosed '\"' opened at s1 t2 ('\"'); cut was after s4 t15 ('game')"
+   ],
+   [
+    "test",
+    366,
+    "List of United States Armed Forces unit mottoes",
+    "unclosed '\"' opened at s6 t43 ('\"'); cut was after s6 t78 ('them')"
+   ],
+   [
+    "test",
+    372,
+    "María de Buenos Aires",
+    "unclosed '(' opened at s11 t9 ('('); cut was after s11 t20 ('sings')"
+   ],
+   [
+    "test",
+    379,
+    "Ire Works",
+    "unclosed '(' opened at s7 t25 ('('); cut was after s7 t29 ('Hunter')"
+   ],
+   [
+    "test",
+    386,
+    "Bill Warner (writer)",
+    "unclosed '\"' opened at s6 t13 ('\"'); cut was after s6 t29 ('life')"
+   ],
+   [
+    "test",
+    400,
+    "Mohammed Abdel Wahab",
+    "unclosed '\"' opened at s3 t90 ('\"'); cut was after s3 t93 ('Beladi'); unclosed '\"' opened at s3 t82 ('\"'); cut was after s3 t87 ('Horria'); unclosed '\"' opened at s3 t75 ('\"'); cut was after s3 t79 ('Gamaheer'); unclosed '\"' opened at s3 t66 ('\"'); cut was after s3 t72 ('Alyi'); unclosed '\"' opened at s3 t60 ('\"'); cut was after s3 t63 ('Masr'); unclosed '\"' opened at s3 t51 ('\"'); cut was after s3 t57 ('nedaa'); unclosed '\"' opened at s3 t43 ('\"'); cut was after s3 t48 ('Falah'); unclosed '\"' opened at s3 t34 ('\"'); cut was after s3 t40 ('Hanna')"
+   ],
+   [
+    "test",
+    406,
+    "Arcadia (band)",
+    "unclosed '(' opened at s4 t17 ('('); cut was after s4 t24 ('Shepherds')"
+   ],
+   [
+    "test",
+    408,
+    "List of composers of Caribbean descent",
+    "unclosed '(' opened at s13 t6 ('('); cut was after s13 t9 ('1984')"
+   ],
+   [
+    "test",
+    410,
+    "Portugal no coração",
+    "unclosed '\"' opened at s7 t13 ('\"'); cut was after s7 t16 ('dou')"
+   ],
+   [
+    "test",
+    493,
+    "Zarir",
+    "unclosed '\"' opened at s6 t16 ('\"'); cut was after s6 t21 ('animal')"
+   ]
+  ],
+  "fail_min_entities_alone": 1,
+  "fail_min_relations_alone": 4,
+  "truncated_in_pool": 10,
+  "qualifying_by_split": {
+   "dev": 475,
+   "test": 476
+  }
+ },
+ "pilot": {
+  "n_tokens_prefix": {
+   "n": 100,
+   "min": 127,
+   "p10": 176,
+   "p25": 199,
+   "median": 229,
+   "p75": 267,
+   "p90": 314,
+   "max": 502,
+   "mean": 242.41
+  },
+  "n_tokens_prefix_27b": {
+   "n": 100,
+   "min": 127,
+   "p10": 174,
+   "p25": 194,
+   "median": 223,
+   "p75": 266,
+   "p90": 314,
+   "max": 498,
+   "mean": 240.01
+  },
+  "n_tokens_full": {
+   "n": 100,
+   "min": 130,
+   "p10": 177,
+   "p25": 200,
+   "median": 230,
+   "p75": 270,
+   "p90": 321,
+   "max": 553,
+   "mean": 246.15
+  },
+  "n_sents_kept": {
+   "n": 100,
+   "min": 4,
+   "p10": 6,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 17,
+   "mean": 8.18
+  },
+  "n_sents_total": {
+   "n": 100,
+   "min": 4,
+   "p10": 6,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 17,
+   "mean": 8.23
+  },
+  "n_entities": {
+   "n": 100,
+   "min": 5,
+   "p10": 12,
+   "p25": 16,
+   "median": 20,
+   "p75": 23,
+   "p90": 26,
+   "max": 31,
+   "mean": 19.44
+  },
+  "n_relations": {
+   "n": 100,
+   "min": 5,
+   "p10": 13,
+   "p25": 21,
+   "median": 30,
+   "p75": 44,
+   "p90": 60,
+   "max": 78,
+   "mean": 33.48
+  },
+  "n_truncated": 2,
+  "n_cut_moved": 10,
+  "n_relations_stated": {
+   "n": 100,
+   "min": 0,
+   "p10": 3,
+   "p25": 7,
+   "median": 11,
+   "p75": 22,
+   "p90": 30,
+   "max": 47,
+   "mean": 14.97
+  },
+  "n_whole": 98,
+  "entity_types_total": {
+   "LOC": 595,
+   "MISC": 271,
+   "NUM": 117,
+   "ORG": 284,
+   "PER": 314,
+   "TIME": 363
+  },
+  "relation_names_top": [
+   [
+    "located in the administrative territorial entity",
+    851
+   ],
+   [
+    "country",
+    596
+   ],
+   [
+    "country of citizenship",
+    154
+   ],
+   [
+    "contains administrative territorial entity",
+    141
+   ],
+   [
+    "notable work",
+    109
+   ],
+   [
+    "has part",
+    86
+   ],
+   [
+    "part of",
+    80
+   ],
+   [
+    "applies to jurisdiction",
+    60
+   ],
+   [
+    "member of",
+    60
+   ],
+   [
+    "publication date",
+    56
+   ],
+   [
+    "sibling",
+    46
+   ],
+   [
+    "performer",
+    42
+   ],
+   [
+    "inception",
+    41
+   ],
+   [
+    "cast member",
+    39
+   ],
+   [
+    "country of origin",
+    37
+   ]
+  ],
+  "dropped_tail_counts": {
+   ".": 89,
+   " \"Dai li dou\".": 1,
+   " \"shot down like an animal\".": 1,
+   " \"Nur ein Lied\".": 1,
+   " \"emperor\".": 1,
+   "-to(s).": 1,
+   " \"The Erring Republican Majority.\"": 1,
+   "": 1,
+   ", \"Where the Wild Things Are is a great narrative.": 1,
+   " 'kalamaki', 'reed'.": 1,
+   ", \"that the wisest course is to regard data tables such as the present one as showing the general ranks of rivers, and not to place too much importance on minor (10–20%) differences in figures.\"": 1,
+   " \"Rav\".": 1
+  },
+  "final_word_ends_with_period": 1,
+  "relations_with_empty_evidence": 1851,
+  "relations_total": 3348
+ },
+ "pilot_by_split": {
+  "dev": {
+   "n_tokens_prefix": {
+    "n": 20,
+    "min": 156,
+    "p10": 174,
+    "p25": 190,
+    "median": 216,
+    "p75": 236,
+    "p90": 292,
+    "max": 402,
+    "mean": 227.7
+   },
+   "n_tokens_prefix_27b": {
+    "n": 20,
+    "min": 156,
+    "p10": 170,
+    "p25": 188,
+    "median": 216,
+    "p75": 236,
+    "p90": 291,
+    "max": 400,
+    "mean": 226.65
+   },
+   "n_tokens_full": {
+    "n": 20,
+    "min": 157,
+    "p10": 175,
+    "p25": 191,
+    "median": 217,
+    "p75": 237,
+    "p90": 293,
+    "max": 403,
+    "mean": 229.55
+   },
+   "n_sents_kept": {
+    "n": 20,
+    "min": 5,
+    "p10": 6,
+    "p25": 6,
+    "median": 7,
+    "p75": 10,
+    "p90": 12,
+    "max": 14,
+    "mean": 8.2
+   },
+   "n_sents_total": {
+    "n": 20,
+    "min": 5,
+    "p10": 6,
+    "p25": 6,
+    "median": 7,
+    "p75": 10,
+    "p90": 12,
+    "max": 14,
+    "mean": 8.2
+   },
+   "n_entities": {
+    "n": 20,
+    "min": 5,
+    "p10": 12,
+    "p25": 14,
+    "median": 20,
+    "p75": 22,
+    "p90": 25,
+    "max": 27,
+    "mean": 18.15
+   },
+   "n_relations": {
+    "n": 20,
+    "min": 8,
+    "p10": 13,
+    "p25": 19,
+    "median": 31,
+    "p75": 36,
+    "p90": 46,
+    "max": 57,
+    "mean": 29.55
+   },
+   "n_truncated": 0,
+   "n_cut_moved": 3,
+   "n_relations_stated": {
+    "n": 20,
+    "min": 0,
+    "p10": 6,
+    "p25": 8,
+    "median": 11,
+    "p75": 22,
+    "p90": 30,
+    "max": 34,
+    "mean": 15.3
+   },
+   "n_whole": 20,
+   "entity_types_total": {
+    "LOC": 105,
+    "MISC": 63,
+    "NUM": 22,
+    "ORG": 45,
+    "PER": 62,
+    "TIME": 66
+   },
+   "relation_names_top": [
+    [
+     "located in the administrative territorial entity",
+     142
+    ],
+    [
+     "country",
+     95
+    ],
+    [
+     "country of citizenship",
+     33
+    ],
+    [
+     "notable work",
+     26
+    ],
+    [
+     "sibling",
+     20
+    ],
+    [
+     "publication date",
+     19
+    ],
+    [
+     "applies to jurisdiction",
+     16
+    ],
+    [
+     "contains administrative territorial entity",
+     14
+    ],
+    [
+     "cast member",
+     14
+    ],
+    [
+     "has part",
+     13
+    ],
+    [
+     "performer",
+     13
+    ],
+    [
+     "participant of",
+     10
+    ],
+    [
+     "participant",
+     10
+    ],
+    [
+     "child",
+     9
+    ],
+    [
+     "part of",
+     8
+    ]
+   ],
+   "dropped_tail_counts": {
+    ".": 17,
+    " \"Dai li dou\".": 1,
+    " \"shot down like an animal\".": 1,
+    " \"Nur ein Lied\".": 1
+   },
+   "final_word_ends_with_period": 0,
+   "relations_with_empty_evidence": 285,
+   "relations_total": 591
+  },
+  "eval": {
+   "n_tokens_prefix": {
+    "n": 80,
+    "min": 127,
+    "p10": 177,
+    "p25": 199,
+    "median": 231,
+    "p75": 269,
+    "p90": 350,
+    "max": 502,
+    "mean": 246.09
+   },
+   "n_tokens_prefix_27b": {
+    "n": 80,
+    "min": 127,
+    "p10": 174,
+    "p25": 195,
+    "median": 230,
+    "p75": 267,
+    "p90": 346,
+    "max": 498,
+    "mean": 243.35
+   },
+   "n_tokens_full": {
+    "n": 80,
+    "min": 130,
+    "p10": 178,
+    "p25": 201,
+    "median": 232,
+    "p75": 271,
+    "p90": 351,
+    "max": 553,
+    "mean": 250.3
+   },
+   "n_sents_kept": {
+    "n": 80,
+    "min": 4,
+    "p10": 5,
+    "p25": 6,
+    "median": 8,
+    "p75": 9,
+    "p90": 11,
+    "max": 17,
+    "mean": 8.18
+   },
+   "n_sents_total": {
+    "n": 80,
+    "min": 4,
+    "p10": 5,
+    "p25": 6,
+    "median": 8,
+    "p75": 9,
+    "p90": 12,
+    "max": 17,
+    "mean": 8.24
+   },
+   "n_entities": {
+    "n": 80,
+    "min": 6,
+    "p10": 13,
+    "p25": 16,
+    "median": 20,
+    "p75": 23,
+    "p90": 27,
+    "max": 31,
+    "mean": 19.76
+   },
+   "n_relations": {
+    "n": 80,
+    "min": 5,
+    "p10": 13,
+    "p25": 21,
+    "median": 30,
+    "p75": 48,
+    "p90": 62,
+    "max": 78,
+    "mean": 34.46
+   },
+   "n_truncated": 2,
+   "n_cut_moved": 7,
+   "n_relations_stated": {
+    "n": 80,
+    "min": 0,
+    "p10": 2,
+    "p25": 7,
+    "median": 11,
+    "p75": 22,
+    "p90": 31,
+    "max": 47,
+    "mean": 14.89
+   },
+   "n_whole": 78,
+   "entity_types_total": {
+    "LOC": 490,
+    "MISC": 208,
+    "NUM": 95,
+    "ORG": 239,
+    "PER": 252,
+    "TIME": 297
+   },
+   "relation_names_top": [
+    [
+     "located in the administrative territorial entity",
+     709
+    ],
+    [
+     "country",
+     501
+    ],
+    [
+     "contains administrative territorial entity",
+     127
+    ],
+    [
+     "country of citizenship",
+     121
+    ],
+    [
+     "notable work",
+     83
+    ],
+    [
+     "has part",
+     73
+    ],
+    [
+     "part of",
+     72
+    ],
+    [
+     "member of",
+     53
+    ],
+    [
+     "applies to jurisdiction",
+     44
+    ],
+    [
+     "publication date",
+     37
+    ],
+    [
+     "record label",
+     37
+    ],
+    [
+     "inception",
+     34
+    ],
+    [
+     "country of origin",
+     33
+    ],
+    [
+     "continent",
+     31
+    ],
+    [
+     "date of birth",
+     31
+    ]
+   ],
+   "dropped_tail_counts": {
+    ".": 72,
+    " \"emperor\".": 1,
+    "-to(s).": 1,
+    " \"The Erring Republican Majority.\"": 1,
+    "": 1,
+    ", \"Where the Wild Things Are is a great narrative.": 1,
+    " 'kalamaki', 'reed'.": 1,
+    ", \"that the wisest course is to regard data tables such as the present one as showing the general ranks of rivers, and not to place too much importance on minor (10–20%) differences in figures.\"": 1,
+    " \"Rav\".": 1
+   },
+   "final_word_ends_with_period": 1,
+   "relations_with_empty_evidence": 1566,
+   "relations_total": 2757
+  }
+ },
+ "pool": {
+  "n_tokens_prefix": {
+   "n": 1000,
+   "min": 3,
+   "p10": 164,
+   "p25": 186,
+   "median": 223,
+   "p75": 270,
+   "p90": 342,
+   "max": 511,
+   "mean": 238.04
+  },
+  "n_tokens_prefix_27b": {
+   "n": 1000,
+   "min": 3,
+   "p10": 163,
+   "p25": 185,
+   "median": 221,
+   "p75": 266,
+   "p90": 338,
+   "max": 511,
+   "mean": 235.89
+  },
+  "n_tokens_full": {
+   "n": 1000,
+   "min": 130,
+   "p10": 169,
+   "p25": 189,
+   "median": 225,
+   "p75": 272,
+   "p90": 343,
+   "max": 635,
+   "mean": 242.71
+  },
+  "n_sents_kept": {
+   "n": 1000,
+   "min": 1,
+   "p10": 5,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 21,
+   "mean": 8
+  },
+  "n_sents_total": {
+   "n": 1000,
+   "min": 3,
+   "p10": 5,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 21,
+   "mean": 8.08
+  },
+  "n_entities": {
+   "n": 1000,
+   "min": 2,
+   "p10": 12,
+   "p25": 15,
+   "median": 19,
+   "p75": 23,
+   "p90": 27,
+   "max": 42,
+   "mean": 19.3
+  },
+  "n_relations": {
+   "n": 1000,
+   "min": 0,
+   "p10": 14,
+   "p25": 21,
+   "median": 31,
+   "p75": 45,
+   "p90": 59,
+   "max": 132,
+   "mean": 34.47
+  },
+  "n_truncated": 10,
+  "n_cut_moved": 87,
+  "n_relations_stated": {
+   "n": 1000,
+   "min": 0,
+   "p10": 4,
+   "p25": 8,
+   "median": 12,
+   "p75": 20,
+   "p90": 29,
+   "max": 82,
+   "mean": 14.91
+  },
+  "n_whole": 990,
+  "entity_types_total": {
+   "LOC": 5751,
+   "MISC": 3029,
+   "NUM": 1215,
+   "ORG": 2683,
+   "PER": 2998,
+   "TIME": 3623
+  },
+  "relation_names_top": [
+   [
+    "located in the administrative territorial entity",
+    7848
+   ],
+   [
+    "country",
+    5467
+   ],
+   [
+    "country of citizenship",
+    1591
+   ],
+   [
+    "contains administrative territorial entity",
+    1388
+   ],
+   [
+    "notable work",
+    1199
+   ],
+   [
+    "has part",
+    986
+   ],
+   [
+    "part of",
+    892
+   ],
+   [
+    "publication date",
+    637
+   ],
+   [
+    "performer",
+    610
+   ],
+   [
+    "member of",
+    573
+   ],
+   [
+    "participant of",
+    540
+   ],
+   [
+    "participant",
+    540
+   ],
+   [
+    "applies to jurisdiction",
+    483
+   ],
+   [
+    "country of origin",
+    455
+   ],
+   [
+    "cast member",
+    388
+   ]
+  ],
+  "dropped_tail_counts": {
+   ".": 890,
+   "": 13,
+   ":": 7,
+   " (*).": 2,
+   " (Sacramento, Modesto, and Fresno).": 1,
+   " \"power forward-center from the University of California, McNamara played in 8 NBA seasons from 1982 to 1985 and from 1986 to 1991.": 1,
+   " (originally in Persian but also dubbed in multiple other languages).": 1,
+   " (ex-Modern Talking).": 1,
+   " \"Tomorrow\".": 1,
+   " \"in spirit and in truth\" (John 4:23).": 1,
+   ", \"whenever a chunky dependable hero was required to portray grace under pressure in wartime or the concerns of a game warden in a remote corner of the empire, Steel was sure to be called upon.\"": 1,
+   " \"will work towards its complexification, its processual enrichment, towards the consistency of its virtual lines of bifurcation and differentiation, in short towards its ontological heterogeneity\".": 1,
+   " \"This Little Girl.\"": 1,
+   ", \"Where the Wild Things Are is a great narrative.": 1,
+   " (Urdu: على قلى خان; HI(M), is a retired Pakistani three-star rank general officer and former field commander of X Corps.": 1,
+   " (for sales in excess of 1 million copies).": 1,
+   " \"Amours mortes (tant de peine)\".": 1,
+   " (1 in Southern Vietnam).": 1,
+   " \"Knock Out (Let's Go Another Round)\".": 1,
+   " \"as a result of his declaration of him being Kurdish.": 1,
+   " \"contributed to promoting intellectual exchange between Japan and the United States of America, and to guiding and nurturing young Japanologists.\"": 1,
+   " (1931).": 1,
+   " (approximate).": 1,
+   " \"point guard was a basketball player for Butler University from 1937 to 1940.": 1,
+   "-to(s).": 1,
+   " \"Stairway to Heaven\".": 1,
+   " (Scepter).": 1,
+   " \"parliament elects the president from among its members, dominated by the ANC since 1994.\"": 1,
+   " \"one of the better cellists originally from Rhode Island\".": 1,
+   " \"Grandes Écoles de Management\".": 1,
+   " (with Konstantin Wecker).": 1,
+   " \"in 1993, which featured a track each by the members of Eric's Trip.": 1,
+   " \"hallmark of [Elvis'] later (fat Elvis) period\".": 1,
+   " \"save rock and roll\".": 1,
+   " \"the only daughter\" (aino tytti).": 1,
+   "\" has also been released, for free download, on Iron & Wine's website.": 1,
+   " \"NPR Illinois.\"": 1,
+   " (season 2).": 1,
+   " (.": 1,
+   " \"GymSwim\".": 1,
+   ", \"Trophies\".": 1,
+   " \"emperor\".": 1,
+   ": \"Mr. Buchanan was the biggest influence on my life up until then.": 1,
+   " 'kalamaki', 'reed'.": 1,
+   " \"pair\".": 1,
+   " \"Nur ein Lied\".": 1,
+   ", \"Cruciada Culturii\", \"Ioan Chirilă Awards\".": 1,
+   " (; 589 – July 2, 626, formally Crown Prince Yin (, literally, \"the hidden crown prince\"), nickname Pishamen (; Sanskrit: Vaiśravaṇa), was the first crown prince of the Chinese dynasty Tang Dynasty.": 1,
+   " (1946).": 1,
+   " \"not only grappl[es] with consumerism but [she is] just about swallowed whole by it.” Her work also considers themes of gender identity, narcissism, privacy and information overload.": 1,
+   " (, was a Mexican Roman Catholic priest and a leader of the Mexican War of Independence.": 1,
+   ", \"Hold On to Sixteen\".": 1,
+   " (one notable passage describes the Garden of Gethsemane).": 1,
+   ", \"[The cast's] acting thunder is stolen by the ridiculously pretty Ko Joo-yeon, another Korean child actress who we dearly hope continues her film career.\"": 1,
+   " \"O meu coração não tem cor\".": 1,
+   " \"On Top of the World\".": 1,
+   ", \"that the wisest course is to regard data tables such as the present one as showing the general ranks of rivers, and not to place too much importance on minor (10–20%) differences in figures.\"": 1,
+   ": \"The Internet is not about technology; it's about communication.": 1,
+   " \"Rav\".": 1,
+   " \"Place where gophers are abundant\".": 1,
+   " \"the greatest 92nd birthday gift that he could have ever requested.\"": 1,
+   " (STD).": 1,
+   " \"Twenty-Five years of Uhuru – peace, love and unity monument\".": 1,
+   ", \"his vivid story-telling, straight in medias res, his buoyant humour, subtle irony, and moral courage merit comparison with those of Stendhal, Guy de Maupassant, and Émile Zola.": 1,
+   " \"Microserfs for the Google generation\".": 1,
+   " (64 GB)": 1,
+   " \"culturally, historically, or aesthetically significant.\"": 1,
+   " (Latvian SS Corps.": 1,
+   " \"The Purloined Letter\".": 1,
+   " \"The Erring Republican Majority.\"": 1,
+   " (number 4 UK, 2006).": 1,
+   ": \"Whenever the Godfather opened his mouth, in my own mind I heard the voice of my mother.": 1,
+   ": \"The main area is related to natural resources management, involving oil and gas, mining and agricultural sectors.": 1,
+   " 'economy and society'\".": 1,
+   " (2011).": 1,
+   " (8 September).": 1,
+   " (1249-1286).": 1,
+   " \"Money\".": 1,
+   "' (1979).": 1,
+   " (or loh) \"brilliant, bright, beautiful\".": 1,
+   " \"single of the track Hey Cowboy, now only available through the GR2 Records website.": 1,
+   " \"(2.03 m) forward / center from High Point University (1941 – 1944) and the University of Wyoming (1944 – 1945), Nostrand played four seasons (1946–1950) in the National Basketball Association as a member of the Toronto Huskies, Cleveland Rebels, Providence Steamrollers, Boston Celtics, Tri-Cities Blackhawks, and Chicago Stags.": 1,
+   " \"Number of the Regiment is to be mark'd on the Colours, and such a Motto, as the Colonel may choose, in fixing upon which, the General advises a Consultation amongst them.\"": 1,
+   " (one of whom, the narrator, mainly speaks rather sings).": 1,
+   " (on \"Horse Hunter\").": 1,
+   ", \"as a belief that Islam should control society and politics, not simply personal religious life.\"": 1,
+   " \"Ya Masr tam El-Hanna\", \"Hay Ala El-Falah\", \"Masr Nadetna falbena El-nedaa\", \"Oulo le Masr\", \"Hob El-watan Fard Alyi\", \"Sout El-Gamaheer\", \"Ya Nessmet El-Horria\", \"Sawae'd men Beladi\".": 1,
+   " (also known as \"The Arcadian Shepherds\").": 1,
+   " (1915 – 1984)": 1,
+   " \"Dai li dou\".": 1,
+   ". \"\"": 1,
+   " \"shot down like an animal\".": 1
+  },
+  "final_word_ends_with_period": 3,
+  "relations_with_empty_evidence": 19565,
+  "relations_total": 34474
+ },
+ "qualifying": {
+  "n_tokens_prefix": {
+   "n": 951,
+   "min": 57,
+   "p10": 166,
+   "p25": 187,
+   "median": 224,
+   "p75": 269,
+   "p90": 341,
+   "max": 511,
+   "mean": 238.87
+  },
+  "n_tokens_prefix_27b": {
+   "n": 951,
+   "min": 53,
+   "p10": 164,
+   "p25": 186,
+   "median": 221,
+   "p75": 266,
+   "p90": 338,
+   "max": 511,
+   "mean": 236.72
+  },
+  "n_tokens_full": {
+   "n": 951,
+   "min": 130,
+   "p10": 170,
+   "p25": 190,
+   "median": 226,
+   "p75": 271,
+   "p90": 342,
+   "max": 588,
+   "mean": 242.54
+  },
+  "n_sents_kept": {
+   "n": 951,
+   "min": 1,
+   "p10": 5,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 19,
+   "mean": 8.03
+  },
+  "n_sents_total": {
+   "n": 951,
+   "min": 3,
+   "p10": 5,
+   "p25": 6,
+   "median": 8,
+   "p75": 9,
+   "p90": 12,
+   "max": 20,
+   "mean": 8.08
+  },
+  "n_entities": {
+   "n": 951,
+   "min": 4,
+   "p10": 12,
+   "p25": 15,
+   "median": 19,
+   "p75": 23,
+   "p90": 27,
+   "max": 42,
+   "mean": 19.4
+  },
+  "n_relations": {
+   "n": 951,
+   "min": 3,
+   "p10": 14,
+   "p25": 21,
+   "median": 32,
+   "p75": 45,
+   "p90": 59,
+   "max": 132,
+   "mean": 34.58
+  },
+  "n_truncated": 9,
+  "n_cut_moved": 77,
+  "n_relations_stated": {
+   "n": 951,
+   "min": 0,
+   "p10": 4,
+   "p25": 8,
+   "median": 12,
+   "p75": 20,
+   "p90": 29,
+   "max": 78,
+   "mean": 14.98
+  },
+  "n_whole": 942,
+  "entity_types_total": {
+   "LOC": 5461,
+   "MISC": 2909,
+   "NUM": 1157,
+   "ORG": 2593,
+   "PER": 2882,
+   "TIME": 3452
+  },
+  "relation_names_top": [
+   [
+    "located in the administrative territorial entity",
+    7399
+   ],
+   [
+    "country",
+    5186
+   ],
+   [
+    "country of citizenship",
+    1496
+   ],
+   [
+    "contains administrative territorial entity",
+    1291
+   ],
+   [
+    "notable work",
+    1148
+   ],
+   [
+    "has part",
+    956
+   ],
+   [
+    "part of",
+    862
+   ],
+   [
+    "publication date",
+    622
+   ],
+   [
+    "performer",
+    602
+   ],
+   [
+    "member of",
+    551
+   ],
+   [
+    "participant of",
+    535
+   ],
+   [
+    "participant",
+    535
+   ],
+   [
+    "applies to jurisdiction",
+    456
+   ],
+   [
+    "country of origin",
+    446
+   ],
+   [
+    "cast member",
+    381
+   ]
+  ],
+  "dropped_tail_counts": {
+   ".": 851,
+   "": 13,
+   ":": 7,
+   " (*).": 2,
+   " (Sacramento, Modesto, and Fresno).": 1,
+   " \"power forward-center from the University of California, McNamara played in 8 NBA seasons from 1982 to 1985 and from 1986 to 1991.": 1,
+   " (originally in Persian but also dubbed in multiple other languages).": 1,
+   " (ex-Modern Talking).": 1,
+   " \"Tomorrow\".": 1,
+   " \"in spirit and in truth\" (John 4:23).": 1,
+   ", \"whenever a chunky dependable hero was required to portray grace under pressure in wartime or the concerns of a game warden in a remote corner of the empire, Steel was sure to be called upon.\"": 1,
+   " \"This Little Girl.\"": 1,
+   ", \"Where the Wild Things Are is a great narrative.": 1,
+   " (for sales in excess of 1 million copies).": 1,
+   " \"Amours mortes (tant de peine)\".": 1,
+   " (1 in Southern Vietnam).": 1,
+   " \"Knock Out (Let's Go Another Round)\".": 1,
+   " \"as a result of his declaration of him being Kurdish.": 1,
+   " \"contributed to promoting intellectual exchange between Japan and the United States of America, and to guiding and nurturing young Japanologists.\"": 1,
+   " (1931).": 1,
+   " (approximate).": 1,
+   " \"point guard was a basketball player for Butler University from 1937 to 1940.": 1,
+   "-to(s).": 1,
+   " \"Stairway to Heaven\".": 1,
+   " (Scepter).": 1,
+   " \"parliament elects the president from among its members, dominated by the ANC since 1994.\"": 1,
+   " \"one of the better cellists originally from Rhode Island\".": 1,
+   " \"Grandes Écoles de Management\".": 1,
+   " (with Konstantin Wecker).": 1,
+   " \"in 1993, which featured a track each by the members of Eric's Trip.": 1,
+   " \"hallmark of [Elvis'] later (fat Elvis) period\".": 1,
+   " \"save rock and roll\".": 1,
+   " \"the only daughter\" (aino tytti).": 1,
+   "\" has also been released, for free download, on Iron & Wine's website.": 1,
+   " \"NPR Illinois.\"": 1,
+   " (.": 1,
+   " \"GymSwim\".": 1,
+   ", \"Trophies\".": 1,
+   " \"emperor\".": 1,
+   ": \"Mr. Buchanan was the biggest influence on my life up until then.": 1,
+   " 'kalamaki', 'reed'.": 1,
+   " \"pair\".": 1,
+   " \"Nur ein Lied\".": 1,
+   ", \"Cruciada Culturii\", \"Ioan Chirilă Awards\".": 1,
+   " (, was a Mexican Roman Catholic priest and a leader of the Mexican War of Independence.": 1,
+   ", \"Hold On to Sixteen\".": 1,
+   " (one notable passage describes the Garden of Gethsemane).": 1,
+   ", \"[The cast's] acting thunder is stolen by the ridiculously pretty Ko Joo-yeon, another Korean child actress who we dearly hope continues her film career.\"": 1,
+   " \"O meu coração não tem cor\".": 1,
+   " \"On Top of the World\".": 1,
+   ", \"that the wisest course is to regard data tables such as the present one as showing the general ranks of rivers, and not to place too much importance on minor (10–20%) differences in figures.\"": 1,
+   ": \"The Internet is not about technology; it's about communication.": 1,
+   " \"Rav\".": 1,
+   " \"Place where gophers are abundant\".": 1,
+   " \"the greatest 92nd birthday gift that he could have ever requested.\"": 1,
+   " (STD).": 1,
+   " \"Twenty-Five years of Uhuru – peace, love and unity monument\".": 1,
+   " \"Microserfs for the Google generation\".": 1,
+   " (64 GB)": 1,
+   " \"culturally, historically, or aesthetically significant.\"": 1,
+   " (Latvian SS Corps.": 1,
+   " \"The Purloined Letter\".": 1,
+   " \"The Erring Republican Majority.\"": 1,
+   " (number 4 UK, 2006).": 1,
+   ": \"Whenever the Godfather opened his mouth, in my own mind I heard the voice of my mother.": 1,
+   ": \"The main area is related to natural resources management, involving oil and gas, mining and agricultural sectors.": 1,
+   " 'economy and society'\".": 1,
+   " (2011).": 1,
+   " (8 September).": 1,
+   " (1249-1286).": 1,
+   " \"Money\".": 1,
+   "' (1979).": 1,
+   " \"Number of the Regiment is to be mark'd on the Colours, and such a Motto, as the Colonel may choose, in fixing upon which, the General advises a Consultation amongst them.\"": 1,
+   " (one of whom, the narrator, mainly speaks rather sings).": 1,
+   " (on \"Horse Hunter\").": 1,
+   ", \"as a belief that Islam should control society and politics, not simply personal religious life.\"": 1,
+   " \"Ya Masr tam El-Hanna\", \"Hay Ala El-Falah\", \"Masr Nadetna falbena El-nedaa\", \"Oulo le Masr\", \"Hob El-watan Fard Alyi\", \"Sout El-Gamaheer\", \"Ya Nessmet El-Horria\", \"Sawae'd men Beladi\".": 1,
+   " (also known as \"The Arcadian Shepherds\").": 1,
+   " (1915 – 1984)": 1,
+   " \"Dai li dou\".": 1,
+   ". \"\"": 1,
+   " \"shot down like an animal\".": 1
+  },
+  "final_word_ends_with_period": 3,
+  "relations_with_empty_evidence": 18640,
+  "relations_total": 32890
+ },
+ "detok_examples": [
+  {
+   "pilot_id": 72,
+   "title": "Leone Marucci",
+   "tokens": [
+    "Leone",
+    "Marucci",
+    "(",
+    "born",
+    "March",
+    "28",
+    ",",
+    "1973",
+    ",",
+    "Youngstown",
+    ",",
+    "Ohio",
+    ")",
+    "is",
+    "an",
+    "American",
+    "filmmaker",
+    ",",
+    "and",
+    "founder",
+    "of",
+    "Independent",
+    "Film",
+    "and",
+    "Media",
+    "company",
+    "Steelyard",
+    "Pictures",
+    "through",
+    "which",
+    "he",
+    "wrote",
+    ",",
+    "directed",
+    "and",
+    "produced",
+    "the",
+    "2012",
+    "film",
+    "The",
+    "Power",
+    "of",
+    "Few",
+    ",",
+    "which",
+    "featured",
+    "the",
+    "ensemble",
+    "cast",
+    "of",
+    "Christopher",
+    "Walken",
+    ",",
+    "Christian",
+    "Slater",
+    ",",
+    "Q'orianka",
+    "Kilcher",
+    ",",
+    "Anthony",
+    "Anderson",
+    ",",
+    "Jesse",
+    "Bradford",
+    ",",
+    "Moon",
+    "Bloodgood",
+    ",",
+    "Nicky",
+    "Whelan",
+    ",",
+    "Devon",
+    "Gearhart",
+    ",",
+    "Juvenile",
+    "and",
+    "others",
+    "."
+   ],
+   "space_joined": "Leone Marucci ( born March 28 , 1973 , Youngstown , Ohio ) is an American filmmaker , and founder of Independent Film and Media company Steelyard Pictures through which he wrote , directed and produced the 2012 film The Power of Few , which featured the ensemble cast of Christopher Walken , Christian Slater , Q'orianka Kilcher , Anthony Anderson , Jesse Bradford , Moon Bloodgood , Nicky Whelan , Devon Gearhart , Juvenile and others .",
+   "detokenized": "Leone Marucci (born March 28, 1973, Youngstown, Ohio) is an American filmmaker, and founder of Independent Film and Media company Steelyard Pictures through which he wrote, directed and produced the 2012 film The Power of Few, which featured the ensemble cast of Christopher Walken, Christian Slater, Q'orianka Kilcher, Anthony Anderson, Jesse Bradford, Moon Bloodgood, Nicky Whelan, Devon Gearhart, Juvenile and others."
+  },
+  {
+   "pilot_id": 36,
+   "title": "Guarenas Cathedral",
+   "tokens": [
+    "The",
+    "Our",
+    "Lady",
+    "of",
+    "Copacabana",
+    "Cathedral",
+    "(",
+    ")",
+    "or",
+    "simply",
+    "Cathedral",
+    "of",
+    "Guarenas",
+    ",",
+    "is",
+    "the",
+    "name",
+    "given",
+    "to",
+    "a",
+    "religious",
+    "building",
+    "belonging",
+    "to",
+    "the",
+    "Catholic",
+    "Church",
+    "and",
+    "is",
+    "located",
+    "at",
+    "Ambrosio",
+    "Plaza",
+    "Street",
+    "on",
+    "one",
+    "side",
+    "of",
+    "the",
+    "Bolívar",
+    "Square",
+    ",",
+    "in",
+    "the",
+    "city",
+    "of",
+    "Guarenas",
+    ",",
+    "a",
+    "city",
+    "in",
+    "the",
+    "municipality",
+    "Ambrosio",
+    "Plaza",
+    ",",
+    "Miranda",
+    "state",
+    ",",
+    "which",
+    "serves",
+    "as",
+    "a",
+    "\"",
+    "satellite",
+    "city",
+    "\"",
+    "of",
+    "Caracas",
+    ",",
+    "in",
+    "the",
+    "South",
+    "American",
+    "country",
+    "of",
+    "Venezuela",
+    "."
+   ],
+   "space_joined": "The Our Lady of Copacabana Cathedral ( ) or simply Cathedral of Guarenas , is the name given to a religious building belonging to the Catholic Church and is located at Ambrosio Plaza Street on one side of the Bolívar Square , in the city of Guarenas , a city in the municipality Ambrosio Plaza , Miranda state , which serves as a \" satellite city \" of Caracas , in the South American country of Venezuela .",
+   "detokenized": "The Our Lady of Copacabana Cathedral () or simply Cathedral of Guarenas, is the name given to a religious building belonging to the Catholic Church and is located at Ambrosio Plaza Street on one side of the Bolívar Square, in the city of Guarenas, a city in the municipality Ambrosio Plaza, Miranda state, which serves as a \"satellite city\" of Caracas, in the South American country of Venezuela."
+  },
+  {
+   "pilot_id": 98,
+   "title": "Hooshang Seyhoun",
+   "tokens": [
+    "Houshang",
+    "Seyhoun",
+    ",",
+    "(",
+    ")",
+    "(",
+    "August",
+    "22",
+    ",",
+    "1920",
+    "–",
+    "May",
+    "26",
+    ",",
+    "2014",
+    ")",
+    "was",
+    "an",
+    "Iranian",
+    "architect",
+    ",",
+    "sculptor",
+    ",",
+    "painter",
+    ",",
+    "scholar",
+    "and",
+    "professor",
+    "."
+   ],
+   "space_joined": "Houshang Seyhoun , ( ) ( August 22 , 1920 – May 26 , 2014 ) was an Iranian architect , sculptor , painter , scholar and professor .",
+   "detokenized": "Houshang Seyhoun, () (August 22, 1920 – May 26, 2014) was an Iranian architect, sculptor, painter, scholar and professor."
+  }
+ ],
+ "mention_surface_mismatches": [],
+ "odd_quote_sentences_in_pool": 52,
+ "tok27_available": true
+}

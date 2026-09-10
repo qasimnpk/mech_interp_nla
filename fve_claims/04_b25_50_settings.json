@@ -1,0 +1,30 @@
+{
+  "step": "04_b25_50",
+  "git": "ad699a9e8635ad6c975587063c77946d8af60043",
+  "argv": [
+    "04_score.py",
+    "--start",
+    "25",
+    "--end",
+    "50"
+  ],
+  "wall_start": "2026-09-10T11:35:25",
+  "model": "7b",
+  "doc_range": [
+    25,
+    50
+  ],
+  "D_released": 0.7335,
+  "D_local": 0.6207790640954212,
+  "fve": "1 - 2(1-cos)/D",
+  "n_rewrites": 357,
+  "n_rewrites_total": 383,
+  "n_excluded_nested": 26,
+  "deletion": "reviewed manual minimal edit per atomic claim (tasks/04_rewrites_7b_doc*.jsonl)",
+  "n_claims_scored": 357,
+  "n_docs": 25,
+  "ar_forwards": 382,
+  "fve_z_released_mean": 0.7195994716534717,
+  "fve_z_local_mean": 0.6686844008795952,
+  "wall_end": "2026-09-10T11:37:09"
+}

@@ -1,0 +1,101 @@
+pilot_id,split,title,n_tokens_prefix,n_tokens_prefix_27b,sents_kept/total,truncated,cut_moved,n_entities,n_relations,n_relations_stated,entity_types,final_word
+0,dev,Vesper sparrow,216,216,12/12,0,0,5,8,0,LOC:3 MISC:2,loss
+1,dev,"Clark Lake (Gogebic County, Michigan)",208,208,9/9,0,0,11,25,21,LOC:8 NUM:3,species
+2,dev,Kahului Airport,216,216,5/5,0,0,23,44,34,LOC:9 MISC:4 NUM:2 ORG:2 PER:1 TIME:5,facility
+3,dev,Wolfgang Thüne,174,170,7/7,0,0,15,12,6,LOC:4 MISC:2 NUM:1 ORG:1 PER:2 TIME:5,club
+4,dev,The Horn Blows at Midnight,226,226,6/6,0,0,14,21,10,LOC:2 MISC:4 PER:5 TIME:3,hit
+5,dev,Wayne Gretzky Drive,210,210,6/6,0,0,21,57,30,LOC:17 ORG:2 PER:1 TIME:1,Drive
+6,dev,The Sound Barrier,164,163,6/6,0,0,13,13,11,LOC:2 MISC:2 ORG:2 PER:5 TIME:2,created
+7,dev,Edward Rowan Finnegan,305,305,12/12,0,0,23,50,28,LOC:5 ORG:8 PER:2 TIME:8,1971
+8,dev,Frédéric Talgorn,190,188,7/7,0,0,21,29,22,LOC:4 MISC:6 ORG:2 PER:3 TIME:6,Orchestra
+9,dev,Holmenkollen Ski Museum,235,235,11/11,0,0,17,32,20,LOC:8 ORG:1 PER:3 TIME:5,Park
+10,dev,Ninety-Two Resolutions,402,400,14/14,0,0,25,46,10,LOC:4 MISC:4 NUM:2 ORG:6 PER:2 TIME:7,Rebellion
+11,dev,Mess of Blues (Jeff Healey album),156,156,6/6,0,0,20,18,5,LOC:3 MISC:2 NUM:3 ORG:3 PER:6 TIME:3,Presley
+12,dev,Committee against the Finnish White Terror,214,213,8/8,0,0,17,24,6,LOC:4 MISC:3 NUM:6 ORG:2 PER:1 TIME:1,organized
+13,dev,Shiba Tōshō-gū,269,267,6/6,0,0,22,13,7,LOC:10 MISC:2 NUM:2 ORG:3 PER:3 TIME:2,Shrine
+14,dev,Portugal no coração,220,218,8/8,0,1,20,31,16,LOC:5 MISC:7 NUM:1 ORG:1 PER:4 TIME:2,with
+15,dev,Hong Kong Chinese official football team,236,236,7/7,0,0,25,36,8,LOC:7 MISC:1 ORG:9 PER:1 TIME:7,1959
+16,dev,Parvathy Jayaram,262,258,10/10,0,0,27,42,30,LOC:4 MISC:9 NUM:1 PER:6 TIME:7,Jayaram
+17,dev,Zarir,180,180,7/7,0,1,12,35,25,LOC:2 MISC:1 PER:8 TIME:1,and
+18,dev,Master Chief (Halo),292,291,10/10,0,0,14,36,9,LOC:1 MISC:6 ORG:1 PER:6,role
+19,dev,Lisa Mona Lisa,179,177,7/7,0,1,18,19,8,LOC:3 MISC:8 NUM:1 ORG:2 PER:3 TIME:1,singing
+20,eval,Church of Saint Francis of Assisi (Ouro Preto),194,186,7/7,0,0,13,13,6,LOC:4 MISC:1 ORG:2 PER:3 TIME:3,List
+21,eval,Chapel of St. Francis of Assisi (Esperanza Base),150,147,6/6,0,0,14,30,18,LOC:7 NUM:1 ORG:3 PER:2 TIME:1,ceremony
+22,eval,CKNL-FM,204,204,6/6,0,0,19,58,40,LOC:7 MISC:1 NUM:4 ORG:5 TIME:2,station
+23,eval,Joseph Octave Mousseau,229,230,10/10,0,0,24,27,5,LOC:7 NUM:1 ORG:3 PER:8 TIME:5,assembly
+24,eval,Francesco De Masi,358,348,12/12,0,0,21,19,11,LOC:2 MISC:2 NUM:2 ORG:3 PER:10 TIME:2,75
+25,eval,Faliero coup,453,449,13/15,1,0,20,30,1,LOC:7 MISC:1 NUM:4 ORG:3 PER:4 TIME:1,rumors
+26,eval,Oakland/Troy Airport,223,221,7/7,0,0,18,38,29,LOC:11 MISC:1 NUM:1 ORG:2 TIME:3,field
+27,eval,Clandestine literature,502,498,13/14,1,0,27,13,3,LOC:9 MISC:9 PER:4 TIME:5,abroad
+28,eval,Santa Elena de Uairén,247,243,8/8,0,0,22,42,25,LOC:15 MISC:2 NUM:1 PER:2 TIME:2,Belém
+29,eval,National Integrated Ballistic Information Network,172,172,7/7,0,0,8,5,1,LOC:2 MISC:2 NUM:4,NIBIN
+30,eval,Eivind Bolle,248,246,9/9,0,0,26,36,14,LOC:4 NUM:2 ORG:6 PER:4 TIME:10,1974
+31,eval,The Longest Daycare,267,267,10/10,0,0,22,62,34,LOC:1 MISC:6 ORG:1 PER:10 TIME:4,Paperman
+32,eval,Demonstration (Tinie Tempah album),235,235,9/9,0,0,17,21,11,LOC:1 MISC:8 NUM:1 ORG:1 PER:3 TIME:3,2014
+33,eval,Alan Jones (radio broadcaster),190,190,9/9,0,0,13,27,11,LOC:4 MISC:1 ORG:2 PER:2 TIME:4,defamation
+34,eval,Cinema Verity,221,218,6/6,0,0,23,30,10,LOC:2 MISC:6 NUM:1 ORG:2 PER:3 TIME:9,2011
+35,eval,Frederick August Wenderoth,248,248,8/8,0,0,22,42,8,LOC:14 MISC:1 PER:4 TIME:3,tuberculosis
+36,eval,Guarenas Cathedral,265,262,8/8,0,0,24,62,19,LOC:13 MISC:1 ORG:1 PER:3 TIME:6,1583
+37,eval,Fatih Terim,235,234,8/8,0,1,21,18,6,LOC:6 MISC:2 NUM:2 ORG:5 PER:1 TIME:5,mean
+38,eval,Walter Newman (screenwriter),215,215,6/6,0,0,24,50,14,LOC:6 MISC:11 NUM:1 PER:2 TIME:4,1993
+39,eval,Google Springboard,127,127,5/5,0,1,12,26,3,MISC:12,how
+40,eval,James McLamore,230,223,8/8,0,0,22,22,9,LOC:3 NUM:1 ORG:6 PER:2 TIME:10,70
+41,eval,Hvidovre Municipality,253,244,9/9,0,0,21,50,16,LOC:13 MISC:1 NUM:3 ORG:2 PER:1 TIME:1,harbours
+42,eval,Pedro León Gallo,270,256,8/8,0,0,20,46,26,LOC:7 MISC:1 ORG:3 PER:4 TIME:5,died
+43,eval,Pantabangan–Carranglan Watershed Forest Reserve,187,181,5/5,0,0,14,36,22,LOC:13 NUM:1,Luzon
+44,eval,"I, Frankenstein",176,174,6/6,0,0,22,34,10,LOC:2 MISC:1 NUM:2 PER:14 TIME:3,million
+45,eval,Ellerbusch Site,158,156,5/5,0,0,6,12,8,LOC:5 NUM:1,century
+46,eval,Alice Bunker Stockham,354,354,9/9,0,0,18,22,5,LOC:7 MISC:2 NUM:1 PER:4 TIME:4,laws
+47,eval,Northern bald ibis,293,293,8/8,0,0,19,9,0,LOC:11 MISC:1 NUM:5 TIME:2,decades
+48,eval,El Tren de los Momentos,200,194,6/6,0,0,22,20,8,LOC:5 MISC:6 NUM:1 ORG:2 PER:6 TIME:2,Guerra
+49,eval,Aspren,296,286,6/6,0,0,21,22,2,LOC:6 MISC:1 ORG:4 PER:6 TIME:4,time
+50,eval,Independent Democratic Action,350,346,9/9,0,0,24,25,9,LOC:2 MISC:1 NUM:5 ORG:7 PER:3 TIME:6,Justice
+51,eval,Jefferson Madeira,236,221,4/4,0,0,25,66,35,LOC:4 MISC:4 ORG:6 PER:4 TIME:7,Recife
+52,eval,Młociny metro station,182,181,8/8,0,0,8,19,11,LOC:4 ORG:3 TIME:1,platform
+53,eval,Mono (software),281,281,8/8,0,0,23,21,5,MISC:16 ORG:5 TIME:2,monkey
+54,eval,American Theocracy,314,314,12/12,0,1,15,36,10,LOC:4 MISC:3 ORG:4 PER:2 TIME:2,called
+55,eval,Central Massachusetts,143,143,7/7,0,0,12,34,11,LOC:12,Mass.
+56,eval,Atlantic Charter,231,231,6/6,0,0,12,28,1,LOC:3 MISC:4 ORG:3 TIME:2,Charter
+57,eval,Little Mahantango Creek,247,244,9/9,0,0,15,37,31,LOC:8 MISC:7,creek
+58,eval,Europafilm,177,174,7/7,0,0,16,28,1,LOC:6 ORG:4 PER:3 TIME:3,categories
+59,eval,Joshua Cushman,266,266,9/9,0,0,29,60,41,LOC:7 ORG:10 PER:1 TIME:11,Augusta
+60,eval,Old Loggers Path,197,197,7/7,0,0,13,25,16,LOC:6 NUM:1 ORG:3 TIME:3,1941
+61,eval,Cambodia–Vietnam Friendship Monument,237,236,9/9,0,0,16,36,11,LOC:7 MISC:3 ORG:1 TIME:5,damage
+62,eval,Think Bike,453,453,16/16,0,0,19,20,14,LOC:9 MISC:3 NUM:3 PER:1 TIME:3,collision
+63,eval,Bicycles &amp; Tricycles,300,298,10/10,0,0,23,44,12,LOC:4 MISC:2 NUM:1 ORG:6 PER:8 TIME:2,music
+64,eval,University (album),243,243,8/8,0,0,20,55,39,LOC:1 MISC:5 NUM:1 ORG:5 PER:2 TIME:6,label
+65,eval,Barry University School of Podiatric Medicine,205,205,9/9,0,0,21,51,28,LOC:6 MISC:3 NUM:2 ORG:7 PER:1 TIME:2,DPM
+66,eval,Dollar General,189,188,7/7,0,0,26,63,47,LOC:9 MISC:1 NUM:5 ORG:4 PER:2 TIME:5,2017
+67,eval,Bloomberg L.P.,214,213,5/5,0,0,22,48,14,LOC:2 MISC:8 NUM:2 ORG:2 PER:6 TIME:2,it
+68,eval,Young Wild Things Tour,252,252,11/13,0,1,23,20,8,LOC:2 MISC:2 NUM:5 ORG:5 PER:3 TIME:6,explained
+69,eval,Appenzell (village),241,239,8/8,0,0,16,53,22,LOC:10 MISC:2 ORG:1 TIME:3,significance
+70,eval,Björn von der Esch,301,297,8/8,0,0,25,49,29,LOC:2 ORG:10 PER:2 TIME:11,Parliament
+71,eval,Horst Eidenmüller,283,281,8/8,0,0,31,33,10,LOC:4 MISC:1 ORG:13 PER:1 TIME:12,fields
+72,eval,Leone Marucci,211,211,5/5,0,0,24,24,22,LOC:3 MISC:3 ORG:4 PER:11 TIME:3,Endeavor
+73,eval,Each Time You Break My Heart,269,269,10/10,0,0,27,23,18,LOC:10 MISC:4 NUM:2 ORG:3 PER:5 TIME:3,States
+74,eval,"Albemarle County, Virginia",185,177,7/7,0,0,14,27,15,LOC:8 NUM:1 PER:2 TIME:3,county
+75,eval,Downy,220,220,9/9,0,0,27,8,2,LOC:16 MISC:2 ORG:2 PER:2 TIME:5,Advertising
+76,eval,The Catholic Catechism (Hardon),188,187,5/5,0,0,15,36,9,MISC:3 ORG:3 PER:5 TIME:4,imprimatur
+77,eval,Word to the Mutha!,197,195,6/6,0,0,17,43,9,LOC:4 MISC:5 NUM:2 ORG:3 PER:3,up
+78,eval,Berge Meere und Giganten,254,253,6/6,0,0,13,10,8,LOC:4 MISC:2 ORG:1 PER:1 TIME:5,year
+79,eval,Joseph Alexander Cooper,169,167,5/5,0,0,21,67,42,LOC:11 MISC:1 ORG:3 PER:2 TIME:4,life
+80,eval,Surf's Up (film),201,200,8/8,0,0,20,21,14,LOC:2 MISC:4 ORG:2 PER:9 TIME:3,2017
+81,eval,Souvlaki,199,196,7/7,0,1,9,9,5,LOC:4 MISC:5,as
+82,eval,List of longest rivers of Canada,352,350,13/13,0,1,29,63,28,LOC:21 NUM:7 PER:1,said
+83,eval,Luis Roche,204,192,9/9,0,0,20,52,2,LOC:10 NUM:2 PER:6 TIME:2,honor
+84,eval,Jared Allen,171,171,6/6,0,0,22,16,8,LOC:1 MISC:4 NUM:4 ORG:6 PER:1 TIME:6,career
+85,eval,Irish experiment,205,205,8/8,0,0,19,28,7,LOC:5 MISC:5 ORG:4 PER:3 TIME:2,Australia
+86,eval,Ngoako Ramatlhodi,244,242,9/9,0,0,20,29,9,LOC:2 MISC:1 ORG:7 PER:7 TIME:3,replaced
+87,eval,Independence Pass (Colorado),494,493,17/17,0,0,27,73,44,LOC:16 MISC:1 ORG:1 PER:3 TIME:6,1984
+88,eval,United States Marine Band,310,309,11/11,0,0,21,53,23,LOC:3 MISC:1 NUM:2 ORG:6 PER:3 TIME:6,Sousa
+89,eval,Guido Bonatti,211,207,7/7,0,0,20,12,6,LOC:4 MISC:3 ORG:2 PER:6 TIME:5,centuries
+90,eval,Henri de Buade,368,361,16/16,0,0,29,78,17,LOC:9 NUM:1 ORG:1 PER:13 TIME:5,America
+91,eval,Tulelake camp,310,309,8/8,0,0,30,71,27,LOC:14 MISC:4 NUM:4 ORG:4 TIME:4,appearance
+92,eval,Sibiu,214,207,6/6,0,0,22,60,22,LOC:12 MISC:2 NUM:1 ORG:1 TIME:6,resort
+93,eval,Amos Hochstein,214,211,8/8,0,0,21,30,14,LOC:2 ORG:9 PER:5 TIME:5,Council
+94,eval,Raunaq (album),250,249,10/10,0,0,12,19,1,LOC:2 MISC:3 PER:6 TIME:1,empowerment
+95,eval,Shneur Zalman of Liadi,289,284,4/4,0,1,20,26,11,LOC:3 MISC:5 ORG:5 PER:3 TIME:4,the
+96,eval,Paul Pfeifer,180,174,9/9,0,0,17,25,7,LOC:4 NUM:2 ORG:5 PER:2 TIME:4,grandchildren
+97,eval,Wilhelm Lanzky-Otto,199,194,9/9,0,0,19,15,4,LOC:6 ORG:6 PER:3 TIME:4,player
+98,eval,Hooshang Seyhoun,208,203,7/7,0,0,19,34,24,LOC:7 MISC:1 NUM:2 ORG:5 PER:1 TIME:3,years
+99,eval,Delphi Greenlaw,229,228,7/7,0,0,18,32,13,LOC:1 MISC:4 ORG:1 PER:8 TIME:4,departure

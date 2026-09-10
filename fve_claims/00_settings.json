@@ -1,0 +1,15 @@
+{
+  "step": "00",
+  "git": "ad699a9e8635ad6c975587063c77946d8af60043",
+  "argv": [
+    "fve_claims/00_activations.py"
+  ],
+  "wall_start": "2026-09-09T19:20:24",
+  "model": "7b",
+  "n": 100,
+  "tokenization": "raw text, no chat template, add_special_tokens=False",
+  "hidden_states_index": 21,
+  "n_done": 100,
+  "norms_mean": 116.68108367919922,
+  "wall_end": "2026-09-09T19:21:31"
+}

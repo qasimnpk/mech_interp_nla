@@ -1,0 +1,20 @@
+{
+  "step": "01",
+  "git": "ad699a9e8635ad6c975587063c77946d8af60043",
+  "argv": [
+    "fve_claims/01_verbalize.py",
+    "--overwrite"
+  ],
+  "wall_start": "2026-09-09T19:21:39",
+  "model": "7b",
+  "decoding": "greedy",
+  "max_new_tokens": 200,
+  "n": 100,
+  "resumed_from": 0,
+  "injection_scale": 150.0,
+  "prompt_tokens": 125,
+  "n_done": 100,
+  "parse_ok": 100,
+  "cjk": 0,
+  "wall_end": "2026-09-09T19:37:55"
+}
