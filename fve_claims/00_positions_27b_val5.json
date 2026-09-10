@@ -1,0 +1,52 @@
+[
+  {
+    "pilot_id": 0,
+    "title": "Vesper sparrow",
+    "n_tokens_27b_ours": 216,
+    "n_tokens_27b_pilot": 216,
+    "expected_position": 215,
+    "final_word": "loss",
+    "norm": 94.46,
+    "norm_in_shipped_range": true
+  },
+  {
+    "pilot_id": 1,
+    "title": "Clark Lake (Gogebic County, Michigan)",
+    "n_tokens_27b_ours": 208,
+    "n_tokens_27b_pilot": 208,
+    "expected_position": 207,
+    "final_word": "species",
+    "norm": 93.79,
+    "norm_in_shipped_range": true
+  },
+  {
+    "pilot_id": 2,
+    "title": "Kahului Airport",
+    "n_tokens_27b_ours": 216,
+    "n_tokens_27b_pilot": 216,
+    "expected_position": 215,
+    "final_word": "facility",
+    "norm": 87.25,
+    "norm_in_shipped_range": true
+  },
+  {
+    "pilot_id": 3,
+    "title": "Wolfgang Th\u00fcne",
+    "n_tokens_27b_ours": 170,
+    "n_tokens_27b_pilot": 170,
+    "expected_position": 169,
+    "final_word": "club",
+    "norm": 93.51,
+    "norm_in_shipped_range": true
+  },
+  {
+    "pilot_id": 4,
+    "title": "The Horn Blows at Midnight",
+    "n_tokens_27b_ours": 226,
+    "n_tokens_27b_pilot": 226,
+    "expected_position": 225,
+    "final_word": "hit",
+    "norm": 92.42,
+    "norm_in_shipped_range": true
+  }
+]

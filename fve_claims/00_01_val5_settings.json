@@ -1,0 +1,20 @@
+{
+  "step": "00_01_val5",
+  "git": "4ab85d6f61f99c30dbea41e943ff54bc9fb1361f",
+  "argv": [
+    "00_01_27b_validate5.py"
+  ],
+  "repo": "/workspace/hf/hub/models--ceselder--qwen3.6-27b-nla-rl/snapshots/5a13b7ec21a69fcdd0fb24d5edbe96a92aef4b9f",
+  "device": "cuda",
+  "target_note": "TARGET=av_base, has warmstart LoRA merged in -- see module docstring",
+  "wall_start": "2026-09-10T18:48:04",
+  "n": 5,
+  "note": "validation gate, pilot_id 0-4 only",
+  "n_done": 5,
+  "parse_ok": 5,
+  "cjk": 0,
+  "cos_own_mean": 0.9541,
+  "cos_shuffled_mean": 0.709,
+  "n_norms_in_shipped_range": 5,
+  "wall_end": "2026-09-10T18:50:33"
+}
