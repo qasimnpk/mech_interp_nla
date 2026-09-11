@@ -1,5 +1,6 @@
-import re, sys
-src='notes/context_600k.md'; out='notes/context_600k_index.md'
+import os, re, sys
+NOTES=os.path.expanduser('~/repos/mech_interp/notes')  # the context file moved out of this repo 2026-09-11
+src=f'{NOTES}/context_600k.md'; out=f'{NOTES}/context_600k_index.md'
 lines=open(src,encoding='utf-8').read().split('\n')
 # curated TOC = everything before the first real post heading "# [" (line 85)
 first=next(i for i,l in enumerate(lines) if l.startswith('# ['))
@@ -21,7 +22,7 @@ n1=sum(1 for e in entries if e[1]==1); n2=sum(1 for e in entries if e[1]==2); n3
 body=[]
 for i,lvl,txt in entries:
     body.append(f"{'  '*(lvl-1)}- L{i}: {txt}")
-hdr=f"""# Index — notes/context_600k.md
+hdr=f"""# Index — ~/repos/mech_interp/notes/context_600k.md
 
 Curated mech-interp context file (≈600k tokens, {len(lines):,} lines, 2.2 MB). Three parts:
 research philosophy (Neel Nanda's Explore/Understand/Distill sequence, Steinhardt, paper-writing
@@ -30,7 +31,7 @@ tooling (TransformerLens, NNsight, ARENA tutorials as raw notebook source).
 
 **How to use.** Do not load the whole file. Find the section here, then read by line range
 (`Read` with `offset`/`limit`, or `sed -n 'A,Bp'`), or grep:
-`grep -n "term" notes/context_600k.md`. Line numbers below are 1-based and current as of the
+`grep -n "term" ~/repos/mech_interp/notes/context_600k.md`. Line numbers below are 1-based and current as of the
 file's 2026-09-05 copy; regenerate with `python3 scratchpad/mkindex.py` after any edit.
 
 **What the outline filters out.** Part III contains ARENA notebook source, whose cell markers

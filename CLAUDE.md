@@ -10,7 +10,7 @@ MacBook (MPS, 48 GB).
 > `notes/nla_seed.md`. Nothing below assumes a particular design.
 
 ## Read first
-- **`notes/neel_drive/mats12_admissions_procedure_faq.md` — Neel's own admissions doc. The application
+- **`/Users/mbp_qasim/repos/mech_interp/notes/neel_drive/mats12_admissions_procedure_faq.md` — Neel's own admissions doc (kept outside this repo since 2026-09-11). The application
   is graded against it; `notes/README.md` has line pointers.** The rules that govern everything here:
   - Deadline: **Fri Sept 11, 11:59pm PT** (late-app window; Sept 4 was struck through). Extensions form linked in the doc.
   - The **application-form questions are the primary filter** — he reads those first, not every write-up.
@@ -38,7 +38,7 @@ branch into `main` when a round is reviewed.
 - **`notes/README.md` is the index of everything in `notes/`** — start there.
 - `notes/neel_how_interp_researchers_help_agi_go_well.md` — the Pragmatic Vision's companion
   piece: which problem classes GDM's team thinks matter. Contents block at the top.
-- `notes/context_600k_index.md` → **use this to navigate** `notes/context_600k.md` (Neel's 600k-token
+- `/Users/mbp_qasim/repos/mech_interp/notes/context_600k_index.md` → **use this to navigate** `/Users/mbp_qasim/repos/mech_interp/notes/context_600k.md` (outside this repo since 2026-09-11; Neel's 600k-token
   context file: research-process posts, Steinhardt, paper-writing advice, glossary, annotated paper
   list, Ferrando primer, Sharkey open problems, TransformerLens/NNsight/ARENA source). The file is
   2.2 MB — read by line range (`Read` with `offset`/`limit`) or `grep -n`. Regenerate the index

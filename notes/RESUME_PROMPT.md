@@ -22,7 +22,7 @@ human; two blind labelling sheets are unlabelled. The deadline is Fri Sept 11 11
 Working rules: research choices are pre-registered in PLAN.md; agents report numbers only, no verdicts; every number in
 any write-up traces to a file:line (evidence_table.md); the human re-derives headline numbers by hand and logs them in
 notes/human_log.md; agent-drafted prose is scaffolding the human rewrites in their own voice (Neel's admissions doc,
-notes/neel_drive/mats12_admissions_procedure_faq.md, holds LLM-written prose to a higher bar and says "sanity-check your
+~/repos/mech_interp/notes/neel_drive/mats12_admissions_procedure_faq.md (outside this repo), holds LLM-written prose to a higher bar and says "sanity-check your
 agent" is the most important advice). Wording rules from the advisors are in human-plan.md §6 — apply them to any
 draft. Git commits end with the Co-Authored-By trailer in CLAUDE.md. Do not start new experiments unless the human asks;
 if asked, pre-register in PLAN.md, run in a fresh worktree from main, merge with

@@ -115,7 +115,7 @@ the checkpoint the paper released, plus direct tests of things the paper hypothe
 application is the existing one, written so the lineage is visible in the first paragraph. Do not pivot.
 
 **Why this is the stronger application (each point traceable):**
-1. Neel's FAQ names this exact experiment. `notes/neel_drive/mats12_admissions_procedure_faq.md` L719–721, verbatim:
+1. Neel's FAQ names this exact experiment. `~/repos/mech_interp/notes/neel_drive/mats12_admissions_procedure_faq.md` (outside this repo) L719–721, verbatim:
    "[Natural language autoencoders] try to autoencode activations as natural language and back … What can you do with them?
    Do they actually work for tasks of interest? · Key resource: This Qwen 3.6 27B NLA from my scholar Celeste … · I'm
    particularly interested in using the activation reconstructor to measure the quality of a description, e.g. figuring out
