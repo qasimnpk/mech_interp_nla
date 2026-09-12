@@ -5,7 +5,6 @@ __pycache__/
 .ipynb_checkpoints/
 
 # outputs
-figures/
 artifacts/
 *.pt
 *.safetensors
