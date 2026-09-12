@@ -1,12 +1,11 @@
 # The NLA reconstructor's per-claim verifier signal is near chance, and the group mean difference lives in the final sentence
 ### Deletion and paraphrase tests on two open natural language autoencoders
 
-**Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim from an
-explanation hurts reconstruction more than deleting a false one. On two open NLAs (Qwen2.5-7B layer 20, Qwen3.6-27B
-layer 42) that group-level effect reproduces clearly in the 7B and directionally in the 27B, but per-claim discrimination
-is near chance (AUROC 0.58 and 0.49) and the whole difference sits in claims about the verbalizer's final sentence. I
-also tested whether paraphrasing a claim, instead of deleting it, gives a second discriminatory signal, since false
-claims might be contributing form (syntax, structure, relevance) while true claims carry, well, truth. It doesn't.
+**Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim hurts
+reconstruction more than deleting a false one. I reproduce that group-level effect on two open NLAs (Qwen2.5-7B layer
+20, Qwen3.6-27B layer 42), but find per-claim AUROC at near chance (0.49, 0.58) and the entire gap concentrated in the
+final verbalizer sentence. I also tested whether paraphrasing rather than deleting gives a second discriminatory
+signal; it doesn't.
 
 **What I found.**
 
