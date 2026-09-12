@@ -1,4 +1,4 @@
-# The NLA reconstructor's per-claim verifier signal is near chance, and the group mean difference lives in the final sentence
+# NLA reconstructor's per-claim verifier signal is near chance, and the group mean difference lives in the final sentence
 ### Deletion and paraphrase tests on two open natural language autoencoders
 
 **Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim hurts
@@ -9,38 +9,34 @@ signal; it doesn't.
 
 **What I found.**
 
-1. **The FVE gap lives at the final verbalizer sentence**, which typically describes the activation's own token. For
-   those claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA
-   paper doesn't report this split. Excluding the final sentence's claims zeroes out the true vs false difference: the
-   true-minus-false gap is 24.5 pp [17.2, 31.9] on the 27B's final sentence and -0.7 pp [-2.0, 0.3] elsewhere; 2.0 pp
-   [1.2, 3.0] and 0.03 pp [-0.18, 0.22] for the 7B (document-bootstrap 95% CIs).
+1. The FVE gap lives at the final verbalizer sentence which typically describes the activation's own token. For those
+   claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA paper
+   doesn't report this split. Excluding the final sentence’s claims zeroes out the true vs false difference.
 
 ![Deletion drop by claim position: final sentence vs elsewhere, both models](fve_claims/figures/deletion_by_position.png)
 
-2. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B)**
-   (document-bootstrap 95% CIs [0.45, 0.53] and [0.55, 0.61]). The 27B is indistinguishable from chance; the 7B is
-   above chance but far too weak to verify a claim. Under paraphrase both are flat: 0.50 and 0.50.
-3. **Deletion reproduces the paper in direction.** True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp
-   (paper: 0.35 vs 0.16 for detail claims). Only the 7B clears zero: true minus false is 0.64 pp [0.35, 0.96], true
-   ahead in 68 of 100 documents (sign test p 0.0004). The 27B is 1.49 pp [-0.25, 3.03], p 0.07, so it reproduces in
-   direction only. Mostly detail claims; theme claims show nothing in either model.
-4. **Negative result. Paraphrase adds nothing.** 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
+2. Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B). So
+   discrimination is weak, essentially chance.
+3. Deletion reproduces the paper in direction. True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp (paper:
+   0.35 vs 0.16 for detail claims). Mostly detail claims; theme claims show nothing in either model
+4. Negative result. Paraphrase adds nothing. 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
    claim type, so it's a mix effect. 7B: ~17 pp for both.
 
 ![Mean FVE drop under deletion and heavy paraphrase, true vs false claims, both models](fve_claims/figures/fve_true_false_deletion_vs_heavy_paraphrase.png)
 
-5. **The two NLAs behave differently.** Rewording the 7B's final-sentence claims (true or false) takes a massive ~47 pp
+5. The two NLAs behave differently. Rewording the 7B's final-sentence claims (true or false) takes a massive ~47 pp
    of FVE, while the 27B barely moves (<1 pp) under any rewording of any one sentence, including the final one.
 
 **Caveats.** Paraphrases are per sentence, so claims sharing a sentence share a score (1,308 claims, 571 paraphrased
-sentences for the 27B). Labels are Claude's; I checked 17 blind and agreed on 14 (two I was wrong, Claude erred on one).
-The 27B activations come from `av_base` (warm-start LoRA merged), not the plain model. 100 documents only. The 27B means
-are outlier-heavy. In the final sentence, true and false claims differ: token-identity claims are almost never false
-(6/100 on the 7B, 5/76 on the 27B), while attribute and identification claims usually are. So the surviving gap there
-is largely a comparison between token-identity claims and attribute claims, not between true and false ones.
+sentences only for the 27B). Labels are Claude's. I checked 17 blind and agreed on 14; two I was wrong, Claude erred on
+one. The 27B activations come from `av_base` (warm-start LoRA merged), not the plain model. 100 documents only. The 27B
+means are outlier-heavy. In the final sentence, true and false claims differ: token-identity claims are almost never
+false (6/100 on the 7B, 5/76 on the 27B) while attribute and identification claims usually are. So the surviving gap
+there may largely be a comparison between token-identity claims and attribute claims, not between true and false ones.
 
-**Conclusions.** On these open NLAs the AR's deletion cost tracks truth only on average, and mainly for claims in the
-final explanation sentence. Paraphrase-averaging, the thing I tested, doesn't help.
+**Conclusions.**
+On these open NLAs the AR's deletion cost tracks truth only on average and mainly only for claims in the final
+explanation sentence. Paraphrase-averaging doesn't help.
 
 ---
 
