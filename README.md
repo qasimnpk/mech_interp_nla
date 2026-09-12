@@ -1,27 +1,48 @@
-# Can a natural language autoencoder's reconstruction tell true claims from false ones?
+# Does deleting or paraphrasing a claim tell you if it's true?
+### Testing the NLA reconstructor as a verifier on two open natural language autoencoders
 
-An NLA is a pair of models: a **verbalizer (AV)** turns one activation vector into an English explanation, and a
-**reconstructor (AR)** turns that text back into an activation. If the AR needs a claim to rebuild the activation,
-deleting that claim should cost reconstruction quality — which is why the NLA paper proposes using the AR as a
-weak per-claim verifier. This repo tests that on two open NLA pairs, and asks whether paraphrasing works better.
+*MATS 12 application, Neel Nanda stream. Executive summary below; details and reproduction further down.*
+
+**Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim from an
+explanation hurts reconstruction more than deleting a false one. I wanted to know two things. Does that hold on two open
+NLAs (Qwen2.5-7B layer 20, Qwen3.6-27B layer 42)? And does paraphrasing a claim, instead of deleting it, give a second
+signal, since false claims might be contributing form (syntax, structure, relevance) while true claims carry, well, truth.
+
+**What I found.**
+
+1. **Deletion reproduces the paper in direction.** True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp
+   (paper: 0.35 vs 0.16 for detail claims). Mostly detail claims; theme claims show nothing in either model.
+2. **Negative result. Paraphrase adds nothing.** 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
+   claim type, so it's a mix effect. 7B: ~17 pp for both.
+
+![Mean FVE drop under deletion and heavy paraphrase, true vs false claims, both models](fve_claims/figures/fve_true_false_deletion_vs_heavy_paraphrase.png)
+
+3. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B).** So
+   discrimination is weak, essentially chance.
+4. **The FVE gap lives at the final verbalizer sentence**, which typically describes the activation's own token. For
+   those claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA
+   paper doesn't report this split. Dropping the final sentence zeroes out the true vs false difference.
+
+![Deletion drop by claim position: final sentence vs elsewhere, both models](fve_claims/figures/deletion_by_position.png)
+
+5. **The two NLAs behave differently.** Rewording the 7B's final-sentence claims (true or false) takes a massive ~47 pp
+   of FVE, while the 27B barely moves (<1 pp) under any rewording of any one sentence, including the final one.
+
+**Caveats.** Paraphrases are per sentence, so claims sharing a sentence share a score (1,308 claims, 571 paraphrased
+sentences for the 27B). Labels are Claude's; I checked 17 blind and agreed on 14 (two I was wrong, Claude erred on one).
+The 27B activations come from `av_base` (warm-start LoRA merged), not the plain model. 100 documents only. The 27B means
+are outlier-heavy.
+
+**Conclusions.** On these open NLAs the AR's deletion cost tracks truth only on average, and mainly for claims in the
+final explanation sentence. Paraphrase-averaging, the thing I tested, doesn't help.
+
+---
+
+## Details
 
 **Measure.** FVE (fraction of variance explained) = 1 − (squared reconstruction error) / (total variance of the
-activations), so 0 means no better than guessing the mean activation. A claim's score is the FVE drop when that
-claim is removed from the explanation, in percentage points.
-
-## Headline result
-
-Mean FVE drop, all claim types, irrelevant (forecast) claims excluded:
-
-| | deletion: true | false | Δ | paraphrase: true | false | Δ |
-|---|---|---|---|---|---|---|
-| 27B (`ceselder/qwen3.6-27b-nla-rl`) | 4.15 | 2.66 | +1.49 | 0.09 | 0.20 | −0.11 |
-| 7B (`kitft/nla-qwen2.5-7b-L20`) | 1.58 | 0.94 | +0.64 | 17.29 | 17.51 | −0.22 |
-
-Deleting a true claim costs more reconstruction than deleting a false one, in both models, which reproduces the
-paper's finding. Heavy paraphrasing does not separate true from false in either model. The deletion gap comes
-almost entirely from claims in the explanation's final sentence, the one describing the activation's own token
-(27B +24.5 pp there vs −0.75 elsewhere; 7B +2.0 vs +0.03).
+activations), so 0 means no better than guessing the mean activation. A claim's score is the FVE drop when that claim is
+removed from the explanation, in percentage points.
 
 ## Setup
 
