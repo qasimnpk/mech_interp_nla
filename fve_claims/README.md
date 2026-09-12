@@ -19,7 +19,10 @@ python3 fve_claims/02_claims.py --batch 3 --start 75 --end 100
 python3 fve_claims/02_claims.py --labels fve_claims/tasks/02_atoms_7b_batch*.jsonl
 ```
 
-Task files: `tasks/02_atomic_tasks_7b_batchN.json`. Merged annotations: `02_atoms_7b.jsonl`.
+Task files: `tasks/02_atomic_tasks_7b_batchN.json`. Merged annotations: `legacy/02_atoms_7b.jsonl`.
+
+**Note.** The per-document files `tasks/02_atoms_{7b,27b}_doc*.jsonl` and `tasks/04_rewrites_*_doc*.jsonl` are the labels and
+edits the reported results use. Everything in `legacy/` is from the earlier sentence-level protocol and is kept only for provenance.
 `--output` overrides either destination. The merger validates IDs, labels, exact source
 spans, evidence, and rationale format and reports documents without annotations.
 Annotators must check semantic atomicity, equivalence, complete occurrence coverage, and
@@ -27,7 +30,7 @@ truth; code cannot establish these from offsets. All labels remain provisional f
 The old `02b_entity_check.py` is only a legacy sentence-level diagnostic, not evidence or a labeler.
 
 ## Later deletion scoring
-Provenance is not a deletion instruction. Prepare `04_deletions_7b.jsonl` as described in
+Provenance is not a deletion instruction. Prepare `legacy/04_deletions_7b.jsonl` as described in
 the guide, with an explicit edited explanation and a recorded review that it removes all
 occurrences of the atom while preserving every other proposition. The scorer rejects
 unreviewed, unchanged, empty, or stale counterfactuals before loading the model.
@@ -39,7 +42,7 @@ python3 fve_claims/05_analyze.py
 python3 fve_claims/05_analyze.py --labels path/to/reviewed_atoms.jsonl --split eval
 ```
 
-Outputs: `04_atomic_scores_7b.csv`, `04_atomic_expl_7b.csv`, `04_atomic_settings.json`,
+Outputs: `legacy/04_atomic_scores_7b.csv`, `legacy/04_atomic_expl_7b.csv`, `legacy/04_atomic_settings.json`,
 `05_atomic_summary_<split>.md`, and `fig/fve_drop_atomic_7b_<split>.png`.
 Analysis joins on document and claim IDs, rejects unmatched scores and duplicate keys,
 and reports all four types × all three truth labels, with document-cluster bootstrap CIs

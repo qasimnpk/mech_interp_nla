@@ -1,0 +1,18 @@
+item,sample,model,pilot_id,claim_id,subtype,truth,fve_drop_pp,rationale
+S01,tail,27B,35,9,event,true,117.993,prefix: matches the prefix directly.; AV: of tuberculosis.
+S02,random,7B,19,5,date,false,0.542,prefix: The filled contest-year role is 1988.; AV: The described Eurovision entry was in 1985.
+S03,tail,27B,33,6,event,true,139.255,prefix: matches the prefix almost verbatim.; AV: has been sued frequently for defamation.
+S04,random,7B,55,4,attribute,false,1.486,prefix: absent from the prefix — No terminology facts for Pennsylvania are supplied.; AV: Middle Pennsylvania is used in some contexts to distinguish the region.
+S05,tail,27B,20,13,event,true,132.53,prefix: matches the prefix's statement that the church is classified/listed on the UNESCO World Heritage List ('inscribed' is standard UNESCO terminology for classified sites).; AV: The church is inscribed on the UNESCO World Heritage List.
+S06,random,7B,51,7,event,false,0.828,prefix: absent from the prefix — No career facts about the AV-named person are supplied.; AV: Anderson Sales returned to Serie A.
+S07,tail,27B,18,7,event,true,113.739,prefix: matches the prefix almost verbatim.; AV: The character's anonymity/attributes better allow players to assume his role.
+S08,tail,27B,69,9,attribute,true,129.537,prefix: matches exactly the prefix's final clause that the buildings are listed as heritage sites of national significance.; AV: The buildings are listed as heritage sites of national significance.
+S09,random,7B,18,9,final_token,true,3.79,"audit (tokenizer check, Qwen2.5-7B-Instruct): actual final token is ' role'; final word is 'role'; claimed 'role' (match); prefix: Tokenizer evidence is excluded under the prefix-only protocol. relabel: unsupported->true; claimed final token 'role' equals pilot final_word 'role'; AV: The final tokenizer token is “role”."
+S10,random,27B,44,5,local_text,true,5.219,prefix: the final clause gives the budget figure closing the financial statement.; AV: closes the box office figure.
+S11,random,7B,90,10,final_token,true,2.247,"audit (tokenizer check, Qwen2.5-7B-Instruct): actual final token is ' America'; final word is 'America'; claimed 'America' (match); prefix: final_word is 'America'; AV: final token 'America'"
+S12,random,27B,56,15,attribute,true,1.951,prefix: directly matches the prefix's statement that the Charter inspired many international agreements.; AV: The Atlantic Charter inspired many agreements and policies.
+S13,random,27B,84,6,local_text,true,0.089,"prefix: matches the final two sentences' sequence: Super Bowl mention, then Pro Bowl/All-Pro selections and sack total.; AV: lists career accomplishments in sequence — Pro Bowls, All-Pro selections, Super Bowl appearances"
+S14,random,27B,43,8,final_token,false,-1.218,"prefix: pilot record final_word is 'Luzon', not Yucatón.; AV: Final token ""Yucatón""."
+S15,random,7B,54,11,local_text,true,0.837,prefix: The backward reference is explicit.; AV: The final chapter references the earlier book.
+S16,random,27B,42,14,attribute,false,-0.014,prefix: absent -- the prefix says he was a minister in Ibarra's government before retiring; no landowning or wealth is mentioned.; AV: where he lived as a wealthy landowner.
+S17,random,27B,46,10,local_text,false,-0.088,"prefix: the final visible clause is a grammatically complete independent clause, missing only the trailing period; not incomplete.; AV: the sentence is incomplete."

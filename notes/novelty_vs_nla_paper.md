@@ -1,6 +1,6 @@
 # Where we stand relative to the NLA paper, and what would add research value by Sept 11 (desk, 2026-09-07 05:30)
 
-Sources: `notes/nla_paper_2026_text.txt` (full paper), the second half pasted by the human on 2026-09-07,
+Sources: the NLA paper (https://transformer-circuits.pub/2026/nla/index.html), the second half pasted by the human on 2026-09-07,
 `notes/nla_paper_card.md`. New numbers below come from `notes/quote_census.csv` and `notes/snippet_faithfulness.csv`
 (pure text over `overnight/explanations.jsonl` and the full prefixes; no model runs). Human verification owed.
 
@@ -159,11 +159,11 @@ comparable. Useful, with these rules so the output is directly usable and does n
   across positions), the steganography/transform section (each transform, how FVE change was computed), the AO/QA section
   (how questions were posed, prompt sensitivity), the open-model appendix (Qwen2.5-7B: layer, SFT data source and format,
   "2–3 bullets", ordering rule, GRPO group size, token cap, injection scalar α, KL coefficient), and the AV/AR prompts. Also
-  **Dingeto 2026 §3.1 + App. E** (`notes/dingeto_2026_train_the_model_text.txt`) — that is the *number*-comparable setup,
+  **Dingeto 2026 §3.1 + App. E** (arXiv 2607.20379) — that is the *number*-comparable setup,
   since it uses the same released pair; the NLA paper's confabulation numbers are on Claude NLAs and are only
   *design*-comparable.
 - **Format:** one row per experiment with columns: paper item · location (section/appendix anchor and, if possible, a line
-  number in `notes/nla_paper_2026_text.txt`) · target model and layer · stimuli/data and n · intervention or edit · metric
+  number in the NLA paper) · target model and layer · stimuli/data and n · intervention or edit · metric
   (FVE / MSE / judge accuracy) · judge or labeler · verbatim quote supporting each cell. Cells the paper does not state are
   marked "not stated", never filled in from memory. The interactive figures were lost in the text dump; anything that lived
   only in a figure is "figure-only, unrecoverable".

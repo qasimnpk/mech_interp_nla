@@ -90,7 +90,7 @@ Earlier positions are excluded on purpose (cannot represent later facts).
   and the p6 result should be reported separately.
 - The AR is direction-only; ‖AR(d)‖ is meaningless, hence the normalisation (advisor agrees).
 - Novelty of the distributed-edit protocol is unverified; the NLA paper's steering section must be
-  read in full before any claim (its text is in `notes/nla_paper_2026_text.txt`, grep "steer").
+  read in full before any claim (see the NLA paper's steering sections).
 
 ## Prior art in the NLA paper, read at primary source (2026-09-06)
 - Poetry: "we edit the NLA explanation at the newline ... take the difference Δ = AR(AV_edit) − AR(AV_orig) as the edit direction. We then steer with this direction at the newline token only, at the layer the NLA is trained on ... h_orig → h_orig + α‖h_orig‖ Δ/‖Δ‖." Result: "steering is only successful roughly 50% of the time"; "fewer than 80% of completions actually end with 'mouse' or 'house' because they partially degenerate."

@@ -56,7 +56,7 @@ def main():
     S = settings("05", split=a.split, denom=a.denom, n_scored=len(sc), n_atoms=len(atoms), n_joined=len(df), n_not_v2=n_not_v2)
     rel = df[df.truth != "irrelevant"]
     L_ = [f"# fve_claims baseline — FVE drop when one atomic claim is removed (7B, DocRED pilot, {a.split}, D_{a.denom} = {D:.4f})", "",
-          f"Claims scored {len(sc)}; atoms labelled {len(atoms)} ({atoms.pilot_id.nunique()} docs); joined {len(df)} over {df.pilot_id.nunique()} docs ({n_not_v2} dropped: not yet relabelled to v2). FVE drop in percentage points; error = {'+/-1.96*SEM over individual claims (independence assumed)' if a.stat=='sem' else 'cluster bootstrap 95% CI by document (1000 draws, seed 0)'}. Labels provisional (agents).", "",
+          f"Claims scored {len(sc)}; atoms labelled {len(atoms)} ({atoms.pilot_id.nunique()} docs); joined {len(df)} over {df.pilot_id.nunique()} docs ({n_not_v2} dropped: labels not in truth scheme v2). FVE drop in percentage points; error = {'+/-1.96*SEM over individual claims (independence assumed)' if a.stat=='sem' else 'cluster bootstrap 95% CI by document (1000 draws, seed 0)'}. Labels provisional (agents).", "",
           "Counts by type × class: " + json.dumps({t: df[df.type == t].cls.value_counts().to_dict() for t in TYPES + ["forecast"]}), "",
           "## Type × truth (irrelevant excluded)", "", "| type | true | false | true − false |", "|---|---|---|---|"]
     for t in TYPES:

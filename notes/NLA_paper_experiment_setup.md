@@ -33,9 +33,9 @@ Where code and paper disagree the discrepancy is stated, not resolved.
 | Authors | Kit Fraser-Taliente\*, Subhash Kantamneni\*, Euan Ong\*, Dan Mossing, Christina Lu, Paul C. Bogdan, Emmanuel Ameisen, James Chen, Dzmitry Kishylau, Adam Pearce, Julius Tarng, Alex Wu, Jeff Wu, Yang Zhang, Daniel M. Ziegler, Evan Hubinger, Joshua Batson, Jack Lindsey, Samuel Zimmerman, Samuel Marks (Anthropic). \*equal contribution. | `[P]` |
 | Venue / date | Transformer Circuits Thread, published May 7, 2026. No "updated" or erratum note on the page as of 2026-09-08. | `[P]` |
 | URL | https://transformer-circuits.pub/2026/nla/index.html | `[P]` |
-| Attached version | `notes/nla_paper_2026_text.txt` (HTML-stripped text, fetched 2026-09-06). | local |
-| Online version | Re-fetched 2026-09-08 into `notes/nla_paper_artifacts/nla_paper_online_text_2026-09-08.txt`. Word-level diff against the attachment: similarity 0.99; the only non-trivial difference is tokenization of the `<reward_function>` string in the Reasoning-about-Rewards figure (spacing artifact of the strip). **No substantive text differences.** | verified |
-| What the attachment lost | All interactive figures: the five evaluation cards with grader prompts, the six steganography transform prompts, the three behavioral-eval grader prompts, the per-claim confabulation table, the eval-awareness excerpt table, and 28 static PNG plots with the reported numbers. These were recovered from the page's embedded `<script>` data and PNGs and saved under `notes/nla_paper_artifacts/` (see 1.4). | recovered |
+| Attached version | HTML-stripped text, fetched 2026-09-06; kept locally while working, not redistributed here. | local |
+| Online version | Re-fetched 2026-09-08 from https://transformer-circuits.pub/2026/nla/index.html (not redistributed here). Word-level diff against the attachment: similarity 0.99; the only non-trivial difference is tokenization of the `<reward_function>` string in the Reasoning-about-Rewards figure (spacing artifact of the strip). **No substantive text differences.** | verified |
+| What the attachment lost (recovered separately while working; not redistributed here) | All interactive figures: the five evaluation cards with grader prompts, the six steganography transform prompts, the three behavioral-eval grader prompts, the per-claim confabulation table, the eval-awareness excerpt table, and 28 static PNG plots with the reported numbers. These were recovered from the page's embedded `<script>` data and PNGs and saved under `notes/nla_paper_artifacts/` (see 1.4). | recovered |
 
 ### 1.2 Official code and artifacts examined
 
@@ -48,7 +48,7 @@ Where code and paper disagree the discrepancy is stated, not resolved.
 | `examples/qwen7b_layer20_step4200.txt` | in repo | training repo `examples/` | Worked per-token transcript: extraction convention, greedy decoding, `fve_nrm` denominator 0.7335, sampling-variance section. |
 | `configs/TRAINING_NOTES.md`, `configs/rl.sh`, `actor_sft.sh`, `critic_sft.sh` | in repo | training repo `configs/` | Exact released-run hyperparameters and how they map to the appendix's numbers. |
 | `asherps/EasyNLA` (third-party reimplementation) | commit `4d72847`, 2026-07-10 | `~/tools/EasyNLA` | Not an author artifact. Used only to characterise the Qwen3.6-27B community checkpoints (Part 5). |
-| Dingeto 2026, *Train the Model, Not the Reader* (arXiv 2607.20379) | text dump | `notes/dingeto_2026_train_the_model_text.txt` | Independent audit of the same released Qwen pair; the only number-comparable external baseline (Part 5). |
+| Dingeto 2026, *Train the Model, Not the Reader* (arXiv 2607.20379) | text dump | arXiv 2607.20379 (not redistributed here) | Independent audit of the same released Qwen pair; the only number-comparable external baseline (Part 5). |
 
 **Not accessible:** Anthropic's internal NLA training code for Claude models; Claude NLA checkpoints; all Claude
 transcripts (eval, deployment, audit); the SelfDescribe/CoT-hint/sandbagging stimulus sets as filtered; the
@@ -66,7 +66,7 @@ prompt; the Bricken et al. auditing scaffold.
   evaluation experiments.
 - Proposed future work is listed in Part 6.7 and nowhere else.
 
-### 1.4 Recovered artifacts (saved under `notes/nla_paper_artifacts/`)
+### 1.4 Recovered artifacts (extracted from the paper's interactive figures while working; not redistributed in this repo)
 
 | File | Content |
 |---|---|

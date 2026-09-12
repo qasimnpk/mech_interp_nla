@@ -36,14 +36,14 @@ branch into `main` when a round is reviewed.
 
 ## Reference corpus — look things up, do not bulk-load
 - **`notes/README.md` is the index of everything in `notes/`** — start there.
-- `notes/neel_how_interp_researchers_help_agi_go_well.md` — the Pragmatic Vision's companion
+- *How Can Interpretability Researchers Help AGI Go Well?* (not in this repo; read it on the Alignment Forum) — the Pragmatic Vision's companion
   piece: which problem classes GDM's team thinks matter. Contents block at the top.
 - `/Users/mbp_qasim/repos/mech_interp/notes/context_600k_index.md` → **use this to navigate** `/Users/mbp_qasim/repos/mech_interp/notes/context_600k.md` (outside this repo since 2026-09-11; Neel's 600k-token
   context file: research-process posts, Steinhardt, paper-writing advice, glossary, annotated paper
   list, Ferrando primer, Sharkey open problems, TransformerLens/NNsight/ARENA source). The file is
   2.2 MB — read by line range (`Read` with `offset`/`limit`) or `grep -n`. Regenerate the index
   with `python3 scripts/mkindex_context600k.py`.
-- `notes/neel_pragmatic_vision_interpretability.md` — "A Pragmatic Vision for Interpretability"
+- *A Pragmatic Vision for Interpretability* (not in this repo; read it on the Alignment Forum) — "A Pragmatic Vision for Interpretability"
   (Nanda et al., Dec 2025), full text, contents block with line numbers at the top. The framing the
   application is scored against: North Star → proxy task → cheapest method first.
 - `notes/mats_paper_index.md` — synthesized index of all 48 papers on Neel's MATS scholar list,

@@ -16,3 +16,4 @@ artifacts/
 .cache/
 hf_cache/
 .huggingface/
+.DS_Store

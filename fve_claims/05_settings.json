@@ -1,21 +1,19 @@
 {
   "step": "05",
-  "git": "ad699a9e8635ad6c975587063c77946d8af60043",
+  "git": "34672e6f5d69e358011993652a517bdfe741a728",
   "argv": [
-    "05_analyze.py",
-    "--split",
-    "all",
+    "fve_claims/05_analyze.py",
     "--denom",
-    "local",
+    "released",
     "--stat",
     "bootstrap"
   ],
-  "wall_start": "2026-09-10T11:47:07",
+  "wall_start": "2026-09-11T19:35:06",
   "split": "all",
-  "denom": "local",
+  "denom": "released",
   "n_scored": 1313,
   "n_atoms": 1600,
   "n_joined": 1313,
   "n_not_v2": 0,
-  "wall_end": "2026-09-10T11:47:09"
+  "wall_end": "2026-09-11T19:35:07"
 }

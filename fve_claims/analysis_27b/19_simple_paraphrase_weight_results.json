@@ -1,0 +1,39 @@
+{
+  "seed": 0,
+  "split": "85/15 claim-level, stratified by truth; all claim types",
+  "features": {
+    "D": "fve_z - fve_del",
+    "H": "fve_z - fve_heavy"
+  },
+  "score": "D - lambda * scale * H",
+  "train_mean_D": 0.03152914597761712,
+  "train_mean_H": 0.0007614327743465462,
+  "scale": 41.40765546200071,
+  "lambda_grid": {
+    "min": 0,
+    "max": 3,
+    "step": 0.01
+  },
+  "selected_lambda": 0.71,
+  "effective_H_coefficient": -29.399435378020502,
+  "optimality": "Maximum training AUROC on this grid; no population or held-out optimality guarantee.",
+  "maximizing_grid_weights": [
+    0.71
+  ],
+  "train": {
+    "n": 1111,
+    "true": 733,
+    "false": 378,
+    "deletion_auroc": 0.48868533316009444,
+    "combined_auroc": 0.4988378555909252,
+    "auroc_change": 0.010152522430830757
+  },
+  "test": {
+    "n": 197,
+    "true": 130,
+    "false": 67,
+    "deletion_auroc": 0.4981630309988519,
+    "combined_auroc": 0.5586681974741676,
+    "auroc_change": 0.06050516647531573
+  }
+}

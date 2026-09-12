@@ -1,5 +1,5 @@
 # Paper card — "Natural Language Autoencoders Produce Unsupervised Explanations of LLM Activations" (Transformer Circuits, 2026)
-Primary source fetched 2026-09-06 18:50 (`notes/nla_paper_2026_text.txt`, 160k chars, HTML stripped; interactive figures lost). Quotes verbatim.
+Primary source: the paper at https://transformer-circuits.pub/2026/nla/index.html (read 2026-09-06; quotes verbatim). The full text and the recovered figure data were kept locally while working and are not redistributed here.
 
 ## What the paper says that bears on our results
 - **AR as verifier (their claim-deletion test):** "We test this by deleting individual claims from AV explanations and measuring the change in reconstruction error. Removing true claims hurts MSE more than removing false claims, and removing context-relevant false claims hurts more than removing unrelated ones. These trends hold in aggregate but are noisy on individual transcripts, so the AR is only a weak per-claim verifier."

@@ -3,7 +3,7 @@
 **Purpose.** Answer "how faithful are our setups to the paper's experiments, in spirit and in detail", row by row, so
 every difference that could change a conclusion becomes one stated sentence in the methods paragraph. Sources: the
 paper-setups reconstruction `notes/NLA_paper_experiment_setup.md` (agent, 2026-09-08; IDs E0–E7, C1–C7, M1–M4, S1–S6 are
-its IDs) and its artifacts in `notes/nla_paper_artifacts/`; our pre-registrations in `overnight/PLAN.md` (rounds 3–3c on
+its IDs); our pre-registrations in `overnight/PLAN.md` (rounds 3–3c on
 main; round 1 at `git show b01221e:overnight/PLAN.md`, round 2 at `d5e64d7`); our `overnight/*_settings.json`.
 Numbers marked **DESK** were computed today from committed CSVs and are unverified by the human; everything else is copied
 from `notes/evidence_table.md` or the setup doc. Nothing here has been re-run on a model.

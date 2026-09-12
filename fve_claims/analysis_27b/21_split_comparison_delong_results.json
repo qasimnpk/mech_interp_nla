@@ -1,0 +1,125 @@
+{
+  "seed": 0,
+  "bootstrap_draws": 5000,
+  "assumptions": "Independent claims, truth-stratified split, fixed trained weights for inference; exploratory split comparison.",
+  "score": "D - lambda * scale * H",
+  "lambda_grid": "0 to 3, step 0.01",
+  "85_15": {
+    "scale": 41.40765546200071,
+    "lambda": 0.71,
+    "effective_H_coefficient": -29.399435378020502,
+    "optimality": "Maximum training AUROC on specified grid, smallest lambda wins ties.",
+    "train": {
+      "n": 1111,
+      "true": 733,
+      "false": 378,
+      "deletion_auroc": 0.48868533316009444,
+      "combined_auroc": 0.4988378555909252
+    },
+    "test": {
+      "n": 197,
+      "true": 130,
+      "false": 67,
+      "deletion_auroc": 0.4981630309988519,
+      "combined_auroc": 0.5586681974741676,
+      "paired_delong": {
+        "aucs": [
+          0.4981630309988519,
+          0.5586681974741676
+        ],
+        "covariance": [
+          [
+            0.002064633482219145,
+            -0.00016877348887298877
+          ],
+          [
+            -0.00016877348887298877,
+            0.0018801592193556892
+          ]
+        ],
+        "difference": 0.06050516647531573,
+        "standard_error": 0.06543958801307363,
+        "z": 0.924595773176749,
+        "p_two_sided": 0.3551762125278456,
+        "difference_ci95": [
+          -0.06775406919344762,
+          0.18876440214407908
+        ]
+      },
+      "relative_improvement_percent": 12.145655681032498,
+      "bootstrap_ci95": {
+        "deletion_auroc": [
+          0.4121699196326062,
+          0.5836997703788748
+        ],
+        "combined_auroc": [
+          0.47336107921928816,
+          0.6421383467278988
+        ],
+        "paired_difference": [
+          -0.06235648679678529,
+          0.1856515499425947
+        ]
+      }
+    }
+  },
+  "70_30": {
+    "scale": 39.37344140184481,
+    "lambda": 3.0,
+    "effective_H_coefficient": -118.12032420553442,
+    "optimality": "Maximum training AUROC on specified grid, smallest lambda wins ties.",
+    "train": {
+      "n": 915,
+      "true": 604,
+      "false": 311,
+      "deletion_auroc": 0.482426907433828,
+      "combined_auroc": 0.5087572666680863
+    },
+    "test": {
+      "n": 393,
+      "true": 259,
+      "false": 134,
+      "deletion_auroc": 0.5083847173399412,
+      "combined_auroc": 0.5063965884861407,
+      "paired_delong": {
+        "aucs": [
+          0.5083847173399412,
+          0.5063965884861408
+        ],
+        "covariance": [
+          [
+            0.0010164788209296536,
+            -0.0001951759705765595
+          ],
+          [
+            -0.0001951759705765595,
+            0.0009444484125201214
+          ]
+        ],
+        "difference": -0.001988128853800397,
+        "standard_error": 0.04848999045785526,
+        "z": -0.04100080934287594,
+        "p_two_sided": 0.9672952506438779,
+        "difference_ci95": [
+          -0.09702676376188758,
+          0.09305050605428679
+        ]
+      },
+      "relative_improvement_percent": -0.39106778508273266,
+      "bootstrap_ci95": {
+        "deletion_auroc": [
+          0.4458278107531839,
+          0.570651328300582
+        ],
+        "combined_auroc": [
+          0.4487689448510344,
+          0.5667615109779288
+        ],
+        "paired_difference": [
+          -0.09727496686451913,
+          0.09137685126491082
+        ]
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # 27B replication on RunPod — bounded extension brief (moved verbatim from human-plan.md §8 of 2026-09-07 03:15, commit 97e06dc; source: research advisor, 2026-09-07)
 
-Status 2026-09-08: OPTIONAL, only after the application is submission-ready (human-plan.md §7). Not started.
+Status 2026-09-11: not run as briefed. A different 27B experiment — claim deletion on the 100 Re-DocRED documents, RunPod, 2026-09-10 — is in `fve_claims/analysis_27b/README.md` and human-plan.md. The brief below is the original plan.
 
 ## 8. OPTIONAL after §7 is submission-ready: bounded 27B replication on RunPod [AI setup and run; YOU ≤ 90 min]
 Purpose (advisor): does the separation between reconstruction sensitivity and targeted factual readout appear

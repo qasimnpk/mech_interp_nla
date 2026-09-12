@@ -11,9 +11,7 @@ Rule for the large ones: **navigate by index, read by line range, never bulk-loa
 | `human_log.md` | Human hours, the verify-by-hand ledger, and the exact `/loop` prompt used per round | Fill in as you go; feeds the "what I verified" section |
 | `nla_setup/README.md` | Agent setup log for both NLA checkpoint families: sizes, sidecar values, injection mechanics, the 27B infeasibility, model-card inconsistencies; raw round-trip output alongside | Checkpoint facts; re-derive before quoting |
 | `findings_so_far.md` | Agent-drafted running summary of results with file pointers; advisor-facing paragraph at top | Rewrite in own voice for progress updates and the exec summary |
-| `nla_paper_card.md` + `nla_paper_2026_text.txt` | The NLA paper: verbatim quotes on claim deletion, recurrence, confabulation, steganography; stripped full text | Primary source for every paper claim in the write-up |
 | `NLA_paper_experiment_setup.md` | Agent-written (2026-09-08) protocol-level reconstruction of every evaluation experiment in the NLA paper: inventory with stable IDs (E0–E7, C1–C7, M1–M4, R1), shared procedures (extraction, AV, AR/FVE, judges, steering), per-experiment A–J protocols with provenance tags, adaptation table for the released Qwen2.5-7B pair, Qwen3.6-27B availability check, coverage checklist, ranked shortlist, author questions | Design a replication or a controlled extension; look up an exact prompt, N, or figure value before citing it. ~100 KB; read by section |
-| `nla_paper_artifacts/` | Recovered from the paper's interactive figures (2026-09-08): figure data JSON (five eval cards with grader prompts, six transform prompts, behavioral-eval graders, per-claim table, eval-awareness excerpts, AO cards, auditing run), 25 static plots renamed by content, verbatim prompt dumps, and today's online text for diffing | Verbatim prompts and plotted numbers the text dump lost |
 | `round4_distributed_edit_proposal.md` | Desk design for the distributed-concept / coordinated-edit direction (second advisor); gates, kills, budget, decisions for the human | Review before it becomes a round |
 | `progress_vs_advisor.md` | Our results walked through the external advisor's decision tree and proposals; controls run vs not run; unverified citations | Day-2 planning |
 | `advisor_nla_strategy_2026-09-06.md` | External advisor report, verbatim, unverified | Reference only |
@@ -49,8 +47,6 @@ Not archived (fetch on demand with `curl -sL "https://drive.google.com/uc?export
 ## Neel Nanda / GDM source texts (archived verbatim)
 | File | What it is | Use |
 |---|---|---|
-| `neel_pragmatic_vision_interpretability.md` | *A Pragmatic Vision for Interpretability* — Nanda, Engels, Conmy, Rajamanoharan, Chughtai, McDougall, Kramár, Smith; AF, 2025-12-01; 8.1k words. Contents block with line numbers at top. | The framing the application is scored against: North Star → proxy task → cheapest method first, method minimalism |
-| `neel_how_interp_researchers_help_agi_go_well.md` | *How Can Interpretability Researchers Help AGI Go Well?* — the companion piece: which research areas/problems they think matter. Contents block at top. | Which problem classes are considered high-value; where our North Star sits |
 | `~/repos/mech_interp/notes/context_600k.md` (outside this repo) | Neel's curated ~600k-token context file: his Explore/Understand/Distill research-process sequence, Steinhardt, paper-writing advice, glossary, annotated paper list, Ferrando primer, Sharkey open problems, TransformerLens/NNsight/ARENA source. 2.2 MB. | **Never load whole.** Use the index below. |
 | `~/repos/mech_interp/notes/context_600k_index.md` (outside this repo) | Curated TOC + line-numbered H1–H3 outline of the file above (ARENA cell markers filtered). Regenerate: `python3 scripts/mkindex_context600k.py` | Find the section, then `Read` by `offset`/`limit` or `grep -n` |
 | `mats_paper_index.md` | Synthesized index of all 48 papers on Neel's MATS scholar list, each read in full: taste tag (CURRENT/COOLED against his stated interests), baselines/controls (WEAK flagged), open threads. ~185 KB. | Read whole for ideation/positioning; grep otherwise |
@@ -66,3 +62,5 @@ Not archived (fetch on demand with `curl -sL "https://drive.google.com/uc?export
 (`post(input:{selector:{_id:"<id from the URL>"}})`), convert with the stdlib parser, then add a
 contents block. See the two `neel_*.md` files for the output format.
 - `desk_session_2026-09-09_summary.md` — desk discussion 2026-09-08→09: settled answers on the paper's evals, the score ledger, claim prevalence, Dingeto overlap and the "2%" correction, round-4 rationale, write-up structure (agent draft)
+
+**Not in this repo.** The NLA paper's text and figures, Dingeto 2026's text, and Neel's two essays were used while working but are not redistributed here; read them at their sources. Our own notes on them (`nla_paper_card.md`, `NLA_paper_experiment_setup.md`, `novelty_vs_nla_paper.md`) remain.
