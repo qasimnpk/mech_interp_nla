@@ -1,23 +1,30 @@
-# Does deleting or paraphrasing a claim tell you if it's true?
-### Testing the NLA reconstructor as a verifier on two open natural language autoencoders
+# The NLA reconstructor's per-claim verifier signal is near chance, and the group mean difference lives in the final sentence
+### Deletion and paraphrase tests on two open natural language autoencoders
 
 **Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim from an
-explanation hurts reconstruction more than deleting a false one. I wanted to know two things. Does that hold on two open
-NLAs (Qwen2.5-7B layer 20, Qwen3.6-27B layer 42)? And does paraphrasing a claim, instead of deleting it, give a second
-signal, since false claims might be contributing form (syntax, structure, relevance) while true claims carry, well, truth.
+explanation hurts reconstruction more than deleting a false one. On two open NLAs (Qwen2.5-7B layer 20, Qwen3.6-27B
+layer 42) that group-level effect reproduces clearly in the 7B and directionally in the 27B, but per-claim discrimination
+is near chance (AUROC 0.58 and 0.49) and the whole difference sits in claims about the verbalizer's final sentence. I
+also tested whether paraphrasing a claim, instead of deleting it, gives a second discriminatory signal, since false
+claims might be contributing form (syntax, structure, relevance) while true claims carry, well, truth. It doesn't.
 
 **What I found.**
 
 1. **The FVE gap lives at the final verbalizer sentence**, which typically describes the activation's own token. For
    those claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA
-   paper doesn't report this split. Excluding the final sentence's claims zeroes out the true vs false difference.
+   paper doesn't report this split. Excluding the final sentence's claims zeroes out the true vs false difference: the
+   true-minus-false gap is 24.5 pp [17.2, 31.9] on the 27B's final sentence and -0.7 pp [-2.0, 0.3] elsewhere; 2.0 pp
+   [1.2, 3.0] and 0.03 pp [-0.18, 0.22] for the 7B (document-bootstrap 95% CIs).
 
 ![Deletion drop by claim position: final sentence vs elsewhere, both models](fve_claims/figures/deletion_by_position.png)
 
-2. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B).** So
-   discrimination is weak, essentially chance.
+2. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B)**
+   (document-bootstrap 95% CIs [0.45, 0.53] and [0.55, 0.61]). The 27B is indistinguishable from chance; the 7B is
+   above chance but far too weak to verify a claim. Under paraphrase both are flat: 0.50 and 0.50.
 3. **Deletion reproduces the paper in direction.** True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp
-   (paper: 0.35 vs 0.16 for detail claims). Mostly detail claims; theme claims show nothing in either model.
+   (paper: 0.35 vs 0.16 for detail claims). Only the 7B clears zero: true minus false is 0.64 pp [0.35, 0.96], true
+   ahead in 68 of 100 documents (sign test p 0.0004). The 27B is 1.49 pp [-0.25, 3.03], p 0.07, so it reproduces in
+   direction only. Mostly detail claims; theme claims show nothing in either model.
 4. **Negative result. Paraphrase adds nothing.** 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
    claim type, so it's a mix effect. 7B: ~17 pp for both.
 
@@ -54,9 +61,10 @@ removed from the explanation, in percentage points.
 ## Reproducing the headline
 
 ```sh
-uv run python fve_claims/audit/headline_table.py      # the table above, with document-bootstrap intervals
-uv run python fve_claims/audit/random_examples.py     # two random documents: explanation, claims, labels, drops
-uv run python fve_claims/audit/make_spotcheck.py      # blind label check; score with score_spotcheck.py
+uv run python fve_claims/audit/headline_table.py       # deletion and paraphrase drops, document-bootstrap intervals
+uv run python fve_claims/audit/auroc_and_position.py   # findings 1 and 2: AUROC and the final-sentence split
+uv run python fve_claims/audit/random_examples.py      # two random documents: explanation, claims, labels, drops
+uv run python fve_claims/audit/make_spotcheck.py       # blind label check; score with score_spotcheck.py
 ```
 
 ## Layout
