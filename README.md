@@ -8,20 +8,20 @@ signal, since false claims might be contributing form (syntax, structure, releva
 
 **What I found.**
 
-1. **Deletion reproduces the paper in direction.** True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp
+1. **The FVE gap lives at the final verbalizer sentence**, which typically describes the activation's own token. For
+   those claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA
+   paper doesn't report this split. Excluding the final sentence's claims zeroes out the true vs false difference.
+
+![Deletion drop by claim position: final sentence vs elsewhere, both models](fve_claims/figures/deletion_by_position.png)
+
+2. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B).** So
+   discrimination is weak, essentially chance.
+3. **Deletion reproduces the paper in direction.** True claims cost more: 27B 4.15 vs 2.66 pp, 7B 1.58 vs 0.94 pp
    (paper: 0.35 vs 0.16 for detail claims). Mostly detail claims; theme claims show nothing in either model.
-2. **Negative result. Paraphrase adds nothing.** 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
+4. **Negative result. Paraphrase adds nothing.** 27B: 0.09 pp (true) vs 0.20 (false), and the ordering flips inside each
    claim type, so it's a mix effect. 7B: ~17 pp for both.
 
 ![Mean FVE drop under deletion and heavy paraphrase, true vs false claims, both models](fve_claims/figures/fve_true_false_deletion_vs_heavy_paraphrase.png)
-
-3. **Despite group FVE-drop mean differences for deletions, the per-claim AUROC is 0.49 (27B) and 0.58 (7B).** So
-   discrimination is weak, essentially chance.
-4. **The FVE gap lives at the final verbalizer sentence**, which typically describes the activation's own token. For
-   those claims: 27B true 29.1 vs false 4.6 pp, 7B 3.3 vs 1.2. Everywhere else: 27B 0.7 vs 1.5, 7B 0.8 vs 0.8. The NLA
-   paper doesn't report this split. Dropping the final sentence zeroes out the true vs false difference.
-
-![Deletion drop by claim position: final sentence vs elsewhere, both models](fve_claims/figures/deletion_by_position.png)
 
 5. **The two NLAs behave differently.** Rewording the 7B's final-sentence claims (true or false) takes a massive ~47 pp
    of FVE, while the 27B barely moves (<1 pp) under any rewording of any one sentence, including the final one.
