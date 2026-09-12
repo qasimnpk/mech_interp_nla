@@ -35,7 +35,9 @@ signal; it doesn't.
 **Caveats.** Paraphrases are per sentence, so claims sharing a sentence share a score (1,308 claims, 571 paraphrased
 sentences for the 27B). Labels are Claude's; I checked 17 blind and agreed on 14 (two I was wrong, Claude erred on one).
 The 27B activations come from `av_base` (warm-start LoRA merged), not the plain model. 100 documents only. The 27B means
-are outlier-heavy.
+are outlier-heavy. In the final sentence, true and false claims differ: token-identity claims are almost never false
+(6/100 on the 7B, 5/76 on the 27B), while attribute and identification claims usually are. So the surviving gap there
+is largely a comparison between token-identity claims and attribute claims, not between true and false ones.
 
 **Conclusions.** On these open NLAs the AR's deletion cost tracks truth only on average, and mainly for claims in the
 final explanation sentence. Paraphrase-averaging, the thing I tested, doesn't help.
