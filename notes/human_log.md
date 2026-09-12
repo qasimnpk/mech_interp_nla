@@ -25,6 +25,10 @@
 - Random 10 Heavy paraphrase check; `uv run python fve_claims/audit/paraphrase_samples.py`;
   *All correct* 
 
+- Raw FVE scores CSV format and sanity check
+
+- FVE script aggregate metrics calculations check
+
 - 
   
  

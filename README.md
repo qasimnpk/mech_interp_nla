@@ -1,8 +1,6 @@
 # Does deleting or paraphrasing a claim tell you if it's true?
 ### Testing the NLA reconstructor as a verifier on two open natural language autoencoders
 
-*MATS 12 application, Neel Nanda stream. Executive summary below; details and reproduction further down.*
-
 **Question.** The NLA paper says its reconstructor (AR) is "a weak per-claim verifier": deleting a true claim from an
 explanation hurts reconstruction more than deleting a false one. I wanted to know two things. Does that hold on two open
 NLAs (Qwen2.5-7B layer 20, Qwen3.6-27B layer 42)? And does paraphrasing a claim, instead of deleting it, give a second
