@@ -42,8 +42,6 @@ final explanation sentence. Paraphrase-averaging, the thing I tested, doesn't he
 activations), so 0 means no better than guessing the mean activation. A claim's score is the FVE drop when that claim is
 removed from the explanation, in percentage points.
 
-## Setup
-
 - **Data:** 100 Re-DocRED Wikipedia introductions (`data/redocred_pilot/`), each cut to end on a word; the
   activation is read at that last token.
 - **Claims:** each explanation is split into atomic claims, labelled true / false / irrelevant against the passage
@@ -72,7 +70,6 @@ uv run python fve_claims/audit/make_spotcheck.py      # blind label check; score
 | `overnight/` | rounds 1–5 of earlier controlled experiments on the 7B pair (side material) |
 | `notes/` | protocol, comparison with the paper, review sheets, and the human log |
 | `notes/human_log.md` | what the human decided, checked and found by hand |
-| `src/`, `scripts/` | model loading, MPS workarounds, dataset build, smoke tests |
 
 Agents wrote most of the code and produced the provisional claim labels; the research decisions, the audits and
 the conclusions are the human's. `notes/human_log.md` records which is which.
